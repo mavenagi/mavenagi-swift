@@ -1,0 +1,32 @@
+import Foundation
+
+public struct ContextInfo: Codable, Hashable, Sendable {
+    public let additionalData: [String: String]
+    /// Additional properties that are not explicitly defined in the schema
+    public let additionalProperties: [String: JSONValue]
+
+    public init(
+        additionalData: [String: String],
+        additionalProperties: [String: JSONValue] = .init()
+    ) {
+        self.additionalData = additionalData
+        self.additionalProperties = additionalProperties
+    }
+
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.additionalData = try container.decode([String: String].self, forKey: .additionalData)
+        self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
+    }
+
+    public func encode(to encoder: Encoder) throws -> Void {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try encoder.encodeAdditionalProperties(self.additionalProperties)
+        try container.encode(self.additionalData, forKey: .additionalData)
+    }
+
+    /// Keys for encoding/decoding struct properties.
+    enum CodingKeys: String, CodingKey, CaseIterable {
+        case additionalData
+    }
+}
