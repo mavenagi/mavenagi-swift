@@ -152,20 +152,6 @@ public final class ConversationClient: Sendable {
         )
     }
 
-    /// This method is deprecated and will be removed in a future release. Use either `ask` or `askStream` instead.
-    ///
-    /// - Parameter conversationId: The ID of a conversation the messages belong to
-    /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
-    public func generateMavenSuggestions(conversationId: String, request: GenerateMavenSuggestionsRequest, requestOptions: RequestOptions? = nil) async throws -> ConversationResponse {
-        return try await httpClient.performRequest(
-            method: .post,
-            path: "/v1/conversations/\(conversationId)/generate_maven_suggestions",
-            body: request,
-            requestOptions: requestOptions,
-            responseType: ConversationResponse.self
-        )
-    }
-
     /// Generate a structured object response based on a provided schema and user prompt with a streaming response. 
     /// The response will be sent as a stream of events containing text, start, and end events.
     /// The text portions of stream responses should be concatenated to form the full response text.

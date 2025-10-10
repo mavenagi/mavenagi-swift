@@ -11,6 +11,8 @@ public struct ConversationSummary: Codable, Hashable, Sendable {
     public let thumbsUpCount: Int
     /// The number of thumbs down events on messages in the conversation.
     public let thumbsDownCount: Int
+    /// The number of bot response messages that failed and returned the Agent's system fallback message.
+    public let handoffCount: Int
     /// The number of messages of type `USER` in the conversation.
     public let userMessageCount: Int
     /// The total time in milliseconds that the user spent interacting with the conversation.
@@ -37,6 +39,7 @@ public struct ConversationSummary: Codable, Hashable, Sendable {
         insertCount: Int,
         thumbsUpCount: Int,
         thumbsDownCount: Int,
+        handoffCount: Int,
         userMessageCount: Int,
         handleTime: Int64? = nil,
         humanAgentResponseDelay: Int64? = nil,
@@ -50,6 +53,7 @@ public struct ConversationSummary: Codable, Hashable, Sendable {
         self.insertCount = insertCount
         self.thumbsUpCount = thumbsUpCount
         self.thumbsDownCount = thumbsDownCount
+        self.handoffCount = handoffCount
         self.userMessageCount = userMessageCount
         self.handleTime = handleTime
         self.humanAgentResponseDelay = humanAgentResponseDelay
@@ -66,6 +70,7 @@ public struct ConversationSummary: Codable, Hashable, Sendable {
         self.insertCount = try container.decode(Int.self, forKey: .insertCount)
         self.thumbsUpCount = try container.decode(Int.self, forKey: .thumbsUpCount)
         self.thumbsDownCount = try container.decode(Int.self, forKey: .thumbsDownCount)
+        self.handoffCount = try container.decode(Int.self, forKey: .handoffCount)
         self.userMessageCount = try container.decode(Int.self, forKey: .userMessageCount)
         self.handleTime = try container.decodeIfPresent(Int64.self, forKey: .handleTime)
         self.humanAgentResponseDelay = try container.decodeIfPresent(Int64.self, forKey: .humanAgentResponseDelay)
@@ -83,6 +88,7 @@ public struct ConversationSummary: Codable, Hashable, Sendable {
         try container.encode(self.insertCount, forKey: .insertCount)
         try container.encode(self.thumbsUpCount, forKey: .thumbsUpCount)
         try container.encode(self.thumbsDownCount, forKey: .thumbsDownCount)
+        try container.encode(self.handoffCount, forKey: .handoffCount)
         try container.encode(self.userMessageCount, forKey: .userMessageCount)
         try container.encodeIfPresent(self.handleTime, forKey: .handleTime)
         try container.encodeIfPresent(self.humanAgentResponseDelay, forKey: .humanAgentResponseDelay)
@@ -98,6 +104,7 @@ public struct ConversationSummary: Codable, Hashable, Sendable {
         case insertCount
         case thumbsUpCount
         case thumbsDownCount
+        case handoffCount
         case userMessageCount
         case handleTime
         case humanAgentResponseDelay

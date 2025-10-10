@@ -33,7 +33,9 @@ public struct ConversationFilter: Codable, Hashable, Sendable {
     public let actions: [EntityIdFilter]?
     /// Filter by actions that were suggested but not completed by the AI agent
     public let incompleteActions: [EntityIdFilter]?
-    /// Filter by user feedback types received in the conversation
+    /// Filter by feedback types received in the conversation. 
+    /// This is a legacy field that maps to Events saved in the system for `ThumbsUp`, `ThumbsDown`, and `Insert`. 
+    /// The `Handoff` filter will pass if any bot responses on the conversation returned the system fallback message; there are no corresponding handoff events.
     public let feedback: [FeedbackType]?
     /// Filter by human agents who participated in the conversation
     public let humanAgents: [String]?
