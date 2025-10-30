@@ -287,8 +287,19 @@ private func main() async throws {
     )
 
     try await client.actions.patch(
-        actionReferenceId: "actionReferenceId",
-        request: .init(actionReferenceId: "actionReferenceId")
+        actionReferenceId: "get-balance",
+        request: .init(
+            actionReferenceId: "get-balance",
+            instructions: "Use this action when the user asks about their account balance or remaining credits.",
+            llmInclusionStatus: .whenRelevant,
+            segmentId: EntityId(
+                referenceId: "premium-users",
+                appId: "my-billing-system",
+                organizationId: "acme",
+                agentId: "support",
+                type: .segment
+            )
+        )
     )
 }
 
@@ -1076,7 +1087,7 @@ try await main()
 </dl>
 </details>
 
-<details><summary><code>client.agents.<a href="/Sources/Resources/Agents/AgentsClient.swift">patch</a>(organizationReferenceId: String, agentReferenceId: String, request: AgentPatchRequest, requestOptions: RequestOptions?) -> Agent</code></summary>
+<details><summary><code>client.agents.<a href="/Sources/Resources/Agents/AgentsClient.swift">patch</a>(organizationReferenceId: String, agentReferenceId: String, request: Requests.AgentPatchRequest, requestOptions: RequestOptions?) -> Agent</code></summary>
 <dl>
 <dd>
 
@@ -1120,8 +1131,9 @@ private func main() async throws {
     try await client.agents.patch(
         organizationReferenceId: "organizationReferenceId",
         agentReferenceId: "agentReferenceId",
-        request: AgentPatchRequest(
-
+        request: .init(
+            organizationReferenceId: "organizationReferenceId",
+            agentReferenceId: "agentReferenceId"
         )
     )
 }
@@ -1157,7 +1169,7 @@ try await main()
 <dl>
 <dd>
 
-**request:** `AgentPatchRequest` 
+**request:** `Requests.AgentPatchRequest` 
     
 </dd>
 </dl>
@@ -3062,7 +3074,11 @@ try await main()
 <dl>
 <dd>
 
-Submit a filled out action form
+Submit a filled out action form. 
+Action forms can not be submitted more than once, attempting to do so will result in an error.
+
+Additionally, form submission is only allowed when the form is the last message in the conversation. 
+Forms should be disabled in surface UI if a conversation continues and they remain unsubmitted.
 </dd>
 </dl>
 </dd>
@@ -3366,6 +3382,87 @@ private func main() async throws {
     )
 
     try await client.conversation.search(request: ConversationsSearchRequest(
+
+    ))
+}
+
+try await main()
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `ConversationsSearchRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `RequestOptions?` — Additional options for configuring the request, such as custom headers or timeout settings.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.conversation.<a href="/Sources/Resources/Conversation/ConversationClient.swift">export</a>(request: ConversationsSearchRequest, requestOptions: RequestOptions?) -> Data</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Export conversations to a CSV file. 
+
+This will output a summary of each conversation that matches the supplied filter. A maximum of 10,000 conversations can be exported at a time.
+
+For most use cases it is recommended to use the `search` API instead and convert the JSON response to your desired format. 
+The CSV format may change over time and should not be relied upon by code consumers.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```swift
+import Foundation
+import Api
+
+private func main() async throws {
+    let client = MavenAGI(
+        appId: "<username>",
+        appSecret: "<password>"
+    )
+
+    try await client.conversation.export(request: ConversationsSearchRequest(
 
     ))
 }
@@ -3734,6 +3831,84 @@ try await main()
 <dd>
 
 **appId:** `String` — The App ID of the Event to retrieve
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `RequestOptions?` — Additional options for configuring the request, such as custom headers or timeout settings.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.events.<a href="/Sources/Resources/Events/EventsClient.swift">export</a>(request: EventsSearchRequest, requestOptions: RequestOptions?) -> Data</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Export events to a CSV file.
+
+This will output a summary of each event that matches the supplied filter. A maximum of 10,000 events can be exported at a time. For most use cases it is recommended to use the search API instead and convert the JSON response to your desired format. The CSV format may change over time and should not be relied upon by code consumers.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```swift
+import Foundation
+import Api
+
+private func main() async throws {
+    let client = MavenAGI(
+        appId: "<username>",
+        appSecret: "<password>"
+    )
+
+    try await client.events.export(request: EventsSearchRequest(
+
+    ))
+}
+
+try await main()
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `EventsSearchRequest` 
     
 </dd>
 </dl>
@@ -4426,6 +4601,96 @@ try await main()
 </dl>
 </details>
 
+<details><summary><code>client.knowledge.<a href="/Sources/Resources/Knowledge/KnowledgeClient.swift">refreshKnowledgeBase</a>(knowledgeBaseReferenceId: String, request: KnowledgeBaseRefreshRequest, requestOptions: RequestOptions?) -> Void</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Request that a knowledge base refresh itself.
+
+Knowledge bases refresh on a schedule determined by the `refreshFrequency` field.
+They can also be refreshed on demand by calling this endpoint.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```swift
+import Foundation
+import Api
+
+private func main() async throws {
+    let client = MavenAGI(
+        appId: "<username>",
+        appSecret: "<password>"
+    )
+
+    try await client.knowledge.refreshKnowledgeBase(
+        knowledgeBaseReferenceId: "help-center",
+        request: KnowledgeBaseRefreshRequest(
+            appId: "readme"
+        )
+    )
+}
+
+try await main()
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**knowledgeBaseReferenceId:** `String` — The reference ID of the knowledge base to refresh. All other entity ID fields are inferred from the request.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `KnowledgeBaseRefreshRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `RequestOptions?` — Additional options for configuring the request, such as custom headers or timeout settings.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.knowledge.<a href="/Sources/Resources/Knowledge/KnowledgeClient.swift">patchKnowledgeBase</a>(knowledgeBaseReferenceId: String, request: Requests.KnowledgeBasePatchRequest, requestOptions: RequestOptions?) -> KnowledgeBaseResponse</code></summary>
 <dl>
 <dd>
@@ -4466,8 +4731,19 @@ private func main() async throws {
     )
 
     try await client.knowledge.patchKnowledgeBase(
-        knowledgeBaseReferenceId: "knowledgeBaseReferenceId",
-        request: .init(knowledgeBaseReferenceId: "knowledgeBaseReferenceId")
+        knowledgeBaseReferenceId: "help-center",
+        request: .init(
+            knowledgeBaseReferenceId: "help-center",
+            name: "Updated Help Center",
+            tags: ,
+            segmentId: EntityId(
+                referenceId: "premium-users",
+                appId: "readme",
+                organizationId: "acme",
+                agentId: "support",
+                type: .segment
+            )
+        )
     )
 }
 

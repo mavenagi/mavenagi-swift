@@ -8,6 +8,16 @@ public struct ConversationPieChartRequest: Codable, Hashable, Sendable {
     /// otherwise UTC is used.
     public let timezone: String?
     /// Field used to group data into slices for the pie chart.
+    /// 
+    /// **Series Name Formats by Field:**
+    /// - `Sources`: Document title (e.g., "Product Documentation")
+    /// - `Actions`: "Action Name - App Name" (e.g., "Create Ticket - Freshdesk")
+    /// - `IncompleteActions`: "Action Name - App Name" (e.g., "Search Documents - Zendesk")
+    /// - `Users`: User identifier value (e.g., "user@example.com")
+    /// - `InboxItems`: Inbox item title
+    /// - `HumanAgents`: Human agent display name
+    /// - `HumanAgentsWithInserts`: Human agent display name (for agents who made inserts)
+    /// - Other fields: Field value as stored (e.g., "GOOD", "NEEDS_IMPROVEMENT" for Quality)
     public let groupBy: ConversationGroupBy
     /// Metric defining the value for each pie slice, stored in the y-axis value.
     public let metric: ConversationMetric

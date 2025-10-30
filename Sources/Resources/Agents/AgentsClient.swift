@@ -80,7 +80,7 @@ public final class AgentsClient: Sendable {
     /// - Parameter organizationReferenceId: The ID of the organization.
     /// - Parameter agentReferenceId: The ID of the agent.
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
-    public func patch(organizationReferenceId: String, agentReferenceId: String, request: AgentPatchRequest, requestOptions: RequestOptions? = nil) async throws -> Agent {
+    public func patch(organizationReferenceId: String, agentReferenceId: String, request: Requests.AgentPatchRequest, requestOptions: RequestOptions? = nil) async throws -> Agent {
         return try await httpClient.performRequest(
             method: .patch,
             path: "/v1/organizations/\(organizationReferenceId)/agents/\(agentReferenceId)",

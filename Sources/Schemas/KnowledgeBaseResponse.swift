@@ -5,10 +5,18 @@ public struct KnowledgeBaseResponse: Codable, Hashable, Sendable {
     public let name: String
     /// The preconditions that must be met for knowledge base be relevant to a conversation. Can be used to restrict knowledge bases to certain types of users.
     public let precondition: Precondition?
+    /// The date and time when the knowledge base was created.
+    public let createdAt: Date
+    /// The date and time when the knowledge base was last updated.
+    public let updatedAt: Date
     /// ID that uniquely identifies this knowledge base
     public let knowledgeBaseId: EntityId
     /// ID of the knowledge base version that is currently active. Documents can be fetched using this version ID.
     public let activeVersionId: EntityId?
+    /// The status of the most recent version of the knowledge base.
+    /// The `activeVersionId` will only be populated if this status is `SUCCEEDED`.
+    /// Use the `listKnowledgeBaseVersions` endpoint to get the full list of versions.
+    public let mostRecentVersionStatus: KnowledgeBaseVersionStatus
     /// The type of the knowledge base. Can not be changed once created.
     public let type: KnowledgeBaseType
     /// Metadata for the knowledge base.
@@ -29,8 +37,11 @@ public struct KnowledgeBaseResponse: Codable, Hashable, Sendable {
     public init(
         name: String,
         precondition: Precondition? = nil,
+        createdAt: Date,
+        updatedAt: Date,
         knowledgeBaseId: EntityId,
         activeVersionId: EntityId? = nil,
+        mostRecentVersionStatus: KnowledgeBaseVersionStatus,
         type: KnowledgeBaseType,
         metadata: [String: String],
         tags: JSONValue,
@@ -41,8 +52,11 @@ public struct KnowledgeBaseResponse: Codable, Hashable, Sendable {
     ) {
         self.name = name
         self.precondition = precondition
+        self.createdAt = createdAt
+        self.updatedAt = updatedAt
         self.knowledgeBaseId = knowledgeBaseId
         self.activeVersionId = activeVersionId
+        self.mostRecentVersionStatus = mostRecentVersionStatus
         self.type = type
         self.metadata = metadata
         self.tags = tags
@@ -56,8 +70,11 @@ public struct KnowledgeBaseResponse: Codable, Hashable, Sendable {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.name = try container.decode(String.self, forKey: .name)
         self.precondition = try container.decodeIfPresent(Precondition.self, forKey: .precondition)
+        self.createdAt = try container.decode(Date.self, forKey: .createdAt)
+        self.updatedAt = try container.decode(Date.self, forKey: .updatedAt)
         self.knowledgeBaseId = try container.decode(EntityId.self, forKey: .knowledgeBaseId)
         self.activeVersionId = try container.decodeIfPresent(EntityId.self, forKey: .activeVersionId)
+        self.mostRecentVersionStatus = try container.decode(KnowledgeBaseVersionStatus.self, forKey: .mostRecentVersionStatus)
         self.type = try container.decode(KnowledgeBaseType.self, forKey: .type)
         self.metadata = try container.decode([String: String].self, forKey: .metadata)
         self.tags = try container.decode(JSONValue.self, forKey: .tags)
@@ -72,8 +89,11 @@ public struct KnowledgeBaseResponse: Codable, Hashable, Sendable {
         try encoder.encodeAdditionalProperties(self.additionalProperties)
         try container.encode(self.name, forKey: .name)
         try container.encodeIfPresent(self.precondition, forKey: .precondition)
+        try container.encode(self.createdAt, forKey: .createdAt)
+        try container.encode(self.updatedAt, forKey: .updatedAt)
         try container.encode(self.knowledgeBaseId, forKey: .knowledgeBaseId)
         try container.encodeIfPresent(self.activeVersionId, forKey: .activeVersionId)
+        try container.encode(self.mostRecentVersionStatus, forKey: .mostRecentVersionStatus)
         try container.encode(self.type, forKey: .type)
         try container.encode(self.metadata, forKey: .metadata)
         try container.encode(self.tags, forKey: .tags)
@@ -86,8 +106,11 @@ public struct KnowledgeBaseResponse: Codable, Hashable, Sendable {
     enum CodingKeys: String, CodingKey, CaseIterable {
         case name
         case precondition
+        case createdAt
+        case updatedAt
         case knowledgeBaseId
         case activeVersionId
+        case mostRecentVersionStatus
         case type
         case metadata
         case tags

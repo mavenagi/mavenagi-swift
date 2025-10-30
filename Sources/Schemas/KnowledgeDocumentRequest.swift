@@ -1,8 +1,6 @@
 import Foundation
 
 public struct KnowledgeDocumentRequest: Codable, Hashable, Sendable {
-    /// The title of the document. Will be shown as part of answers.
-    public let title: String
     /// The URL of the document. Should be visible to end users. Will be shown as part of answers. Not used for crawling.
     public let url: String?
     /// The document language. Must be a valid ISO 639-1 language code.
@@ -18,6 +16,8 @@ public struct KnowledgeDocumentRequest: Codable, Hashable, Sendable {
     /// ID that uniquely identifies which knowledge base version to create the document in. If not provided will use the most recent version of the knowledge base.
     public let versionId: EntityIdWithoutAgent?
     public let contentType: KnowledgeDocumentContentType
+    /// The title of the document. Will be shown as part of answers.
+    public let title: String
     /// The content of the document. Not shown directly to users. May be provided in HTML or markdown. HTML will be converted to markdown automatically. Images are not currently supported and will be ignored.
     public let content: String
     /// Metadata for the knowledge document.
@@ -26,7 +26,6 @@ public struct KnowledgeDocumentRequest: Codable, Hashable, Sendable {
     public let additionalProperties: [String: JSONValue]
 
     public init(
-        title: String,
         url: String? = nil,
         language: String? = nil,
         createdAt: Date? = nil,
@@ -35,11 +34,11 @@ public struct KnowledgeDocumentRequest: Codable, Hashable, Sendable {
         knowledgeDocumentId: EntityIdBase,
         versionId: EntityIdWithoutAgent? = nil,
         contentType: KnowledgeDocumentContentType,
+        title: String,
         content: String,
         metadata: [String: String]? = nil,
         additionalProperties: [String: JSONValue] = .init()
     ) {
-        self.title = title
         self.url = url
         self.language = language
         self.createdAt = createdAt
@@ -48,6 +47,7 @@ public struct KnowledgeDocumentRequest: Codable, Hashable, Sendable {
         self.knowledgeDocumentId = knowledgeDocumentId
         self.versionId = versionId
         self.contentType = contentType
+        self.title = title
         self.content = content
         self.metadata = metadata
         self.additionalProperties = additionalProperties
@@ -55,7 +55,6 @@ public struct KnowledgeDocumentRequest: Codable, Hashable, Sendable {
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.title = try container.decode(String.self, forKey: .title)
         self.url = try container.decodeIfPresent(String.self, forKey: .url)
         self.language = try container.decodeIfPresent(String.self, forKey: .language)
         self.createdAt = try container.decodeIfPresent(Date.self, forKey: .createdAt)
@@ -64,6 +63,7 @@ public struct KnowledgeDocumentRequest: Codable, Hashable, Sendable {
         self.knowledgeDocumentId = try container.decode(EntityIdBase.self, forKey: .knowledgeDocumentId)
         self.versionId = try container.decodeIfPresent(EntityIdWithoutAgent.self, forKey: .versionId)
         self.contentType = try container.decode(KnowledgeDocumentContentType.self, forKey: .contentType)
+        self.title = try container.decode(String.self, forKey: .title)
         self.content = try container.decode(String.self, forKey: .content)
         self.metadata = try container.decodeIfPresent([String: String].self, forKey: .metadata)
         self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
@@ -72,7 +72,6 @@ public struct KnowledgeDocumentRequest: Codable, Hashable, Sendable {
     public func encode(to encoder: Encoder) throws -> Void {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try encoder.encodeAdditionalProperties(self.additionalProperties)
-        try container.encode(self.title, forKey: .title)
         try container.encodeIfPresent(self.url, forKey: .url)
         try container.encodeIfPresent(self.language, forKey: .language)
         try container.encodeIfPresent(self.createdAt, forKey: .createdAt)
@@ -81,13 +80,13 @@ public struct KnowledgeDocumentRequest: Codable, Hashable, Sendable {
         try container.encode(self.knowledgeDocumentId, forKey: .knowledgeDocumentId)
         try container.encodeIfPresent(self.versionId, forKey: .versionId)
         try container.encode(self.contentType, forKey: .contentType)
+        try container.encode(self.title, forKey: .title)
         try container.encode(self.content, forKey: .content)
         try container.encodeIfPresent(self.metadata, forKey: .metadata)
     }
 
     /// Keys for encoding/decoding struct properties.
     enum CodingKeys: String, CodingKey, CaseIterable {
-        case title
         case url
         case language
         case createdAt
@@ -96,6 +95,7 @@ public struct KnowledgeDocumentRequest: Codable, Hashable, Sendable {
         case knowledgeDocumentId
         case versionId
         case contentType
+        case title
         case content
         case metadata
     }

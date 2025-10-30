@@ -22,6 +22,10 @@ public struct KnowledgeBaseFilter: Codable, Hashable, Sendable {
     public let createdBefore: Date?
     /// Filter by app IDs
     public let appIds: [String]?
+    /// Filter knowledge bases by the most recent version status
+    public let mostRecentVersionStatus: [KnowledgeBaseVersionStatus]?
+    /// Filter knowledge bases by the LLM inclusion status
+    public let llmInclusionStatus: LlmInclusionStatus?
     /// Additional properties that are not explicitly defined in the schema
     public let additionalProperties: [String: JSONValue]
 
@@ -31,6 +35,8 @@ public struct KnowledgeBaseFilter: Codable, Hashable, Sendable {
         createdAfter: Date? = nil,
         createdBefore: Date? = nil,
         appIds: [String]? = nil,
+        mostRecentVersionStatus: [KnowledgeBaseVersionStatus]? = nil,
+        llmInclusionStatus: LlmInclusionStatus? = nil,
         additionalProperties: [String: JSONValue] = .init()
     ) {
         self.search = search
@@ -38,6 +44,8 @@ public struct KnowledgeBaseFilter: Codable, Hashable, Sendable {
         self.createdAfter = createdAfter
         self.createdBefore = createdBefore
         self.appIds = appIds
+        self.mostRecentVersionStatus = mostRecentVersionStatus
+        self.llmInclusionStatus = llmInclusionStatus
         self.additionalProperties = additionalProperties
     }
 
@@ -48,6 +56,8 @@ public struct KnowledgeBaseFilter: Codable, Hashable, Sendable {
         self.createdAfter = try container.decodeIfPresent(Date.self, forKey: .createdAfter)
         self.createdBefore = try container.decodeIfPresent(Date.self, forKey: .createdBefore)
         self.appIds = try container.decodeIfPresent([String].self, forKey: .appIds)
+        self.mostRecentVersionStatus = try container.decodeIfPresent([KnowledgeBaseVersionStatus].self, forKey: .mostRecentVersionStatus)
+        self.llmInclusionStatus = try container.decodeIfPresent(LlmInclusionStatus.self, forKey: .llmInclusionStatus)
         self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
     }
 
@@ -59,6 +69,8 @@ public struct KnowledgeBaseFilter: Codable, Hashable, Sendable {
         try container.encodeIfPresent(self.createdAfter, forKey: .createdAfter)
         try container.encodeIfPresent(self.createdBefore, forKey: .createdBefore)
         try container.encodeIfPresent(self.appIds, forKey: .appIds)
+        try container.encodeIfPresent(self.mostRecentVersionStatus, forKey: .mostRecentVersionStatus)
+        try container.encodeIfPresent(self.llmInclusionStatus, forKey: .llmInclusionStatus)
     }
 
     /// Keys for encoding/decoding struct properties.
@@ -68,5 +80,7 @@ public struct KnowledgeBaseFilter: Codable, Hashable, Sendable {
         case createdAfter
         case createdBefore
         case appIds
+        case mostRecentVersionStatus
+        case llmInclusionStatus
     }
 }

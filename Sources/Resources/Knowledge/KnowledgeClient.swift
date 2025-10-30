@@ -50,6 +50,22 @@ public final class KnowledgeClient: Sendable {
         )
     }
 
+    /// Request that a knowledge base refresh itself.
+    /// 
+    /// Knowledge bases refresh on a schedule determined by the `refreshFrequency` field.
+    /// They can also be refreshed on demand by calling this endpoint.
+    ///
+    /// - Parameter knowledgeBaseReferenceId: The reference ID of the knowledge base to refresh. All other entity ID fields are inferred from the request.
+    /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
+    public func refreshKnowledgeBase(knowledgeBaseReferenceId: String, request: KnowledgeBaseRefreshRequest, requestOptions: RequestOptions? = nil) async throws -> Void {
+        return try await httpClient.performRequest(
+            method: .post,
+            path: "/v1/knowledge/\(knowledgeBaseReferenceId)/refresh",
+            body: request,
+            requestOptions: requestOptions
+        )
+    }
+
     /// Update mutable knowledge base fields
     /// 
     /// The `appId` field can be provided to update a knowledge base owned by a different app. 

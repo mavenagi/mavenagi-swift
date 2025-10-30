@@ -204,7 +204,11 @@ public final class ConversationClient: Sendable {
         )
     }
 
-    /// Submit a filled out action form
+    /// Submit a filled out action form. 
+    /// Action forms can not be submitted more than once, attempting to do so will result in an error.
+    /// 
+    /// Additionally, form submission is only allowed when the form is the last message in the conversation. 
+    /// Forms should be disabled in surface UI if a conversation continues and they remain unsubmitted.
     ///
     /// - Parameter conversationId: The ID of a conversation the form being submitted belongs to
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
@@ -264,6 +268,24 @@ public final class ConversationClient: Sendable {
             body: request,
             requestOptions: requestOptions,
             responseType: ConversationsResponse.self
+        )
+    }
+
+    /// Export conversations to a CSV file. 
+    /// 
+    /// This will output a summary of each conversation that matches the supplied filter. A maximum of 10,000 conversations can be exported at a time.
+    /// 
+    /// For most use cases it is recommended to use the `search` API instead and convert the JSON response to your desired format. 
+    /// The CSV format may change over time and should not be relied upon by code consumers.
+    ///
+    /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
+    public func export(request: ConversationsSearchRequest, requestOptions: RequestOptions? = nil) async throws -> Data {
+        return try await httpClient.performRequest(
+            method: .post,
+            path: "/v1/conversations/export",
+            body: request,
+            requestOptions: requestOptions,
+            responseType: Data.self
         )
     }
 

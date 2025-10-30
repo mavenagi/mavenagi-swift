@@ -45,6 +45,16 @@ public enum ConversationChartRequest: Codable, Hashable, Sendable {
         /// otherwise UTC is used.
         public let timezone: String?
         /// Field used to group data into slices for the pie chart.
+        /// 
+        /// **Series Name Formats by Field:**
+        /// - `Sources`: Document title (e.g., "Product Documentation")
+        /// - `Actions`: "Action Name - App Name" (e.g., "Create Ticket - Freshdesk")
+        /// - `IncompleteActions`: "Action Name - App Name" (e.g., "Search Documents - Zendesk")
+        /// - `Users`: User identifier value (e.g., "user@example.com")
+        /// - `InboxItems`: Inbox item title
+        /// - `HumanAgents`: Human agent display name
+        /// - `HumanAgentsWithInserts`: Human agent display name (for agents who made inserts)
+        /// - Other fields: Field value as stored (e.g., "GOOD", "NEEDS_IMPROVEMENT" for Quality)
         public let groupBy: ConversationGroupBy
         /// Metric defining the value for each pie slice, stored in the y-axis value.
         public let metric: ConversationMetric
@@ -105,6 +115,16 @@ public enum ConversationChartRequest: Codable, Hashable, Sendable {
         /// Time-based grouping interval (e.g., HOUR, DAY, WEEK) for the date histogram.
         public let timeInterval: TimeInterval
         /// Groups data before applying calculations, forming a separate time series for each group.
+        /// 
+        /// **Series Name Formats by Field:**
+        /// - `Sources`: Document title (e.g., "Product Documentation")
+        /// - `Actions`: "Action Name - App Name" (e.g., "Create Ticket - Freshdesk")
+        /// - `IncompleteActions`: "Action Name - App Name" (e.g., "Search Documents - Zendesk")
+        /// - `Users`: User identifier value (e.g., "user@example.com")
+        /// - `InboxItems`: Inbox item title
+        /// - `HumanAgents`: Human agent display name
+        /// - `HumanAgentsWithInserts`: Human agent display name (for agents who made inserts)
+        /// - Other fields: Field value as stored (e.g., "GOOD", "NEEDS_IMPROVEMENT" for Quality)
         public let groupBy: ConversationGroupBy?
         /// Defines the y-axis values for the date histogram.
         public let metric: ConversationMetric
@@ -169,11 +189,31 @@ public enum ConversationChartRequest: Codable, Hashable, Sendable {
         public let timezone: String?
         /// Determines how data is grouped along the x-axis. Each unique value forms a separate bar.
         /// The name of the bar is derived from the grouping field's value or range.
+        /// 
+        /// **Label Formats by Field:**
+        /// - `Sources`: Document title (e.g., "Product Documentation")
+        /// - `Actions`: "Action Name - App Name" (e.g., "Create Ticket - Freshdesk")
+        /// - `IncompleteActions`: "Action Name - App Name" (e.g., "Search Documents - Zendesk")
+        /// - `Users`: User identifier value (e.g., "user@example.com")
+        /// - `InboxItems`: Inbox item title
+        /// - `HumanAgents`: Human agent display name
+        /// - `HumanAgentsWithInserts`: Human agent display name (for agents who made inserts)
+        /// - Other fields: Field value as stored (e.g., "GOOD", "NEEDS_IMPROVEMENT" for Quality)
         public let barDefinition: ConversationGroupBy
         /// Metric defining the y-axis values for the bar chart.
         public let metric: ConversationMetric
         /// Optionally defines vertical grouping within each bar, producing multiple series.
         /// If omitted, a single series is generated.
+        /// 
+        /// **Series Name Formats by Field:**
+        /// - `Sources`: Document title (e.g., "Product Documentation")
+        /// - `Actions`: "Action Name - App Name" (e.g., "Create Ticket - Freshdesk")
+        /// - `IncompleteActions`: "Action Name - App Name" (e.g., "Search Documents - Zendesk")
+        /// - `Users`: User identifier value (e.g., "user@example.com")
+        /// - `InboxItems`: Inbox item title
+        /// - `HumanAgents`: Human agent display name
+        /// - `HumanAgentsWithInserts`: Human agent display name (for agents who made inserts)
+        /// - Other fields: Field value as stored (e.g., "GOOD", "NEEDS_IMPROVEMENT" for Quality)
         public let verticalGrouping: ConversationGroupBy?
         /// Additional properties that are not explicitly defined in the schema
         public let additionalProperties: [String: JSONValue]

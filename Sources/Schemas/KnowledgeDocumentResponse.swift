@@ -6,8 +6,8 @@ public struct KnowledgeDocumentResponse: Codable, Hashable, Sendable {
     /// ID that uniquely identifies the knowledge base version that contains this document.
     /// This may be missing on legacy documents.
     public let knowledgeBaseVersionId: EntityId?
-    /// The title of the document. Will be shown as part of answers.
-    public let title: String
+    /// The title of the document. Will be shown as part of answers. May be missing on legacy documents.
+    public let title: String?
     /// The URL of the document. Should be visible to end users. Will be shown as part of answers. Not used for crawling.
     public let url: String?
     /// The document language. Must be a valid ISO 639-1 language code.
@@ -28,7 +28,7 @@ public struct KnowledgeDocumentResponse: Codable, Hashable, Sendable {
     public init(
         knowledgeDocumentId: EntityId,
         knowledgeBaseVersionId: EntityId? = nil,
-        title: String,
+        title: String? = nil,
         url: String? = nil,
         language: String? = nil,
         createdAt: Date? = nil,
@@ -55,7 +55,7 @@ public struct KnowledgeDocumentResponse: Codable, Hashable, Sendable {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.knowledgeDocumentId = try container.decode(EntityId.self, forKey: .knowledgeDocumentId)
         self.knowledgeBaseVersionId = try container.decodeIfPresent(EntityId.self, forKey: .knowledgeBaseVersionId)
-        self.title = try container.decode(String.self, forKey: .title)
+        self.title = try container.decodeIfPresent(String.self, forKey: .title)
         self.url = try container.decodeIfPresent(String.self, forKey: .url)
         self.language = try container.decodeIfPresent(String.self, forKey: .language)
         self.createdAt = try container.decodeIfPresent(Date.self, forKey: .createdAt)
@@ -71,7 +71,7 @@ public struct KnowledgeDocumentResponse: Codable, Hashable, Sendable {
         try encoder.encodeAdditionalProperties(self.additionalProperties)
         try container.encode(self.knowledgeDocumentId, forKey: .knowledgeDocumentId)
         try container.encodeIfPresent(self.knowledgeBaseVersionId, forKey: .knowledgeBaseVersionId)
-        try container.encode(self.title, forKey: .title)
+        try container.encodeIfPresent(self.title, forKey: .title)
         try container.encodeIfPresent(self.url, forKey: .url)
         try container.encodeIfPresent(self.language, forKey: .language)
         try container.encodeIfPresent(self.createdAt, forKey: .createdAt)

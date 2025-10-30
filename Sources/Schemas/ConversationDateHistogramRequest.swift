@@ -10,6 +10,16 @@ public struct ConversationDateHistogramRequest: Codable, Hashable, Sendable {
     /// Time-based grouping interval (e.g., HOUR, DAY, WEEK) for the date histogram.
     public let timeInterval: TimeInterval
     /// Groups data before applying calculations, forming a separate time series for each group.
+    /// 
+    /// **Series Name Formats by Field:**
+    /// - `Sources`: Document title (e.g., "Product Documentation")
+    /// - `Actions`: "Action Name - App Name" (e.g., "Create Ticket - Freshdesk")
+    /// - `IncompleteActions`: "Action Name - App Name" (e.g., "Search Documents - Zendesk")
+    /// - `Users`: User identifier value (e.g., "user@example.com")
+    /// - `InboxItems`: Inbox item title
+    /// - `HumanAgents`: Human agent display name
+    /// - `HumanAgentsWithInserts`: Human agent display name (for agents who made inserts)
+    /// - Other fields: Field value as stored (e.g., "GOOD", "NEEDS_IMPROVEMENT" for Quality)
     public let groupBy: ConversationGroupBy?
     /// Defines the y-axis values for the date histogram.
     public let metric: ConversationMetric

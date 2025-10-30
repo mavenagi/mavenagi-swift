@@ -19,6 +19,12 @@ public struct Agent: Codable, Hashable, Sendable {
     /// `UsBankAccountNumber`, `UsDriversLicenseNumber`, `UsIndividualTaxpayerIdentification`,
     /// `UsUkPassportNumber`, `UsSocialSecurityNumber`.
     public let enabledPiiCategories: JSONValue
+    /// Text shown to end users when the system encounters an error while generating a bot response message.
+    /// 
+    /// This text is also used when a content safety violation is detected, unless `contentSafetyViolationPromptText` is set.
+    public let systemFallbackMessage: String?
+    /// Agent prompting settings.
+    public let prompting: AgentPrompting
     /// Additional properties that are not explicitly defined in the schema
     public let additionalProperties: [String: JSONValue]
 
@@ -29,6 +35,8 @@ public struct Agent: Codable, Hashable, Sendable {
         environment: AgentEnvironment,
         defaultTimezone: String,
         enabledPiiCategories: JSONValue,
+        systemFallbackMessage: String? = nil,
+        prompting: AgentPrompting,
         additionalProperties: [String: JSONValue] = .init()
     ) {
         self.agentId = agentId
@@ -37,6 +45,8 @@ public struct Agent: Codable, Hashable, Sendable {
         self.environment = environment
         self.defaultTimezone = defaultTimezone
         self.enabledPiiCategories = enabledPiiCategories
+        self.systemFallbackMessage = systemFallbackMessage
+        self.prompting = prompting
         self.additionalProperties = additionalProperties
     }
 
@@ -48,6 +58,8 @@ public struct Agent: Codable, Hashable, Sendable {
         self.environment = try container.decode(AgentEnvironment.self, forKey: .environment)
         self.defaultTimezone = try container.decode(String.self, forKey: .defaultTimezone)
         self.enabledPiiCategories = try container.decode(JSONValue.self, forKey: .enabledPiiCategories)
+        self.systemFallbackMessage = try container.decodeIfPresent(String.self, forKey: .systemFallbackMessage)
+        self.prompting = try container.decode(AgentPrompting.self, forKey: .prompting)
         self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
     }
 
@@ -60,6 +72,8 @@ public struct Agent: Codable, Hashable, Sendable {
         try container.encode(self.environment, forKey: .environment)
         try container.encode(self.defaultTimezone, forKey: .defaultTimezone)
         try container.encode(self.enabledPiiCategories, forKey: .enabledPiiCategories)
+        try container.encodeIfPresent(self.systemFallbackMessage, forKey: .systemFallbackMessage)
+        try container.encode(self.prompting, forKey: .prompting)
     }
 
     /// Keys for encoding/decoding struct properties.
@@ -70,5 +84,7 @@ public struct Agent: Codable, Hashable, Sendable {
         case environment
         case defaultTimezone
         case enabledPiiCategories
+        case systemFallbackMessage
+        case prompting
     }
 }
