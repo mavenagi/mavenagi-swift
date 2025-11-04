@@ -44,7 +44,7 @@ public enum AgentCapability: Codable, Hashable, Sendable {
         public let capabilityId: EntityId
         public let userInteractionRequired: Bool
         /// When user interaction is required, the name of the button that is shown to the end user to confirm execution of the action. Defaults to "Submit" if not supplied.
-        public let buttonName: Nullable<String>
+        public let buttonName: String?
         /// The parameters that the action uses as input. An action will only be executed when all of the required parameters are provided. Parameter values may be inferred from the user's conversation by the LLM.
         public let userFormParameters: [ActionParameter]
         public let precondition: Precondition?
@@ -63,7 +63,7 @@ public enum AgentCapability: Codable, Hashable, Sendable {
             version: Int,
             capabilityId: EntityId,
             userInteractionRequired: Bool,
-            buttonName: Nullable<String>,
+            buttonName: String? = nil,
             userFormParameters: [ActionParameter],
             precondition: Precondition? = nil,
             descriptionOverride: String? = nil,
@@ -96,7 +96,7 @@ public enum AgentCapability: Codable, Hashable, Sendable {
             self.version = try container.decode(Int.self, forKey: .version)
             self.capabilityId = try container.decode(EntityId.self, forKey: .capabilityId)
             self.userInteractionRequired = try container.decode(Bool.self, forKey: .userInteractionRequired)
-            self.buttonName = try container.decode(Nullable<String>.self, forKey: .buttonName)
+            self.buttonName = try container.decodeIfPresent(String.self, forKey: .buttonName)
             self.userFormParameters = try container.decode([ActionParameter].self, forKey: .userFormParameters)
             self.precondition = try container.decodeIfPresent(Precondition.self, forKey: .precondition)
             self.descriptionOverride = try container.decodeIfPresent(String.self, forKey: .descriptionOverride)
@@ -116,7 +116,7 @@ public enum AgentCapability: Codable, Hashable, Sendable {
             try container.encode(self.version, forKey: .version)
             try container.encode(self.capabilityId, forKey: .capabilityId)
             try container.encode(self.userInteractionRequired, forKey: .userInteractionRequired)
-            try container.encode(self.buttonName, forKey: .buttonName)
+            try container.encodeIfPresent(self.buttonName, forKey: .buttonName)
             try container.encode(self.userFormParameters, forKey: .userFormParameters)
             try container.encodeIfPresent(self.precondition, forKey: .precondition)
             try container.encodeIfPresent(self.descriptionOverride, forKey: .descriptionOverride)

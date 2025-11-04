@@ -12,6 +12,8 @@ public struct AppUserResponse: Codable, Hashable, Sendable {
     public let allUserData: [String: [String: String]]
     /// Default data for this user
     public let defaultUserData: [String: String]
+    /// All user data for this user, including reverse indexable user data
+    public let agentUserData: [String: [UserDataWithReference]]
     /// Additional properties that are not explicitly defined in the schema
     public let additionalProperties: [String: JSONValue]
 
@@ -22,6 +24,7 @@ public struct AppUserResponse: Codable, Hashable, Sendable {
         agentUserId: String,
         allUserData: [String: [String: String]],
         defaultUserData: [String: String],
+        agentUserData: [String: [UserDataWithReference]],
         additionalProperties: [String: JSONValue] = .init()
     ) {
         self.identifiers = identifiers
@@ -30,6 +33,7 @@ public struct AppUserResponse: Codable, Hashable, Sendable {
         self.agentUserId = agentUserId
         self.allUserData = allUserData
         self.defaultUserData = defaultUserData
+        self.agentUserData = agentUserData
         self.additionalProperties = additionalProperties
     }
 
@@ -41,6 +45,7 @@ public struct AppUserResponse: Codable, Hashable, Sendable {
         self.agentUserId = try container.decode(String.self, forKey: .agentUserId)
         self.allUserData = try container.decode([String: [String: String]].self, forKey: .allUserData)
         self.defaultUserData = try container.decode([String: String].self, forKey: .defaultUserData)
+        self.agentUserData = try container.decode([String: [UserDataWithReference]].self, forKey: .agentUserData)
         self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
     }
 
@@ -53,6 +58,7 @@ public struct AppUserResponse: Codable, Hashable, Sendable {
         try container.encode(self.agentUserId, forKey: .agentUserId)
         try container.encode(self.allUserData, forKey: .allUserData)
         try container.encode(self.defaultUserData, forKey: .defaultUserData)
+        try container.encode(self.agentUserData, forKey: .agentUserData)
     }
 
     /// Keys for encoding/decoding struct properties.
@@ -63,5 +69,6 @@ public struct AppUserResponse: Codable, Hashable, Sendable {
         case agentUserId
         case allUserData
         case defaultUserData
+        case agentUserData
     }
 }

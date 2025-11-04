@@ -30,6 +30,10 @@ public struct ConversationSummary: Codable, Hashable, Sendable {
     public let humanAgentsWithInserts: [String]
     /// The names of all users that have a message of type `USER` on the conversation.
     public let users: [String]
+    /// The text of the last user message in the conversation.
+    public let lastUserMessage: String?
+    /// The text of the last bot message in the conversation.
+    public let lastBotMessage: String?
     /// Additional properties that are not explicitly defined in the schema
     public let additionalProperties: [String: JSONValue]
 
@@ -46,6 +50,8 @@ public struct ConversationSummary: Codable, Hashable, Sendable {
         humanAgents: [String],
         humanAgentsWithInserts: [String],
         users: [String],
+        lastUserMessage: String? = nil,
+        lastBotMessage: String? = nil,
         additionalProperties: [String: JSONValue] = .init()
     ) {
         self.actionIds = actionIds
@@ -60,6 +66,8 @@ public struct ConversationSummary: Codable, Hashable, Sendable {
         self.humanAgents = humanAgents
         self.humanAgentsWithInserts = humanAgentsWithInserts
         self.users = users
+        self.lastUserMessage = lastUserMessage
+        self.lastBotMessage = lastBotMessage
         self.additionalProperties = additionalProperties
     }
 
@@ -77,6 +85,8 @@ public struct ConversationSummary: Codable, Hashable, Sendable {
         self.humanAgents = try container.decode([String].self, forKey: .humanAgents)
         self.humanAgentsWithInserts = try container.decode([String].self, forKey: .humanAgentsWithInserts)
         self.users = try container.decode([String].self, forKey: .users)
+        self.lastUserMessage = try container.decodeIfPresent(String.self, forKey: .lastUserMessage)
+        self.lastBotMessage = try container.decodeIfPresent(String.self, forKey: .lastBotMessage)
         self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
     }
 
@@ -95,6 +105,8 @@ public struct ConversationSummary: Codable, Hashable, Sendable {
         try container.encode(self.humanAgents, forKey: .humanAgents)
         try container.encode(self.humanAgentsWithInserts, forKey: .humanAgentsWithInserts)
         try container.encode(self.users, forKey: .users)
+        try container.encodeIfPresent(self.lastUserMessage, forKey: .lastUserMessage)
+        try container.encodeIfPresent(self.lastBotMessage, forKey: .lastBotMessage)
     }
 
     /// Keys for encoding/decoding struct properties.
@@ -111,5 +123,7 @@ public struct ConversationSummary: Codable, Hashable, Sendable {
         case humanAgents
         case humanAgentsWithInserts
         case users
+        case lastUserMessage
+        case lastBotMessage
     }
 }

@@ -1484,6 +1484,109 @@ try await main()
 </dl>
 </details>
 
+<details><summary><code>client.analytics.<a href="/Sources/Resources/Analytics/AnalyticsClient.swift">exportConversationTable</a>(request: ConversationTableRequest, requestOptions: RequestOptions?) -> Data</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Export the conversation analytics table to a CSV file.
+
+This outputs the current table view defined by the request. For most programmatic use cases, prefer `getConversationTable` and format client-side. The CSV format may change and should not be relied upon by code consumers. A maximum of 10,000 rows can be exported at a time.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```swift
+import Foundation
+import Api
+
+private func main() async throws {
+    let client = MavenAGI(
+        appId: "<username>",
+        appSecret: "<password>"
+    )
+
+    try await client.analytics.exportConversationTable(request: ConversationTableRequest(
+        fieldGroupings: [
+            ConversationGroupBy(
+                field: .category
+            ),
+            ConversationGroupBy(
+                field: .category
+            )
+        ],
+        columnDefinitions: [
+            ConversationColumnDefinition(
+                metric: ConversationMetric.count(
+                    .init(
+
+                    )
+                ),
+                header: "header"
+            ),
+            ConversationColumnDefinition(
+                metric: ConversationMetric.count(
+                    .init(
+
+                    )
+                ),
+                header: "header"
+            )
+        ]
+    ))
+}
+
+try await main()
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `ConversationTableRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `RequestOptions?` — Additional options for configuring the request, such as custom headers or timeout settings.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.analytics.<a href="/Sources/Resources/Analytics/AnalyticsClient.swift">getFeedbackTable</a>(request: FeedbackTableRequest, requestOptions: RequestOptions?) -> FeedbackTableResponse</code></summary>
 <dl>
 <dd>

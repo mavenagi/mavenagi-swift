@@ -33,6 +33,21 @@ public final class AnalyticsClient: Sendable {
         )
     }
 
+    /// Export the conversation analytics table to a CSV file.
+    /// 
+    /// This outputs the current table view defined by the request. For most programmatic use cases, prefer `getConversationTable` and format client-side. The CSV format may change and should not be relied upon by code consumers. A maximum of 10,000 rows can be exported at a time.
+    ///
+    /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
+    public func exportConversationTable(request: ConversationTableRequest, requestOptions: RequestOptions? = nil) async throws -> Data {
+        return try await httpClient.performRequest(
+            method: .post,
+            path: "/v1/tables/conversations/export",
+            body: request,
+            requestOptions: requestOptions,
+            responseType: Data.self
+        )
+    }
+
     /// Retrieves structured feedback data formatted as a table, allowing users to group, filter,  and define specific metrics to display as columns.
     ///
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
