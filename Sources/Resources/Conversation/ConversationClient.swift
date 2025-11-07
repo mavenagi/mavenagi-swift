@@ -289,6 +289,25 @@ public final class ConversationClient: Sendable {
         )
     }
 
+    /// Import simulation conversations from a CSV file. 
+    /// 
+    /// This CSV format is very simple and only allows for one column: `question`. A header containing this column is required.
+    /// Each row will generate one simulation conversation, using the provided response config, if present.
+    /// 
+    /// This API is offered for backwards compatibility. 
+    /// Most API callers should create simulations programmatically to allow for more flexibility.
+    ///
+    /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
+    public func importSimulations(request: Requests.SimulationImportRequest, requestOptions: RequestOptions? = nil) async throws -> Void {
+        return try await httpClient.performRequest(
+            method: .post,
+            path: "/v1/conversations/import_simulations",
+            contentType: .multipartFormData,
+            body: request.asMultipartFormData(),
+            requestOptions: requestOptions
+        )
+    }
+
     /// Deliver a message to a user or conversation.
     /// 
     /// <Warning>

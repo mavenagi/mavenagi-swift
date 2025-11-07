@@ -9,6 +9,10 @@ public struct KnowledgeBaseVersion: Codable, Hashable, Sendable {
     public let status: KnowledgeBaseVersionStatus
     /// A user-facing error message that provides more details about a version failure.
     public let errorMessage: String?
+    /// The date and time the knowledge base version was created.
+    public let createdAt: Date
+    /// The date and time the knowledge base version was last updated.
+    public let updatedAt: Date
     /// Additional properties that are not explicitly defined in the schema
     public let additionalProperties: [String: JSONValue]
 
@@ -17,12 +21,16 @@ public struct KnowledgeBaseVersion: Codable, Hashable, Sendable {
         versionId: EntityId,
         status: KnowledgeBaseVersionStatus,
         errorMessage: String? = nil,
+        createdAt: Date,
+        updatedAt: Date,
         additionalProperties: [String: JSONValue] = .init()
     ) {
         self.type = type
         self.versionId = versionId
         self.status = status
         self.errorMessage = errorMessage
+        self.createdAt = createdAt
+        self.updatedAt = updatedAt
         self.additionalProperties = additionalProperties
     }
 
@@ -32,6 +40,8 @@ public struct KnowledgeBaseVersion: Codable, Hashable, Sendable {
         self.versionId = try container.decode(EntityId.self, forKey: .versionId)
         self.status = try container.decode(KnowledgeBaseVersionStatus.self, forKey: .status)
         self.errorMessage = try container.decodeIfPresent(String.self, forKey: .errorMessage)
+        self.createdAt = try container.decode(Date.self, forKey: .createdAt)
+        self.updatedAt = try container.decode(Date.self, forKey: .updatedAt)
         self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
     }
 
@@ -42,6 +52,8 @@ public struct KnowledgeBaseVersion: Codable, Hashable, Sendable {
         try container.encode(self.versionId, forKey: .versionId)
         try container.encode(self.status, forKey: .status)
         try container.encodeIfPresent(self.errorMessage, forKey: .errorMessage)
+        try container.encode(self.createdAt, forKey: .createdAt)
+        try container.encode(self.updatedAt, forKey: .updatedAt)
     }
 
     /// Keys for encoding/decoding struct properties.
@@ -50,5 +62,7 @@ public struct KnowledgeBaseVersion: Codable, Hashable, Sendable {
         case versionId
         case status
         case errorMessage
+        case createdAt
+        case updatedAt
     }
 }

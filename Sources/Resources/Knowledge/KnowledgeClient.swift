@@ -195,4 +195,24 @@ public final class KnowledgeClient: Sendable {
             responseType: KnowledgeDocumentResponse.self
         )
     }
+
+    /// Update mutable knowledge document fields that can be set independently of a knowledge base version.
+    /// 
+    /// For any changes in document content see the `createKnowledgeBaseVersion` and `createKnowledgeDocument` endpoints.
+    /// 
+    /// The `knowledgeBaseAppId` field can be provided to update a knowledge document in a knowledge base owned by a different app. 
+    /// All other fields will overwrite the existing value on the knowledge document only if provided.
+    ///
+    /// - Parameter knowledgeBaseReferenceId: The reference ID of the knowledge base to patch.
+    /// - Parameter knowledgeDocumentReferenceId: The reference ID of the knowledge document to patch.
+    /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
+    public func patchKnowledgeDocument(knowledgeBaseReferenceId: String, knowledgeDocumentReferenceId: String, request: Requests.KnowledgeDocumentPatchRequest, requestOptions: RequestOptions? = nil) async throws -> KnowledgeDocumentResponse {
+        return try await httpClient.performRequest(
+            method: .patch,
+            path: "/v1/knowledge/\(knowledgeBaseReferenceId)/\(knowledgeDocumentReferenceId)/document",
+            body: request,
+            requestOptions: requestOptions,
+            responseType: KnowledgeDocumentResponse.self
+        )
+    }
 }

@@ -420,332 +420,6 @@ try await main()
 </dl>
 </details>
 
-## AgentCapabilities
-<details><summary><code>client.agentCapabilities.<a href="/Sources/Resources/AgentCapabilities/AgentCapabilitiesClient.swift">list</a>(request: AgentCapabilityListRequest, requestOptions: RequestOptions?) -> ListAgentCapabilitiesResponse</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-List all capabilities for an agent.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```swift
-import Foundation
-import Api
-
-private func main() async throws {
-    let client = MavenAGI(
-        appId: "<username>",
-        appSecret: "<password>"
-    )
-
-    try await client.agentCapabilities.list(request: AgentCapabilityListRequest(
-
-    ))
-}
-
-try await main()
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request:** `AgentCapabilityListRequest` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `RequestOptions?` — Additional options for configuring the request, such as custom headers or timeout settings.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.agentCapabilities.<a href="/Sources/Resources/AgentCapabilities/AgentCapabilitiesClient.swift">get</a>(integrationId: String, capabilityId: String, requestOptions: RequestOptions?) -> AgentCapability</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```swift
-import Foundation
-import Api
-
-private func main() async throws {
-    let client = MavenAGI(
-        appId: "<username>",
-        appSecret: "<password>"
-    )
-
-    try await client.agentCapabilities.get(
-        integrationId: "integrationId",
-        capabilityId: "capabilityId"
-    )
-}
-
-try await main()
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**integrationId:** `String` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**capabilityId:** `String` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `RequestOptions?` — Additional options for configuring the request, such as custom headers or timeout settings.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.agentCapabilities.<a href="/Sources/Resources/AgentCapabilities/AgentCapabilitiesClient.swift">patch</a>(integrationId: String, capabilityId: String, request: PatchAgentCapabilityRequest, requestOptions: RequestOptions?) -> AgentCapability</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```swift
-import Foundation
-import Api
-
-private func main() async throws {
-    let client = MavenAGI(
-        appId: "<username>",
-        appSecret: "<password>"
-    )
-
-    try await client.agentCapabilities.patch(
-        integrationId: "integrationId",
-        capabilityId: "capabilityId",
-        request: PatchAgentCapabilityRequest(
-
-        )
-    )
-}
-
-try await main()
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**integrationId:** `String` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**capabilityId:** `String` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request:** `PatchAgentCapabilityRequest` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `RequestOptions?` — Additional options for configuring the request, such as custom headers or timeout settings.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.agentCapabilities.<a href="/Sources/Resources/AgentCapabilities/AgentCapabilitiesClient.swift">execute</a>(integrationId: String, capabilityId: String, request: ExecuteCapabilityRequest, requestOptions: RequestOptions?) -> ExecuteCapabilityResponse</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Execute an action capability.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```swift
-import Foundation
-import Api
-
-private func main() async throws {
-    let client = MavenAGI(
-        appId: "<username>",
-        appSecret: "<password>"
-    )
-
-    try await client.agentCapabilities.execute(
-        integrationId: "integrationId",
-        capabilityId: "capabilityId",
-        request: ExecuteCapabilityRequest(
-
-        )
-    )
-}
-
-try await main()
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**integrationId:** `String` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**capabilityId:** `String` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request:** `ExecuteCapabilityRequest` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `RequestOptions?` — Additional options for configuring the request, such as custom headers or timeout settings.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
 ## Agents
 <details><summary><code>client.agents.<a href="/Sources/Resources/Agents/AgentsClient.swift">search</a>(request: AgentsSearchRequest, requestOptions: RequestOptions?) -> AgentsSearchResponse</code></summary>
 <dl>
@@ -5521,6 +5195,109 @@ try await main()
 <dd>
 
 **knowledgeBaseVersionAppId:** `String` — The App ID of the knowledge base version.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `RequestOptions?` — Additional options for configuring the request, such as custom headers or timeout settings.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.knowledge.<a href="/Sources/Resources/Knowledge/KnowledgeClient.swift">patchKnowledgeDocument</a>(knowledgeBaseReferenceId: String, knowledgeDocumentReferenceId: String, request: Requests.KnowledgeDocumentPatchRequest, requestOptions: RequestOptions?) -> KnowledgeDocumentResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Update mutable knowledge document fields that can be set independently of a knowledge base version.
+
+For any changes in document content see the `createKnowledgeBaseVersion` and `createKnowledgeDocument` endpoints.
+
+The `knowledgeBaseAppId` field can be provided to update a knowledge document in a knowledge base owned by a different app. 
+All other fields will overwrite the existing value on the knowledge document only if provided.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```swift
+import Foundation
+import Api
+
+private func main() async throws {
+    let client = MavenAGI(
+        appId: "<username>",
+        appSecret: "<password>"
+    )
+
+    try await client.knowledge.patchKnowledgeDocument(
+        knowledgeBaseReferenceId: "help-center",
+        knowledgeDocumentReferenceId: "how-it-works",
+        request: .init(
+            knowledgeBaseReferenceId: "help-center",
+            knowledgeDocumentReferenceId: "how-it-works",
+            llmInclusionStatus: .always
+        )
+    )
+}
+
+try await main()
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**knowledgeBaseReferenceId:** `String` — The reference ID of the knowledge base to patch.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**knowledgeDocumentReferenceId:** `String` — The reference ID of the knowledge document to patch.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Requests.KnowledgeDocumentPatchRequest` 
     
 </dd>
 </dl>

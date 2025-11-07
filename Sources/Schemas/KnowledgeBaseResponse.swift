@@ -24,7 +24,7 @@ public struct KnowledgeBaseResponse: Codable, Hashable, Sendable {
     /// The tags of the knowledge base.
     public let tags: JSONValue
     /// Determines whether documents in the knowledge base are sent to the LLM as part of a conversation.
-    public let llmInclusionStatus: LlmInclusionStatus?
+    public let llmInclusionStatus: LlmInclusionStatus
     /// How often the knowledge base should be refreshed.
     public let refreshFrequency: KnowledgeBaseRefreshFrequency
     /// The IDs of the segment that must be matched for the knowledge base to be relevant to a conversation. 
@@ -45,7 +45,7 @@ public struct KnowledgeBaseResponse: Codable, Hashable, Sendable {
         type: KnowledgeBaseType,
         metadata: [String: String],
         tags: JSONValue,
-        llmInclusionStatus: LlmInclusionStatus? = nil,
+        llmInclusionStatus: LlmInclusionStatus,
         refreshFrequency: KnowledgeBaseRefreshFrequency,
         segmentId: EntityId? = nil,
         additionalProperties: [String: JSONValue] = .init()
@@ -78,7 +78,7 @@ public struct KnowledgeBaseResponse: Codable, Hashable, Sendable {
         self.type = try container.decode(KnowledgeBaseType.self, forKey: .type)
         self.metadata = try container.decode([String: String].self, forKey: .metadata)
         self.tags = try container.decode(JSONValue.self, forKey: .tags)
-        self.llmInclusionStatus = try container.decodeIfPresent(LlmInclusionStatus.self, forKey: .llmInclusionStatus)
+        self.llmInclusionStatus = try container.decode(LlmInclusionStatus.self, forKey: .llmInclusionStatus)
         self.refreshFrequency = try container.decode(KnowledgeBaseRefreshFrequency.self, forKey: .refreshFrequency)
         self.segmentId = try container.decodeIfPresent(EntityId.self, forKey: .segmentId)
         self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
@@ -97,7 +97,7 @@ public struct KnowledgeBaseResponse: Codable, Hashable, Sendable {
         try container.encode(self.type, forKey: .type)
         try container.encode(self.metadata, forKey: .metadata)
         try container.encode(self.tags, forKey: .tags)
-        try container.encodeIfPresent(self.llmInclusionStatus, forKey: .llmInclusionStatus)
+        try container.encode(self.llmInclusionStatus, forKey: .llmInclusionStatus)
         try container.encode(self.refreshFrequency, forKey: .refreshFrequency)
         try container.encodeIfPresent(self.segmentId, forKey: .segmentId)
     }

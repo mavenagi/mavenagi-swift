@@ -3,7 +3,6 @@ import Foundation
 /// Use this class to access the different functions within the SDK. You can instantiate any number of clients with different configuration that will propagate to these functions.
 public final class MavenAGI: Sendable {
     public let actions: ActionsClient
-    public let agentCapabilities: AgentCapabilitiesClient
     public let agents: AgentsClient
     public let analytics: AnalyticsClient
     public let appSettings: AppSettingsClient
@@ -71,7 +70,6 @@ public final class MavenAGI: Sendable {
             urlSession: urlSession
         )
         self.actions = ActionsClient(config: config)
-        self.agentCapabilities = AgentCapabilitiesClient(config: config)
         self.agents = AgentsClient(config: config)
         self.analytics = AnalyticsClient(config: config)
         self.appSettings = AppSettingsClient(config: config)

@@ -8,14 +8,16 @@ public struct KnowledgeDocumentResponse: Codable, Hashable, Sendable {
     public let knowledgeBaseVersionId: EntityId?
     /// The title of the document. Will be shown as part of answers. May be missing on legacy documents.
     public let title: String?
+    /// Whether the document is included in the agent's knowledge.
+    public let llmInclusionStatus: LlmInclusionStatus
+    /// The time at which this document was created.
+    public let createdAt: Date
+    /// The time at which this document was last modified.
+    public let updatedAt: Date
     /// The URL of the document. Should be visible to end users. Will be shown as part of answers. Not used for crawling.
     public let url: String?
     /// The document language. Must be a valid ISO 639-1 language code.
     public let language: String?
-    /// The time at which this document was created.
-    public let createdAt: Date?
-    /// The time at which this document was last modified.
-    public let updatedAt: Date?
     /// The name of the author who created this document.
     public let author: String?
     /// The content of the document in markdown format. Not shown directly to users.
@@ -29,10 +31,11 @@ public struct KnowledgeDocumentResponse: Codable, Hashable, Sendable {
         knowledgeDocumentId: EntityId,
         knowledgeBaseVersionId: EntityId? = nil,
         title: String? = nil,
+        llmInclusionStatus: LlmInclusionStatus,
+        createdAt: Date,
+        updatedAt: Date,
         url: String? = nil,
         language: String? = nil,
-        createdAt: Date? = nil,
-        updatedAt: Date? = nil,
         author: String? = nil,
         content: String,
         metadata: [String: String],
@@ -41,10 +44,11 @@ public struct KnowledgeDocumentResponse: Codable, Hashable, Sendable {
         self.knowledgeDocumentId = knowledgeDocumentId
         self.knowledgeBaseVersionId = knowledgeBaseVersionId
         self.title = title
-        self.url = url
-        self.language = language
+        self.llmInclusionStatus = llmInclusionStatus
         self.createdAt = createdAt
         self.updatedAt = updatedAt
+        self.url = url
+        self.language = language
         self.author = author
         self.content = content
         self.metadata = metadata
@@ -56,10 +60,11 @@ public struct KnowledgeDocumentResponse: Codable, Hashable, Sendable {
         self.knowledgeDocumentId = try container.decode(EntityId.self, forKey: .knowledgeDocumentId)
         self.knowledgeBaseVersionId = try container.decodeIfPresent(EntityId.self, forKey: .knowledgeBaseVersionId)
         self.title = try container.decodeIfPresent(String.self, forKey: .title)
+        self.llmInclusionStatus = try container.decode(LlmInclusionStatus.self, forKey: .llmInclusionStatus)
+        self.createdAt = try container.decode(Date.self, forKey: .createdAt)
+        self.updatedAt = try container.decode(Date.self, forKey: .updatedAt)
         self.url = try container.decodeIfPresent(String.self, forKey: .url)
         self.language = try container.decodeIfPresent(String.self, forKey: .language)
-        self.createdAt = try container.decodeIfPresent(Date.self, forKey: .createdAt)
-        self.updatedAt = try container.decodeIfPresent(Date.self, forKey: .updatedAt)
         self.author = try container.decodeIfPresent(String.self, forKey: .author)
         self.content = try container.decode(String.self, forKey: .content)
         self.metadata = try container.decode([String: String].self, forKey: .metadata)
@@ -72,10 +77,11 @@ public struct KnowledgeDocumentResponse: Codable, Hashable, Sendable {
         try container.encode(self.knowledgeDocumentId, forKey: .knowledgeDocumentId)
         try container.encodeIfPresent(self.knowledgeBaseVersionId, forKey: .knowledgeBaseVersionId)
         try container.encodeIfPresent(self.title, forKey: .title)
+        try container.encode(self.llmInclusionStatus, forKey: .llmInclusionStatus)
+        try container.encode(self.createdAt, forKey: .createdAt)
+        try container.encode(self.updatedAt, forKey: .updatedAt)
         try container.encodeIfPresent(self.url, forKey: .url)
         try container.encodeIfPresent(self.language, forKey: .language)
-        try container.encodeIfPresent(self.createdAt, forKey: .createdAt)
-        try container.encodeIfPresent(self.updatedAt, forKey: .updatedAt)
         try container.encodeIfPresent(self.author, forKey: .author)
         try container.encode(self.content, forKey: .content)
         try container.encode(self.metadata, forKey: .metadata)
@@ -86,10 +92,11 @@ public struct KnowledgeDocumentResponse: Codable, Hashable, Sendable {
         case knowledgeDocumentId
         case knowledgeBaseVersionId
         case title
-        case url
-        case language
+        case llmInclusionStatus
         case createdAt
         case updatedAt
+        case url
+        case language
         case author
         case content
         case metadata
