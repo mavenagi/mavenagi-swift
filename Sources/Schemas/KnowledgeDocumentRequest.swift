@@ -11,11 +11,14 @@ public struct KnowledgeDocumentRequest: Codable, Hashable, Sendable {
     public let knowledgeDocumentId: EntityIdBase
     /// ID that uniquely identifies which knowledge base version to create the document in. If not provided will use the most recent version of the knowledge base.
     public let versionId: EntityIdWithoutAgent?
+    /// Type of knowledge document content, if content is provided. This does not need to be set if content is not provided
     public let contentType: KnowledgeDocumentContentType
     /// The title of the document. Will be shown as part of answers.
     public let title: String
-    /// The content of the document. Not shown directly to users. May be provided in HTML or markdown. HTML will be converted to markdown automatically. Images are not currently supported and will be ignored.
-    public let content: String
+    /// ID of the asset associated with this document. Either this or content is required, but not both
+    public let assetId: EntityIdBase?
+    /// The content of the document. Not shown directly to users. May be provided in HTML or markdown. HTML will be converted to markdown automatically. Images are not currently supported and will be ignored. Either this or assetId is required, but not both
+    public let content: String?
     /// Metadata for the knowledge document.
     public let metadata: [String: String]?
     /// The time at which this document was created.
@@ -33,7 +36,8 @@ public struct KnowledgeDocumentRequest: Codable, Hashable, Sendable {
         versionId: EntityIdWithoutAgent? = nil,
         contentType: KnowledgeDocumentContentType,
         title: String,
-        content: String,
+        assetId: EntityIdBase? = nil,
+        content: String? = nil,
         metadata: [String: String]? = nil,
         createdAt: Date? = nil,
         updatedAt: Date? = nil,
@@ -46,6 +50,7 @@ public struct KnowledgeDocumentRequest: Codable, Hashable, Sendable {
         self.versionId = versionId
         self.contentType = contentType
         self.title = title
+        self.assetId = assetId
         self.content = content
         self.metadata = metadata
         self.createdAt = createdAt
@@ -62,7 +67,8 @@ public struct KnowledgeDocumentRequest: Codable, Hashable, Sendable {
         self.versionId = try container.decodeIfPresent(EntityIdWithoutAgent.self, forKey: .versionId)
         self.contentType = try container.decode(KnowledgeDocumentContentType.self, forKey: .contentType)
         self.title = try container.decode(String.self, forKey: .title)
-        self.content = try container.decode(String.self, forKey: .content)
+        self.assetId = try container.decodeIfPresent(EntityIdBase.self, forKey: .assetId)
+        self.content = try container.decodeIfPresent(String.self, forKey: .content)
         self.metadata = try container.decodeIfPresent([String: String].self, forKey: .metadata)
         self.createdAt = try container.decodeIfPresent(Date.self, forKey: .createdAt)
         self.updatedAt = try container.decodeIfPresent(Date.self, forKey: .updatedAt)
@@ -79,7 +85,8 @@ public struct KnowledgeDocumentRequest: Codable, Hashable, Sendable {
         try container.encodeIfPresent(self.versionId, forKey: .versionId)
         try container.encode(self.contentType, forKey: .contentType)
         try container.encode(self.title, forKey: .title)
-        try container.encode(self.content, forKey: .content)
+        try container.encodeIfPresent(self.assetId, forKey: .assetId)
+        try container.encodeIfPresent(self.content, forKey: .content)
         try container.encodeIfPresent(self.metadata, forKey: .metadata)
         try container.encodeIfPresent(self.createdAt, forKey: .createdAt)
         try container.encodeIfPresent(self.updatedAt, forKey: .updatedAt)
@@ -94,6 +101,7 @@ public struct KnowledgeDocumentRequest: Codable, Hashable, Sendable {
         case versionId
         case contentType
         case title
+        case assetId
         case content
         case metadata
         case createdAt

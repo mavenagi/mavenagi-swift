@@ -6,7 +6,16 @@ public struct EntityId: Codable, Hashable, Sendable {
     public let type: EntityType
     /// The ID of the application that created this object
     public let appId: String
-    /// Externally supplied ID to uniquely identify this object. Is globally unique when combined with all other entityId fields (type, appId, organizationId, agentId)
+    /// Externally supplied ID to uniquely identify this object. Is globally unique when combined with all other entityId fields (type, appId, organizationId, agentId).
+    /// 
+    /// Must be less than 192 characters and contain only:
+    /// - alphanumeric characters (`a-z`, `A-Z`, `0-9`)
+    /// - hyphens (`-`)
+    /// - underscores (`_`)
+    /// - plus signs (`+`)
+    /// - periods (`.`)
+    /// - at symbol (`@`)
+    /// - pipe symbol (`|`)
     public let referenceId: String
     /// The ID of the organization that this object belongs to
     public let organizationId: String

@@ -2,7 +2,16 @@ import Foundation
 
 /// All other entityId fields are inferred from the API request.
 public struct EntityIdBase: Codable, Hashable, Sendable {
-    /// Externally supplied ID to uniquely identify this object. Is globally unique when combined with all other entityId fields (type, appId, organizationId, agentId)
+    /// Externally supplied ID to uniquely identify this object. Is globally unique when combined with all other entityId fields (type, appId, organizationId, agentId).
+    /// 
+    /// Must be less than 192 characters and contain only:
+    /// - alphanumeric characters (`a-z`, `A-Z`, `0-9`)
+    /// - hyphens (`-`)
+    /// - underscores (`_`)
+    /// - plus signs (`+`)
+    /// - periods (`.`)
+    /// - at symbol (`@`)
+    /// - pipe symbol (`|`)
     public let referenceId: String
     /// Additional properties that are not explicitly defined in the schema
     public let additionalProperties: [String: JSONValue]

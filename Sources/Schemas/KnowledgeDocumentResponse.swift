@@ -20,8 +20,12 @@ public struct KnowledgeDocumentResponse: Codable, Hashable, Sendable {
     public let language: String?
     /// The name of the author who created this document.
     public let author: String?
+    /// The current processing status of the knowledge document
+    public let processingStatus: KnowledgeDocumentStatus?
     /// The content of the document in markdown format. Not shown directly to users.
     public let content: String
+    /// If the document is associated with an asset, this will contain the asset metadata
+    public let asset: AttachmentResponse?
     /// Metadata for the knowledge document.
     public let metadata: [String: String]
     /// Additional properties that are not explicitly defined in the schema
@@ -37,7 +41,9 @@ public struct KnowledgeDocumentResponse: Codable, Hashable, Sendable {
         url: String? = nil,
         language: String? = nil,
         author: String? = nil,
+        processingStatus: KnowledgeDocumentStatus? = nil,
         content: String,
+        asset: AttachmentResponse? = nil,
         metadata: [String: String],
         additionalProperties: [String: JSONValue] = .init()
     ) {
@@ -50,7 +56,9 @@ public struct KnowledgeDocumentResponse: Codable, Hashable, Sendable {
         self.url = url
         self.language = language
         self.author = author
+        self.processingStatus = processingStatus
         self.content = content
+        self.asset = asset
         self.metadata = metadata
         self.additionalProperties = additionalProperties
     }
@@ -66,7 +74,9 @@ public struct KnowledgeDocumentResponse: Codable, Hashable, Sendable {
         self.url = try container.decodeIfPresent(String.self, forKey: .url)
         self.language = try container.decodeIfPresent(String.self, forKey: .language)
         self.author = try container.decodeIfPresent(String.self, forKey: .author)
+        self.processingStatus = try container.decodeIfPresent(KnowledgeDocumentStatus.self, forKey: .processingStatus)
         self.content = try container.decode(String.self, forKey: .content)
+        self.asset = try container.decodeIfPresent(AttachmentResponse.self, forKey: .asset)
         self.metadata = try container.decode([String: String].self, forKey: .metadata)
         self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
     }
@@ -83,7 +93,9 @@ public struct KnowledgeDocumentResponse: Codable, Hashable, Sendable {
         try container.encodeIfPresent(self.url, forKey: .url)
         try container.encodeIfPresent(self.language, forKey: .language)
         try container.encodeIfPresent(self.author, forKey: .author)
+        try container.encodeIfPresent(self.processingStatus, forKey: .processingStatus)
         try container.encode(self.content, forKey: .content)
+        try container.encodeIfPresent(self.asset, forKey: .asset)
         try container.encode(self.metadata, forKey: .metadata)
     }
 
@@ -98,7 +110,9 @@ public struct KnowledgeDocumentResponse: Codable, Hashable, Sendable {
         case url
         case language
         case author
+        case processingStatus
         case content
+        case asset
         case metadata
     }
 }

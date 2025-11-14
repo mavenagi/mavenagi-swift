@@ -1886,25 +1886,25 @@ private func main() async throws {
 
     try await client.conversation.initialize(request: ConversationRequest(
         conversationId: EntityIdBase(
-            referenceId: "referenceId"
+            referenceId: "x"
         ),
         messages: [
             ConversationMessageRequest(
                 conversationMessageId: EntityIdBase(
-                    referenceId: "referenceId"
+                    referenceId: "x"
                 ),
                 userId: EntityIdBase(
-                    referenceId: "referenceId"
+                    referenceId: "x"
                 ),
                 text: "text",
                 userMessageType: .user
             ),
             ConversationMessageRequest(
                 conversationMessageId: EntityIdBase(
-                    referenceId: "referenceId"
+                    referenceId: "x"
                 ),
                 userId: EntityIdBase(
-                    referenceId: "referenceId"
+                    referenceId: "x"
                 ),
                 text: "text",
                 userMessageType: .user
@@ -2277,20 +2277,20 @@ private func main() async throws {
         request: [
             ConversationMessageRequest(
                 conversationMessageId: EntityIdBase(
-                    referenceId: "referenceId"
+                    referenceId: "x"
                 ),
                 userId: EntityIdBase(
-                    referenceId: "referenceId"
+                    referenceId: "x"
                 ),
                 text: "text",
                 userMessageType: .user
             ),
             ConversationMessageRequest(
                 conversationMessageId: EntityIdBase(
-                    referenceId: "referenceId"
+                    referenceId: "x"
                 ),
                 userId: EntityIdBase(
-                    referenceId: "referenceId"
+                    referenceId: "x"
                 ),
                 text: "text",
                 userMessageType: .user
@@ -2623,10 +2623,10 @@ private func main() async throws {
         request: AskObjectRequest(
             schema: "schema",
             conversationMessageId: EntityIdBase(
-                referenceId: "referenceId"
+                referenceId: "x"
             ),
             userId: EntityIdBase(
-                referenceId: "referenceId"
+                referenceId: "x"
             ),
             text: "text"
         )
@@ -3325,14 +3325,14 @@ private func main() async throws {
             userId: EntityIdWithoutAgent(
                 type: .agent,
                 appId: "appId",
-                referenceId: "referenceId"
+                referenceId: "x"
             ),
             message: ConversationMessageRequest(
                 conversationMessageId: EntityIdBase(
-                    referenceId: "referenceId"
+                    referenceId: "x"
                 ),
                 userId: EntityIdBase(
-                    referenceId: "referenceId"
+                    referenceId: "x"
                 ),
                 text: "text",
                 userMessageType: .user
@@ -3416,12 +3416,12 @@ private func main() async throws {
     try await client.events.create(request: EventRequest.userEvent(
         .init(
             id: EntityIdBase(
-                referenceId: "referenceId"
+                referenceId: "x"
             ),
             eventName: .buttonClicked,
             userInfo: EventUserInfoBase(
                 id: EntityIdBase(
-                    referenceId: "referenceId"
+                    referenceId: "x"
                 )
             )
         )
