@@ -12,7 +12,7 @@ extension Requests {
         public let llmInclusionStatus: LlmInclusionStatus?
         /// The preconditions that must be met for a knowledge base to be relevant to a conversation. Can be used to restrict knowledge bases to certain types of users. A null value will remove the precondition from the knowledge base, it will be available on all conversations.
         public let precondition: Nullable<Precondition>?
-        /// The ID of the segment that must be matched for the knowledge base to be relevant to a conversation. 
+        /// The ID of the segment that must be matched for the knowledge base to be relevant to a conversation.
         /// A null value will remove the segment from the knowledge base, it will be available on all conversations.
         /// 
         /// Segments are replacing inline preconditions - a knowledge base may not have both an inline precondition and a segment.

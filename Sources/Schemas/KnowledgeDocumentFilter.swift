@@ -1,10 +1,10 @@
 import Foundation
 
 public struct KnowledgeDocumentFilter: Codable, Hashable, Sendable {
-    /// Full-text search query for matching knowledge documents by content. 
+    /// Full-text search query for matching knowledge documents by content.
     /// When you search with this parameter, you're performing a full-text search across the knowledge document title and metadata.
     /// 
-    /// This field also supports a syntax for advanced filtering the `metadata` field.           
+    /// This field also supports a syntax for advanced filtering the `metadata` field.
     /// 
     /// Metadata examples:
     /// - `metadata:myvalue` - matches knowledge documents with any metadata field set to `myvalue`
@@ -24,7 +24,7 @@ public struct KnowledgeDocumentFilter: Codable, Hashable, Sendable {
     public let createdBefore: Date?
     /// Filter by app IDs
     public let appIds: [String]?
-    /// Filter documents within the specified knowledge base version. 
+    /// Filter documents within the specified knowledge base version.
     /// If not provided all active knowledge base versions within the agent will be searched.
     public let knowledgeBaseVersionId: EntityIdWithoutAgent?
     /// Filter by the LLM inclusion status
