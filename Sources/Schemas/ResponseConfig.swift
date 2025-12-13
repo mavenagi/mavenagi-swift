@@ -14,6 +14,10 @@ public struct ResponseConfig: Codable, Hashable, Sendable {
     public let isCopilot: Bool
     /// The desired response length. Defaults to ResponseLength.MEDIUM.
     public let responseLength: ResponseLength
+    /// Filters that restrict the knowledge retrieval candidate pool.
+    /// - entities: specific entities to scope by
+    /// - entityTypes: entity types to scope by (e.g., AGENT, CUSTOMER)
+    public let contextFilter: KnowledgeContextFilter?
     /// Additional properties that are not explicitly defined in the schema
     public let additionalProperties: [String: JSONValue]
 
@@ -21,11 +25,13 @@ public struct ResponseConfig: Codable, Hashable, Sendable {
         capabilities: [Capability],
         isCopilot: Bool,
         responseLength: ResponseLength,
+        contextFilter: KnowledgeContextFilter? = nil,
         additionalProperties: [String: JSONValue] = .init()
     ) {
         self.capabilities = capabilities
         self.isCopilot = isCopilot
         self.responseLength = responseLength
+        self.contextFilter = contextFilter
         self.additionalProperties = additionalProperties
     }
 
@@ -34,6 +40,7 @@ public struct ResponseConfig: Codable, Hashable, Sendable {
         self.capabilities = try container.decode([Capability].self, forKey: .capabilities)
         self.isCopilot = try container.decode(Bool.self, forKey: .isCopilot)
         self.responseLength = try container.decode(ResponseLength.self, forKey: .responseLength)
+        self.contextFilter = try container.decodeIfPresent(KnowledgeContextFilter.self, forKey: .contextFilter)
         self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
     }
 
@@ -43,6 +50,7 @@ public struct ResponseConfig: Codable, Hashable, Sendable {
         try container.encode(self.capabilities, forKey: .capabilities)
         try container.encode(self.isCopilot, forKey: .isCopilot)
         try container.encode(self.responseLength, forKey: .responseLength)
+        try container.encodeIfPresent(self.contextFilter, forKey: .contextFilter)
     }
 
     /// Keys for encoding/decoding struct properties.
@@ -50,5 +58,6 @@ public struct ResponseConfig: Codable, Hashable, Sendable {
         case capabilities
         case isCopilot
         case responseLength
+        case contextFilter
     }
 }

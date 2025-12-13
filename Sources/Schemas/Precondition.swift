@@ -1,20 +1,20 @@
 import Foundation
 
-public enum Precondition: Codable, Hashable, Sendable {
-    case user(User)
+public indirect enum Precondition: Codable, Hashable, Sendable {
     case conversation(Conversation)
     case group(Group)
+    case user(User)
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         let discriminant = try container.decode(String.self, forKey: .preconditionType)
         switch discriminant {
-        case "user":
-            self = .user(try User(from: decoder))
         case "conversation":
             self = .conversation(try Conversation(from: decoder))
         case "group":
             self = .group(try Group(from: decoder))
+        case "user":
+            self = .user(try User(from: decoder))
         default:
             throw DecodingError.dataCorrupted(
                 DecodingError.Context(
@@ -27,11 +27,11 @@ public enum Precondition: Codable, Hashable, Sendable {
 
     public func encode(to encoder: Encoder) throws -> Void {
         switch self {
-        case .user(let data):
-            try data.encode(to: encoder)
         case .conversation(let data):
             try data.encode(to: encoder)
         case .group(let data):
+            try data.encode(to: encoder)
+        case .user(let data):
             try data.encode(to: encoder)
         }
     }

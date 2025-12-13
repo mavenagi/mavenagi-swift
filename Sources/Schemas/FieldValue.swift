@@ -1,32 +1,32 @@
 import Foundation
 
 public enum FieldValue: Codable, Hashable, Sendable {
+    case boolean(Boolean)
     case dateTime(DateTime)
-    case string(String)
     case double(Double)
+    case entityId(EntityId)
     case long(Long)
     case range(Range)
-    case boolean(Boolean)
-    case entityId(EntityId)
+    case string(String)
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        let discriminant = try container.decode(String.self, forKey: .type)
+        let discriminant = try container.decode(Swift.String.self, forKey: .type)
         switch discriminant {
+        case "boolean":
+            self = .boolean(try Boolean(from: decoder))
         case "dateTime":
             self = .dateTime(try DateTime(from: decoder))
-        case "string":
-            self = .string(try String(from: decoder))
         case "double":
             self = .double(try Double(from: decoder))
+        case "entityId":
+            self = .entityId(try EntityId(from: decoder))
         case "long":
             self = .long(try Long(from: decoder))
         case "range":
             self = .range(try Range(from: decoder))
-        case "boolean":
-            self = .boolean(try Boolean(from: decoder))
-        case "entityId":
-            self = .entityId(try EntityId(from: decoder))
+        case "string":
+            self = .string(try String(from: decoder))
         default:
             throw DecodingError.dataCorrupted(
                 DecodingError.Context(
@@ -39,32 +39,32 @@ public enum FieldValue: Codable, Hashable, Sendable {
 
     public func encode(to encoder: Encoder) throws -> Void {
         switch self {
+        case .boolean(let data):
+            try data.encode(to: encoder)
         case .dateTime(let data):
             try data.encode(to: encoder)
-        case .string(let data):
-            try data.encode(to: encoder)
         case .double(let data):
+            try data.encode(to: encoder)
+        case .entityId(let data):
             try data.encode(to: encoder)
         case .long(let data):
             try data.encode(to: encoder)
         case .range(let data):
             try data.encode(to: encoder)
-        case .boolean(let data):
-            try data.encode(to: encoder)
-        case .entityId(let data):
+        case .string(let data):
             try data.encode(to: encoder)
         }
     }
 
     public struct DateTime: Codable, Hashable, Sendable {
-        public let type: String = "dateTime"
+        public let type: Swift.String = "dateTime"
         public let value: Date
         /// Additional properties that are not explicitly defined in the schema
-        public let additionalProperties: [String: JSONValue]
+        public let additionalProperties: [Swift.String: JSONValue]
 
         public init(
             value: Date,
-            additionalProperties: [String: JSONValue] = .init()
+            additionalProperties: [Swift.String: JSONValue] = .init()
         ) {
             self.value = value
             self.additionalProperties = additionalProperties
@@ -91,14 +91,14 @@ public enum FieldValue: Codable, Hashable, Sendable {
     }
 
     public struct String: Codable, Hashable, Sendable {
-        public let type: String = "string"
-        public let value: String
+        public let type: Swift.String = "string"
+        public let value: Swift.String
         /// Additional properties that are not explicitly defined in the schema
-        public let additionalProperties: [String: JSONValue]
+        public let additionalProperties: [Swift.String: JSONValue]
 
         public init(
-            value: String,
-            additionalProperties: [String: JSONValue] = .init()
+            value: Swift.String,
+            additionalProperties: [Swift.String: JSONValue] = .init()
         ) {
             self.value = value
             self.additionalProperties = additionalProperties
@@ -106,7 +106,7 @@ public enum FieldValue: Codable, Hashable, Sendable {
 
         public init(from decoder: Decoder) throws {
             let container = try decoder.container(keyedBy: CodingKeys.self)
-            self.value = try container.decode(String.self, forKey: .value)
+            self.value = try container.decode(Swift.String.self, forKey: .value)
             self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
         }
 
@@ -125,14 +125,14 @@ public enum FieldValue: Codable, Hashable, Sendable {
     }
 
     public struct Double: Codable, Hashable, Sendable {
-        public let type: String = "double"
-        public let value: Double
+        public let type: Swift.String = "double"
+        public let value: Swift.Double
         /// Additional properties that are not explicitly defined in the schema
-        public let additionalProperties: [String: JSONValue]
+        public let additionalProperties: [Swift.String: JSONValue]
 
         public init(
-            value: Double,
-            additionalProperties: [String: JSONValue] = .init()
+            value: Swift.Double,
+            additionalProperties: [Swift.String: JSONValue] = .init()
         ) {
             self.value = value
             self.additionalProperties = additionalProperties
@@ -140,7 +140,7 @@ public enum FieldValue: Codable, Hashable, Sendable {
 
         public init(from decoder: Decoder) throws {
             let container = try decoder.container(keyedBy: CodingKeys.self)
-            self.value = try container.decode(Double.self, forKey: .value)
+            self.value = try container.decode(Swift.Double.self, forKey: .value)
             self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
         }
 
@@ -159,14 +159,14 @@ public enum FieldValue: Codable, Hashable, Sendable {
     }
 
     public struct Long: Codable, Hashable, Sendable {
-        public let type: String = "long"
+        public let type: Swift.String = "long"
         public let value: Int64
         /// Additional properties that are not explicitly defined in the schema
-        public let additionalProperties: [String: JSONValue]
+        public let additionalProperties: [Swift.String: JSONValue]
 
         public init(
             value: Int64,
-            additionalProperties: [String: JSONValue] = .init()
+            additionalProperties: [Swift.String: JSONValue] = .init()
         ) {
             self.value = value
             self.additionalProperties = additionalProperties
@@ -193,18 +193,18 @@ public enum FieldValue: Codable, Hashable, Sendable {
     }
 
     public struct Range: Codable, Hashable, Sendable {
-        public let type: String = "range"
+        public let type: Swift.String = "range"
         /// Lower bound of the range (inclusive).
-        public let from: Double?
+        public let from: Swift.Double?
         /// Upper bound of the range (exclusive).
-        public let to: Double?
+        public let to: Swift.Double?
         /// Additional properties that are not explicitly defined in the schema
-        public let additionalProperties: [String: JSONValue]
+        public let additionalProperties: [Swift.String: JSONValue]
 
         public init(
-            from: Double? = nil,
-            to: Double? = nil,
-            additionalProperties: [String: JSONValue] = .init()
+            from: Swift.Double? = nil,
+            to: Swift.Double? = nil,
+            additionalProperties: [Swift.String: JSONValue] = .init()
         ) {
             self.from = from
             self.to = to
@@ -213,8 +213,8 @@ public enum FieldValue: Codable, Hashable, Sendable {
 
         public init(from decoder: Decoder) throws {
             let container = try decoder.container(keyedBy: CodingKeys.self)
-            self.from = try container.decodeIfPresent(Double.self, forKey: .from)
-            self.to = try container.decodeIfPresent(Double.self, forKey: .to)
+            self.from = try container.decodeIfPresent(Swift.Double.self, forKey: .from)
+            self.to = try container.decodeIfPresent(Swift.Double.self, forKey: .to)
             self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
         }
 
@@ -235,14 +235,14 @@ public enum FieldValue: Codable, Hashable, Sendable {
     }
 
     public struct Boolean: Codable, Hashable, Sendable {
-        public let type: String = "boolean"
+        public let type: Swift.String = "boolean"
         public let value: Bool
         /// Additional properties that are not explicitly defined in the schema
-        public let additionalProperties: [String: JSONValue]
+        public let additionalProperties: [Swift.String: JSONValue]
 
         public init(
             value: Bool,
-            additionalProperties: [String: JSONValue] = .init()
+            additionalProperties: [Swift.String: JSONValue] = .init()
         ) {
             self.value = value
             self.additionalProperties = additionalProperties
@@ -269,19 +269,19 @@ public enum FieldValue: Codable, Hashable, Sendable {
     }
 
     public struct EntityId: Codable, Hashable, Sendable {
-        public let type: String = "entityId"
-        public let referenceId: String
-        public let appId: String
+        public let type: Swift.String = "entityId"
+        public let referenceId: Swift.String
+        public let appId: Swift.String
         /// Human-readable name for the referenced entity (e.g., action name or document title).
-        public let name: String?
+        public let name: Swift.String?
         /// Additional properties that are not explicitly defined in the schema
-        public let additionalProperties: [String: JSONValue]
+        public let additionalProperties: [Swift.String: JSONValue]
 
         public init(
-            referenceId: String,
-            appId: String,
-            name: String? = nil,
-            additionalProperties: [String: JSONValue] = .init()
+            referenceId: Swift.String,
+            appId: Swift.String,
+            name: Swift.String? = nil,
+            additionalProperties: [Swift.String: JSONValue] = .init()
         ) {
             self.referenceId = referenceId
             self.appId = appId
@@ -291,9 +291,9 @@ public enum FieldValue: Codable, Hashable, Sendable {
 
         public init(from decoder: Decoder) throws {
             let container = try decoder.container(keyedBy: CodingKeys.self)
-            self.referenceId = try container.decode(String.self, forKey: .referenceId)
-            self.appId = try container.decode(String.self, forKey: .appId)
-            self.name = try container.decodeIfPresent(String.self, forKey: .name)
+            self.referenceId = try container.decode(Swift.String.self, forKey: .referenceId)
+            self.appId = try container.decode(Swift.String.self, forKey: .appId)
+            self.name = try container.decodeIfPresent(Swift.String.self, forKey: .name)
             self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
         }
 

@@ -3,7 +3,7 @@ import Foundation
 public final class AnalyticsClient: Sendable {
     private let httpClient: HTTPClient
 
-    public init(config: ClientConfig) {
+    init(config: ClientConfig) {
         self.httpClient = HTTPClient(config: config)
     }
 
@@ -71,6 +71,32 @@ public final class AnalyticsClient: Sendable {
             body: request,
             requestOptions: requestOptions,
             responseType: AgentUserTableResponse.self
+        )
+    }
+
+    /// Retrieves structured event data formatted as a table, allowing users to group, filter,  and define specific metrics to display as columns.
+    ///
+    /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
+    public func getEventTable(request: EventTableRequest, requestOptions: RequestOptions? = nil) async throws -> EventTableResponse {
+        return try await httpClient.performRequest(
+            method: .post,
+            path: "/v1/tables/events",
+            body: request,
+            requestOptions: requestOptions,
+            responseType: EventTableResponse.self
+        )
+    }
+
+    /// Fetches event data visualized in a chart format. Supported chart types include pie chart, date histogram, and stacked bar charts.
+    ///
+    /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
+    public func getEventChart(request: EventChartRequest, requestOptions: RequestOptions? = nil) async throws -> ChartResponse {
+        return try await httpClient.performRequest(
+            method: .post,
+            path: "/v1/charts/events",
+            body: request,
+            requestOptions: requestOptions,
+            responseType: ChartResponse.self
         )
     }
 }

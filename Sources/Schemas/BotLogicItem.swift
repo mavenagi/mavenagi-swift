@@ -1,29 +1,29 @@
 import Foundation
 
 public enum BotLogicItem: Codable, Hashable, Sendable {
-    case knowledge(Knowledge)
     case actions(Actions)
     case form(Form)
+    case knowledge(Knowledge)
     case safety(Safety)
-    case user(User)
     case segments(Segments)
+    case user(User)
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         let discriminant = try container.decode(String.self, forKey: .type)
         switch discriminant {
-        case "knowledge":
-            self = .knowledge(try Knowledge(from: decoder))
         case "actions":
             self = .actions(try Actions(from: decoder))
         case "form":
             self = .form(try Form(from: decoder))
+        case "knowledge":
+            self = .knowledge(try Knowledge(from: decoder))
         case "safety":
             self = .safety(try Safety(from: decoder))
-        case "user":
-            self = .user(try User(from: decoder))
         case "segments":
             self = .segments(try Segments(from: decoder))
+        case "user":
+            self = .user(try User(from: decoder))
         default:
             throw DecodingError.dataCorrupted(
                 DecodingError.Context(
@@ -36,17 +36,17 @@ public enum BotLogicItem: Codable, Hashable, Sendable {
 
     public func encode(to encoder: Encoder) throws -> Void {
         switch self {
-        case .knowledge(let data):
-            try data.encode(to: encoder)
         case .actions(let data):
             try data.encode(to: encoder)
         case .form(let data):
             try data.encode(to: encoder)
+        case .knowledge(let data):
+            try data.encode(to: encoder)
         case .safety(let data):
             try data.encode(to: encoder)
-        case .user(let data):
-            try data.encode(to: encoder)
         case .segments(let data):
+            try data.encode(to: encoder)
+        case .user(let data):
             try data.encode(to: encoder)
         }
     }
@@ -192,20 +192,25 @@ public enum BotLogicItem: Codable, Hashable, Sendable {
     public struct Safety: Codable, Hashable, Sendable {
         public let type: String = "safety"
         public let safetyCheckPassed: Bool
+        /// If the safety check failed, this contains more details about the failure.
+        public let report: SafetyCheckReport?
         /// Additional properties that are not explicitly defined in the schema
         public let additionalProperties: [String: JSONValue]
 
         public init(
             safetyCheckPassed: Bool,
+            report: SafetyCheckReport? = nil,
             additionalProperties: [String: JSONValue] = .init()
         ) {
             self.safetyCheckPassed = safetyCheckPassed
+            self.report = report
             self.additionalProperties = additionalProperties
         }
 
         public init(from decoder: Decoder) throws {
             let container = try decoder.container(keyedBy: CodingKeys.self)
             self.safetyCheckPassed = try container.decode(Bool.self, forKey: .safetyCheckPassed)
+            self.report = try container.decodeIfPresent(SafetyCheckReport.self, forKey: .report)
             self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
         }
 
@@ -214,12 +219,14 @@ public enum BotLogicItem: Codable, Hashable, Sendable {
             try encoder.encodeAdditionalProperties(self.additionalProperties)
             try container.encode(self.type, forKey: .type)
             try container.encode(self.safetyCheckPassed, forKey: .safetyCheckPassed)
+            try container.encodeIfPresent(self.report, forKey: .report)
         }
 
         /// Keys for encoding/decoding struct properties.
         enum CodingKeys: String, CodingKey, CaseIterable {
             case type
             case safetyCheckPassed
+            case report
         }
     }
 

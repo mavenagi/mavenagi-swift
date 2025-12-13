@@ -22,7 +22,7 @@ private func main() async throws {
         appSecret: "<password>"
     )
 
-    try await client.actions.search(request: ActionsSearchRequest(
+    _ = try await client.actions.search(request: ActionsSearchRequest(
 
     ))
 }
@@ -98,14 +98,10 @@ private func main() async throws {
         appSecret: "<password>"
     )
 
-    try await client.actions.createOrUpdate(request: ActionRequest(
-        actionId: EntityIdBase(
-            referenceId: "get-balance"
-        ),
+    _ = try await client.actions.createOrUpdate(request: ActionRequest(
         name: "Get the user's balance",
         description: "This action calls an API to get the user's current balance.",
-        userInteractionRequired: False,
-        userFormParameters: [],
+        userInteractionRequired: false,
         precondition: Precondition.group(
             .init(
                 operator: .and,
@@ -123,7 +119,11 @@ private func main() async throws {
                 ]
             )
         ),
-        language: "en"
+        userFormParameters: [],
+        language: "en",
+        actionId: EntityIdBase(
+            referenceId: "get-balance"
+        )
     ))
 }
 
@@ -198,10 +198,7 @@ private func main() async throws {
         appSecret: "<password>"
     )
 
-    try await client.actions.get(
-        actionReferenceId: "get-balance",
-        request: .init(actionReferenceId: "get-balance")
-    )
+    _ = try await client.actions.get(actionReferenceId: "get-balance")
 }
 
 try await main()
@@ -286,19 +283,18 @@ private func main() async throws {
         appSecret: "<password>"
     )
 
-    try await client.actions.patch(
+    _ = try await client.actions.patch(
         actionReferenceId: "get-balance",
         request: .init(
-            actionReferenceId: "get-balance",
             instructions: "Use this action when the user asks about their account balance or remaining credits.",
             llmInclusionStatus: .whenRelevant,
-            segmentId: EntityId(
-                referenceId: "premium-users",
+            segmentId: .value(EntityId(
+                type: .segment,
                 appId: "my-billing-system",
+                referenceId: "premium-users",
                 organizationId: "acme",
-                agentId: "support",
-                type: .segment
-            )
+                agentId: "support"
+            ))
         )
     )
 }
@@ -382,7 +378,7 @@ private func main() async throws {
         appSecret: "<password>"
     )
 
-    try await client.actions.delete(actionReferenceId: "get-balance")
+    _ = try await client.actions.delete(actionReferenceId: "get-balance")
 }
 
 try await main()
@@ -461,7 +457,7 @@ private func main() async throws {
         appSecret: "<password>"
     )
 
-    try await client.agents.search(request: AgentsSearchRequest(
+    _ = try await client.agents.search(request: AgentsSearchRequest(
 
     ))
 }
@@ -537,7 +533,7 @@ private func main() async throws {
         appSecret: "<password>"
     )
 
-    try await client.agents.list(organizationReferenceId: "organizationReferenceId")
+    _ = try await client.agents.list(organizationReferenceId: "organizationReferenceId")
 }
 
 try await main()
@@ -615,7 +611,7 @@ private func main() async throws {
         appSecret: "<password>"
     )
 
-    try await client.agents.create(
+    _ = try await client.agents.create(
         organizationReferenceId: "organizationReferenceId",
         agentReferenceId: "agentReferenceId",
         request: CreateAgentRequest(
@@ -712,7 +708,7 @@ private func main() async throws {
         appSecret: "<password>"
     )
 
-    try await client.agents.get(
+    _ = try await client.agents.get(
         organizationReferenceId: "organizationReferenceId",
         agentReferenceId: "agentReferenceId"
     )
@@ -802,13 +798,10 @@ private func main() async throws {
         appSecret: "<password>"
     )
 
-    try await client.agents.patch(
+    _ = try await client.agents.patch(
         organizationReferenceId: "organizationReferenceId",
         agentReferenceId: "agentReferenceId",
-        request: .init(
-            organizationReferenceId: "organizationReferenceId",
-            agentReferenceId: "agentReferenceId"
-        )
+        request: .init()
     )
 }
 
@@ -903,7 +896,7 @@ private func main() async throws {
         appSecret: "<password>"
     )
 
-    try await client.agents.delete(
+    _ = try await client.agents.delete(
         organizationReferenceId: "organizationReferenceId",
         agentReferenceId: "agentReferenceId"
     )
@@ -989,7 +982,7 @@ private func main() async throws {
         appSecret: "<password>"
     )
 
-    try await client.analytics.getConversationTable(request: ConversationTableRequest(
+    _ = try await client.analytics.getConversationTable(request: ConversationTableRequest(
         conversationFilter: ConversationFilter(
             languages: [
                 "en",
@@ -1103,7 +1096,7 @@ private func main() async throws {
         appSecret: "<password>"
     )
 
-    try await client.analytics.getConversationChart(request: ConversationChartRequest.pieChart(
+    _ = try await client.analytics.getConversationChart(request: ConversationChartRequest.pieChart(
         .init(
             conversationFilter: ConversationFilter(
                 languages: [
@@ -1196,7 +1189,7 @@ private func main() async throws {
         appSecret: "<password>"
     )
 
-    try await client.analytics.exportConversationTable(request: ConversationTableRequest(
+    _ = try await client.analytics.exportConversationTable(request: ConversationTableRequest(
         fieldGroupings: [
             ConversationGroupBy(
                 field: .category
@@ -1207,20 +1200,20 @@ private func main() async throws {
         ],
         columnDefinitions: [
             ConversationColumnDefinition(
+                header: "header",
                 metric: ConversationMetric.count(
                     .init(
 
                     )
-                ),
-                header: "header"
+                )
             ),
             ConversationColumnDefinition(
+                header: "header",
                 metric: ConversationMetric.count(
                     .init(
 
                     )
-                ),
-                header: "header"
+                )
             )
         ]
     ))
@@ -1297,7 +1290,7 @@ private func main() async throws {
         appSecret: "<password>"
     )
 
-    try await client.analytics.getFeedbackTable(request: FeedbackTableRequest(
+    _ = try await client.analytics.getFeedbackTable(request: FeedbackTableRequest(
         feedbackFilter: FeedbackFilter(
             types: [
                 .thumbsUp,
@@ -1393,7 +1386,7 @@ private func main() async throws {
         appSecret: "<password>"
     )
 
-    try await client.analytics.getAgentUserTable(request: AgentUserTableRequest(
+    _ = try await client.analytics.getAgentUserTable(request: AgentUserTableRequest(
         agentUserFilter: AgentUserFilter(
             search: "john"
         ),
@@ -1426,6 +1419,191 @@ try await main()
 <dd>
 
 **request:** `AgentUserTableRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `RequestOptions?` — Additional options for configuring the request, such as custom headers or timeout settings.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.analytics.<a href="/Sources/Resources/Analytics/AnalyticsClient.swift">getEventTable</a>(request: EventTableRequest, requestOptions: RequestOptions?) -> EventTableResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieves structured event data formatted as a table, allowing users to group, filter,  and define specific metrics to display as columns.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```swift
+import Foundation
+import Api
+
+private func main() async throws {
+    let client = MavenAGI(
+        appId: "<username>",
+        appSecret: "<password>"
+    )
+
+    _ = try await client.analytics.getEventTable(request: EventTableRequest(
+        eventFilter: EventFilter(
+            eventTypes: [
+                .user
+            ]
+        ),
+        fieldGroupings: [
+            EventGroupBy(
+                field: .eventName
+            )
+        ],
+        columnDefinitions: [
+            EventColumnDefinition(
+                header: "event_count",
+                metric: EventMetric.count(
+                    .init(
+
+                    )
+                )
+            )
+        ]
+    ))
+}
+
+try await main()
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `EventTableRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `RequestOptions?` — Additional options for configuring the request, such as custom headers or timeout settings.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.analytics.<a href="/Sources/Resources/Analytics/AnalyticsClient.swift">getEventChart</a>(request: EventChartRequest, requestOptions: RequestOptions?) -> ChartResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Fetches event data visualized in a chart format. Supported chart types include pie chart, date histogram, and stacked bar charts.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```swift
+import Foundation
+import Api
+
+private func main() async throws {
+    let client = MavenAGI(
+        appId: "<username>",
+        appSecret: "<password>"
+    )
+
+    _ = try await client.analytics.getEventChart(request: EventChartRequest.pieChart(
+        .init(
+            eventFilter: EventFilter(
+                eventTypes: [
+                    .user
+                ]
+            ),
+            groupBy: EventGroupBy(
+                field: .eventName
+            ),
+            metric: EventMetric.count(
+                .init(
+
+                )
+            )
+        )
+    ))
+}
+
+try await main()
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `EventChartRequest` 
     
 </dd>
 </dl>
@@ -1486,7 +1664,7 @@ private func main() async throws {
         appSecret: "<password>"
     )
 
-    try await client.appSettings.search(request: .init(index: "index"))
+    _ = try await client.appSettings.search(index: "index")
 }
 
 try await main()
@@ -1560,7 +1738,7 @@ private func main() async throws {
         appSecret: "<password>"
     )
 
-    try await client.appSettings.get()
+    _ = try await client.appSettings.get()
 }
 
 try await main()
@@ -1632,7 +1810,7 @@ private func main() async throws {
         appSecret: "<password>"
     )
 
-    try await client.appSettings.update(request: [
+    _ = try await client.appSettings.update(request: [
         "string": .object([
             "key": .string("value")
         ])
@@ -1712,7 +1890,7 @@ private func main() async throws {
         appSecret: "<password>"
     )
 
-    try await client.assets.initiateUpload(request: InitiateAssetUploadRequest(
+    _ = try await client.assets.initiateUpload(request: InitiateAssetUploadRequest(
         type: "type"
     ))
 }
@@ -1789,7 +1967,7 @@ private func main() async throws {
         appSecret: "<password>"
     )
 
-    try await client.assets.commitUpload(
+    _ = try await client.assets.commitUpload(
         assetReferenceId: "assetReferenceId",
         request: CommitAssetUploadRequest(
 
@@ -1884,30 +2062,30 @@ private func main() async throws {
         appSecret: "<password>"
     )
 
-    try await client.conversation.initialize(request: ConversationRequest(
+    _ = try await client.conversation.initialize(request: ConversationRequest(
         conversationId: EntityIdBase(
             referenceId: "x"
         ),
         messages: [
             ConversationMessageRequest(
-                conversationMessageId: EntityIdBase(
-                    referenceId: "x"
-                ),
                 userId: EntityIdBase(
                     referenceId: "x"
                 ),
                 text: "text",
-                userMessageType: .user
+                userMessageType: .user,
+                conversationMessageId: EntityIdBase(
+                    referenceId: "x"
+                )
             ),
             ConversationMessageRequest(
-                conversationMessageId: EntityIdBase(
-                    referenceId: "x"
-                ),
                 userId: EntityIdBase(
                     referenceId: "x"
                 ),
                 text: "text",
-                userMessageType: .user
+                userMessageType: .user,
+                conversationMessageId: EntityIdBase(
+                    referenceId: "x"
+                )
             )
         ]
     ))
@@ -1987,10 +2165,10 @@ private func main() async throws {
         appSecret: "<password>"
     )
 
-    try await client.conversation.patch(
+    _ = try await client.conversation.patch(
         conversationId: "conversation-0",
         request: ConversationPatchRequest(
-            llmEnabled: True
+            llmEnabled: true
         )
     )
 }
@@ -2074,10 +2252,7 @@ private func main() async throws {
         appSecret: "<password>"
     )
 
-    try await client.conversation.get(
-        conversationId: "conversationId",
-        request: .init(conversationId: "conversationId")
-    )
+    _ = try await client.conversation.get(conversationId: "conversationId")
 }
 
 try await main()
@@ -2176,12 +2351,9 @@ private func main() async throws {
         appSecret: "<password>"
     )
 
-    try await client.conversation.delete(
+    _ = try await client.conversation.delete(
         conversationId: "conversation-0",
-        request: .init(
-            conversationId: "conversation-0",
-            reason: "GDPR deletion request 1234."
-        )
+        reason: "GDPR deletion request 1234."
     )
 }
 
@@ -2272,28 +2444,28 @@ private func main() async throws {
         appSecret: "<password>"
     )
 
-    try await client.conversation.appendNewMessages(
+    _ = try await client.conversation.appendNewMessages(
         conversationId: "conversationId",
         request: [
             ConversationMessageRequest(
-                conversationMessageId: EntityIdBase(
-                    referenceId: "x"
-                ),
                 userId: EntityIdBase(
                     referenceId: "x"
                 ),
                 text: "text",
-                userMessageType: .user
+                userMessageType: .user,
+                conversationMessageId: EntityIdBase(
+                    referenceId: "x"
+                )
             ),
             ConversationMessageRequest(
-                conversationMessageId: EntityIdBase(
-                    referenceId: "x"
-                ),
                 userId: EntityIdBase(
                     referenceId: "x"
                 ),
                 text: "text",
-                userMessageType: .user
+                userMessageType: .user,
+                conversationMessageId: EntityIdBase(
+                    referenceId: "x"
+                )
             )
         ]
     )
@@ -2386,7 +2558,7 @@ private func main() async throws {
         appSecret: "<password>"
     )
 
-    try await client.conversation.ask(
+    _ = try await client.conversation.ask(
         conversationId: "conversation-0",
         request: AskRequest(
             conversationMessageId: EntityIdBase(
@@ -2502,7 +2674,7 @@ private func main() async throws {
         appSecret: "<password>"
     )
 
-    try await client.conversation.askStream(
+    _ = try await client.conversation.askStream(
         conversationId: "conversation-0",
         request: AskRequest(
             conversationMessageId: EntityIdBase(
@@ -2618,17 +2790,17 @@ private func main() async throws {
         appSecret: "<password>"
     )
 
-    try await client.conversation.askObjectStream(
+    _ = try await client.conversation.askObjectStream(
         conversationId: "conversationId",
         request: AskObjectRequest(
-            schema: "schema",
             conversationMessageId: EntityIdBase(
                 referenceId: "x"
             ),
             userId: EntityIdBase(
                 referenceId: "x"
             ),
-            text: "text"
+            text: "text",
+            schema: "schema"
         )
     )
 }
@@ -2712,7 +2884,7 @@ private func main() async throws {
         appSecret: "<password>"
     )
 
-    try await client.conversation.categorize(conversationId: "conversationId")
+    _ = try await client.conversation.categorize(conversationId: "conversationId")
 }
 
 try await main()
@@ -2786,12 +2958,11 @@ private func main() async throws {
         appSecret: "<password>"
     )
 
-    try await client.conversation.createFeedback(request: FeedbackRequest(
+    _ = try await client.conversation.createFeedback(request: FeedbackRequest(
+        type: .thumbsUp,
+        text: "Great answer!",
         feedbackId: EntityIdBase(
             referenceId: "feedback-0"
-        ),
-        userId: EntityIdBase(
-            referenceId: "user-0"
         ),
         conversationId: EntityIdBase(
             referenceId: "conversation-0"
@@ -2799,8 +2970,9 @@ private func main() async throws {
         conversationMessageId: EntityIdBase(
             referenceId: "message-1"
         ),
-        type: .thumbsUp,
-        text: "Great answer!"
+        userId: EntityIdBase(
+            referenceId: "user-0"
+        )
     ))
 }
 
@@ -2879,12 +3051,12 @@ private func main() async throws {
         appSecret: "<password>"
     )
 
-    try await client.conversation.submitActionForm(
+    _ = try await client.conversation.submitActionForm(
         conversationId: "conversationId",
         request: SubmitActionFormRequest(
             actionFormId: "actionFormId",
             parameters: [
-                "parameters": ActionFormRequestParamValue.json(
+                "parameters": ActionFormRequestParamValue.jsonValue(
                     .object([
                         "key": .string("value")
                     ])
@@ -2975,7 +3147,7 @@ private func main() async throws {
         appSecret: "<password>"
     )
 
-    try await client.conversation.addConversationMetadata(
+    _ = try await client.conversation.addConversationMetadata(
         conversationId: "conversationId",
         request: [
             "string": "string"
@@ -3068,7 +3240,7 @@ private func main() async throws {
         appSecret: "<password>"
     )
 
-    try await client.conversation.updateConversationMetadata(
+    _ = try await client.conversation.updateConversationMetadata(
         conversationId: "conversation-0",
         request: UpdateMetadataRequest(
             appId: "conversation-owning-app",
@@ -3158,7 +3330,7 @@ private func main() async throws {
         appSecret: "<password>"
     )
 
-    try await client.conversation.search(request: ConversationsSearchRequest(
+    _ = try await client.conversation.search(request: ConversationsSearchRequest(
 
     ))
 }
@@ -3239,7 +3411,7 @@ private func main() async throws {
         appSecret: "<password>"
     )
 
-    try await client.conversation.export(request: ConversationsSearchRequest(
+    _ = try await client.conversation.export(request: ConversationsSearchRequest(
 
     ))
 }
@@ -3320,7 +3492,7 @@ private func main() async throws {
         appSecret: "<password>"
     )
 
-    try await client.conversation.deliverMessage(request: DeliverMessageRequest.user(
+    _ = try await client.conversation.deliverMessage(request: DeliverMessageRequest.user(
         .init(
             userId: EntityIdWithoutAgent(
                 type: .agent,
@@ -3328,14 +3500,14 @@ private func main() async throws {
                 referenceId: "x"
             ),
             message: ConversationMessageRequest(
-                conversationMessageId: EntityIdBase(
-                    referenceId: "x"
-                ),
                 userId: EntityIdBase(
                     referenceId: "x"
                 ),
                 text: "text",
-                userMessageType: .user
+                userMessageType: .user,
+                conversationMessageId: EntityIdBase(
+                    referenceId: "x"
+                )
             )
         )
     ))
@@ -3357,6 +3529,320 @@ try await main()
 <dd>
 
 **request:** `DeliverMessageRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `RequestOptions?` — Additional options for configuring the request, such as custom headers or timeout settings.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Customers
+<details><summary><code>client.customers.<a href="/Sources/Resources/Customers/CustomersClient.swift">search</a>(request: CustomersSearchRequest, requestOptions: RequestOptions?) -> CustomersSearchResponse</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```swift
+import Foundation
+import Api
+
+private func main() async throws {
+    let client = MavenAGI(
+        appId: "<username>",
+        appSecret: "<password>"
+    )
+
+    _ = try await client.customers.search(request: CustomersSearchRequest(
+
+    ))
+}
+
+try await main()
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `CustomersSearchRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `RequestOptions?` — Additional options for configuring the request, such as custom headers or timeout settings.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.customers.<a href="/Sources/Resources/Customers/CustomersClient.swift">createOrUpdate</a>(request: CustomerRequest, requestOptions: RequestOptions?) -> CustomerResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Update a customer of an agent or create it if it doesn't exist. In case of an update, fields not provided (e.g., description, status) will be preserved.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```swift
+import Foundation
+import Api
+
+private func main() async throws {
+    let client = MavenAGI(
+        appId: "<username>",
+        appSecret: "<password>"
+    )
+
+    _ = try await client.customers.createOrUpdate(request: CustomerRequest(
+        customerId: EntityIdBase(
+            referenceId: "acme"
+        ),
+        name: "Acme Corporation"
+    ))
+}
+
+try await main()
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `CustomerRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `RequestOptions?` — Additional options for configuring the request, such as custom headers or timeout settings.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.customers.<a href="/Sources/Resources/Customers/CustomersClient.swift">get</a>(customerReferenceId: String, appId: String?, requestOptions: RequestOptions?) -> CustomerResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get a customer by its supplied ID
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```swift
+import Foundation
+import Api
+
+private func main() async throws {
+    let client = MavenAGI(
+        appId: "<username>",
+        appSecret: "<password>"
+    )
+
+    _ = try await client.customers.get(customerReferenceId: "acme")
+}
+
+try await main()
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**customerReferenceId:** `String` — The reference ID of the customer to get. All other entity ID fields are inferred from the request.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**appId:** `String?` — The App ID of the customer to get. If not provided, the ID of the calling app will be used.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `RequestOptions?` — Additional options for configuring the request, such as custom headers or timeout settings.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.customers.<a href="/Sources/Resources/Customers/CustomersClient.swift">patch</a>(customerReferenceId: String, request: CustomerPatchRequest, requestOptions: RequestOptions?) -> CustomerResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Update mutable customer fields
+
+The `appId` field can be provided to update a customer owned by a different app.
+All other fields will overwrite the existing value on the customer only if provided.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```swift
+import Foundation
+import Api
+
+private func main() async throws {
+    let client = MavenAGI(
+        appId: "<username>",
+        appSecret: "<password>"
+    )
+
+    _ = try await client.customers.patch(
+        customerReferenceId: "customerReferenceId",
+        request: CustomerPatchRequest(
+
+        )
+    )
+}
+
+try await main()
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**customerReferenceId:** `String` — The reference ID of the customer to update. All other entity ID fields are inferred from the request.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `CustomerPatchRequest` 
     
 </dd>
 </dl>
@@ -3413,7 +3899,7 @@ private func main() async throws {
         appSecret: "<password>"
     )
 
-    try await client.events.create(request: EventRequest.userEvent(
+    _ = try await client.events.create(request: EventRequest.userEvent(
         .init(
             id: EntityIdBase(
                 referenceId: "x"
@@ -3499,7 +3985,7 @@ private func main() async throws {
         appSecret: "<password>"
     )
 
-    try await client.events.search(request: EventsSearchRequest(
+    _ = try await client.events.search(request: EventsSearchRequest(
 
     ))
 }
@@ -3575,12 +4061,9 @@ private func main() async throws {
         appSecret: "<password>"
     )
 
-    try await client.events.get(
+    _ = try await client.events.get(
         eventId: "eventId",
-        request: .init(
-            eventId: "eventId",
-            appId: "appId"
-        )
+        appId: "appId"
     )
 }
 
@@ -3665,7 +4148,7 @@ private func main() async throws {
         appSecret: "<password>"
     )
 
-    try await client.events.export(request: EventsSearchRequest(
+    _ = try await client.events.export(request: EventsSearchRequest(
 
     ))
 }
@@ -3742,7 +4225,7 @@ private func main() async throws {
         appSecret: "<password>"
     )
 
-    try await client.inbox.search(request: InboxSearchRequest(
+    _ = try await client.inbox.search(request: InboxSearchRequest(
 
     ))
 }
@@ -3818,12 +4301,9 @@ private func main() async throws {
         appSecret: "<password>"
     )
 
-    try await client.inbox.get(
+    _ = try await client.inbox.get(
         inboxItemId: "inboxItemId",
-        request: .init(
-            inboxItemId: "inboxItemId",
-            appId: "appId"
-        )
+        appId: "appId"
     )
 }
 
@@ -3906,12 +4386,9 @@ private func main() async throws {
         appSecret: "<password>"
     )
 
-    try await client.inbox.getFix(
+    _ = try await client.inbox.getFix(
         inboxItemFixId: "inboxItemFixId",
-        request: .init(
-            inboxItemFixId: "inboxItemFixId",
-            appId: "appId"
-        )
+        appId: "appId"
     )
 }
 
@@ -3994,7 +4471,7 @@ private func main() async throws {
         appSecret: "<password>"
     )
 
-    try await client.inbox.applyFixes(
+    _ = try await client.inbox.applyFixes(
         inboxItemId: "inboxItemId",
         request: ApplyFixesRequest(
             appId: "appId",
@@ -4085,12 +4562,9 @@ private func main() async throws {
         appSecret: "<password>"
     )
 
-    try await client.inbox.ignore(
+    _ = try await client.inbox.ignore(
         inboxItemId: "inboxItemId",
-        request: .init(
-            inboxItemId: "inboxItemId",
-            appId: "appId"
-        )
+        appId: "appId"
     )
 }
 
@@ -4174,7 +4648,7 @@ private func main() async throws {
         appSecret: "<password>"
     )
 
-    try await client.knowledge.searchKnowledgeBases(request: KnowledgeBaseSearchRequest(
+    _ = try await client.knowledge.searchKnowledgeBases(request: KnowledgeBaseSearchRequest(
 
     ))
 }
@@ -4250,11 +4724,11 @@ private func main() async throws {
         appSecret: "<password>"
     )
 
-    try await client.knowledge.createOrUpdateKnowledgeBase(request: KnowledgeBaseRequest(
+    _ = try await client.knowledge.createOrUpdateKnowledgeBase(request: KnowledgeBaseRequest(
+        name: "Help center",
         knowledgeBaseId: EntityIdBase(
             referenceId: "help-center"
-        ),
-        name: "Help center"
+        )
     ))
 }
 
@@ -4329,10 +4803,7 @@ private func main() async throws {
         appSecret: "<password>"
     )
 
-    try await client.knowledge.getKnowledgeBase(
-        knowledgeBaseReferenceId: "help-center",
-        request: .init(knowledgeBaseReferenceId: "help-center")
-    )
+    _ = try await client.knowledge.getKnowledgeBase(knowledgeBaseReferenceId: "help-center")
 }
 
 try await main()
@@ -4417,7 +4888,7 @@ private func main() async throws {
         appSecret: "<password>"
     )
 
-    try await client.knowledge.refreshKnowledgeBase(
+    _ = try await client.knowledge.refreshKnowledgeBase(
         knowledgeBaseReferenceId: "help-center",
         request: KnowledgeBaseRefreshRequest(
             appId: "readme"
@@ -4507,19 +4978,17 @@ private func main() async throws {
         appSecret: "<password>"
     )
 
-    try await client.knowledge.patchKnowledgeBase(
+    _ = try await client.knowledge.patchKnowledgeBase(
         knowledgeBaseReferenceId: "help-center",
         request: .init(
-            knowledgeBaseReferenceId: "help-center",
             name: "Updated Help Center",
-            tags: ,
-            segmentId: EntityId(
-                referenceId: "premium-users",
+            segmentId: .value(EntityId(
+                type: .segment,
                 appId: "readme",
+                referenceId: "premium-users",
                 organizationId: "acme",
-                agentId: "support",
-                type: .segment
-            )
+                agentId: "support"
+            ))
         )
     )
 }
@@ -4605,7 +5074,7 @@ private func main() async throws {
         appSecret: "<password>"
     )
 
-    try await client.knowledge.createKnowledgeBaseVersion(
+    _ = try await client.knowledge.createKnowledgeBaseVersion(
         knowledgeBaseReferenceId: "help-center",
         request: KnowledgeBaseVersionRequest(
             type: .full
@@ -4692,13 +5161,13 @@ private func main() async throws {
         appSecret: "<password>"
     )
 
-    try await client.knowledge.finalizeKnowledgeBaseVersion(
+    _ = try await client.knowledge.finalizeKnowledgeBaseVersion(
         knowledgeBaseReferenceId: "help-center",
         request: FinalizeKnowledgeBaseVersionRequest(
             versionId: EntityIdWithoutAgent(
                 type: .knowledgeBaseVersion,
-                referenceId: "versionId",
-                appId: "maven"
+                appId: "maven",
+                referenceId: "versionId"
             ),
             status: .succeeded
         )
@@ -4784,10 +5253,7 @@ private func main() async throws {
         appSecret: "<password>"
     )
 
-    try await client.knowledge.listKnowledgeBaseVersions(
-        knowledgeBaseReferenceId: "knowledgeBaseReferenceId",
-        request: .init(knowledgeBaseReferenceId: "knowledgeBaseReferenceId")
-    )
+    _ = try await client.knowledge.listKnowledgeBaseVersions(knowledgeBaseReferenceId: "knowledgeBaseReferenceId")
 }
 
 try await main()
@@ -4869,7 +5335,7 @@ private func main() async throws {
         appSecret: "<password>"
     )
 
-    try await client.knowledge.searchKnowledgeDocuments(request: KnowledgeDocumentSearchRequest(
+    _ = try await client.knowledge.searchKnowledgeDocuments(request: KnowledgeDocumentSearchRequest(
 
     ))
 }
@@ -4951,7 +5417,7 @@ private func main() async throws {
         appSecret: "<password>"
     )
 
-    try await client.knowledge.createKnowledgeDocument(
+    _ = try await client.knowledge.createKnowledgeDocument(
         knowledgeBaseReferenceId: "help-center",
         request: KnowledgeDocumentRequest(
             knowledgeDocumentId: EntityIdBase(
@@ -4959,12 +5425,12 @@ private func main() async throws {
             ),
             versionId: EntityIdWithoutAgent(
                 type: .knowledgeBaseVersion,
-                referenceId: "versionId",
-                appId: "maven"
+                appId: "maven",
+                referenceId: "versionId"
             ),
             contentType: .markdown,
-            content: "## Getting started\nThis is a getting started guide for the help center.",
             title: "Getting started",
+            content: "## Getting started\nThis is a getting started guide for the help center.",
             metadata: [
                 "category": "getting-started"
             ]
@@ -5052,7 +5518,7 @@ private func main() async throws {
         appSecret: "<password>"
     )
 
-    try await client.knowledge.deleteKnowledgeDocument(
+    _ = try await client.knowledge.deleteKnowledgeDocument(
         knowledgeBaseReferenceId: "help-center",
         knowledgeDocumentReferenceId: "getting-started",
         request: KnowledgeDeleteRequest(
@@ -5152,14 +5618,10 @@ private func main() async throws {
         appSecret: "<password>"
     )
 
-    try await client.knowledge.getKnowledgeDocument(
+    _ = try await client.knowledge.getKnowledgeDocument(
         knowledgeBaseVersionReferenceId: "knowledgeBaseVersionReferenceId",
         knowledgeDocumentReferenceId: "knowledgeDocumentReferenceId",
-        request: .init(
-            knowledgeBaseVersionReferenceId: "knowledgeBaseVersionReferenceId",
-            knowledgeDocumentReferenceId: "knowledgeDocumentReferenceId",
-            knowledgeBaseVersionAppId: "knowledgeBaseVersionAppId"
-        )
+        knowledgeBaseVersionAppId: "knowledgeBaseVersionAppId"
     )
 }
 
@@ -5255,14 +5717,10 @@ private func main() async throws {
         appSecret: "<password>"
     )
 
-    try await client.knowledge.patchKnowledgeDocument(
+    _ = try await client.knowledge.patchKnowledgeDocument(
         knowledgeBaseReferenceId: "help-center",
         knowledgeDocumentReferenceId: "how-it-works",
-        request: .init(
-            knowledgeBaseReferenceId: "help-center",
-            knowledgeDocumentReferenceId: "how-it-works",
-            llmInclusionStatus: .always
-        )
+        request: .init(llmInclusionStatus: .always)
     )
 }
 
@@ -5358,7 +5816,7 @@ private func main() async throws {
         appSecret: "<password>"
     )
 
-    try await client.organizations.create(
+    _ = try await client.organizations.create(
         organizationReferenceId: "organizationReferenceId",
         request: CreateOrganizationRequest(
             name: "name",
@@ -5446,7 +5904,7 @@ private func main() async throws {
         appSecret: "<password>"
     )
 
-    try await client.organizations.get(organizationReferenceId: "organizationReferenceId")
+    _ = try await client.organizations.get(organizationReferenceId: "organizationReferenceId")
 }
 
 try await main()
@@ -5525,7 +5983,7 @@ private func main() async throws {
         appSecret: "<password>"
     )
 
-    try await client.organizations.patch(
+    _ = try await client.organizations.patch(
         organizationReferenceId: "organizationReferenceId",
         request: OrganizationPatchRequest(
 
@@ -5616,7 +6074,7 @@ private func main() async throws {
         appSecret: "<password>"
     )
 
-    try await client.organizations.delete(organizationReferenceId: "organizationReferenceId")
+    _ = try await client.organizations.delete(organizationReferenceId: "organizationReferenceId")
 }
 
 try await main()
@@ -5695,7 +6153,7 @@ private func main() async throws {
         appSecret: "<password>"
     )
 
-    try await client.organizations.getConversationTable(request: ConversationTableRequest(
+    _ = try await client.organizations.getConversationTable(request: ConversationTableRequest(
         conversationFilter: ConversationFilter(
             languages: [
                 "en",
@@ -5814,7 +6272,7 @@ private func main() async throws {
         appSecret: "<password>"
     )
 
-    try await client.organizations.getConversationChart(request: ConversationChartRequest.pieChart(
+    _ = try await client.organizations.getConversationChart(request: ConversationChartRequest.pieChart(
         .init(
             conversationFilter: ConversationFilter(
                 languages: [
@@ -5892,7 +6350,7 @@ private func main() async throws {
         appSecret: "<password>"
     )
 
-    try await client.segments.search(request: SegmentsSearchRequest(
+    _ = try await client.segments.search(request: SegmentsSearchRequest(
 
     ))
 }
@@ -5968,10 +6426,7 @@ private func main() async throws {
         appSecret: "<password>"
     )
 
-    try await client.segments.createOrUpdate(request: SegmentRequest(
-        segmentId: EntityIdBase(
-            referenceId: "admin-users"
-        ),
+    _ = try await client.segments.createOrUpdate(request: SegmentRequest(
         name: "Admin users",
         precondition: Precondition.group(
             .init(
@@ -5989,6 +6444,9 @@ private func main() async throws {
                     )
                 ]
             )
+        ),
+        segmentId: EntityIdBase(
+            referenceId: "admin-users"
         )
     ))
 }
@@ -6064,10 +6522,7 @@ private func main() async throws {
         appSecret: "<password>"
     )
 
-    try await client.segments.get(
-        segmentReferenceId: "admin-users",
-        request: .init(segmentReferenceId: "admin-users")
-    )
+    _ = try await client.segments.get(segmentReferenceId: "admin-users")
 }
 
 try await main()
@@ -6152,7 +6607,7 @@ private func main() async throws {
         appSecret: "<password>"
     )
 
-    try await client.segments.patch(
+    _ = try await client.segments.patch(
         segmentReferenceId: "segmentReferenceId",
         request: SegmentPatchRequest(
 
@@ -6240,7 +6695,7 @@ private func main() async throws {
         appSecret: "<password>"
     )
 
-    try await client.translations.translate(request: TranslationRequest(
+    _ = try await client.translations.translate(request: TranslationRequest(
         text: "Hello world",
         targetLanguage: "es"
     ))
@@ -6304,7 +6759,7 @@ private func main() async throws {
         appSecret: "<password>"
     )
 
-    try await client.triggers.search(request: EventTriggersSearchRequest(
+    _ = try await client.triggers.search(request: EventTriggersSearchRequest(
 
     ))
 }
@@ -6380,12 +6835,12 @@ private func main() async throws {
         appSecret: "<password>"
     )
 
-    try await client.triggers.createOrUpdate(request: EventTriggerRequest(
+    _ = try await client.triggers.createOrUpdate(request: EventTriggerRequest(
+        description: "Stores conversation data in Snowflake",
+        type: .conversationCreated,
         triggerId: EntityIdBase(
             referenceId: "store-in-snowflake"
-        ),
-        description: "Stores conversation data in Snowflake",
-        type: .conversationCreated
+        )
     ))
 }
 
@@ -6460,7 +6915,7 @@ private func main() async throws {
         appSecret: "<password>"
     )
 
-    try await client.triggers.get(triggerReferenceId: "store-in-snowflake")
+    _ = try await client.triggers.get(triggerReferenceId: "store-in-snowflake")
 }
 
 try await main()
@@ -6534,7 +6989,7 @@ private func main() async throws {
         appSecret: "<password>"
     )
 
-    try await client.triggers.delete(triggerReferenceId: "store-in-snowflake")
+    _ = try await client.triggers.delete(triggerReferenceId: "store-in-snowflake")
 }
 
 try await main()
@@ -6608,14 +7063,11 @@ private func main() async throws {
         appSecret: "<password>"
     )
 
-    try await client.triggers.partialUpdate(
+    _ = try await client.triggers.partialUpdate(
         triggerReferenceId: "triggerReferenceId",
-        request: .init(
-            triggerReferenceId: "triggerReferenceId",
-            body: TriggerPartialUpdate(
+        request: .init(body: TriggerPartialUpdate(
 
-            )
-        )
+        ))
     )
 }
 
@@ -6709,7 +7161,7 @@ private func main() async throws {
         appSecret: "<password>"
     )
 
-    try await client.users.search(request: AgentUserSearchRequest(
+    _ = try await client.users.search(request: AgentUserSearchRequest(
 
     ))
 }
@@ -6787,7 +7239,7 @@ private func main() async throws {
         appSecret: "<password>"
     )
 
-    try await client.users.getAgentUser(agentUserId: "aus_1234567890")
+    _ = try await client.users.getAgentUser(agentUserId: "aus_1234567890")
 }
 
 try await main()
@@ -6861,17 +7313,16 @@ private func main() async throws {
         appSecret: "<password>"
     )
 
-    try await client.users.createOrUpdate(request: AppUserRequest(
-        userId: EntityIdBase(
-            referenceId: "user-0"
-        ),
-        identifiers: ,
+    _ = try await client.users.createOrUpdate(request: AppUserRequest(
         data: [
             "name": UserData(
                 value: "Joe",
                 visibility: .visible
             )
-        ]
+        ],
+        userId: EntityIdBase(
+            referenceId: "user-0"
+        )
     ))
 }
 
@@ -6946,10 +7397,7 @@ private func main() async throws {
         appSecret: "<password>"
     )
 
-    try await client.users.get(
-        userId: "user-0",
-        request: .init(userId: "user-0")
-    )
+    _ = try await client.users.get(userId: "user-0")
 }
 
 try await main()
@@ -7036,10 +7484,7 @@ private func main() async throws {
         appSecret: "<password>"
     )
 
-    try await client.users.delete(
-        userId: "user-0",
-        request: .init(userId: "user-0")
-    )
+    _ = try await client.users.delete(userId: "user-0")
 }
 
 try await main()
@@ -7084,3 +7529,4 @@ try await main()
 </dd>
 </dl>
 </details>
+

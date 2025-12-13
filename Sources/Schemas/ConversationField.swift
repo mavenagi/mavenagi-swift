@@ -19,6 +19,7 @@ public enum ConversationField: String, Codable, Hashable, CaseIterable, Sendable
     case insertCount = "InsertCount"
     case tags = "Tags"
     case userMessageCount = "UserMessageCount"
+    case botMessageCount = "BotMessageCount"
     case languages = "Languages"
     case actions = "Actions"
     case incompleteActions = "IncompleteActions"
@@ -28,4 +29,5 @@ public enum ConversationField: String, Codable, Hashable, CaseIterable, Sendable
     case organizationId = "OrganizationId"
     case agentId = "AgentId"
     case inboxItems = "InboxItems"
+    case involvedApps = "InvolvedApps"
 }

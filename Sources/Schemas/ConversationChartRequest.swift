@@ -1,20 +1,20 @@
 import Foundation
 
 public enum ConversationChartRequest: Codable, Hashable, Sendable {
-    case pieChart(PieChart)
-    case dateHistogram(DateHistogram)
     case barChart(BarChart)
+    case dateHistogram(DateHistogram)
+    case pieChart(PieChart)
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         let discriminant = try container.decode(String.self, forKey: .type)
         switch discriminant {
-        case "pieChart":
-            self = .pieChart(try PieChart(from: decoder))
-        case "dateHistogram":
-            self = .dateHistogram(try DateHistogram(from: decoder))
         case "barChart":
             self = .barChart(try BarChart(from: decoder))
+        case "dateHistogram":
+            self = .dateHistogram(try DateHistogram(from: decoder))
+        case "pieChart":
+            self = .pieChart(try PieChart(from: decoder))
         default:
             throw DecodingError.dataCorrupted(
                 DecodingError.Context(
@@ -27,11 +27,11 @@ public enum ConversationChartRequest: Codable, Hashable, Sendable {
 
     public func encode(to encoder: Encoder) throws -> Void {
         switch self {
-        case .pieChart(let data):
+        case .barChart(let data):
             try data.encode(to: encoder)
         case .dateHistogram(let data):
             try data.encode(to: encoder)
-        case .barChart(let data):
+        case .pieChart(let data):
             try data.encode(to: encoder)
         }
     }

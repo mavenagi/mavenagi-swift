@@ -1,26 +1,26 @@
 import Foundation
 
 public enum BotResponse: Codable, Hashable, Sendable {
-    case text(Text)
     case actionForm(ActionForm)
-    case oauthButton(OauthButton)
     case chart(Chart)
+    case oauthButton(OauthButton)
     case object(Object)
+    case text(Text)
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         let discriminant = try container.decode(String.self, forKey: .type)
         switch discriminant {
-        case "text":
-            self = .text(try Text(from: decoder))
         case "actionForm":
             self = .actionForm(try ActionForm(from: decoder))
-        case "oauthButton":
-            self = .oauthButton(try OauthButton(from: decoder))
         case "chart":
             self = .chart(try Chart(from: decoder))
+        case "oauthButton":
+            self = .oauthButton(try OauthButton(from: decoder))
         case "object":
             self = .object(try Object(from: decoder))
+        case "text":
+            self = .text(try Text(from: decoder))
         default:
             throw DecodingError.dataCorrupted(
                 DecodingError.Context(
@@ -33,15 +33,15 @@ public enum BotResponse: Codable, Hashable, Sendable {
 
     public func encode(to encoder: Encoder) throws -> Void {
         switch self {
-        case .text(let data):
-            try data.encode(to: encoder)
         case .actionForm(let data):
-            try data.encode(to: encoder)
-        case .oauthButton(let data):
             try data.encode(to: encoder)
         case .chart(let data):
             try data.encode(to: encoder)
+        case .oauthButton(let data):
+            try data.encode(to: encoder)
         case .object(let data):
+            try data.encode(to: encoder)
+        case .text(let data):
             try data.encode(to: encoder)
         }
     }

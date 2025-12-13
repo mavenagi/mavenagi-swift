@@ -1,17 +1,17 @@
 import Foundation
 
 public enum EventRequest: Codable, Hashable, Sendable {
-    case userEvent(UserEvent)
     case systemEvent(SystemEvent)
+    case userEvent(UserEvent)
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         let discriminant = try container.decode(String.self, forKey: .eventType)
         switch discriminant {
-        case "userEvent":
-            self = .userEvent(try UserEvent(from: decoder))
         case "systemEvent":
             self = .systemEvent(try SystemEvent(from: decoder))
+        case "userEvent":
+            self = .userEvent(try UserEvent(from: decoder))
         default:
             throw DecodingError.dataCorrupted(
                 DecodingError.Context(
@@ -24,9 +24,9 @@ public enum EventRequest: Codable, Hashable, Sendable {
 
     public func encode(to encoder: Encoder) throws -> Void {
         switch self {
-        case .userEvent(let data):
-            try data.encode(to: encoder)
         case .systemEvent(let data):
+            try data.encode(to: encoder)
+        case .userEvent(let data):
             try data.encode(to: encoder)
         }
     }

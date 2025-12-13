@@ -1,26 +1,26 @@
 import Foundation
 
 public enum ConversationPrecondition: Codable, Hashable, Sendable {
-    case tags(Tags)
-    case metadata(Metadata)
     case actionExecuted(ActionExecuted)
-    case responseConfig(ResponseConfig)
     case app(App)
+    case metadata(Metadata)
+    case responseConfig(ResponseConfig)
+    case tags(Tags)
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         let discriminant = try container.decode(String.self, forKey: .conversationPreconditionType)
         switch discriminant {
-        case "tags":
-            self = .tags(try Tags(from: decoder))
-        case "metadata":
-            self = .metadata(try Metadata(from: decoder))
         case "actionExecuted":
             self = .actionExecuted(try ActionExecuted(from: decoder))
-        case "responseConfig":
-            self = .responseConfig(try ResponseConfig(from: decoder))
         case "app":
             self = .app(try App(from: decoder))
+        case "metadata":
+            self = .metadata(try Metadata(from: decoder))
+        case "responseConfig":
+            self = .responseConfig(try ResponseConfig(from: decoder))
+        case "tags":
+            self = .tags(try Tags(from: decoder))
         default:
             throw DecodingError.dataCorrupted(
                 DecodingError.Context(
@@ -33,15 +33,15 @@ public enum ConversationPrecondition: Codable, Hashable, Sendable {
 
     public func encode(to encoder: Encoder) throws -> Void {
         switch self {
-        case .tags(let data):
+        case .actionExecuted(let data):
+            try data.encode(to: encoder)
+        case .app(let data):
             try data.encode(to: encoder)
         case .metadata(let data):
             try data.encode(to: encoder)
-        case .actionExecuted(let data):
-            try data.encode(to: encoder)
         case .responseConfig(let data):
             try data.encode(to: encoder)
-        case .app(let data):
+        case .tags(let data):
             try data.encode(to: encoder)
         }
     }

@@ -5,6 +5,7 @@ public enum NumericConversationField: String, Codable, Hashable, CaseIterable, S
     case thumbsDownCount = "ThumbsDownCount"
     case insertCount = "InsertCount"
     case userMessageCount = "UserMessageCount"
+    case botMessageCount = "BotMessageCount"
     case handleTime = "HandleTime"
     case firstResponseTime = "FirstResponseTime"
     case predictedNps = "PredictedNPS"

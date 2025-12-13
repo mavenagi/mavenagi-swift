@@ -1,17 +1,17 @@
 import Foundation
 
 public enum DeliverMessageRequest: Codable, Hashable, Sendable {
-    case user(User)
     case conversation(Conversation)
+    case user(User)
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         let discriminant = try container.decode(String.self, forKey: .type)
         switch discriminant {
-        case "user":
-            self = .user(try User(from: decoder))
         case "conversation":
             self = .conversation(try Conversation(from: decoder))
+        case "user":
+            self = .user(try User(from: decoder))
         default:
             throw DecodingError.dataCorrupted(
                 DecodingError.Context(
@@ -24,9 +24,9 @@ public enum DeliverMessageRequest: Codable, Hashable, Sendable {
 
     public func encode(to encoder: Encoder) throws -> Void {
         switch self {
-        case .user(let data):
-            try data.encode(to: encoder)
         case .conversation(let data):
+            try data.encode(to: encoder)
+        case .user(let data):
             try data.encode(to: encoder)
         }
     }

@@ -32,6 +32,8 @@ public struct KnowledgeDocumentResponse: Codable, Hashable, Sendable {
     public let asset: AttachmentResponse?
     /// Metadata for the knowledge document.
     public let metadata: [String: String]
+    /// Scoped entities this document is associated with for context-based filtering.
+    public let relevantEntities: JSONValue
     /// Additional properties that are not explicitly defined in the schema
     public let additionalProperties: [String: JSONValue]
 
@@ -51,6 +53,7 @@ public struct KnowledgeDocumentResponse: Codable, Hashable, Sendable {
         content: String,
         asset: AttachmentResponse? = nil,
         metadata: [String: String],
+        relevantEntities: JSONValue,
         additionalProperties: [String: JSONValue] = .init()
     ) {
         self.knowledgeDocumentId = knowledgeDocumentId
@@ -68,6 +71,7 @@ public struct KnowledgeDocumentResponse: Codable, Hashable, Sendable {
         self.content = content
         self.asset = asset
         self.metadata = metadata
+        self.relevantEntities = relevantEntities
         self.additionalProperties = additionalProperties
     }
 
@@ -88,6 +92,7 @@ public struct KnowledgeDocumentResponse: Codable, Hashable, Sendable {
         self.content = try container.decode(String.self, forKey: .content)
         self.asset = try container.decodeIfPresent(AttachmentResponse.self, forKey: .asset)
         self.metadata = try container.decode([String: String].self, forKey: .metadata)
+        self.relevantEntities = try container.decode(JSONValue.self, forKey: .relevantEntities)
         self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
     }
 
@@ -109,6 +114,7 @@ public struct KnowledgeDocumentResponse: Codable, Hashable, Sendable {
         try container.encode(self.content, forKey: .content)
         try container.encodeIfPresent(self.asset, forKey: .asset)
         try container.encode(self.metadata, forKey: .metadata)
+        try container.encode(self.relevantEntities, forKey: .relevantEntities)
     }
 
     /// Keys for encoding/decoding struct properties.
@@ -128,5 +134,6 @@ public struct KnowledgeDocumentResponse: Codable, Hashable, Sendable {
         case content
         case asset
         case metadata
+        case relevantEntities
     }
 }

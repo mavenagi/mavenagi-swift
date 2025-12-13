@@ -3,35 +3,35 @@ import Foundation
 /// Defines the metric to be calculated for a column or chart.
 /// Only numeric fields are supported, except for ConversationCount and ConversationDistinctCount, which can be applied to any field.
 public enum ConversationMetric: Codable, Hashable, Sendable {
-    case count(Count)
-    case sum(Sum)
     case average(Average)
-    case min(Min)
-    case max(Max)
-    case percentile(Percentile)
-    case median(Median)
+    case count(Count)
     case distinctCount(DistinctCount)
+    case max(Max)
+    case median(Median)
+    case min(Min)
+    case percentile(Percentile)
+    case sum(Sum)
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         let discriminant = try container.decode(String.self, forKey: .type)
         switch discriminant {
-        case "count":
-            self = .count(try Count(from: decoder))
-        case "sum":
-            self = .sum(try Sum(from: decoder))
         case "average":
             self = .average(try Average(from: decoder))
-        case "min":
-            self = .min(try Min(from: decoder))
-        case "max":
-            self = .max(try Max(from: decoder))
-        case "percentile":
-            self = .percentile(try Percentile(from: decoder))
-        case "median":
-            self = .median(try Median(from: decoder))
+        case "count":
+            self = .count(try Count(from: decoder))
         case "distinctCount":
             self = .distinctCount(try DistinctCount(from: decoder))
+        case "max":
+            self = .max(try Max(from: decoder))
+        case "median":
+            self = .median(try Median(from: decoder))
+        case "min":
+            self = .min(try Min(from: decoder))
+        case "percentile":
+            self = .percentile(try Percentile(from: decoder))
+        case "sum":
+            self = .sum(try Sum(from: decoder))
         default:
             throw DecodingError.dataCorrupted(
                 DecodingError.Context(
@@ -44,21 +44,21 @@ public enum ConversationMetric: Codable, Hashable, Sendable {
 
     public func encode(to encoder: Encoder) throws -> Void {
         switch self {
-        case .count(let data):
-            try data.encode(to: encoder)
-        case .sum(let data):
-            try data.encode(to: encoder)
         case .average(let data):
             try data.encode(to: encoder)
-        case .min(let data):
+        case .count(let data):
+            try data.encode(to: encoder)
+        case .distinctCount(let data):
             try data.encode(to: encoder)
         case .max(let data):
             try data.encode(to: encoder)
-        case .percentile(let data):
-            try data.encode(to: encoder)
         case .median(let data):
             try data.encode(to: encoder)
-        case .distinctCount(let data):
+        case .min(let data):
+            try data.encode(to: encoder)
+        case .percentile(let data):
+            try data.encode(to: encoder)
+        case .sum(let data):
             try data.encode(to: encoder)
         }
     }
@@ -79,8 +79,14 @@ public enum ConversationMetric: Codable, Hashable, Sendable {
         }
 
         public func encode(to encoder: Encoder) throws -> Void {
+            var container = encoder.container(keyedBy: CodingKeys.self)
             try encoder.encodeAdditionalProperties(self.additionalProperties)
             try container.encode(self.type, forKey: .type)
+        }
+
+        /// Keys for encoding/decoding struct properties.
+        enum CodingKeys: String, CodingKey, CaseIterable {
+            case type
         }
     }
 

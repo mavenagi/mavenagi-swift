@@ -15,6 +15,8 @@ public struct ConversationSummary: Codable, Hashable, Sendable {
     public let handoffCount: Int
     /// The number of messages of type `USER` in the conversation.
     public let userMessageCount: Int
+    /// The number of bot answer messages in the conversation.
+    public let botMessageCount: Int
     /// The total time in milliseconds that the user spent interacting with the conversation.
     /// Calculated by taking the timestamp of the last message in the conversation minus the timestamp of the first message.
     public let handleTime: Int64?
@@ -36,6 +38,12 @@ public struct ConversationSummary: Codable, Hashable, Sendable {
     public let lastUserMessage: String?
     /// The text of the last bot message in the conversation.
     public let lastBotMessage: String?
+    /// The set of app IDs that are involved in this conversation. This includes:
+    /// - The app ID that created the conversation
+    /// - The app IDs of all messages created in the conversation
+    /// - The app IDs of all actions selected by the LLM in the conversation (including unsubmitted forms)
+    /// - The app IDs of all documents referenced by LLM responses in the conversation (does not include document search results not utilized by the LLM)
+    public let involvedAppIds: JSONValue
     /// Additional properties that are not explicitly defined in the schema
     public let additionalProperties: [String: JSONValue]
 
@@ -47,6 +55,7 @@ public struct ConversationSummary: Codable, Hashable, Sendable {
         thumbsDownCount: Int,
         handoffCount: Int,
         userMessageCount: Int,
+        botMessageCount: Int,
         handleTime: Int64? = nil,
         humanAgentResponseDelay: Int64? = nil,
         humanAgents: [String],
@@ -55,6 +64,7 @@ public struct ConversationSummary: Codable, Hashable, Sendable {
         userIdentifiers: [String],
         lastUserMessage: String? = nil,
         lastBotMessage: String? = nil,
+        involvedAppIds: JSONValue,
         additionalProperties: [String: JSONValue] = .init()
     ) {
         self.actionIds = actionIds
@@ -64,6 +74,7 @@ public struct ConversationSummary: Codable, Hashable, Sendable {
         self.thumbsDownCount = thumbsDownCount
         self.handoffCount = handoffCount
         self.userMessageCount = userMessageCount
+        self.botMessageCount = botMessageCount
         self.handleTime = handleTime
         self.humanAgentResponseDelay = humanAgentResponseDelay
         self.humanAgents = humanAgents
@@ -72,6 +83,7 @@ public struct ConversationSummary: Codable, Hashable, Sendable {
         self.userIdentifiers = userIdentifiers
         self.lastUserMessage = lastUserMessage
         self.lastBotMessage = lastBotMessage
+        self.involvedAppIds = involvedAppIds
         self.additionalProperties = additionalProperties
     }
 
@@ -84,6 +96,7 @@ public struct ConversationSummary: Codable, Hashable, Sendable {
         self.thumbsDownCount = try container.decode(Int.self, forKey: .thumbsDownCount)
         self.handoffCount = try container.decode(Int.self, forKey: .handoffCount)
         self.userMessageCount = try container.decode(Int.self, forKey: .userMessageCount)
+        self.botMessageCount = try container.decode(Int.self, forKey: .botMessageCount)
         self.handleTime = try container.decodeIfPresent(Int64.self, forKey: .handleTime)
         self.humanAgentResponseDelay = try container.decodeIfPresent(Int64.self, forKey: .humanAgentResponseDelay)
         self.humanAgents = try container.decode([String].self, forKey: .humanAgents)
@@ -92,6 +105,7 @@ public struct ConversationSummary: Codable, Hashable, Sendable {
         self.userIdentifiers = try container.decode([String].self, forKey: .userIdentifiers)
         self.lastUserMessage = try container.decodeIfPresent(String.self, forKey: .lastUserMessage)
         self.lastBotMessage = try container.decodeIfPresent(String.self, forKey: .lastBotMessage)
+        self.involvedAppIds = try container.decode(JSONValue.self, forKey: .involvedAppIds)
         self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
     }
 
@@ -105,6 +119,7 @@ public struct ConversationSummary: Codable, Hashable, Sendable {
         try container.encode(self.thumbsDownCount, forKey: .thumbsDownCount)
         try container.encode(self.handoffCount, forKey: .handoffCount)
         try container.encode(self.userMessageCount, forKey: .userMessageCount)
+        try container.encode(self.botMessageCount, forKey: .botMessageCount)
         try container.encodeIfPresent(self.handleTime, forKey: .handleTime)
         try container.encodeIfPresent(self.humanAgentResponseDelay, forKey: .humanAgentResponseDelay)
         try container.encode(self.humanAgents, forKey: .humanAgents)
@@ -113,6 +128,7 @@ public struct ConversationSummary: Codable, Hashable, Sendable {
         try container.encode(self.userIdentifiers, forKey: .userIdentifiers)
         try container.encodeIfPresent(self.lastUserMessage, forKey: .lastUserMessage)
         try container.encodeIfPresent(self.lastBotMessage, forKey: .lastBotMessage)
+        try container.encode(self.involvedAppIds, forKey: .involvedAppIds)
     }
 
     /// Keys for encoding/decoding struct properties.
@@ -124,6 +140,7 @@ public struct ConversationSummary: Codable, Hashable, Sendable {
         case thumbsDownCount
         case handoffCount
         case userMessageCount
+        case botMessageCount
         case handleTime
         case humanAgentResponseDelay
         case humanAgents
@@ -132,5 +149,6 @@ public struct ConversationSummary: Codable, Hashable, Sendable {
         case userIdentifiers
         case lastUserMessage
         case lastBotMessage
+        case involvedAppIds
     }
 }

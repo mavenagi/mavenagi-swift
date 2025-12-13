@@ -25,6 +25,8 @@ public struct KnowledgeDocumentRequest: Codable, Hashable, Sendable {
     public let createdAt: Date?
     /// The time at which this document was last modified.
     public let updatedAt: Date?
+    /// Scoped entities this document is associated with for context-based filtering. By default, the document is associated with the agent.
+    public let relevantEntities: JSONValue?
     /// Additional properties that are not explicitly defined in the schema
     public let additionalProperties: [String: JSONValue]
 
@@ -41,6 +43,7 @@ public struct KnowledgeDocumentRequest: Codable, Hashable, Sendable {
         metadata: [String: String]? = nil,
         createdAt: Date? = nil,
         updatedAt: Date? = nil,
+        relevantEntities: JSONValue? = nil,
         additionalProperties: [String: JSONValue] = .init()
     ) {
         self.url = url
@@ -55,6 +58,7 @@ public struct KnowledgeDocumentRequest: Codable, Hashable, Sendable {
         self.metadata = metadata
         self.createdAt = createdAt
         self.updatedAt = updatedAt
+        self.relevantEntities = relevantEntities
         self.additionalProperties = additionalProperties
     }
 
@@ -72,6 +76,7 @@ public struct KnowledgeDocumentRequest: Codable, Hashable, Sendable {
         self.metadata = try container.decodeIfPresent([String: String].self, forKey: .metadata)
         self.createdAt = try container.decodeIfPresent(Date.self, forKey: .createdAt)
         self.updatedAt = try container.decodeIfPresent(Date.self, forKey: .updatedAt)
+        self.relevantEntities = try container.decodeIfPresent(JSONValue.self, forKey: .relevantEntities)
         self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
     }
 
@@ -90,6 +95,7 @@ public struct KnowledgeDocumentRequest: Codable, Hashable, Sendable {
         try container.encodeIfPresent(self.metadata, forKey: .metadata)
         try container.encodeIfPresent(self.createdAt, forKey: .createdAt)
         try container.encodeIfPresent(self.updatedAt, forKey: .updatedAt)
+        try container.encodeIfPresent(self.relevantEntities, forKey: .relevantEntities)
     }
 
     /// Keys for encoding/decoding struct properties.
@@ -106,5 +112,6 @@ public struct KnowledgeDocumentRequest: Codable, Hashable, Sendable {
         case metadata
         case createdAt
         case updatedAt
+        case relevantEntities
     }
 }

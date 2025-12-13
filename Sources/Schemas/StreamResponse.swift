@@ -1,32 +1,32 @@
 import Foundation
 
 public enum StreamResponse: Codable, Hashable, Sendable {
-    case text(Text)
     case action(Action)
-    case oauthButton(OauthButton)
     case chart(Chart)
-    case metadata(Metadata)
-    case start(Start)
     case end(End)
+    case metadata(Metadata)
+    case oauthButton(OauthButton)
+    case start(Start)
+    case text(Text)
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         let discriminant = try container.decode(String.self, forKey: .eventType)
         switch discriminant {
-        case "text":
-            self = .text(try Text(from: decoder))
         case "action":
             self = .action(try Action(from: decoder))
-        case "oauthButton":
-            self = .oauthButton(try OauthButton(from: decoder))
         case "chart":
             self = .chart(try Chart(from: decoder))
-        case "metadata":
-            self = .metadata(try Metadata(from: decoder))
-        case "start":
-            self = .start(try Start(from: decoder))
         case "end":
             self = .end(try End(from: decoder))
+        case "metadata":
+            self = .metadata(try Metadata(from: decoder))
+        case "oauthButton":
+            self = .oauthButton(try OauthButton(from: decoder))
+        case "start":
+            self = .start(try Start(from: decoder))
+        case "text":
+            self = .text(try Text(from: decoder))
         default:
             throw DecodingError.dataCorrupted(
                 DecodingError.Context(
@@ -39,19 +39,19 @@ public enum StreamResponse: Codable, Hashable, Sendable {
 
     public func encode(to encoder: Encoder) throws -> Void {
         switch self {
-        case .text(let data):
-            try data.encode(to: encoder)
         case .action(let data):
-            try data.encode(to: encoder)
-        case .oauthButton(let data):
             try data.encode(to: encoder)
         case .chart(let data):
             try data.encode(to: encoder)
+        case .end(let data):
+            try data.encode(to: encoder)
         case .metadata(let data):
+            try data.encode(to: encoder)
+        case .oauthButton(let data):
             try data.encode(to: encoder)
         case .start(let data):
             try data.encode(to: encoder)
-        case .end(let data):
+        case .text(let data):
             try data.encode(to: encoder)
         }
     }

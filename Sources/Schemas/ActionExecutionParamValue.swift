@@ -1,17 +1,17 @@
 import Foundation
 
 public enum ActionExecutionParamValue: Codable, Hashable, Sendable {
-    case primitive(Primitive)
     case attachment(Attachment)
+    case primitive(Primitive)
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         let discriminant = try container.decode(String.self, forKey: .valueType)
         switch discriminant {
-        case "primitive":
-            self = .primitive(try Primitive(from: decoder))
         case "attachment":
             self = .attachment(try Attachment(from: decoder))
+        case "primitive":
+            self = .primitive(try Primitive(from: decoder))
         default:
             throw DecodingError.dataCorrupted(
                 DecodingError.Context(
@@ -24,9 +24,9 @@ public enum ActionExecutionParamValue: Codable, Hashable, Sendable {
 
     public func encode(to encoder: Encoder) throws -> Void {
         switch self {
-        case .primitive(let data):
-            try data.encode(to: encoder)
         case .attachment(let data):
+            try data.encode(to: encoder)
+        case .primitive(let data):
             try data.encode(to: encoder)
         }
     }

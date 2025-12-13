@@ -9,6 +9,7 @@ public final class MavenAGI: Sendable {
     public let assets: AssetsClient
     public let commons: CommonsClient
     public let conversation: ConversationClient
+    public let customers: CustomersClient
     public let events: EventsClient
     public let inbox: InboxClient
     public let knowledge: KnowledgeClient
@@ -35,7 +36,7 @@ public final class MavenAGI: Sendable {
         headers: [String: String]? = nil,
         timeout: Int? = nil,
         maxRetries: Int? = nil,
-        urlSession: URLSession? = nil
+        urlSession: Networking.URLSession? = nil
     ) {
         self.init(
             baseURL: baseURL,
@@ -57,7 +58,7 @@ public final class MavenAGI: Sendable {
         headers: [String: String]? = nil,
         timeout: Int? = nil,
         maxRetries: Int? = nil,
-        urlSession: URLSession? = nil
+        urlSession: Networking.URLSession? = nil
     ) {
         let config = ClientConfig(
             baseURL: baseURL,
@@ -76,6 +77,7 @@ public final class MavenAGI: Sendable {
         self.assets = AssetsClient(config: config)
         self.commons = CommonsClient(config: config)
         self.conversation = ConversationClient(config: config)
+        self.customers = CustomersClient(config: config)
         self.events = EventsClient(config: config)
         self.inbox = InboxClient(config: config)
         self.knowledge = KnowledgeClient(config: config)
