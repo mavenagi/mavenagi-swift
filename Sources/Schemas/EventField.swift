@@ -17,4 +17,5 @@ public enum EventField: String, Codable, Hashable, CaseIterable, Sendable {
     case sourceGeoCountry = "SOURCE_GEO_COUNTRY"
     case userReferenceId = "USER_REFERENCE_ID"
     case agentUserId = "AGENT_USER_ID"
+    case timestamp = "TIMESTAMP"
 }

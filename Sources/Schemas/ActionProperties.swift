@@ -1,6 +1,6 @@
 import Foundation
 
-public struct ActionBase: Codable, Hashable, Sendable {
+public struct ActionProperties: Codable, Hashable, Sendable {
     /// Whether the action requires user interaction to execute. If false, and all of the required action parameters are known, the LLM may call the action automatically. If true, an conversations ask call will return a BotActionFormResponse which must be submitted by an API caller. API callers must display a button with the buttonName label to confirm the user's intent.
     public let userInteractionRequired: Bool
     /// When user interaction is required, the name of the button that is shown to the end user to confirm execution of the action. Defaults to "Submit" if not supplied.
@@ -11,10 +11,6 @@ public struct ActionBase: Codable, Hashable, Sendable {
     public let userFormParameters: [ActionParameter]
     /// The ISO 639-1 code for the language used in all fields of this action. Will be derived using the description's text if not specified.
     public let language: String?
-    /// The name of the action. This is displayed to the end user as part of forms when user interaction is required. It is also used to help Maven decide if the action is relevant to a conversation.
-    public let name: String
-    /// The description of the action. Must be less than 1024 characters. This helps Maven decide if the action is relevant to a conversation and is not displayed directly to the end user. Descriptions are used by the LLM.
-    public let description: String
     /// Additional properties that are not explicitly defined in the schema
     public let additionalProperties: [String: JSONValue]
 
@@ -24,8 +20,6 @@ public struct ActionBase: Codable, Hashable, Sendable {
         precondition: Precondition? = nil,
         userFormParameters: [ActionParameter],
         language: String? = nil,
-        name: String,
-        description: String,
         additionalProperties: [String: JSONValue] = .init()
     ) {
         self.userInteractionRequired = userInteractionRequired
@@ -33,8 +27,6 @@ public struct ActionBase: Codable, Hashable, Sendable {
         self.precondition = precondition
         self.userFormParameters = userFormParameters
         self.language = language
-        self.name = name
-        self.description = description
         self.additionalProperties = additionalProperties
     }
 
@@ -45,8 +37,6 @@ public struct ActionBase: Codable, Hashable, Sendable {
         self.precondition = try container.decodeIfPresent(Precondition.self, forKey: .precondition)
         self.userFormParameters = try container.decode([ActionParameter].self, forKey: .userFormParameters)
         self.language = try container.decodeIfPresent(String.self, forKey: .language)
-        self.name = try container.decode(String.self, forKey: .name)
-        self.description = try container.decode(String.self, forKey: .description)
         self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
     }
 
@@ -58,8 +48,6 @@ public struct ActionBase: Codable, Hashable, Sendable {
         try container.encodeIfPresent(self.precondition, forKey: .precondition)
         try container.encode(self.userFormParameters, forKey: .userFormParameters)
         try container.encodeIfPresent(self.language, forKey: .language)
-        try container.encode(self.name, forKey: .name)
-        try container.encode(self.description, forKey: .description)
     }
 
     /// Keys for encoding/decoding struct properties.
@@ -69,7 +57,5 @@ public struct ActionBase: Codable, Hashable, Sendable {
         case precondition
         case userFormParameters
         case language
-        case name
-        case description
     }
 }

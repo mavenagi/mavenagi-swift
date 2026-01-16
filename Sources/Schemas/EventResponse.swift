@@ -40,6 +40,8 @@ public enum EventResponse: Codable, Hashable, Sendable {
         public let contextInfo: ContextInfo?
         /// The unique ID of the event
         public let id: EntityId
+        /// The date and time the event was created
+        public let createdAt: Date?
         /// The name of the event
         public let eventName: UserEventName
         /// Information about the user who triggered the event
@@ -58,6 +60,7 @@ public enum EventResponse: Codable, Hashable, Sendable {
             sessionInfo: SessionInfo? = nil,
             contextInfo: ContextInfo? = nil,
             id: EntityId,
+            createdAt: Date? = nil,
             eventName: UserEventName,
             userInfo: EventUserInfo,
             feedbackInfo: [FeedbackInfo]? = nil,
@@ -70,6 +73,7 @@ public enum EventResponse: Codable, Hashable, Sendable {
             self.sessionInfo = sessionInfo
             self.contextInfo = contextInfo
             self.id = id
+            self.createdAt = createdAt
             self.eventName = eventName
             self.userInfo = userInfo
             self.feedbackInfo = feedbackInfo
@@ -85,6 +89,7 @@ public enum EventResponse: Codable, Hashable, Sendable {
             self.sessionInfo = try container.decodeIfPresent(SessionInfo.self, forKey: .sessionInfo)
             self.contextInfo = try container.decodeIfPresent(ContextInfo.self, forKey: .contextInfo)
             self.id = try container.decode(EntityId.self, forKey: .id)
+            self.createdAt = try container.decodeIfPresent(Date.self, forKey: .createdAt)
             self.eventName = try container.decode(UserEventName.self, forKey: .eventName)
             self.userInfo = try container.decode(EventUserInfo.self, forKey: .userInfo)
             self.feedbackInfo = try container.decodeIfPresent([FeedbackInfo].self, forKey: .feedbackInfo)
@@ -102,6 +107,7 @@ public enum EventResponse: Codable, Hashable, Sendable {
             try container.encodeIfPresent(self.sessionInfo, forKey: .sessionInfo)
             try container.encodeIfPresent(self.contextInfo, forKey: .contextInfo)
             try container.encode(self.id, forKey: .id)
+            try container.encodeIfPresent(self.createdAt, forKey: .createdAt)
             try container.encode(self.eventName, forKey: .eventName)
             try container.encode(self.userInfo, forKey: .userInfo)
             try container.encodeIfPresent(self.feedbackInfo, forKey: .feedbackInfo)
@@ -117,6 +123,7 @@ public enum EventResponse: Codable, Hashable, Sendable {
             case sessionInfo
             case contextInfo
             case id
+            case createdAt
             case eventName
             case userInfo
             case feedbackInfo

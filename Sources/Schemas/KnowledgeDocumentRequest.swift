@@ -16,7 +16,7 @@ public struct KnowledgeDocumentRequest: Codable, Hashable, Sendable {
     /// The title of the document. Will be shown as part of answers.
     public let title: String
     /// ID of the asset associated with this document. This asset will be transformed into text and set as the content of the document. The following types are supported: `application/pdf`, `text/plain`.  Either this or content is required, but not both
-    public let assetId: EntityIdBase?
+    public let assetId: EntityIdWithoutAgent?
     /// The content of the document. Not shown directly to users. May be provided in HTML or markdown. HTML will be converted to markdown automatically. Images are not currently supported and will be ignored. Either this or assetId is required, but not both
     public let content: String?
     /// Metadata for the knowledge document.
@@ -38,7 +38,7 @@ public struct KnowledgeDocumentRequest: Codable, Hashable, Sendable {
         versionId: EntityIdWithoutAgent? = nil,
         contentType: KnowledgeDocumentContentType,
         title: String,
-        assetId: EntityIdBase? = nil,
+        assetId: EntityIdWithoutAgent? = nil,
         content: String? = nil,
         metadata: [String: String]? = nil,
         createdAt: Date? = nil,
@@ -71,7 +71,7 @@ public struct KnowledgeDocumentRequest: Codable, Hashable, Sendable {
         self.versionId = try container.decodeIfPresent(EntityIdWithoutAgent.self, forKey: .versionId)
         self.contentType = try container.decode(KnowledgeDocumentContentType.self, forKey: .contentType)
         self.title = try container.decode(String.self, forKey: .title)
-        self.assetId = try container.decodeIfPresent(EntityIdBase.self, forKey: .assetId)
+        self.assetId = try container.decodeIfPresent(EntityIdWithoutAgent.self, forKey: .assetId)
         self.content = try container.decodeIfPresent(String.self, forKey: .content)
         self.metadata = try container.decodeIfPresent([String: String].self, forKey: .metadata)
         self.createdAt = try container.decodeIfPresent(Date.self, forKey: .createdAt)

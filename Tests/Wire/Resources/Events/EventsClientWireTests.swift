@@ -17,6 +17,7 @@ import Api
                     "appId": "appId",
                     "referenceId": "x"
                   },
+                  "createdAt": "2024-01-15T09:30:00Z",
                   "eventName": "BUTTON_CLICKED",
                   "userInfo": {
                     "id": {
@@ -135,6 +136,7 @@ import Api
                     appId: "appId",
                     referenceId: "x"
                 ),
+                createdAt: Optional(try! Date("2024-01-15T09:30:00Z", strategy: .iso8601)),
                 eventName: .buttonClicked,
                 userInfo: EventUserInfo(
                     id: Optional(EntityId(
@@ -254,6 +256,7 @@ import Api
                         "appId": "appId",
                         "referenceId": "x"
                       },
+                      "createdAt": "2024-01-15T09:30:00Z",
                       "eventName": "BUTTON_CLICKED",
                       "userInfo": {
                         "id": {
@@ -363,6 +366,7 @@ import Api
                         "appId": "appId",
                         "referenceId": "x"
                       },
+                      "createdAt": "2024-01-15T09:30:00Z",
                       "eventName": "BUTTON_CLICKED",
                       "userInfo": {
                         "id": {
@@ -489,6 +493,7 @@ import Api
                             appId: "appId",
                             referenceId: "x"
                         ),
+                        createdAt: Optional(try! Date("2024-01-15T09:30:00Z", strategy: .iso8601)),
                         eventName: .buttonClicked,
                         userInfo: EventUserInfo(
                             id: Optional(EntityId(
@@ -582,6 +587,7 @@ import Api
                             appId: "appId",
                             referenceId: "x"
                         ),
+                        createdAt: Optional(try! Date("2024-01-15T09:30:00Z", strategy: .iso8601)),
                         eventName: .buttonClicked,
                         userInfo: EventUserInfo(
                             id: Optional(EntityId(
@@ -695,6 +701,7 @@ import Api
                     "appId": "appId",
                     "referenceId": "x"
                   },
+                  "createdAt": "2024-01-15T09:30:00Z",
                   "eventName": "BUTTON_CLICKED",
                   "userInfo": {
                     "id": {
@@ -813,6 +820,7 @@ import Api
                     appId: "appId",
                     referenceId: "x"
                 ),
+                createdAt: Optional(try! Date("2024-01-15T09:30:00Z", strategy: .iso8601)),
                 eventName: .buttonClicked,
                 userInfo: EventUserInfo(
                     id: Optional(EntityId(
