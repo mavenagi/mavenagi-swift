@@ -17,6 +17,8 @@ public enum ActionParameterType: String, Codable, Hashable, CaseIterable, Sendab
     case time = "TIME"
     /// Email parameter type; must be a valid email address
     case email = "EMAIL"
+    /// Phone number parameter type; must be a valid phone number (E.164 or regional format)
+    case phone = "PHONE"
     /// Schema parameter type for complex structured data that adheres to a JSON schema definition. When this type is used this should be the only action parameter (all other parameters should be omitted), the `schema` field must be set and `enumOptions` should not be used.
     case schema = "SCHEMA"
     /// File parameter type for file uploads.

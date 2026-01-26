@@ -2018,6 +2018,85 @@ try await main()
 </dl>
 </details>
 
+## Auth
+<details><summary><code>client.auth.<a href="/Sources/Resources/Auth/AuthClient.swift">sessionToken</a>(request: SessionTokenRequest, requestOptions: RequestOptions?) -> SessionTokenResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Creates a short-lived session token that can be used to authenticate 
+WebSocket connections. Session tokens are useful for client-side applications where 
+you don’t want to expose your API key.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```swift
+import Foundation
+import Api
+
+private func main() async throws {
+    let client = MavenAGI(
+        appId: "<username>",
+        appSecret: "<password>"
+    )
+
+    _ = try await client.auth.sessionToken(request: SessionTokenRequest(
+        ttlSeconds: 3600
+    ))
+}
+
+try await main()
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `SessionTokenRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `RequestOptions?` — Additional options for configuring the request, such as custom headers or timeout settings.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Conversation
 <details><summary><code>client.conversation.<a href="/Sources/Resources/Conversation/ConversationClient.swift">initialize</a>(request: ConversationRequest, requestOptions: RequestOptions?) -> ConversationResponse</code></summary>
 <dl>
