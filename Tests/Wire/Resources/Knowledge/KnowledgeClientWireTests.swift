@@ -44,11 +44,16 @@ import Api
                         "appId": "appId",
                         "referenceId": "x"
                       },
+                      "url": "url",
                       "name": "name",
                       "precondition": {
                         "preconditionType": "user",
                         "key": "key",
                         "value": "value",
+                        "values": [
+                          "values",
+                          "values"
+                        ],
                         "operator": "NOT"
                       }
                     },
@@ -86,11 +91,16 @@ import Api
                         "appId": "appId",
                         "referenceId": "x"
                       },
+                      "url": "url",
                       "name": "name",
                       "precondition": {
                         "preconditionType": "user",
                         "key": "key",
                         "value": "value",
+                        "values": [
+                          "values",
+                          "values"
+                        ],
                         "operator": "NOT"
                       }
                     }
@@ -143,11 +153,16 @@ import Api
                         appId: "appId",
                         referenceId: "x"
                     )),
+                    url: Optional("url"),
                     name: "name",
                     precondition: Optional(.user(
                         .init(
                             key: "key",
                             value: Optional("value"),
+                            values: Optional([
+                                "values",
+                                "values"
+                            ]),
                             operator: Optional(.not)
                         )
                     ))
@@ -184,11 +199,16 @@ import Api
                         appId: "appId",
                         referenceId: "x"
                     )),
+                    url: Optional("url"),
                     name: "name",
                     precondition: Optional(.user(
                         .init(
                             key: "key",
                             value: Optional("value"),
+                            values: Optional([
+                                "values",
+                                "values"
+                            ]),
                             operator: Optional(.not)
                         )
                     ))

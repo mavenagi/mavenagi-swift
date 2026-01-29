@@ -5,8 +5,10 @@ public struct MetadataPrecondition: Codable, Hashable, Sendable {
     public let `operator`: PreconditionOperator?
     /// The key that must be present in the metadata for a precondition to be met
     public let key: String
-    /// If set, the value must match the metadata value for the given key
+    /// Single value for CONTAINS operator or exact match
     public let value: String?
+    /// Multiple values for CONTAINS_ANY and CONTAINS_ALL operators
+    public let values: [String]?
     /// Additional properties that are not explicitly defined in the schema
     public let additionalProperties: [String: JSONValue]
 
@@ -14,11 +16,13 @@ public struct MetadataPrecondition: Codable, Hashable, Sendable {
         operator: PreconditionOperator? = nil,
         key: String,
         value: String? = nil,
+        values: [String]? = nil,
         additionalProperties: [String: JSONValue] = .init()
     ) {
         self.operator = `operator`
         self.key = key
         self.value = value
+        self.values = values
         self.additionalProperties = additionalProperties
     }
 
@@ -27,6 +31,7 @@ public struct MetadataPrecondition: Codable, Hashable, Sendable {
         self.operator = try container.decodeIfPresent(PreconditionOperator.self, forKey: .operator)
         self.key = try container.decode(String.self, forKey: .key)
         self.value = try container.decodeIfPresent(String.self, forKey: .value)
+        self.values = try container.decodeIfPresent([String].self, forKey: .values)
         self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
     }
 
@@ -36,6 +41,7 @@ public struct MetadataPrecondition: Codable, Hashable, Sendable {
         try container.encodeIfPresent(self.operator, forKey: .operator)
         try container.encode(self.key, forKey: .key)
         try container.encodeIfPresent(self.value, forKey: .value)
+        try container.encodeIfPresent(self.values, forKey: .values)
     }
 
     /// Keys for encoding/decoding struct properties.
@@ -43,5 +49,6 @@ public struct MetadataPrecondition: Codable, Hashable, Sendable {
         case `operator`
         case key
         case value
+        case values
     }
 }

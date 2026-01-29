@@ -37,6 +37,10 @@ import Api
                         "preconditionType": "user",
                         "key": "key",
                         "value": "value",
+                        "values": [
+                          "values",
+                          "values"
+                        ],
                         "operator": "NOT"
                       },
                       "userFormParameters": [
@@ -148,6 +152,10 @@ import Api
                         "preconditionType": "user",
                         "key": "key",
                         "value": "value",
+                        "values": [
+                          "values",
+                          "values"
+                        ],
                         "operator": "NOT"
                       },
                       "userFormParameters": [
@@ -276,6 +284,10 @@ import Api
                         .init(
                             key: "key",
                             value: Optional("value"),
+                            values: Optional([
+                                "values",
+                                "values"
+                            ]),
                             operator: Optional(.not)
                         )
                     )),
@@ -396,6 +408,10 @@ import Api
                         .init(
                             key: "key",
                             value: Optional("value"),
+                            values: Optional([
+                                "values",
+                                "values"
+                            ]),
                             operator: Optional(.not)
                         )
                     )),

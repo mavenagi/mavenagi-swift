@@ -18,12 +18,18 @@ import Api
                         "appId": "appId",
                         "referenceId": "x"
                       },
+                      "createdAt": "2024-01-15T09:30:00Z",
+                      "updatedAt": "2024-01-15T09:30:00Z",
                       "status": "ACTIVE",
                       "name": "name",
                       "precondition": {
                         "preconditionType": "user",
                         "key": "key",
                         "value": "value",
+                        "values": [
+                          "values",
+                          "values"
+                        ],
                         "operator": "NOT"
                       }
                     },
@@ -35,12 +41,18 @@ import Api
                         "appId": "appId",
                         "referenceId": "x"
                       },
+                      "createdAt": "2024-01-15T09:30:00Z",
+                      "updatedAt": "2024-01-15T09:30:00Z",
                       "status": "ACTIVE",
                       "name": "name",
                       "precondition": {
                         "preconditionType": "user",
                         "key": "key",
                         "value": "value",
+                        "values": [
+                          "values",
+                          "values"
+                        ],
                         "operator": "NOT"
                       }
                     }
@@ -69,12 +81,18 @@ import Api
                         appId: "appId",
                         referenceId: "x"
                     ),
+                    createdAt: try! Date("2024-01-15T09:30:00Z", strategy: .iso8601),
+                    updatedAt: try! Date("2024-01-15T09:30:00Z", strategy: .iso8601),
                     status: .active,
                     name: "name",
                     precondition: .user(
                         .init(
                             key: "key",
                             value: Optional("value"),
+                            values: Optional([
+                                "values",
+                                "values"
+                            ]),
                             operator: Optional(.not)
                         )
                     )
@@ -87,12 +105,18 @@ import Api
                         appId: "appId",
                         referenceId: "x"
                     ),
+                    createdAt: try! Date("2024-01-15T09:30:00Z", strategy: .iso8601),
+                    updatedAt: try! Date("2024-01-15T09:30:00Z", strategy: .iso8601),
                     status: .active,
                     name: "name",
                     precondition: .user(
                         .init(
                             key: "key",
                             value: Optional("value"),
+                            values: Optional([
+                                "values",
+                                "values"
+                            ]),
                             operator: Optional(.not)
                         )
                     )
@@ -126,6 +150,8 @@ import Api
                     "type": "SEGMENT"
                   },
                   "name": "Admin users",
+                  "createdAt": "2025-01-01T00:00:00Z",
+                  "updatedAt": "2025-01-15T12:30:00Z",
                   "status": "ACTIVE",
                   "precondition": {
                     "preconditionType": "group",
@@ -160,6 +186,8 @@ import Api
                 type: .segment
             ),
             name: "Admin users",
+            createdAt: try! Date("2025-01-01T00:00:00Z", strategy: .iso8601),
+            updatedAt: try! Date("2025-01-15T12:30:00Z", strategy: .iso8601),
             status: .active,
             precondition: .group(
                 .init(
@@ -224,6 +252,8 @@ import Api
                     "type": "SEGMENT"
                   },
                   "name": "Admin users",
+                  "createdAt": "2025-01-01T00:00:00Z",
+                  "updatedAt": "2025-01-15T12:30:00Z",
                   "status": "ACTIVE",
                   "precondition": {
                     "preconditionType": "group",
@@ -258,6 +288,8 @@ import Api
                 type: .segment
             ),
             name: "Admin users",
+            createdAt: try! Date("2025-01-01T00:00:00Z", strategy: .iso8601),
+            updatedAt: try! Date("2025-01-15T12:30:00Z", strategy: .iso8601),
             status: .active,
             precondition: .group(
                 .init(
@@ -299,12 +331,18 @@ import Api
                     "appId": "appId",
                     "referenceId": "x"
                   },
+                  "createdAt": "2024-01-15T09:30:00Z",
+                  "updatedAt": "2024-01-15T09:30:00Z",
                   "status": "ACTIVE",
                   "name": "name",
                   "precondition": {
                     "preconditionType": "user",
                     "key": "key",
                     "value": "value",
+                    "values": [
+                      "values",
+                      "values"
+                    ],
                     "operator": "NOT"
                   }
                 }
@@ -325,12 +363,18 @@ import Api
                 appId: "appId",
                 referenceId: "x"
             ),
+            createdAt: try! Date("2024-01-15T09:30:00Z", strategy: .iso8601),
+            updatedAt: try! Date("2024-01-15T09:30:00Z", strategy: .iso8601),
             status: .active,
             name: "name",
             precondition: .user(
                 .init(
                     key: "key",
                     value: Optional("value"),
+                    values: Optional([
+                        "values",
+                        "values"
+                    ]),
                     operator: Optional(.not)
                 )
             )

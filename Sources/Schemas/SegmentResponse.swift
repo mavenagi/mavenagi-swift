@@ -7,6 +7,10 @@ public struct SegmentResponse: Codable, Hashable, Sendable {
     public let precondition: Precondition
     /// ID that uniquely identifies this segment
     public let segmentId: EntityId
+    /// The date and time when the segment was created.
+    public let createdAt: Date
+    /// The date and time when the segment was last updated.
+    public let updatedAt: Date
     /// Whether or not the segment is in active use. To preserve historical data, segments can not be deleted.
     /// 
     /// Only active segments will be evaluated for matching user questions.
@@ -18,12 +22,16 @@ public struct SegmentResponse: Codable, Hashable, Sendable {
         name: String,
         precondition: Precondition,
         segmentId: EntityId,
+        createdAt: Date,
+        updatedAt: Date,
         status: SegmentStatus,
         additionalProperties: [String: JSONValue] = .init()
     ) {
         self.name = name
         self.precondition = precondition
         self.segmentId = segmentId
+        self.createdAt = createdAt
+        self.updatedAt = updatedAt
         self.status = status
         self.additionalProperties = additionalProperties
     }
@@ -33,6 +41,8 @@ public struct SegmentResponse: Codable, Hashable, Sendable {
         self.name = try container.decode(String.self, forKey: .name)
         self.precondition = try container.decode(Precondition.self, forKey: .precondition)
         self.segmentId = try container.decode(EntityId.self, forKey: .segmentId)
+        self.createdAt = try container.decode(Date.self, forKey: .createdAt)
+        self.updatedAt = try container.decode(Date.self, forKey: .updatedAt)
         self.status = try container.decode(SegmentStatus.self, forKey: .status)
         self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
     }
@@ -43,6 +53,8 @@ public struct SegmentResponse: Codable, Hashable, Sendable {
         try container.encode(self.name, forKey: .name)
         try container.encode(self.precondition, forKey: .precondition)
         try container.encode(self.segmentId, forKey: .segmentId)
+        try container.encode(self.createdAt, forKey: .createdAt)
+        try container.encode(self.updatedAt, forKey: .updatedAt)
         try container.encode(self.status, forKey: .status)
     }
 
@@ -51,6 +63,8 @@ public struct SegmentResponse: Codable, Hashable, Sendable {
         case name
         case precondition
         case segmentId
+        case createdAt
+        case updatedAt
         case status
     }
 }
