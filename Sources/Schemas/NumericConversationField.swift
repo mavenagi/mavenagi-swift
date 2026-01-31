@@ -9,4 +9,5 @@ public enum NumericConversationField: String, Codable, Hashable, CaseIterable, S
     case handleTime = "HandleTime"
     case firstResponseTime = "FirstResponseTime"
     case predictedNps = "PredictedNPS"
+    case csat = "Csat"
 }

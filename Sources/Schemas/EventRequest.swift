@@ -44,6 +44,8 @@ public enum EventRequest: Codable, Hashable, Sendable {
         public let eventName: UserEventName
         /// Information about the user who triggered the event
         public let userInfo: EventUserInfoBase
+        /// Information about any CSAT associated with the event
+        public let csatInfo: CsatInfo?
         /// Information about any feedback associated with the event
         public let feedbackInfo: [FeedbackInfo]?
         /// Information about the page on which the event occurred
@@ -60,6 +62,7 @@ public enum EventRequest: Codable, Hashable, Sendable {
             id: EntityIdBase,
             eventName: UserEventName,
             userInfo: EventUserInfoBase,
+            csatInfo: CsatInfo? = nil,
             feedbackInfo: [FeedbackInfo]? = nil,
             pageInfo: PageInfo? = nil,
             additionalProperties: [String: JSONValue] = .init()
@@ -72,6 +75,7 @@ public enum EventRequest: Codable, Hashable, Sendable {
             self.id = id
             self.eventName = eventName
             self.userInfo = userInfo
+            self.csatInfo = csatInfo
             self.feedbackInfo = feedbackInfo
             self.pageInfo = pageInfo
             self.additionalProperties = additionalProperties
@@ -87,6 +91,7 @@ public enum EventRequest: Codable, Hashable, Sendable {
             self.id = try container.decode(EntityIdBase.self, forKey: .id)
             self.eventName = try container.decode(UserEventName.self, forKey: .eventName)
             self.userInfo = try container.decode(EventUserInfoBase.self, forKey: .userInfo)
+            self.csatInfo = try container.decodeIfPresent(CsatInfo.self, forKey: .csatInfo)
             self.feedbackInfo = try container.decodeIfPresent([FeedbackInfo].self, forKey: .feedbackInfo)
             self.pageInfo = try container.decodeIfPresent(PageInfo.self, forKey: .pageInfo)
             self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
@@ -104,6 +109,7 @@ public enum EventRequest: Codable, Hashable, Sendable {
             try container.encode(self.id, forKey: .id)
             try container.encode(self.eventName, forKey: .eventName)
             try container.encode(self.userInfo, forKey: .userInfo)
+            try container.encodeIfPresent(self.csatInfo, forKey: .csatInfo)
             try container.encodeIfPresent(self.feedbackInfo, forKey: .feedbackInfo)
             try container.encodeIfPresent(self.pageInfo, forKey: .pageInfo)
         }
@@ -119,6 +125,7 @@ public enum EventRequest: Codable, Hashable, Sendable {
             case id
             case eventName
             case userInfo
+            case csatInfo
             case feedbackInfo
             case pageInfo
         }

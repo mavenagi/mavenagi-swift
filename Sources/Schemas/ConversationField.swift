@@ -26,6 +26,7 @@ public enum ConversationField: String, Codable, Hashable, CaseIterable, Sendable
     case sources = "Sources"
     case createdAt = "CreatedAt"
     case predictedNps = "PredictedNPS"
+    case csat = "Csat"
     case organizationId = "OrganizationId"
     case agentId = "AgentId"
     case inboxItems = "InboxItems"
