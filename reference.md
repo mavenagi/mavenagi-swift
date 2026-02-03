@@ -4690,6 +4690,103 @@ try await main()
 </dl>
 </details>
 
+## Integrations
+<details><summary><code>client.integrations.<a href="/Sources/Resources/Integrations/IntegrationsClient.swift">update</a>(organizationId: String, integrationId: String, request: UpdateIntegrationRequest, requestOptions: RequestOptions?) -> Void</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Update an integration.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```swift
+import Foundation
+import Api
+
+private func main() async throws {
+    let client = MavenAGI(
+        appId: "<username>",
+        appSecret: "<password>"
+    )
+
+    _ = try await client.integrations.update(
+        organizationId: "organizationId",
+        integrationId: "integrationId",
+        request: UpdateIntegrationRequest(
+
+        )
+    )
+}
+
+try await main()
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**organizationId:** `String` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**integrationId:** `String` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `UpdateIntegrationRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `RequestOptions?` — Additional options for configuring the request, such as custom headers or timeout settings.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Knowledge
 <details><summary><code>client.knowledge.<a href="/Sources/Resources/Knowledge/KnowledgeClient.swift">searchKnowledgeBases</a>(request: KnowledgeBaseSearchRequest, requestOptions: RequestOptions?) -> KnowledgeBasesResponse</code></summary>
 <dl>

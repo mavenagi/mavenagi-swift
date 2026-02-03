@@ -164,7 +164,8 @@ import Api
                     "qualityReason": "MISSING_KNOWLEDGE",
                     "resolvedByMaven": true,
                     "primaryLanguage": "primaryLanguage",
-                    "predictedNps": 1.1
+                    "predictedNps": 1.1,
+                    "csat": 1.1
                   },
                   "summary": {
                     "actionIds": [
@@ -197,6 +198,7 @@ import Api
                     "handoffCount": 1,
                     "userMessageCount": 1,
                     "botMessageCount": 1,
+                    "csat": 1.1,
                     "handleTime": 1000000,
                     "humanAgentResponseDelay": 1000000,
                     "humanAgents": [
@@ -387,7 +389,8 @@ import Api
                 qualityReason: Optional(.missingKnowledge),
                 resolvedByMaven: Optional(true),
                 primaryLanguage: Optional("primaryLanguage"),
-                predictedNps: Optional(1.1)
+                predictedNps: Optional(1.1),
+                csat: Optional(1.1)
             ),
             summary: ConversationSummary(
                 actionIds: [
@@ -420,6 +423,7 @@ import Api
                 handoffCount: 1,
                 userMessageCount: 1,
                 botMessageCount: 1,
+                csat: Optional(1.1),
                 handleTime: Optional(1000000),
                 humanAgentResponseDelay: Optional(1000000),
                 humanAgents: [
@@ -844,7 +848,8 @@ import Api
                     "qualityReason": "MISSING_KNOWLEDGE",
                     "resolvedByMaven": true,
                     "primaryLanguage": "primaryLanguage",
-                    "predictedNps": 1.1
+                    "predictedNps": 1.1,
+                    "csat": 1.1
                   },
                   "summary": {
                     "actionIds": [
@@ -877,6 +882,7 @@ import Api
                     "handoffCount": 1,
                     "userMessageCount": 1,
                     "botMessageCount": 1,
+                    "csat": 1.1,
                     "handleTime": 1000000,
                     "humanAgentResponseDelay": 1000000,
                     "humanAgents": [
@@ -1067,7 +1073,8 @@ import Api
                 qualityReason: Optional(.missingKnowledge),
                 resolvedByMaven: Optional(true),
                 primaryLanguage: Optional("primaryLanguage"),
-                predictedNps: Optional(1.1)
+                predictedNps: Optional(1.1),
+                csat: Optional(1.1)
             ),
             summary: ConversationSummary(
                 actionIds: [
@@ -1100,6 +1107,7 @@ import Api
                 handoffCount: 1,
                 userMessageCount: 1,
                 botMessageCount: 1,
+                csat: Optional(1.1),
                 handleTime: Optional(1000000),
                 humanAgentResponseDelay: Optional(1000000),
                 humanAgents: [
@@ -1299,7 +1307,8 @@ import Api
                     "qualityReason": "MISSING_KNOWLEDGE",
                     "resolvedByMaven": true,
                     "primaryLanguage": "primaryLanguage",
-                    "predictedNps": 1.1
+                    "predictedNps": 1.1,
+                    "csat": 1.1
                   },
                   "summary": {
                     "actionIds": [
@@ -1332,6 +1341,7 @@ import Api
                     "handoffCount": 1,
                     "userMessageCount": 1,
                     "botMessageCount": 1,
+                    "csat": 1.1,
                     "handleTime": 1000000,
                     "humanAgentResponseDelay": 1000000,
                     "humanAgents": [
@@ -1522,7 +1532,8 @@ import Api
                 qualityReason: Optional(.missingKnowledge),
                 resolvedByMaven: Optional(true),
                 primaryLanguage: Optional("primaryLanguage"),
-                predictedNps: Optional(1.1)
+                predictedNps: Optional(1.1),
+                csat: Optional(1.1)
             ),
             summary: ConversationSummary(
                 actionIds: [
@@ -1555,6 +1566,7 @@ import Api
                 handoffCount: 1,
                 userMessageCount: 1,
                 botMessageCount: 1,
+                csat: Optional(1.1),
                 handleTime: Optional(1000000),
                 humanAgentResponseDelay: Optional(1000000),
                 humanAgents: [
@@ -2119,7 +2131,8 @@ import Api
                     "qualityReason": "MISSING_KNOWLEDGE",
                     "resolvedByMaven": true,
                     "primaryLanguage": "primaryLanguage",
-                    "predictedNps": 1.1
+                    "predictedNps": 1.1,
+                    "csat": 1.1
                   },
                   "summary": {
                     "actionIds": [
@@ -2152,6 +2165,7 @@ import Api
                     "handoffCount": 1,
                     "userMessageCount": 1,
                     "botMessageCount": 1,
+                    "csat": 1.1,
                     "handleTime": 1000000,
                     "humanAgentResponseDelay": 1000000,
                     "humanAgents": [
@@ -2342,7 +2356,8 @@ import Api
                 qualityReason: Optional(.missingKnowledge),
                 resolvedByMaven: Optional(true),
                 primaryLanguage: Optional("primaryLanguage"),
-                predictedNps: Optional(1.1)
+                predictedNps: Optional(1.1),
+                csat: Optional(1.1)
             ),
             summary: ConversationSummary(
                 actionIds: [
@@ -2375,6 +2390,7 @@ import Api
                 handoffCount: 1,
                 userMessageCount: 1,
                 botMessageCount: 1,
+                csat: Optional(1.1),
                 handleTime: Optional(1000000),
                 humanAgentResponseDelay: Optional(1000000),
                 humanAgents: [
@@ -2562,7 +2578,8 @@ import Api
                         "qualityReason": "MISSING_KNOWLEDGE",
                         "resolvedByMaven": true,
                         "primaryLanguage": "primaryLanguage",
-                        "predictedNps": 1.1
+                        "predictedNps": 1.1,
+                        "csat": 1.1
                       },
                       "summary": {
                         "actionIds": [
@@ -2595,6 +2612,7 @@ import Api
                         "handoffCount": 1,
                         "userMessageCount": 1,
                         "botMessageCount": 1,
+                        "csat": 1.1,
                         "handleTime": 1000000,
                         "humanAgentResponseDelay": 1000000,
                         "humanAgents": [
@@ -2691,7 +2709,8 @@ import Api
                         "qualityReason": "MISSING_KNOWLEDGE",
                         "resolvedByMaven": true,
                         "primaryLanguage": "primaryLanguage",
-                        "predictedNps": 1.1
+                        "predictedNps": 1.1,
+                        "csat": 1.1
                       },
                       "summary": {
                         "actionIds": [
@@ -2724,6 +2743,7 @@ import Api
                         "handoffCount": 1,
                         "userMessageCount": 1,
                         "botMessageCount": 1,
+                        "csat": 1.1,
                         "handleTime": 1000000,
                         "humanAgentResponseDelay": 1000000,
                         "humanAgents": [
@@ -2826,7 +2846,8 @@ import Api
                         qualityReason: Optional(.missingKnowledge),
                         resolvedByMaven: Optional(true),
                         primaryLanguage: Optional("primaryLanguage"),
-                        predictedNps: Optional(1.1)
+                        predictedNps: Optional(1.1),
+                        csat: Optional(1.1)
                     ),
                     summary: ConversationSummary(
                         actionIds: [
@@ -2859,6 +2880,7 @@ import Api
                         handoffCount: 1,
                         userMessageCount: 1,
                         botMessageCount: 1,
+                        csat: Optional(1.1),
                         handleTime: Optional(1000000),
                         humanAgentResponseDelay: Optional(1000000),
                         humanAgents: [
@@ -2934,7 +2956,8 @@ import Api
                         qualityReason: Optional(.missingKnowledge),
                         resolvedByMaven: Optional(true),
                         primaryLanguage: Optional("primaryLanguage"),
-                        predictedNps: Optional(1.1)
+                        predictedNps: Optional(1.1),
+                        csat: Optional(1.1)
                     ),
                     summary: ConversationSummary(
                         actionIds: [
@@ -2967,6 +2990,7 @@ import Api
                         handoffCount: 1,
                         userMessageCount: 1,
                         botMessageCount: 1,
+                        csat: Optional(1.1),
                         handleTime: Optional(1000000),
                         humanAgentResponseDelay: Optional(1000000),
                         humanAgents: [

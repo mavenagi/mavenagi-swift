@@ -16,6 +16,8 @@ public struct UserEvent: Codable, Hashable, Sendable {
     public let userInfo: EventUserInfo
     /// Information about any feedback associated with the event
     public let feedbackInfo: [FeedbackInfo]?
+    /// Information about any CSAT survey associated with the event
+    public let csatInfo: CsatInfo?
     /// Information about the page on which the event occurred
     public let pageInfo: PageInfo?
     /// Additional properties that are not explicitly defined in the schema
@@ -32,6 +34,7 @@ public struct UserEvent: Codable, Hashable, Sendable {
         eventName: UserEventName,
         userInfo: EventUserInfo,
         feedbackInfo: [FeedbackInfo]? = nil,
+        csatInfo: CsatInfo? = nil,
         pageInfo: PageInfo? = nil,
         additionalProperties: [String: JSONValue] = .init()
     ) {
@@ -45,6 +48,7 @@ public struct UserEvent: Codable, Hashable, Sendable {
         self.eventName = eventName
         self.userInfo = userInfo
         self.feedbackInfo = feedbackInfo
+        self.csatInfo = csatInfo
         self.pageInfo = pageInfo
         self.additionalProperties = additionalProperties
     }
@@ -61,6 +65,7 @@ public struct UserEvent: Codable, Hashable, Sendable {
         self.eventName = try container.decode(UserEventName.self, forKey: .eventName)
         self.userInfo = try container.decode(EventUserInfo.self, forKey: .userInfo)
         self.feedbackInfo = try container.decodeIfPresent([FeedbackInfo].self, forKey: .feedbackInfo)
+        self.csatInfo = try container.decodeIfPresent(CsatInfo.self, forKey: .csatInfo)
         self.pageInfo = try container.decodeIfPresent(PageInfo.self, forKey: .pageInfo)
         self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
     }
@@ -78,6 +83,7 @@ public struct UserEvent: Codable, Hashable, Sendable {
         try container.encode(self.eventName, forKey: .eventName)
         try container.encode(self.userInfo, forKey: .userInfo)
         try container.encodeIfPresent(self.feedbackInfo, forKey: .feedbackInfo)
+        try container.encodeIfPresent(self.csatInfo, forKey: .csatInfo)
         try container.encodeIfPresent(self.pageInfo, forKey: .pageInfo)
     }
 
@@ -93,6 +99,7 @@ public struct UserEvent: Codable, Hashable, Sendable {
         case eventName
         case userInfo
         case feedbackInfo
+        case csatInfo
         case pageInfo
     }
 }

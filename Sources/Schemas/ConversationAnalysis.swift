@@ -21,6 +21,8 @@ public struct ConversationAnalysis: Codable, Hashable, Sendable {
     public let primaryLanguage: String?
     /// The predicted NPS of the conversation.
     public let predictedNps: Double?
+    /// The CSAT of the conversation.
+    public let csat: Double?
     /// Additional properties that are not explicitly defined in the schema
     public let additionalProperties: [String: JSONValue]
 
@@ -35,6 +37,7 @@ public struct ConversationAnalysis: Codable, Hashable, Sendable {
         resolvedByMaven: Bool? = nil,
         primaryLanguage: String? = nil,
         predictedNps: Double? = nil,
+        csat: Double? = nil,
         additionalProperties: [String: JSONValue] = .init()
     ) {
         self.userRequest = userRequest
@@ -47,6 +50,7 @@ public struct ConversationAnalysis: Codable, Hashable, Sendable {
         self.resolvedByMaven = resolvedByMaven
         self.primaryLanguage = primaryLanguage
         self.predictedNps = predictedNps
+        self.csat = csat
         self.additionalProperties = additionalProperties
     }
 
@@ -62,6 +66,7 @@ public struct ConversationAnalysis: Codable, Hashable, Sendable {
         self.resolvedByMaven = try container.decodeIfPresent(Bool.self, forKey: .resolvedByMaven)
         self.primaryLanguage = try container.decodeIfPresent(String.self, forKey: .primaryLanguage)
         self.predictedNps = try container.decodeIfPresent(Double.self, forKey: .predictedNps)
+        self.csat = try container.decodeIfPresent(Double.self, forKey: .csat)
         self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
     }
 
@@ -78,6 +83,7 @@ public struct ConversationAnalysis: Codable, Hashable, Sendable {
         try container.encodeIfPresent(self.resolvedByMaven, forKey: .resolvedByMaven)
         try container.encodeIfPresent(self.primaryLanguage, forKey: .primaryLanguage)
         try container.encodeIfPresent(self.predictedNps, forKey: .predictedNps)
+        try container.encodeIfPresent(self.csat, forKey: .csat)
     }
 
     /// Keys for encoding/decoding struct properties.
@@ -92,5 +98,6 @@ public struct ConversationAnalysis: Codable, Hashable, Sendable {
         case resolvedByMaven
         case primaryLanguage
         case predictedNps
+        case csat
     }
 }

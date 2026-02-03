@@ -47,6 +47,10 @@ import Api
                       }
                     }
                   ],
+                  "csatInfo": {
+                    "rating": 1.1,
+                    "maxRating": 1.1
+                  },
                   "pageInfo": {
                     "pageName": "pageName",
                     "pageUrl": "pageUrl",
@@ -166,6 +170,10 @@ import Api
                         ))
                     )
                 ]),
+                csatInfo: Optional(CsatInfo(
+                    rating: Optional(1.1),
+                    maxRating: Optional(1.1)
+                )),
                 pageInfo: Optional(PageInfo(
                     pageName: Optional("pageName"),
                     pageUrl: Optional("pageUrl"),
@@ -286,6 +294,10 @@ import Api
                           }
                         }
                       ],
+                      "csatInfo": {
+                        "rating": 1.1,
+                        "maxRating": 1.1
+                      },
                       "pageInfo": {
                         "pageName": "pageName",
                         "pageUrl": "pageUrl",
@@ -396,6 +408,10 @@ import Api
                           }
                         }
                       ],
+                      "csatInfo": {
+                        "rating": 1.1,
+                        "maxRating": 1.1
+                      },
                       "pageInfo": {
                         "pageName": "pageName",
                         "pageUrl": "pageUrl",
@@ -523,6 +539,10 @@ import Api
                                 ))
                             )
                         ]),
+                        csatInfo: Optional(CsatInfo(
+                            rating: Optional(1.1),
+                            maxRating: Optional(1.1)
+                        )),
                         pageInfo: Optional(PageInfo(
                             pageName: Optional("pageName"),
                             pageUrl: Optional("pageUrl"),
@@ -617,6 +637,10 @@ import Api
                                 ))
                             )
                         ]),
+                        csatInfo: Optional(CsatInfo(
+                            rating: Optional(1.1),
+                            maxRating: Optional(1.1)
+                        )),
                         pageInfo: Optional(PageInfo(
                             pageName: Optional("pageName"),
                             pageUrl: Optional("pageUrl"),
@@ -731,6 +755,10 @@ import Api
                       }
                     }
                   ],
+                  "csatInfo": {
+                    "rating": 1.1,
+                    "maxRating": 1.1
+                  },
                   "pageInfo": {
                     "pageName": "pageName",
                     "pageUrl": "pageUrl",
@@ -850,6 +878,10 @@ import Api
                         ))
                     )
                 ]),
+                csatInfo: Optional(CsatInfo(
+                    rating: Optional(1.1),
+                    maxRating: Optional(1.1)
+                )),
                 pageInfo: Optional(PageInfo(
                     pageName: Optional("pageName"),
                     pageUrl: Optional("pageUrl"),

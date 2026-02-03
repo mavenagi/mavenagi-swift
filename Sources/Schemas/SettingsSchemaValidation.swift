@@ -1,40 +1,40 @@
 import Foundation
 
-public struct CsatInfo: Codable, Hashable, Sendable {
-    /// The rating of the CSAT rating (0.0, 5.0]
-    public let rating: Double?
-    /// The max rating of the CSAT value (default 5)
-    public let maxRating: Double?
+public struct SettingsSchemaValidation: Codable, Hashable, Sendable {
+    /// Regular expression pattern for validation
+    public let pattern: String
+    /// Custom error message shown when validation fails
+    public let errorMessage: String
     /// Additional properties that are not explicitly defined in the schema
     public let additionalProperties: [String: JSONValue]
 
     public init(
-        rating: Double? = nil,
-        maxRating: Double? = nil,
+        pattern: String,
+        errorMessage: String,
         additionalProperties: [String: JSONValue] = .init()
     ) {
-        self.rating = rating
-        self.maxRating = maxRating
+        self.pattern = pattern
+        self.errorMessage = errorMessage
         self.additionalProperties = additionalProperties
     }
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.rating = try container.decodeIfPresent(Double.self, forKey: .rating)
-        self.maxRating = try container.decodeIfPresent(Double.self, forKey: .maxRating)
+        self.pattern = try container.decode(String.self, forKey: .pattern)
+        self.errorMessage = try container.decode(String.self, forKey: .errorMessage)
         self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
     }
 
     public func encode(to encoder: Encoder) throws -> Void {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try encoder.encodeAdditionalProperties(self.additionalProperties)
-        try container.encodeIfPresent(self.rating, forKey: .rating)
-        try container.encodeIfPresent(self.maxRating, forKey: .maxRating)
+        try container.encode(self.pattern, forKey: .pattern)
+        try container.encode(self.errorMessage, forKey: .errorMessage)
     }
 
     /// Keys for encoding/decoding struct properties.
     enum CodingKeys: String, CodingKey, CaseIterable {
-        case rating
-        case maxRating
+        case pattern
+        case errorMessage
     }
 }

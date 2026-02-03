@@ -17,6 +17,8 @@ public struct ConversationSummary: Codable, Hashable, Sendable {
     public let userMessageCount: Int
     /// The number of bot answer messages in the conversation.
     public let botMessageCount: Int
+    /// The CSAT score for the conversation
+    public let csat: Double?
     /// The total time in milliseconds that the user spent interacting with the conversation.
     /// Calculated by taking the timestamp of the last message in the conversation minus the timestamp of the first message.
     public let handleTime: Int64?
@@ -56,6 +58,7 @@ public struct ConversationSummary: Codable, Hashable, Sendable {
         handoffCount: Int,
         userMessageCount: Int,
         botMessageCount: Int,
+        csat: Double? = nil,
         handleTime: Int64? = nil,
         humanAgentResponseDelay: Int64? = nil,
         humanAgents: [String],
@@ -75,6 +78,7 @@ public struct ConversationSummary: Codable, Hashable, Sendable {
         self.handoffCount = handoffCount
         self.userMessageCount = userMessageCount
         self.botMessageCount = botMessageCount
+        self.csat = csat
         self.handleTime = handleTime
         self.humanAgentResponseDelay = humanAgentResponseDelay
         self.humanAgents = humanAgents
@@ -97,6 +101,7 @@ public struct ConversationSummary: Codable, Hashable, Sendable {
         self.handoffCount = try container.decode(Int.self, forKey: .handoffCount)
         self.userMessageCount = try container.decode(Int.self, forKey: .userMessageCount)
         self.botMessageCount = try container.decode(Int.self, forKey: .botMessageCount)
+        self.csat = try container.decodeIfPresent(Double.self, forKey: .csat)
         self.handleTime = try container.decodeIfPresent(Int64.self, forKey: .handleTime)
         self.humanAgentResponseDelay = try container.decodeIfPresent(Int64.self, forKey: .humanAgentResponseDelay)
         self.humanAgents = try container.decode([String].self, forKey: .humanAgents)
@@ -120,6 +125,7 @@ public struct ConversationSummary: Codable, Hashable, Sendable {
         try container.encode(self.handoffCount, forKey: .handoffCount)
         try container.encode(self.userMessageCount, forKey: .userMessageCount)
         try container.encode(self.botMessageCount, forKey: .botMessageCount)
+        try container.encodeIfPresent(self.csat, forKey: .csat)
         try container.encodeIfPresent(self.handleTime, forKey: .handleTime)
         try container.encodeIfPresent(self.humanAgentResponseDelay, forKey: .humanAgentResponseDelay)
         try container.encode(self.humanAgents, forKey: .humanAgents)
@@ -141,6 +147,7 @@ public struct ConversationSummary: Codable, Hashable, Sendable {
         case handoffCount
         case userMessageCount
         case botMessageCount
+        case csat
         case handleTime
         case humanAgentResponseDelay
         case humanAgents
