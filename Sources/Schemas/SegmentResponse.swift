@@ -11,9 +11,11 @@ public struct SegmentResponse: Codable, Hashable, Sendable {
     public let createdAt: Date
     /// The date and time when the segment was last updated.
     public let updatedAt: Date
-    /// Whether or not the segment is in active use. To preserve historical data, segments can not be deleted.
+    /// The status of the segment.
     /// 
-    /// Only active segments will be evaluated for matching user questions.
+    /// - ACTIVE: Segment is in use and will be evaluated for matching user questions.
+    /// - INACTIVE: Segment is not in use but can be reactivated.
+    /// - DELETED: Segment has been soft deleted. Excluded from searches and cannot be modified.
     public let status: SegmentStatus
     /// Additional properties that are not explicitly defined in the schema
     public let additionalProperties: [String: JSONValue]

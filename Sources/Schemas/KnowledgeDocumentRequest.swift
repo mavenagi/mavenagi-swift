@@ -15,7 +15,7 @@ public struct KnowledgeDocumentRequest: Codable, Hashable, Sendable {
     public let contentType: KnowledgeDocumentContentType
     /// The title of the document. Will be shown as part of answers.
     public let title: String
-    /// ID of the asset associated with this document. This asset will be transformed into text and set as the content of the document. The following types are supported: `application/pdf`, `text/plain`.  Either this or content is required, but not both
+    /// (Currently in BETA. Use at your own risk, and may not work in some circumstances) ID of the asset associated with this document. This asset will be transformed into text and set as the content of the document. The following types are supported: `application/pdf`, `text/plain`.  Either this or content is required, but not both.
     public let assetId: EntityIdWithoutAgent?
     /// The content of the document. Not shown directly to users. May be provided in HTML or markdown. HTML will be converted to markdown automatically. Images are not currently supported and will be ignored. Either this or assetId is required, but not both
     public let content: String?

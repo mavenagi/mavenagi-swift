@@ -388,4 +388,72 @@ import Api
         )
         try #require(response == expectedResponse)
     }
+
+    @Test func delete1() async throws -> Void {
+        let stub = HTTPStub()
+        stub.setResponse(
+            body: Data(
+                """
+                {
+                  "segmentId": {
+                    "organizationId": "organizationId",
+                    "agentId": "agentId",
+                    "type": "AGENT",
+                    "appId": "appId",
+                    "referenceId": "x"
+                  },
+                  "createdAt": "2024-01-15T09:30:00Z",
+                  "updatedAt": "2024-01-15T09:30:00Z",
+                  "status": "ACTIVE",
+                  "name": "name",
+                  "precondition": {
+                    "preconditionType": "user",
+                    "key": "key",
+                    "value": "value",
+                    "values": [
+                      "values",
+                      "values"
+                    ],
+                    "operator": "NOT"
+                  }
+                }
+                """.utf8
+            )
+        )
+        let client = MavenAGI(
+            baseURL: "https://api.fern.com",
+            appId: "<username>",
+            appSecret: "<password>",
+            urlSession: stub.urlSession
+        )
+        let expectedResponse = SegmentResponse(
+            segmentId: EntityId(
+                organizationId: "organizationId",
+                agentId: "agentId",
+                type: .agent,
+                appId: "appId",
+                referenceId: "x"
+            ),
+            createdAt: try! Date("2024-01-15T09:30:00Z", strategy: .iso8601),
+            updatedAt: try! Date("2024-01-15T09:30:00Z", strategy: .iso8601),
+            status: .active,
+            name: "name",
+            precondition: .user(
+                .init(
+                    key: "key",
+                    value: Optional("value"),
+                    values: Optional([
+                        "values",
+                        "values"
+                    ]),
+                    operator: Optional(.not)
+                )
+            )
+        )
+        let response = try await client.segments.delete(
+            segmentReferenceId: "segmentReferenceId",
+            requestOptions: RequestOptions(additionalHeaders: stub.headers)
+        )
+        try #require(response == expectedResponse)
+    }
 }

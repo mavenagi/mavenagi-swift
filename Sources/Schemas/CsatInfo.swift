@@ -1,7 +1,7 @@
 import Foundation
 
 public struct CsatInfo: Codable, Hashable, Sendable {
-    /// The rating of the CSAT rating (0.0, 5.0]
+    /// The rating of the CSAT rating
     public let rating: Double?
     /// The max rating of the CSAT value (default 5)
     public let maxRating: Double?
