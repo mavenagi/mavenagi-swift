@@ -32,7 +32,7 @@ public struct ConversationPreview: Codable, Hashable, Sendable {
     /// If true, `USER` messages sent via the ask API will be sent to the LLM and a `BOT_RESPONSE` or `BOT_SUGGESTION` message will be generated.
     /// If false, `USER` messages will not be sent to the LLM.
     public let llmEnabled: Bool
-    /// Additional context used for simulation runs. When present, this conversation is treated as a simulation. 
+    /// Additional context used for simulation runs. When present, this conversation is treated as a simulation.
     /// Simulation conversations are excluded from normal search results unless explicitly included via the `simulationFilter` field.
     public let simulationContext: SimulationContext?
     /// Additional properties that are not explicitly defined in the schema

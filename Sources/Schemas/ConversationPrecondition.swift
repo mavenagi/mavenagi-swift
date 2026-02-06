@@ -3,6 +3,7 @@ import Foundation
 public enum ConversationPrecondition: Codable, Hashable, Sendable {
     case actionExecuted(ActionExecuted)
     case app(App)
+    case intelligentField(IntelligentField)
     case metadata(Metadata)
     case responseConfig(ResponseConfig)
     case tags(Tags)
@@ -15,6 +16,8 @@ public enum ConversationPrecondition: Codable, Hashable, Sendable {
             self = .actionExecuted(try ActionExecuted(from: decoder))
         case "app":
             self = .app(try App(from: decoder))
+        case "intelligentField":
+            self = .intelligentField(try IntelligentField(from: decoder))
         case "metadata":
             self = .metadata(try Metadata(from: decoder))
         case "responseConfig":
@@ -36,6 +39,8 @@ public enum ConversationPrecondition: Codable, Hashable, Sendable {
         case .actionExecuted(let data):
             try data.encode(to: encoder)
         case .app(let data):
+            try data.encode(to: encoder)
+        case .intelligentField(let data):
             try data.encode(to: encoder)
         case .metadata(let data):
             try data.encode(to: encoder)
@@ -297,6 +302,55 @@ public enum ConversationPrecondition: Codable, Hashable, Sendable {
             case conversationPreconditionType
             case `operator`
             case appId
+        }
+    }
+
+    public struct IntelligentField: Codable, Hashable, Sendable {
+        public let conversationPreconditionType: String = "intelligentField"
+        /// The referenceId of the intelligent field.
+        public let fieldReferenceId: String
+        /// The appId of the intelligent field. If not provided, the calling appId will be used.
+        public let fieldAppId: String?
+        /// The condition to evaluate against the field's value.
+        public let fieldCondition: IntelligentFieldCondition
+        /// Additional properties that are not explicitly defined in the schema
+        public let additionalProperties: [String: JSONValue]
+
+        public init(
+            fieldReferenceId: String,
+            fieldAppId: String? = nil,
+            fieldCondition: IntelligentFieldCondition,
+            additionalProperties: [String: JSONValue] = .init()
+        ) {
+            self.fieldReferenceId = fieldReferenceId
+            self.fieldAppId = fieldAppId
+            self.fieldCondition = fieldCondition
+            self.additionalProperties = additionalProperties
+        }
+
+        public init(from decoder: Decoder) throws {
+            let container = try decoder.container(keyedBy: CodingKeys.self)
+            self.fieldReferenceId = try container.decode(String.self, forKey: .fieldReferenceId)
+            self.fieldAppId = try container.decodeIfPresent(String.self, forKey: .fieldAppId)
+            self.fieldCondition = try container.decode(IntelligentFieldCondition.self, forKey: .fieldCondition)
+            self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
+        }
+
+        public func encode(to encoder: Encoder) throws -> Void {
+            var container = encoder.container(keyedBy: CodingKeys.self)
+            try encoder.encodeAdditionalProperties(self.additionalProperties)
+            try container.encode(self.conversationPreconditionType, forKey: .conversationPreconditionType)
+            try container.encode(self.fieldReferenceId, forKey: .fieldReferenceId)
+            try container.encodeIfPresent(self.fieldAppId, forKey: .fieldAppId)
+            try container.encode(self.fieldCondition, forKey: .fieldCondition)
+        }
+
+        /// Keys for encoding/decoding struct properties.
+        enum CodingKeys: String, CodingKey, CaseIterable {
+            case conversationPreconditionType
+            case fieldReferenceId
+            case fieldAppId
+            case fieldCondition
         }
     }
 
