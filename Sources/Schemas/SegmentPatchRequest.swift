@@ -5,6 +5,8 @@ public struct SegmentPatchRequest: Codable, Hashable, Sendable {
     public let appId: String?
     /// The name of the segment.
     public let name: String?
+    /// A plain text description of the segment.
+    public let description: String?
     /// The precondition that must be met for a conversation message to be included in the segment.
     public let precondition: Precondition?
     /// The status of the segment. Segments can only be deactivated if they are not set on any actions or active knowledge bases.
@@ -15,12 +17,14 @@ public struct SegmentPatchRequest: Codable, Hashable, Sendable {
     public init(
         appId: String? = nil,
         name: String? = nil,
+        description: String? = nil,
         precondition: Precondition? = nil,
         status: SegmentStatus? = nil,
         additionalProperties: [String: JSONValue] = .init()
     ) {
         self.appId = appId
         self.name = name
+        self.description = description
         self.precondition = precondition
         self.status = status
         self.additionalProperties = additionalProperties
@@ -30,6 +34,7 @@ public struct SegmentPatchRequest: Codable, Hashable, Sendable {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.appId = try container.decodeIfPresent(String.self, forKey: .appId)
         self.name = try container.decodeIfPresent(String.self, forKey: .name)
+        self.description = try container.decodeIfPresent(String.self, forKey: .description)
         self.precondition = try container.decodeIfPresent(Precondition.self, forKey: .precondition)
         self.status = try container.decodeIfPresent(SegmentStatus.self, forKey: .status)
         self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
@@ -40,6 +45,7 @@ public struct SegmentPatchRequest: Codable, Hashable, Sendable {
         try encoder.encodeAdditionalProperties(self.additionalProperties)
         try container.encodeIfPresent(self.appId, forKey: .appId)
         try container.encodeIfPresent(self.name, forKey: .name)
+        try container.encodeIfPresent(self.description, forKey: .description)
         try container.encodeIfPresent(self.precondition, forKey: .precondition)
         try container.encodeIfPresent(self.status, forKey: .status)
     }
@@ -48,6 +54,7 @@ public struct SegmentPatchRequest: Codable, Hashable, Sendable {
     enum CodingKeys: String, CodingKey, CaseIterable {
         case appId
         case name
+        case description
         case precondition
         case status
     }

@@ -31,6 +31,10 @@ public struct KnowledgeBaseResponse: Codable, Hashable, Sendable {
     /// Segments are replacing inline preconditions - a Knowledge Base may not have both an inline precondition and a segment.
     /// Inline precondition support will be removed in a future release.
     public let segmentId: EntityId?
+    /// The IDs of the segments that should be matched for the knowledge base to be relevant to a conversation.
+    /// Segments are replacing inline preconditions - a Knowledge Base may not have both an inline precondition and a segment.
+    /// Inline precondition support will be removed in a future release.
+    public let segmentIds: JSONValue
     /// The source URL of URL and RSS knowledge bases that was used for crawl.
     public let url: String?
     /// Additional properties that are not explicitly defined in the schema
@@ -50,6 +54,7 @@ public struct KnowledgeBaseResponse: Codable, Hashable, Sendable {
         llmInclusionStatus: LlmInclusionStatus,
         refreshFrequency: KnowledgeBaseRefreshFrequency,
         segmentId: EntityId? = nil,
+        segmentIds: JSONValue,
         url: String? = nil,
         additionalProperties: [String: JSONValue] = .init()
     ) {
@@ -66,6 +71,7 @@ public struct KnowledgeBaseResponse: Codable, Hashable, Sendable {
         self.llmInclusionStatus = llmInclusionStatus
         self.refreshFrequency = refreshFrequency
         self.segmentId = segmentId
+        self.segmentIds = segmentIds
         self.url = url
         self.additionalProperties = additionalProperties
     }
@@ -85,6 +91,7 @@ public struct KnowledgeBaseResponse: Codable, Hashable, Sendable {
         self.llmInclusionStatus = try container.decode(LlmInclusionStatus.self, forKey: .llmInclusionStatus)
         self.refreshFrequency = try container.decode(KnowledgeBaseRefreshFrequency.self, forKey: .refreshFrequency)
         self.segmentId = try container.decodeIfPresent(EntityId.self, forKey: .segmentId)
+        self.segmentIds = try container.decode(JSONValue.self, forKey: .segmentIds)
         self.url = try container.decodeIfPresent(String.self, forKey: .url)
         self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
     }
@@ -105,6 +112,7 @@ public struct KnowledgeBaseResponse: Codable, Hashable, Sendable {
         try container.encode(self.llmInclusionStatus, forKey: .llmInclusionStatus)
         try container.encode(self.refreshFrequency, forKey: .refreshFrequency)
         try container.encodeIfPresent(self.segmentId, forKey: .segmentId)
+        try container.encode(self.segmentIds, forKey: .segmentIds)
         try container.encodeIfPresent(self.url, forKey: .url)
     }
 
@@ -123,6 +131,7 @@ public struct KnowledgeBaseResponse: Codable, Hashable, Sendable {
         case llmInclusionStatus
         case refreshFrequency
         case segmentId
+        case segmentIds
         case url
     }
 }

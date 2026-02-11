@@ -12,12 +12,18 @@ extension Requests {
         public let llmInclusionStatus: LlmInclusionStatus?
         /// The preconditions that must be met for a knowledge base to be relevant to a conversation. Can be used to restrict knowledge bases to certain types of users. A null value will remove the precondition from the knowledge base, it will be available on all conversations.
         public let precondition: Nullable<Precondition>?
-        /// The ID of the segment that must be matched for the knowledge base to be relevant to a conversation.
+        /// The ID of a segment that must be matched for the knowledge base to be relevant to a conversation.
         /// A null value will remove the segment from the knowledge base, it will be available on all conversations.
         /// 
         /// Segments are replacing inline preconditions - a knowledge base may not have both an inline precondition and a segment.
         /// Inline precondition support will be removed in a future release.
         public let segmentId: Nullable<EntityId>?
+        /// The IDs of segment that should be matched (under an OR clause) for the knowledge base to be relevant to a 
+        /// conversation. An empty list will remove segments from the knowledge base, it will be available on all 
+        /// conversations.
+        /// Segments are replacing inline preconditions - a knowledge base may not have both an inline precondition and a segment.
+        /// Inline precondition support will be removed in a future release.
+        public let segmentIds: [EntityId]?
         /// How often the knowledge base should be refreshed.
         public let refreshFrequency: KnowledgeBaseRefreshFrequency?
         /// Additional properties that are not explicitly defined in the schema
@@ -30,6 +36,7 @@ extension Requests {
             llmInclusionStatus: LlmInclusionStatus? = nil,
             precondition: Nullable<Precondition>? = nil,
             segmentId: Nullable<EntityId>? = nil,
+            segmentIds: [EntityId]? = nil,
             refreshFrequency: KnowledgeBaseRefreshFrequency? = nil,
             additionalProperties: [String: JSONValue] = .init()
         ) {
@@ -39,6 +46,7 @@ extension Requests {
             self.llmInclusionStatus = llmInclusionStatus
             self.precondition = precondition
             self.segmentId = segmentId
+            self.segmentIds = segmentIds
             self.refreshFrequency = refreshFrequency
             self.additionalProperties = additionalProperties
         }
@@ -51,6 +59,7 @@ extension Requests {
             self.llmInclusionStatus = try container.decodeIfPresent(LlmInclusionStatus.self, forKey: .llmInclusionStatus)
             self.precondition = try container.decodeNullableIfPresent(Precondition.self, forKey: .precondition)
             self.segmentId = try container.decodeNullableIfPresent(EntityId.self, forKey: .segmentId)
+            self.segmentIds = try container.decodeIfPresent([EntityId].self, forKey: .segmentIds)
             self.refreshFrequency = try container.decodeIfPresent(KnowledgeBaseRefreshFrequency.self, forKey: .refreshFrequency)
             self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
         }
@@ -64,6 +73,7 @@ extension Requests {
             try container.encodeIfPresent(self.llmInclusionStatus, forKey: .llmInclusionStatus)
             try container.encodeNullableIfPresent(self.precondition, forKey: .precondition)
             try container.encodeNullableIfPresent(self.segmentId, forKey: .segmentId)
+            try container.encodeIfPresent(self.segmentIds, forKey: .segmentIds)
             try container.encodeIfPresent(self.refreshFrequency, forKey: .refreshFrequency)
         }
 
@@ -75,6 +85,7 @@ extension Requests {
             case llmInclusionStatus
             case precondition
             case segmentId
+            case segmentIds
             case refreshFrequency
         }
     }

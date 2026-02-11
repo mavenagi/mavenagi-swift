@@ -20,8 +20,11 @@ import Api
                       },
                       "createdAt": "2024-01-15T09:30:00Z",
                       "updatedAt": "2024-01-15T09:30:00Z",
+                      "referencedKnowledgeBaseCount": 1000000,
+                      "referencedDocumentCount": 1000000,
                       "status": "ACTIVE",
                       "name": "name",
+                      "description": "description",
                       "precondition": {
                         "preconditionType": "user",
                         "key": "key",
@@ -43,8 +46,11 @@ import Api
                       },
                       "createdAt": "2024-01-15T09:30:00Z",
                       "updatedAt": "2024-01-15T09:30:00Z",
+                      "referencedKnowledgeBaseCount": 1000000,
+                      "referencedDocumentCount": 1000000,
                       "status": "ACTIVE",
                       "name": "name",
+                      "description": "description",
                       "precondition": {
                         "preconditionType": "user",
                         "key": "key",
@@ -83,8 +89,11 @@ import Api
                     ),
                     createdAt: try! Date("2024-01-15T09:30:00Z", strategy: .iso8601),
                     updatedAt: try! Date("2024-01-15T09:30:00Z", strategy: .iso8601),
+                    referencedKnowledgeBaseCount: Optional(1000000),
+                    referencedDocumentCount: Optional(1000000),
                     status: .active,
                     name: "name",
+                    description: Optional("description"),
                     precondition: .user(
                         .init(
                             key: "key",
@@ -107,8 +116,11 @@ import Api
                     ),
                     createdAt: try! Date("2024-01-15T09:30:00Z", strategy: .iso8601),
                     updatedAt: try! Date("2024-01-15T09:30:00Z", strategy: .iso8601),
+                    referencedKnowledgeBaseCount: Optional(1000000),
+                    referencedDocumentCount: Optional(1000000),
                     status: .active,
                     name: "name",
+                    description: Optional("description"),
                     precondition: .user(
                         .init(
                             key: "key",
@@ -152,6 +164,8 @@ import Api
                   "name": "Admin users",
                   "createdAt": "2025-01-01T00:00:00Z",
                   "updatedAt": "2025-01-15T12:30:00Z",
+                  "referencedKnowledgeBaseCount": 5,
+                  "referencedDocumentCount": 34,
                   "status": "ACTIVE",
                   "precondition": {
                     "preconditionType": "group",
@@ -188,6 +202,8 @@ import Api
             name: "Admin users",
             createdAt: try! Date("2025-01-01T00:00:00Z", strategy: .iso8601),
             updatedAt: try! Date("2025-01-15T12:30:00Z", strategy: .iso8601),
+            referencedKnowledgeBaseCount: Optional(5),
+            referencedDocumentCount: Optional(34),
             status: .active,
             precondition: .group(
                 .init(
@@ -254,6 +270,8 @@ import Api
                   "name": "Admin users",
                   "createdAt": "2025-01-01T00:00:00Z",
                   "updatedAt": "2025-01-15T12:30:00Z",
+                  "referencedKnowledgeBaseCount": 5,
+                  "referencedDocumentCount": 34,
                   "status": "ACTIVE",
                   "precondition": {
                     "preconditionType": "group",
@@ -290,6 +308,8 @@ import Api
             name: "Admin users",
             createdAt: try! Date("2025-01-01T00:00:00Z", strategy: .iso8601),
             updatedAt: try! Date("2025-01-15T12:30:00Z", strategy: .iso8601),
+            referencedKnowledgeBaseCount: Optional(5),
+            referencedDocumentCount: Optional(34),
             status: .active,
             precondition: .group(
                 .init(
@@ -333,8 +353,11 @@ import Api
                   },
                   "createdAt": "2024-01-15T09:30:00Z",
                   "updatedAt": "2024-01-15T09:30:00Z",
+                  "referencedKnowledgeBaseCount": 1000000,
+                  "referencedDocumentCount": 1000000,
                   "status": "ACTIVE",
                   "name": "name",
+                  "description": "description",
                   "precondition": {
                     "preconditionType": "user",
                     "key": "key",
@@ -365,8 +388,11 @@ import Api
             ),
             createdAt: try! Date("2024-01-15T09:30:00Z", strategy: .iso8601),
             updatedAt: try! Date("2024-01-15T09:30:00Z", strategy: .iso8601),
+            referencedKnowledgeBaseCount: Optional(1000000),
+            referencedDocumentCount: Optional(1000000),
             status: .active,
             name: "name",
+            description: Optional("description"),
             precondition: .user(
                 .init(
                     key: "key",
@@ -404,8 +430,11 @@ import Api
                   },
                   "createdAt": "2024-01-15T09:30:00Z",
                   "updatedAt": "2024-01-15T09:30:00Z",
+                  "referencedKnowledgeBaseCount": 1000000,
+                  "referencedDocumentCount": 1000000,
                   "status": "ACTIVE",
                   "name": "name",
+                  "description": "description",
                   "precondition": {
                     "preconditionType": "user",
                     "key": "key",
@@ -436,8 +465,11 @@ import Api
             ),
             createdAt: try! Date("2024-01-15T09:30:00Z", strategy: .iso8601),
             updatedAt: try! Date("2024-01-15T09:30:00Z", strategy: .iso8601),
+            referencedKnowledgeBaseCount: Optional(1000000),
+            referencedDocumentCount: Optional(1000000),
             status: .active,
             name: "name",
+            description: Optional("description"),
             precondition: .user(
                 .init(
                     key: "key",

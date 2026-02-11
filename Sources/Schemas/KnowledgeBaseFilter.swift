@@ -26,6 +26,8 @@ public struct KnowledgeBaseFilter: Codable, Hashable, Sendable {
     public let mostRecentVersionStatus: [KnowledgeBaseVersionStatus]?
     /// Filter knowledge bases by the LLM inclusion status
     public let llmInclusionStatus: LlmInclusionStatus?
+    /// Filter knowledge bases by the segment they are assigned to.
+    public let segmentId: String?
     /// Additional properties that are not explicitly defined in the schema
     public let additionalProperties: [String: JSONValue]
 
@@ -37,6 +39,7 @@ public struct KnowledgeBaseFilter: Codable, Hashable, Sendable {
         appIds: [String]? = nil,
         mostRecentVersionStatus: [KnowledgeBaseVersionStatus]? = nil,
         llmInclusionStatus: LlmInclusionStatus? = nil,
+        segmentId: String? = nil,
         additionalProperties: [String: JSONValue] = .init()
     ) {
         self.search = search
@@ -46,6 +49,7 @@ public struct KnowledgeBaseFilter: Codable, Hashable, Sendable {
         self.appIds = appIds
         self.mostRecentVersionStatus = mostRecentVersionStatus
         self.llmInclusionStatus = llmInclusionStatus
+        self.segmentId = segmentId
         self.additionalProperties = additionalProperties
     }
 
@@ -58,6 +62,7 @@ public struct KnowledgeBaseFilter: Codable, Hashable, Sendable {
         self.appIds = try container.decodeIfPresent([String].self, forKey: .appIds)
         self.mostRecentVersionStatus = try container.decodeIfPresent([KnowledgeBaseVersionStatus].self, forKey: .mostRecentVersionStatus)
         self.llmInclusionStatus = try container.decodeIfPresent(LlmInclusionStatus.self, forKey: .llmInclusionStatus)
+        self.segmentId = try container.decodeIfPresent(String.self, forKey: .segmentId)
         self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
     }
 
@@ -71,6 +76,7 @@ public struct KnowledgeBaseFilter: Codable, Hashable, Sendable {
         try container.encodeIfPresent(self.appIds, forKey: .appIds)
         try container.encodeIfPresent(self.mostRecentVersionStatus, forKey: .mostRecentVersionStatus)
         try container.encodeIfPresent(self.llmInclusionStatus, forKey: .llmInclusionStatus)
+        try container.encodeIfPresent(self.segmentId, forKey: .segmentId)
     }
 
     /// Keys for encoding/decoding struct properties.
@@ -82,5 +88,6 @@ public struct KnowledgeBaseFilter: Codable, Hashable, Sendable {
         case appIds
         case mostRecentVersionStatus
         case llmInclusionStatus
+        case segmentId
     }
 }

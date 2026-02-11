@@ -165,7 +165,53 @@ import Api
                     "resolvedByMaven": true,
                     "primaryLanguage": "primaryLanguage",
                     "predictedNps": 1.1,
-                    "csat": 1.1
+                    "csat": 1.1,
+                    "intelligentFieldValues": [
+                      {
+                        "fieldId": {
+                          "organizationId": "organizationId",
+                          "agentId": "agentId",
+                          "type": "AGENT",
+                          "appId": "appId",
+                          "referenceId": "x"
+                        },
+                        "entityId": {
+                          "organizationId": "organizationId",
+                          "agentId": "agentId",
+                          "type": "AGENT",
+                          "appId": "appId",
+                          "referenceId": "x"
+                        },
+                        "value": {
+                          "key": "value"
+                        },
+                        "confidence": 1.1,
+                        "rationale": "rationale",
+                        "createdAt": "2024-01-15T09:30:00Z"
+                      },
+                      {
+                        "fieldId": {
+                          "organizationId": "organizationId",
+                          "agentId": "agentId",
+                          "type": "AGENT",
+                          "appId": "appId",
+                          "referenceId": "x"
+                        },
+                        "entityId": {
+                          "organizationId": "organizationId",
+                          "agentId": "agentId",
+                          "type": "AGENT",
+                          "appId": "appId",
+                          "referenceId": "x"
+                        },
+                        "value": {
+                          "key": "value"
+                        },
+                        "confidence": 1.1,
+                        "rationale": "rationale",
+                        "createdAt": "2024-01-15T09:30:00Z"
+                      }
+                    ]
                   },
                   "summary": {
                     "actionIds": [
@@ -390,7 +436,57 @@ import Api
                 resolvedByMaven: Optional(true),
                 primaryLanguage: Optional("primaryLanguage"),
                 predictedNps: Optional(1.1),
-                csat: Optional(1.1)
+                csat: Optional(1.1),
+                intelligentFieldValues: Optional([
+                    IntelligentFieldValueResponse(
+                        fieldId: EntityId(
+                            organizationId: "organizationId",
+                            agentId: "agentId",
+                            type: .agent,
+                            appId: "appId",
+                            referenceId: "x"
+                        ),
+                        entityId: EntityId(
+                            organizationId: "organizationId",
+                            agentId: "agentId",
+                            type: .agent,
+                            appId: "appId",
+                            referenceId: "x"
+                        ),
+                        value: Optional(JSONValue.object(
+                            [
+                                "key": JSONValue.string("value")
+                            ]
+                        )),
+                        confidence: Optional(1.1),
+                        rationale: Optional("rationale"),
+                        createdAt: Optional(try! Date("2024-01-15T09:30:00Z", strategy: .iso8601))
+                    ),
+                    IntelligentFieldValueResponse(
+                        fieldId: EntityId(
+                            organizationId: "organizationId",
+                            agentId: "agentId",
+                            type: .agent,
+                            appId: "appId",
+                            referenceId: "x"
+                        ),
+                        entityId: EntityId(
+                            organizationId: "organizationId",
+                            agentId: "agentId",
+                            type: .agent,
+                            appId: "appId",
+                            referenceId: "x"
+                        ),
+                        value: Optional(JSONValue.object(
+                            [
+                                "key": JSONValue.string("value")
+                            ]
+                        )),
+                        confidence: Optional(1.1),
+                        rationale: Optional("rationale"),
+                        createdAt: Optional(try! Date("2024-01-15T09:30:00Z", strategy: .iso8601))
+                    )
+                ])
             ),
             summary: ConversationSummary(
                 actionIds: [
@@ -849,7 +945,53 @@ import Api
                     "resolvedByMaven": true,
                     "primaryLanguage": "primaryLanguage",
                     "predictedNps": 1.1,
-                    "csat": 1.1
+                    "csat": 1.1,
+                    "intelligentFieldValues": [
+                      {
+                        "fieldId": {
+                          "organizationId": "organizationId",
+                          "agentId": "agentId",
+                          "type": "AGENT",
+                          "appId": "appId",
+                          "referenceId": "x"
+                        },
+                        "entityId": {
+                          "organizationId": "organizationId",
+                          "agentId": "agentId",
+                          "type": "AGENT",
+                          "appId": "appId",
+                          "referenceId": "x"
+                        },
+                        "value": {
+                          "key": "value"
+                        },
+                        "confidence": 1.1,
+                        "rationale": "rationale",
+                        "createdAt": "2024-01-15T09:30:00Z"
+                      },
+                      {
+                        "fieldId": {
+                          "organizationId": "organizationId",
+                          "agentId": "agentId",
+                          "type": "AGENT",
+                          "appId": "appId",
+                          "referenceId": "x"
+                        },
+                        "entityId": {
+                          "organizationId": "organizationId",
+                          "agentId": "agentId",
+                          "type": "AGENT",
+                          "appId": "appId",
+                          "referenceId": "x"
+                        },
+                        "value": {
+                          "key": "value"
+                        },
+                        "confidence": 1.1,
+                        "rationale": "rationale",
+                        "createdAt": "2024-01-15T09:30:00Z"
+                      }
+                    ]
                   },
                   "summary": {
                     "actionIds": [
@@ -1074,7 +1216,57 @@ import Api
                 resolvedByMaven: Optional(true),
                 primaryLanguage: Optional("primaryLanguage"),
                 predictedNps: Optional(1.1),
-                csat: Optional(1.1)
+                csat: Optional(1.1),
+                intelligentFieldValues: Optional([
+                    IntelligentFieldValueResponse(
+                        fieldId: EntityId(
+                            organizationId: "organizationId",
+                            agentId: "agentId",
+                            type: .agent,
+                            appId: "appId",
+                            referenceId: "x"
+                        ),
+                        entityId: EntityId(
+                            organizationId: "organizationId",
+                            agentId: "agentId",
+                            type: .agent,
+                            appId: "appId",
+                            referenceId: "x"
+                        ),
+                        value: Optional(JSONValue.object(
+                            [
+                                "key": JSONValue.string("value")
+                            ]
+                        )),
+                        confidence: Optional(1.1),
+                        rationale: Optional("rationale"),
+                        createdAt: Optional(try! Date("2024-01-15T09:30:00Z", strategy: .iso8601))
+                    ),
+                    IntelligentFieldValueResponse(
+                        fieldId: EntityId(
+                            organizationId: "organizationId",
+                            agentId: "agentId",
+                            type: .agent,
+                            appId: "appId",
+                            referenceId: "x"
+                        ),
+                        entityId: EntityId(
+                            organizationId: "organizationId",
+                            agentId: "agentId",
+                            type: .agent,
+                            appId: "appId",
+                            referenceId: "x"
+                        ),
+                        value: Optional(JSONValue.object(
+                            [
+                                "key": JSONValue.string("value")
+                            ]
+                        )),
+                        confidence: Optional(1.1),
+                        rationale: Optional("rationale"),
+                        createdAt: Optional(try! Date("2024-01-15T09:30:00Z", strategy: .iso8601))
+                    )
+                ])
             ),
             summary: ConversationSummary(
                 actionIds: [
@@ -1308,7 +1500,53 @@ import Api
                     "resolvedByMaven": true,
                     "primaryLanguage": "primaryLanguage",
                     "predictedNps": 1.1,
-                    "csat": 1.1
+                    "csat": 1.1,
+                    "intelligentFieldValues": [
+                      {
+                        "fieldId": {
+                          "organizationId": "organizationId",
+                          "agentId": "agentId",
+                          "type": "AGENT",
+                          "appId": "appId",
+                          "referenceId": "x"
+                        },
+                        "entityId": {
+                          "organizationId": "organizationId",
+                          "agentId": "agentId",
+                          "type": "AGENT",
+                          "appId": "appId",
+                          "referenceId": "x"
+                        },
+                        "value": {
+                          "key": "value"
+                        },
+                        "confidence": 1.1,
+                        "rationale": "rationale",
+                        "createdAt": "2024-01-15T09:30:00Z"
+                      },
+                      {
+                        "fieldId": {
+                          "organizationId": "organizationId",
+                          "agentId": "agentId",
+                          "type": "AGENT",
+                          "appId": "appId",
+                          "referenceId": "x"
+                        },
+                        "entityId": {
+                          "organizationId": "organizationId",
+                          "agentId": "agentId",
+                          "type": "AGENT",
+                          "appId": "appId",
+                          "referenceId": "x"
+                        },
+                        "value": {
+                          "key": "value"
+                        },
+                        "confidence": 1.1,
+                        "rationale": "rationale",
+                        "createdAt": "2024-01-15T09:30:00Z"
+                      }
+                    ]
                   },
                   "summary": {
                     "actionIds": [
@@ -1533,7 +1771,57 @@ import Api
                 resolvedByMaven: Optional(true),
                 primaryLanguage: Optional("primaryLanguage"),
                 predictedNps: Optional(1.1),
-                csat: Optional(1.1)
+                csat: Optional(1.1),
+                intelligentFieldValues: Optional([
+                    IntelligentFieldValueResponse(
+                        fieldId: EntityId(
+                            organizationId: "organizationId",
+                            agentId: "agentId",
+                            type: .agent,
+                            appId: "appId",
+                            referenceId: "x"
+                        ),
+                        entityId: EntityId(
+                            organizationId: "organizationId",
+                            agentId: "agentId",
+                            type: .agent,
+                            appId: "appId",
+                            referenceId: "x"
+                        ),
+                        value: Optional(JSONValue.object(
+                            [
+                                "key": JSONValue.string("value")
+                            ]
+                        )),
+                        confidence: Optional(1.1),
+                        rationale: Optional("rationale"),
+                        createdAt: Optional(try! Date("2024-01-15T09:30:00Z", strategy: .iso8601))
+                    ),
+                    IntelligentFieldValueResponse(
+                        fieldId: EntityId(
+                            organizationId: "organizationId",
+                            agentId: "agentId",
+                            type: .agent,
+                            appId: "appId",
+                            referenceId: "x"
+                        ),
+                        entityId: EntityId(
+                            organizationId: "organizationId",
+                            agentId: "agentId",
+                            type: .agent,
+                            appId: "appId",
+                            referenceId: "x"
+                        ),
+                        value: Optional(JSONValue.object(
+                            [
+                                "key": JSONValue.string("value")
+                            ]
+                        )),
+                        confidence: Optional(1.1),
+                        rationale: Optional("rationale"),
+                        createdAt: Optional(try! Date("2024-01-15T09:30:00Z", strategy: .iso8601))
+                    )
+                ])
             ),
             summary: ConversationSummary(
                 actionIds: [
@@ -2132,7 +2420,53 @@ import Api
                     "resolvedByMaven": true,
                     "primaryLanguage": "primaryLanguage",
                     "predictedNps": 1.1,
-                    "csat": 1.1
+                    "csat": 1.1,
+                    "intelligentFieldValues": [
+                      {
+                        "fieldId": {
+                          "organizationId": "organizationId",
+                          "agentId": "agentId",
+                          "type": "AGENT",
+                          "appId": "appId",
+                          "referenceId": "x"
+                        },
+                        "entityId": {
+                          "organizationId": "organizationId",
+                          "agentId": "agentId",
+                          "type": "AGENT",
+                          "appId": "appId",
+                          "referenceId": "x"
+                        },
+                        "value": {
+                          "key": "value"
+                        },
+                        "confidence": 1.1,
+                        "rationale": "rationale",
+                        "createdAt": "2024-01-15T09:30:00Z"
+                      },
+                      {
+                        "fieldId": {
+                          "organizationId": "organizationId",
+                          "agentId": "agentId",
+                          "type": "AGENT",
+                          "appId": "appId",
+                          "referenceId": "x"
+                        },
+                        "entityId": {
+                          "organizationId": "organizationId",
+                          "agentId": "agentId",
+                          "type": "AGENT",
+                          "appId": "appId",
+                          "referenceId": "x"
+                        },
+                        "value": {
+                          "key": "value"
+                        },
+                        "confidence": 1.1,
+                        "rationale": "rationale",
+                        "createdAt": "2024-01-15T09:30:00Z"
+                      }
+                    ]
                   },
                   "summary": {
                     "actionIds": [
@@ -2357,7 +2691,57 @@ import Api
                 resolvedByMaven: Optional(true),
                 primaryLanguage: Optional("primaryLanguage"),
                 predictedNps: Optional(1.1),
-                csat: Optional(1.1)
+                csat: Optional(1.1),
+                intelligentFieldValues: Optional([
+                    IntelligentFieldValueResponse(
+                        fieldId: EntityId(
+                            organizationId: "organizationId",
+                            agentId: "agentId",
+                            type: .agent,
+                            appId: "appId",
+                            referenceId: "x"
+                        ),
+                        entityId: EntityId(
+                            organizationId: "organizationId",
+                            agentId: "agentId",
+                            type: .agent,
+                            appId: "appId",
+                            referenceId: "x"
+                        ),
+                        value: Optional(JSONValue.object(
+                            [
+                                "key": JSONValue.string("value")
+                            ]
+                        )),
+                        confidence: Optional(1.1),
+                        rationale: Optional("rationale"),
+                        createdAt: Optional(try! Date("2024-01-15T09:30:00Z", strategy: .iso8601))
+                    ),
+                    IntelligentFieldValueResponse(
+                        fieldId: EntityId(
+                            organizationId: "organizationId",
+                            agentId: "agentId",
+                            type: .agent,
+                            appId: "appId",
+                            referenceId: "x"
+                        ),
+                        entityId: EntityId(
+                            organizationId: "organizationId",
+                            agentId: "agentId",
+                            type: .agent,
+                            appId: "appId",
+                            referenceId: "x"
+                        ),
+                        value: Optional(JSONValue.object(
+                            [
+                                "key": JSONValue.string("value")
+                            ]
+                        )),
+                        confidence: Optional(1.1),
+                        rationale: Optional("rationale"),
+                        createdAt: Optional(try! Date("2024-01-15T09:30:00Z", strategy: .iso8601))
+                    )
+                ])
             ),
             summary: ConversationSummary(
                 actionIds: [
@@ -2579,7 +2963,53 @@ import Api
                         "resolvedByMaven": true,
                         "primaryLanguage": "primaryLanguage",
                         "predictedNps": 1.1,
-                        "csat": 1.1
+                        "csat": 1.1,
+                        "intelligentFieldValues": [
+                          {
+                            "fieldId": {
+                              "organizationId": "organizationId",
+                              "agentId": "agentId",
+                              "type": "AGENT",
+                              "appId": "appId",
+                              "referenceId": "x"
+                            },
+                            "entityId": {
+                              "organizationId": "organizationId",
+                              "agentId": "agentId",
+                              "type": "AGENT",
+                              "appId": "appId",
+                              "referenceId": "x"
+                            },
+                            "value": {
+                              "key": "value"
+                            },
+                            "confidence": 1.1,
+                            "rationale": "rationale",
+                            "createdAt": "2024-01-15T09:30:00Z"
+                          },
+                          {
+                            "fieldId": {
+                              "organizationId": "organizationId",
+                              "agentId": "agentId",
+                              "type": "AGENT",
+                              "appId": "appId",
+                              "referenceId": "x"
+                            },
+                            "entityId": {
+                              "organizationId": "organizationId",
+                              "agentId": "agentId",
+                              "type": "AGENT",
+                              "appId": "appId",
+                              "referenceId": "x"
+                            },
+                            "value": {
+                              "key": "value"
+                            },
+                            "confidence": 1.1,
+                            "rationale": "rationale",
+                            "createdAt": "2024-01-15T09:30:00Z"
+                          }
+                        ]
                       },
                       "summary": {
                         "actionIds": [
@@ -2710,7 +3140,53 @@ import Api
                         "resolvedByMaven": true,
                         "primaryLanguage": "primaryLanguage",
                         "predictedNps": 1.1,
-                        "csat": 1.1
+                        "csat": 1.1,
+                        "intelligentFieldValues": [
+                          {
+                            "fieldId": {
+                              "organizationId": "organizationId",
+                              "agentId": "agentId",
+                              "type": "AGENT",
+                              "appId": "appId",
+                              "referenceId": "x"
+                            },
+                            "entityId": {
+                              "organizationId": "organizationId",
+                              "agentId": "agentId",
+                              "type": "AGENT",
+                              "appId": "appId",
+                              "referenceId": "x"
+                            },
+                            "value": {
+                              "key": "value"
+                            },
+                            "confidence": 1.1,
+                            "rationale": "rationale",
+                            "createdAt": "2024-01-15T09:30:00Z"
+                          },
+                          {
+                            "fieldId": {
+                              "organizationId": "organizationId",
+                              "agentId": "agentId",
+                              "type": "AGENT",
+                              "appId": "appId",
+                              "referenceId": "x"
+                            },
+                            "entityId": {
+                              "organizationId": "organizationId",
+                              "agentId": "agentId",
+                              "type": "AGENT",
+                              "appId": "appId",
+                              "referenceId": "x"
+                            },
+                            "value": {
+                              "key": "value"
+                            },
+                            "confidence": 1.1,
+                            "rationale": "rationale",
+                            "createdAt": "2024-01-15T09:30:00Z"
+                          }
+                        ]
                       },
                       "summary": {
                         "actionIds": [
@@ -2847,7 +3323,57 @@ import Api
                         resolvedByMaven: Optional(true),
                         primaryLanguage: Optional("primaryLanguage"),
                         predictedNps: Optional(1.1),
-                        csat: Optional(1.1)
+                        csat: Optional(1.1),
+                        intelligentFieldValues: Optional([
+                            IntelligentFieldValueResponse(
+                                fieldId: EntityId(
+                                    organizationId: "organizationId",
+                                    agentId: "agentId",
+                                    type: .agent,
+                                    appId: "appId",
+                                    referenceId: "x"
+                                ),
+                                entityId: EntityId(
+                                    organizationId: "organizationId",
+                                    agentId: "agentId",
+                                    type: .agent,
+                                    appId: "appId",
+                                    referenceId: "x"
+                                ),
+                                value: Optional(JSONValue.object(
+                                    [
+                                        "key": JSONValue.string("value")
+                                    ]
+                                )),
+                                confidence: Optional(1.1),
+                                rationale: Optional("rationale"),
+                                createdAt: Optional(try! Date("2024-01-15T09:30:00Z", strategy: .iso8601))
+                            ),
+                            IntelligentFieldValueResponse(
+                                fieldId: EntityId(
+                                    organizationId: "organizationId",
+                                    agentId: "agentId",
+                                    type: .agent,
+                                    appId: "appId",
+                                    referenceId: "x"
+                                ),
+                                entityId: EntityId(
+                                    organizationId: "organizationId",
+                                    agentId: "agentId",
+                                    type: .agent,
+                                    appId: "appId",
+                                    referenceId: "x"
+                                ),
+                                value: Optional(JSONValue.object(
+                                    [
+                                        "key": JSONValue.string("value")
+                                    ]
+                                )),
+                                confidence: Optional(1.1),
+                                rationale: Optional("rationale"),
+                                createdAt: Optional(try! Date("2024-01-15T09:30:00Z", strategy: .iso8601))
+                            )
+                        ])
                     ),
                     summary: ConversationSummary(
                         actionIds: [
@@ -2957,7 +3483,57 @@ import Api
                         resolvedByMaven: Optional(true),
                         primaryLanguage: Optional("primaryLanguage"),
                         predictedNps: Optional(1.1),
-                        csat: Optional(1.1)
+                        csat: Optional(1.1),
+                        intelligentFieldValues: Optional([
+                            IntelligentFieldValueResponse(
+                                fieldId: EntityId(
+                                    organizationId: "organizationId",
+                                    agentId: "agentId",
+                                    type: .agent,
+                                    appId: "appId",
+                                    referenceId: "x"
+                                ),
+                                entityId: EntityId(
+                                    organizationId: "organizationId",
+                                    agentId: "agentId",
+                                    type: .agent,
+                                    appId: "appId",
+                                    referenceId: "x"
+                                ),
+                                value: Optional(JSONValue.object(
+                                    [
+                                        "key": JSONValue.string("value")
+                                    ]
+                                )),
+                                confidence: Optional(1.1),
+                                rationale: Optional("rationale"),
+                                createdAt: Optional(try! Date("2024-01-15T09:30:00Z", strategy: .iso8601))
+                            ),
+                            IntelligentFieldValueResponse(
+                                fieldId: EntityId(
+                                    organizationId: "organizationId",
+                                    agentId: "agentId",
+                                    type: .agent,
+                                    appId: "appId",
+                                    referenceId: "x"
+                                ),
+                                entityId: EntityId(
+                                    organizationId: "organizationId",
+                                    agentId: "agentId",
+                                    type: .agent,
+                                    appId: "appId",
+                                    referenceId: "x"
+                                ),
+                                value: Optional(JSONValue.object(
+                                    [
+                                        "key": JSONValue.string("value")
+                                    ]
+                                )),
+                                confidence: Optional(1.1),
+                                rationale: Optional("rationale"),
+                                createdAt: Optional(try! Date("2024-01-15T09:30:00Z", strategy: .iso8601))
+                            )
+                        ])
                     ),
                     summary: ConversationSummary(
                         actionIds: [

@@ -307,31 +307,26 @@ public enum ConversationPrecondition: Codable, Hashable, Sendable {
 
     public struct IntelligentField: Codable, Hashable, Sendable {
         public let conversationPreconditionType: String = "intelligentField"
-        /// The referenceId of the intelligent field.
-        public let fieldReferenceId: String
-        /// The appId of the intelligent field. If not provided, the calling appId will be used.
-        public let fieldAppId: String?
+        /// The ID of the intelligent field.
+        public let fieldIdWithoutAgent: EntityIdWithoutAgent
         /// The condition to evaluate against the field's value.
         public let fieldCondition: IntelligentFieldCondition
         /// Additional properties that are not explicitly defined in the schema
         public let additionalProperties: [String: JSONValue]
 
         public init(
-            fieldReferenceId: String,
-            fieldAppId: String? = nil,
+            fieldIdWithoutAgent: EntityIdWithoutAgent,
             fieldCondition: IntelligentFieldCondition,
             additionalProperties: [String: JSONValue] = .init()
         ) {
-            self.fieldReferenceId = fieldReferenceId
-            self.fieldAppId = fieldAppId
+            self.fieldIdWithoutAgent = fieldIdWithoutAgent
             self.fieldCondition = fieldCondition
             self.additionalProperties = additionalProperties
         }
 
         public init(from decoder: Decoder) throws {
             let container = try decoder.container(keyedBy: CodingKeys.self)
-            self.fieldReferenceId = try container.decode(String.self, forKey: .fieldReferenceId)
-            self.fieldAppId = try container.decodeIfPresent(String.self, forKey: .fieldAppId)
+            self.fieldIdWithoutAgent = try container.decode(EntityIdWithoutAgent.self, forKey: .fieldIdWithoutAgent)
             self.fieldCondition = try container.decode(IntelligentFieldCondition.self, forKey: .fieldCondition)
             self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
         }
@@ -340,16 +335,14 @@ public enum ConversationPrecondition: Codable, Hashable, Sendable {
             var container = encoder.container(keyedBy: CodingKeys.self)
             try encoder.encodeAdditionalProperties(self.additionalProperties)
             try container.encode(self.conversationPreconditionType, forKey: .conversationPreconditionType)
-            try container.encode(self.fieldReferenceId, forKey: .fieldReferenceId)
-            try container.encodeIfPresent(self.fieldAppId, forKey: .fieldAppId)
+            try container.encode(self.fieldIdWithoutAgent, forKey: .fieldIdWithoutAgent)
             try container.encode(self.fieldCondition, forKey: .fieldCondition)
         }
 
         /// Keys for encoding/decoding struct properties.
         enum CodingKeys: String, CodingKey, CaseIterable {
             case conversationPreconditionType
-            case fieldReferenceId
-            case fieldAppId
+            case fieldIdWithoutAgent
             case fieldCondition
         }
     }

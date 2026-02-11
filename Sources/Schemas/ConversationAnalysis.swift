@@ -23,6 +23,8 @@ public struct ConversationAnalysis: Codable, Hashable, Sendable {
     public let predictedNps: Double?
     /// The CSAT of the conversation.
     public let csat: Double?
+    /// Latest successful intelligent field values
+    public let intelligentFieldValues: [IntelligentFieldValueResponse]?
     /// Additional properties that are not explicitly defined in the schema
     public let additionalProperties: [String: JSONValue]
 
@@ -38,6 +40,7 @@ public struct ConversationAnalysis: Codable, Hashable, Sendable {
         primaryLanguage: String? = nil,
         predictedNps: Double? = nil,
         csat: Double? = nil,
+        intelligentFieldValues: [IntelligentFieldValueResponse]? = nil,
         additionalProperties: [String: JSONValue] = .init()
     ) {
         self.userRequest = userRequest
@@ -51,6 +54,7 @@ public struct ConversationAnalysis: Codable, Hashable, Sendable {
         self.primaryLanguage = primaryLanguage
         self.predictedNps = predictedNps
         self.csat = csat
+        self.intelligentFieldValues = intelligentFieldValues
         self.additionalProperties = additionalProperties
     }
 
@@ -67,6 +71,7 @@ public struct ConversationAnalysis: Codable, Hashable, Sendable {
         self.primaryLanguage = try container.decodeIfPresent(String.self, forKey: .primaryLanguage)
         self.predictedNps = try container.decodeIfPresent(Double.self, forKey: .predictedNps)
         self.csat = try container.decodeIfPresent(Double.self, forKey: .csat)
+        self.intelligentFieldValues = try container.decodeIfPresent([IntelligentFieldValueResponse].self, forKey: .intelligentFieldValues)
         self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
     }
 
@@ -84,6 +89,7 @@ public struct ConversationAnalysis: Codable, Hashable, Sendable {
         try container.encodeIfPresent(self.primaryLanguage, forKey: .primaryLanguage)
         try container.encodeIfPresent(self.predictedNps, forKey: .predictedNps)
         try container.encodeIfPresent(self.csat, forKey: .csat)
+        try container.encodeIfPresent(self.intelligentFieldValues, forKey: .intelligentFieldValues)
     }
 
     /// Keys for encoding/decoding struct properties.
@@ -99,5 +105,6 @@ public struct ConversationAnalysis: Codable, Hashable, Sendable {
         case primaryLanguage
         case predictedNps
         case csat
+        case intelligentFieldValues
     }
 }

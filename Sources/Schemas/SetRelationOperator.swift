@@ -8,8 +8,8 @@ public enum SetRelationOperator: String, Codable, Hashable, CaseIterable, Sendab
     case neq = "NEQ"
     /// Set contains any of the values (A ∩ B ≠ ∅)
     case containsAny = "CONTAINS_ANY"
-    /// Set contains none of the values (A ∩ B = ∅)
-    case notContainsAny = "NOT_CONTAINS_ANY"
+    /// Set contains none of the values (A ∩ B = ∅), i.e., negation of CONTAINS_ANY
+    case containsNone = "CONTAINS_NONE"
     /// Set contains all of the values (A ⊇ B)
     case containsAll = "CONTAINS_ALL"
     /// Set does not contain all of the values (A ⊉ B)

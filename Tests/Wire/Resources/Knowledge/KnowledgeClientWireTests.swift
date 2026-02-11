@@ -44,6 +44,15 @@ import Api
                         "appId": "appId",
                         "referenceId": "x"
                       },
+                      "segmentIds": [
+                        {
+                          "organizationId": "organizationId",
+                          "agentId": "agentId",
+                          "type": "AGENT",
+                          "appId": "appId",
+                          "referenceId": "x"
+                        }
+                      ],
                       "url": "url",
                       "name": "name",
                       "precondition": {
@@ -91,6 +100,15 @@ import Api
                         "appId": "appId",
                         "referenceId": "x"
                       },
+                      "segmentIds": [
+                        {
+                          "organizationId": "organizationId",
+                          "agentId": "agentId",
+                          "type": "AGENT",
+                          "appId": "appId",
+                          "referenceId": "x"
+                        }
+                      ],
                       "url": "url",
                       "name": "name",
                       "precondition": {
@@ -153,6 +171,7 @@ import Api
                         appId: "appId",
                         referenceId: "x"
                     )),
+                    segmentIds: [],
                     url: Optional("url"),
                     name: "name",
                     precondition: Optional(.user(
@@ -199,6 +218,7 @@ import Api
                         appId: "appId",
                         referenceId: "x"
                     )),
+                    segmentIds: [],
                     url: Optional("url"),
                     name: "name",
                     precondition: Optional(.user(
@@ -262,13 +282,22 @@ import Api
                     "tag2"
                   ],
                   "refreshFrequency": "DAILY",
-                  "segmentId": {
-                    "referenceId": "premium-users",
-                    "appId": "readme",
-                    "organizationId": "acme",
-                    "agentId": "support",
-                    "type": "SEGMENT"
-                  }
+                  "segmentIds": [
+                    {
+                      "referenceId": "premium-users1",
+                      "appId": "readme",
+                      "organizationId": "acme",
+                      "agentId": "support",
+                      "type": "SEGMENT"
+                    },
+                    {
+                      "referenceId": "premium-users2",
+                      "appId": "readme",
+                      "organizationId": "acme",
+                      "agentId": "support",
+                      "type": "SEGMENT"
+                    }
+                  ]
                 }
                 """.utf8
             )
@@ -305,13 +334,7 @@ import Api
             ],
             tags: [],
             refreshFrequency: .daily,
-            segmentId: Optional(EntityId(
-                referenceId: "premium-users",
-                appId: "readme",
-                organizationId: "acme",
-                agentId: "support",
-                type: .segment
-            ))
+            segmentIds: []
         )
         let response = try await client.knowledge.createOrUpdateKnowledgeBase(
             request: KnowledgeBaseRequest(
@@ -359,13 +382,22 @@ import Api
                     "tag2"
                   ],
                   "refreshFrequency": "DAILY",
-                  "segmentId": {
-                    "referenceId": "premium-users",
-                    "appId": "readme",
-                    "organizationId": "acme",
-                    "agentId": "support",
-                    "type": "SEGMENT"
-                  }
+                  "segmentIds": [
+                    {
+                      "referenceId": "premium-users1",
+                      "appId": "readme",
+                      "organizationId": "acme",
+                      "agentId": "support",
+                      "type": "SEGMENT"
+                    },
+                    {
+                      "referenceId": "premium-users2",
+                      "appId": "readme",
+                      "organizationId": "acme",
+                      "agentId": "support",
+                      "type": "SEGMENT"
+                    }
+                  ]
                 }
                 """.utf8
             )
@@ -402,13 +434,7 @@ import Api
             ],
             tags: [],
             refreshFrequency: .daily,
-            segmentId: Optional(EntityId(
-                referenceId: "premium-users",
-                appId: "readme",
-                organizationId: "acme",
-                agentId: "support",
-                type: .segment
-            ))
+            segmentIds: []
         )
         let response = try await client.knowledge.getKnowledgeBase(
             knowledgeBaseReferenceId: "help-center",
@@ -451,13 +477,22 @@ import Api
                     "tag2"
                   ],
                   "refreshFrequency": "DAILY",
-                  "segmentId": {
-                    "referenceId": "premium-users",
-                    "appId": "readme",
-                    "organizationId": "acme",
-                    "agentId": "support",
-                    "type": "SEGMENT"
-                  }
+                  "segmentIds": [
+                    {
+                      "referenceId": "premium-users1",
+                      "appId": "readme",
+                      "organizationId": "acme",
+                      "agentId": "support",
+                      "type": "SEGMENT"
+                    },
+                    {
+                      "referenceId": "premium-users2",
+                      "appId": "readme",
+                      "organizationId": "acme",
+                      "agentId": "support",
+                      "type": "SEGMENT"
+                    }
+                  ]
                 }
                 """.utf8
             )
@@ -494,13 +529,7 @@ import Api
             ],
             tags: [],
             refreshFrequency: .daily,
-            segmentId: Optional(EntityId(
-                referenceId: "premium-users",
-                appId: "readme",
-                organizationId: "acme",
-                agentId: "support",
-                type: .segment
-            ))
+            segmentIds: []
         )
         let response = try await client.knowledge.patchKnowledgeBase(
             knowledgeBaseReferenceId: "help-center",
