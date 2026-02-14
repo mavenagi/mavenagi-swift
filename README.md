@@ -20,7 +20,7 @@ With Swift Package Manager (SPM), add the following to the top-level `dependenci
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/mavenagi/mavenagi-swift", from: "1.2.18"),
+    .package(url: "https://github.com/mavenagi/mavenagi-swift", from: "1.2.19"),
 ]
 ```
 
