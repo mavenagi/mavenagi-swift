@@ -20,6 +20,20 @@ public final class InboxClient: Sendable {
         )
     }
 
+    /// Update inbox item tag fields. All tags provided will overwrite the existing tags on the inbox item.
+    ///
+    /// - Parameter inboxItemId: The ID of the inbox item to add tags to.
+    /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
+    public func applyTags(inboxItemId: String, request: Requests.InboxItemApplyTagsRequest, requestOptions: RequestOptions? = nil) async throws -> InboxItem {
+        return try await httpClient.performRequest(
+            method: .patch,
+            path: "/v1/inbox/\(inboxItemId)/tags",
+            body: request,
+            requestOptions: requestOptions,
+            responseType: InboxItem.self
+        )
+    }
+
     /// Retrieve details of a specific inbox item by its ID.
     ///
     /// - Parameter inboxItemId: The ID of the inbox item to get. All other entity ID fields are inferred from the request.

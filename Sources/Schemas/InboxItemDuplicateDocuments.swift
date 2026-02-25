@@ -11,6 +11,8 @@ public struct InboxItemDuplicateDocuments: Codable, Hashable, Sendable {
     public let status: InboxItemStatus
     /// Severity of the inbox item.
     public let severity: InboxItemSeverity
+    /// A set of tags associated with the inbox item that are used for filtering.
+    public let tags: JSONValue?
     /// The fix recommended for being applied
     public let recommendedFixes: [InboxItemFixDeactivateDocument]
     /// List of fixes associated with the inbox item.
@@ -28,6 +30,7 @@ public struct InboxItemDuplicateDocuments: Codable, Hashable, Sendable {
         updatedAt: Date,
         status: InboxItemStatus,
         severity: InboxItemSeverity,
+        tags: JSONValue? = nil,
         recommendedFixes: [InboxItemFixDeactivateDocument],
         otherFixes: [InboxItemFixDeactivateDocument],
         sourceDocument: DocumentInformation,
@@ -39,6 +42,7 @@ public struct InboxItemDuplicateDocuments: Codable, Hashable, Sendable {
         self.updatedAt = updatedAt
         self.status = status
         self.severity = severity
+        self.tags = tags
         self.recommendedFixes = recommendedFixes
         self.otherFixes = otherFixes
         self.sourceDocument = sourceDocument
@@ -53,6 +57,7 @@ public struct InboxItemDuplicateDocuments: Codable, Hashable, Sendable {
         self.updatedAt = try container.decode(Date.self, forKey: .updatedAt)
         self.status = try container.decode(InboxItemStatus.self, forKey: .status)
         self.severity = try container.decode(InboxItemSeverity.self, forKey: .severity)
+        self.tags = try container.decodeIfPresent(JSONValue.self, forKey: .tags)
         self.recommendedFixes = try container.decode([InboxItemFixDeactivateDocument].self, forKey: .recommendedFixes)
         self.otherFixes = try container.decode([InboxItemFixDeactivateDocument].self, forKey: .otherFixes)
         self.sourceDocument = try container.decode(DocumentInformation.self, forKey: .sourceDocument)
@@ -68,6 +73,7 @@ public struct InboxItemDuplicateDocuments: Codable, Hashable, Sendable {
         try container.encode(self.updatedAt, forKey: .updatedAt)
         try container.encode(self.status, forKey: .status)
         try container.encode(self.severity, forKey: .severity)
+        try container.encodeIfPresent(self.tags, forKey: .tags)
         try container.encode(self.recommendedFixes, forKey: .recommendedFixes)
         try container.encode(self.otherFixes, forKey: .otherFixes)
         try container.encode(self.sourceDocument, forKey: .sourceDocument)
@@ -81,6 +87,7 @@ public struct InboxItemDuplicateDocuments: Codable, Hashable, Sendable {
         case updatedAt
         case status
         case severity
+        case tags
         case recommendedFixes
         case otherFixes
         case sourceDocument

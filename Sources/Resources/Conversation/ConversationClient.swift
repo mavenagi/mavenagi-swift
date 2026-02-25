@@ -152,32 +152,6 @@ public final class ConversationClient: Sendable {
         )
     }
 
-    /// Generate a structured object response based on a provided schema and user prompt with a streaming response. 
-    /// The response will be sent as a stream of events containing text, start, and end events.
-    /// The text portions of stream responses should be concatenated to form the full response text.
-    /// 
-    /// If the user question and object response already exist, they will be reused and not updated.
-    /// 
-    /// Concurrency Behavior:
-    /// - If another API call is made for the same user question while a response is mid-stream, partial answers may be returned.
-    /// - The second caller will receive a truncated or partial response depending on where the first stream is in its processing. The first caller's stream will remain unaffected and continue delivering the full response.
-    /// 
-    /// Known Limitations:
-    /// - Schema enforcement is best-effort and may not guarantee exact conformity.
-    /// - The API does not currently expose metadata indicating whether a response or message is incomplete. This will be addressed in a future update.
-    ///
-    /// - Parameter conversationId: The ID of a new or existing conversation to use as context for the object generation request
-    /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
-    public func askObjectStream(conversationId: String, request: AskObjectRequest, requestOptions: RequestOptions? = nil) async throws -> JSONValue {
-        return try await httpClient.performRequest(
-            method: .post,
-            path: "/v1/conversations/\(conversationId)/ask_object_stream",
-            body: request,
-            requestOptions: requestOptions,
-            responseType: JSONValue.self
-        )
-    }
-
     /// Uses an LLM flow to categorize the conversation. Experimental.
     ///
     /// - Parameter conversationId: The ID of the conversation to categorize

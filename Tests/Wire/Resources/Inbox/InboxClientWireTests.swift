@@ -162,7 +162,10 @@ import Api
                       "createdAt": "2024-01-15T09:30:00Z",
                       "updatedAt": "2024-01-15T09:30:00Z",
                       "status": "OPEN",
-                      "severity": "LOW"
+                      "severity": "LOW",
+                      "tags": [
+                        "tags"
+                      ]
                     },
                     {
                       "type": "duplicateDocuments",
@@ -316,7 +319,10 @@ import Api
                       "createdAt": "2024-01-15T09:30:00Z",
                       "updatedAt": "2024-01-15T09:30:00Z",
                       "status": "OPEN",
-                      "severity": "LOW"
+                      "severity": "LOW",
+                      "tags": [
+                        "tags"
+                      ]
                     }
                   ],
                   "number": 1,
@@ -487,7 +493,8 @@ import Api
                         createdAt: try! Date("2024-01-15T09:30:00Z", strategy: .iso8601),
                         updatedAt: try! Date("2024-01-15T09:30:00Z", strategy: .iso8601),
                         status: .open,
-                        severity: .low
+                        severity: .low,
+                        tags: Optional([])
                     )
                 ),
                 .duplicateDocuments(
@@ -642,7 +649,8 @@ import Api
                         createdAt: try! Date("2024-01-15T09:30:00Z", strategy: .iso8601),
                         updatedAt: try! Date("2024-01-15T09:30:00Z", strategy: .iso8601),
                         status: .open,
-                        severity: .low
+                        severity: .low,
+                        tags: Optional([])
                     )
                 )
             ],
@@ -655,6 +663,63 @@ import Api
             request: InboxSearchRequest(
 
             ),
+            requestOptions: RequestOptions(additionalHeaders: stub.headers)
+        )
+        try #require(response == expectedResponse)
+    }
+
+    @Test func applyTags1() async throws -> Void {
+        let stub = HTTPStub()
+        stub.setResponse(
+            body: Data(
+                """
+                {
+                  "type": "custom",
+                  "id": {
+                    "referenceId": "todo-item-1",
+                    "appId": "myapp",
+                    "organizationId": "acme",
+                    "agentId": "support",
+                    "type": "INBOX_ITEM"
+                  },
+                  "status": "OPEN",
+                  "severity": "HIGH",
+                  "createdAt": "2025-01-01T00:00:00Z",
+                  "updatedAt": "2025-02-01T00:00:00Z",
+                  "metadata": {
+                    "key": "value"
+                  }
+                }
+                """.utf8
+            )
+        )
+        let client = MavenAGI(
+            baseURL: "https://api.fern.com",
+            appId: "<username>",
+            appSecret: "<password>",
+            urlSession: stub.urlSession
+        )
+        let expectedResponse = .custom(
+            .init(
+                id: EntityId(
+                    referenceId: "todo-item-1",
+                    appId: "myapp",
+                    organizationId: "acme",
+                    agentId: "support",
+                    type: .inboxItem
+                ),
+                status: .open,
+                severity: .high,
+                createdAt: try! Date("2025-01-01T00:00:00Z", strategy: .iso8601),
+                updatedAt: try! Date("2025-02-01T00:00:00Z", strategy: .iso8601),
+                metadata: [
+                    "key": "value"
+                ]
+            )
+        )
+        let response = try await client.inbox.applyTags(
+            inboxItemId: "custom-item-1",
+            request: .init(),
             requestOptions: RequestOptions(additionalHeaders: stub.headers)
         )
         try #require(response == expectedResponse)
@@ -817,7 +882,10 @@ import Api
                   "createdAt": "2024-01-15T09:30:00Z",
                   "updatedAt": "2024-01-15T09:30:00Z",
                   "status": "OPEN",
-                  "severity": "LOW"
+                  "severity": "LOW",
+                  "tags": [
+                    "tags"
+                  ]
                 }
                 """.utf8
             )
@@ -980,7 +1048,8 @@ import Api
                 createdAt: try! Date("2024-01-15T09:30:00Z", strategy: .iso8601),
                 updatedAt: try! Date("2024-01-15T09:30:00Z", strategy: .iso8601),
                 status: .open,
-                severity: .low
+                severity: .low,
+                tags: Optional([])
             )
         )
         let response = try await client.inbox.get(

@@ -3,7 +3,7 @@ import Foundation
 /// Audio chunk to send into the conversation.
 public struct UserAudioChunk: Codable, Hashable, Sendable {
     public let type: UserAudioChunk
-    /// Base64-encoded AI audio data
+    /// Base64-encoded audio data
     public let data: String
     /// Additional properties that are not explicitly defined in the schema
     public let additionalProperties: [String: JSONValue]

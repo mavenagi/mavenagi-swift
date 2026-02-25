@@ -16,6 +16,7 @@ public struct AttachmentResponse: Codable, Hashable, Sendable {
     /// - application/msword
     /// - application/vnd.ms-excel
     /// - application/vnd.ms-powerpoint
+    /// - application/x-subrip
     /// - audio/aac
     /// - audio/mpeg
     /// - audio/mp4

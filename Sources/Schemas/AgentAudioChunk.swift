@@ -1,6 +1,6 @@
 import Foundation
 
-/// Audio chunk to send into the conversation.
+/// Audio chunk from the agent.
 public struct AgentAudioChunk: Codable, Hashable, Sendable {
     public let eventId: String
     public let type: AgentAudioChunk

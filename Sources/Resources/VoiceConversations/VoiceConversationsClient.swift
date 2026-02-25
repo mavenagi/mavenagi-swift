@@ -1,6 +1,6 @@
 import Foundation
 
-public final class WebsocketsClient: Sendable {
+public final class VoiceConversationsClient: Sendable {
     private let httpClient: HTTPClient
 
     init(config: ClientConfig) {

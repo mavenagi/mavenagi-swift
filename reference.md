@@ -2018,85 +2018,6 @@ try await main()
 </dl>
 </details>
 
-## Auth
-<details><summary><code>client.auth.<a href="/Sources/Resources/Auth/AuthClient.swift">sessionToken</a>(request: SessionTokenRequest, requestOptions: RequestOptions?) -> SessionTokenResponse</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Creates a short-lived session token that can be used to authenticate 
-WebSocket connections. Session tokens are useful for client-side applications where 
-you don’t want to expose your API key.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```swift
-import Foundation
-import Api
-
-private func main() async throws {
-    let client = MavenAGI(
-        appId: "<username>",
-        appSecret: "<password>"
-    )
-
-    _ = try await client.auth.sessionToken(request: SessionTokenRequest(
-        ttlSeconds: 3600
-    ))
-}
-
-try await main()
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request:** `SessionTokenRequest` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `RequestOptions?` — Additional options for configuring the request, such as custom headers or timeout settings.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
 ## Conversation
 <details><summary><code>client.conversation.<a href="/Sources/Resources/Conversation/ConversationClient.swift">initialize</a>(request: ConversationRequest, requestOptions: RequestOptions?) -> ConversationResponse</code></summary>
 <dl>
@@ -2802,112 +2723,6 @@ try await main()
 <dd>
 
 **request:** `AskRequest` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `RequestOptions?` — Additional options for configuring the request, such as custom headers or timeout settings.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.conversation.<a href="/Sources/Resources/Conversation/ConversationClient.swift">askObjectStream</a>(conversationId: String, request: AskObjectRequest, requestOptions: RequestOptions?) -> JSONValue</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Generate a structured object response based on a provided schema and user prompt with a streaming response. 
-The response will be sent as a stream of events containing text, start, and end events.
-The text portions of stream responses should be concatenated to form the full response text.
-
-If the user question and object response already exist, they will be reused and not updated.
-
-Concurrency Behavior:
-- If another API call is made for the same user question while a response is mid-stream, partial answers may be returned.
-- The second caller will receive a truncated or partial response depending on where the first stream is in its processing. The first caller's stream will remain unaffected and continue delivering the full response.
-
-Known Limitations:
-- Schema enforcement is best-effort and may not guarantee exact conformity.
-- The API does not currently expose metadata indicating whether a response or message is incomplete. This will be addressed in a future update.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```swift
-import Foundation
-import Api
-
-private func main() async throws {
-    let client = MavenAGI(
-        appId: "<username>",
-        appSecret: "<password>"
-    )
-
-    _ = try await client.conversation.askObjectStream(
-        conversationId: "conversationId",
-        request: AskObjectRequest(
-            conversationMessageId: EntityIdBase(
-                referenceId: "x"
-            ),
-            userId: EntityIdBase(
-                referenceId: "x"
-            ),
-            text: "text",
-            schema: "schema"
-        )
-    )
-}
-
-try await main()
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**conversationId:** `String` — The ID of a new or existing conversation to use as context for the object generation request
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request:** `AskObjectRequest` 
     
 </dd>
 </dl>
@@ -4325,6 +4140,91 @@ try await main()
 <dd>
 
 **request:** `InboxSearchRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `RequestOptions?` — Additional options for configuring the request, such as custom headers or timeout settings.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.inbox.<a href="/Sources/Resources/Inbox/InboxClient.swift">applyTags</a>(inboxItemId: String, request: Requests.InboxItemApplyTagsRequest, requestOptions: RequestOptions?) -> InboxItem</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Update inbox item tag fields. All tags provided will overwrite the existing tags on the inbox item.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```swift
+import Foundation
+import Api
+
+private func main() async throws {
+    let client = MavenAGI(
+        appId: "<username>",
+        appSecret: "<password>"
+    )
+
+    _ = try await client.inbox.applyTags(
+        inboxItemId: "custom-item-1",
+        request: .init()
+    )
+}
+
+try await main()
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**inboxItemId:** `String` — The ID of the inbox item to add tags to.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Requests.InboxItemApplyTagsRequest` 
     
 </dd>
 </dl>
@@ -7773,6 +7673,90 @@ try await main()
 <dd>
 
 **appId:** `String?` — The App ID of the app user to delete. If not provided the ID of the calling app will be used.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `RequestOptions?` — Additional options for configuring the request, such as custom headers or timeout settings.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Voice
+<details><summary><code>client.voice.<a href="/Sources/Resources/Voice/VoiceClient.swift">sessionToken</a>(request: VoiceSessionTokenRequest, requestOptions: RequestOptions?) -> VoiceSessionTokenResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Creates a short-lived session token for authenticating voice connections.
+
+Supports two token types:
+- **webrtc**: A Twilio-compatible access token for browser-based WebRTC calls
+- **websocket**: An RS256 JWT for direct WebSocket connections to /v1/voice/conversations
+
+Session tokens are required before establishing any voice connection.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```swift
+import Foundation
+import Api
+
+private func main() async throws {
+    let client = MavenAGI(
+        appId: "<username>",
+        appSecret: "<password>"
+    )
+
+    _ = try await client.voice.sessionToken(request: VoiceSessionTokenRequest(
+        appUserId: "appUserId",
+        type: .webrtc
+    ))
+}
+
+try await main()
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `VoiceSessionTokenRequest` 
     
 </dd>
 </dl>

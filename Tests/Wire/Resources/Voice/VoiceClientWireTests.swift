@@ -2,15 +2,17 @@ import Foundation
 import Testing
 import Api
 
-@Suite("AuthClient Wire Tests") struct AuthClientWireTests {
+@Suite("VoiceClient Wire Tests") struct VoiceClientWireTests {
     @Test func sessionToken1() async throws -> Void {
         let stub = HTTPStub()
         stub.setResponse(
             body: Data(
                 """
                 {
-                  "sessionToken": "sessionToken",
-                  "expiresAt": "2024-01-15T09:30:00Z"
+                  "token": "token",
+                  "identity": "identity",
+                  "type": "webrtc",
+                  "expiresIn": 1
                 }
                 """.utf8
             )
@@ -21,13 +23,16 @@ import Api
             appSecret: "<password>",
             urlSession: stub.urlSession
         )
-        let expectedResponse = SessionTokenResponse(
-            sessionToken: "sessionToken",
-            expiresAt: try! Date("2024-01-15T09:30:00Z", strategy: .iso8601)
+        let expectedResponse = VoiceSessionTokenResponse(
+            token: "token",
+            identity: "identity",
+            type: .webrtc,
+            expiresIn: 1
         )
-        let response = try await client.auth.sessionToken(
-            request: SessionTokenRequest(
-                ttlSeconds: 3600
+        let response = try await client.voice.sessionToken(
+            request: VoiceSessionTokenRequest(
+                appUserId: "appUserId",
+                type: .webrtc
             ),
             requestOptions: RequestOptions(additionalHeaders: stub.headers)
         )

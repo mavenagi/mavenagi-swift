@@ -9,6 +9,8 @@ public struct SegmentsSearchRequest: Codable, Hashable, Sendable {
     public let sortDesc: Bool?
     /// The field to sort by, defaults to created timestamp
     public let sort: SegmentField?
+    /// The filter to apply to the segments.
+    public let filter: SegmentFilter?
     /// Additional properties that are not explicitly defined in the schema
     public let additionalProperties: [String: JSONValue]
 
@@ -17,12 +19,14 @@ public struct SegmentsSearchRequest: Codable, Hashable, Sendable {
         size: Int? = nil,
         sortDesc: Bool? = nil,
         sort: SegmentField? = nil,
+        filter: SegmentFilter? = nil,
         additionalProperties: [String: JSONValue] = .init()
     ) {
         self.page = page
         self.size = size
         self.sortDesc = sortDesc
         self.sort = sort
+        self.filter = filter
         self.additionalProperties = additionalProperties
     }
 
@@ -32,6 +36,7 @@ public struct SegmentsSearchRequest: Codable, Hashable, Sendable {
         self.size = try container.decodeIfPresent(Int.self, forKey: .size)
         self.sortDesc = try container.decodeIfPresent(Bool.self, forKey: .sortDesc)
         self.sort = try container.decodeIfPresent(SegmentField.self, forKey: .sort)
+        self.filter = try container.decodeIfPresent(SegmentFilter.self, forKey: .filter)
         self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
     }
 
@@ -42,6 +47,7 @@ public struct SegmentsSearchRequest: Codable, Hashable, Sendable {
         try container.encodeIfPresent(self.size, forKey: .size)
         try container.encodeIfPresent(self.sortDesc, forKey: .sortDesc)
         try container.encodeIfPresent(self.sort, forKey: .sort)
+        try container.encodeIfPresent(self.filter, forKey: .filter)
     }
 
     /// Keys for encoding/decoding struct properties.
@@ -50,5 +56,6 @@ public struct SegmentsSearchRequest: Codable, Hashable, Sendable {
         case size
         case sortDesc
         case sort
+        case filter
     }
 }

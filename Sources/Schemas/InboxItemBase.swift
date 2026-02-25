@@ -11,6 +11,8 @@ public struct InboxItemBase: Codable, Hashable, Sendable {
     public let status: InboxItemStatus
     /// Severity of the inbox item.
     public let severity: InboxItemSeverity
+    /// A set of tags associated with the inbox item that are used for filtering.
+    public let tags: JSONValue?
     /// Additional properties that are not explicitly defined in the schema
     public let additionalProperties: [String: JSONValue]
 
@@ -20,6 +22,7 @@ public struct InboxItemBase: Codable, Hashable, Sendable {
         updatedAt: Date,
         status: InboxItemStatus,
         severity: InboxItemSeverity,
+        tags: JSONValue? = nil,
         additionalProperties: [String: JSONValue] = .init()
     ) {
         self.id = id
@@ -27,6 +30,7 @@ public struct InboxItemBase: Codable, Hashable, Sendable {
         self.updatedAt = updatedAt
         self.status = status
         self.severity = severity
+        self.tags = tags
         self.additionalProperties = additionalProperties
     }
 
@@ -37,6 +41,7 @@ public struct InboxItemBase: Codable, Hashable, Sendable {
         self.updatedAt = try container.decode(Date.self, forKey: .updatedAt)
         self.status = try container.decode(InboxItemStatus.self, forKey: .status)
         self.severity = try container.decode(InboxItemSeverity.self, forKey: .severity)
+        self.tags = try container.decodeIfPresent(JSONValue.self, forKey: .tags)
         self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
     }
 
@@ -48,6 +53,7 @@ public struct InboxItemBase: Codable, Hashable, Sendable {
         try container.encode(self.updatedAt, forKey: .updatedAt)
         try container.encode(self.status, forKey: .status)
         try container.encode(self.severity, forKey: .severity)
+        try container.encodeIfPresent(self.tags, forKey: .tags)
     }
 
     /// Keys for encoding/decoding struct properties.
@@ -57,5 +63,6 @@ public struct InboxItemBase: Codable, Hashable, Sendable {
         case updatedAt
         case status
         case severity
+        case tags
     }
 }

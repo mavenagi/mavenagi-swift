@@ -7,7 +7,6 @@ public final class MavenAGI: Sendable {
     public let analytics: AnalyticsClient
     public let appSettings: AppSettingsClient
     public let assets: AssetsClient
-    public let auth: AuthClient
     public let commons: CommonsClient
     public let conversation: ConversationClient
     public let customers: CustomersClient
@@ -20,7 +19,8 @@ public final class MavenAGI: Sendable {
     public let translations: TranslationsClient
     public let triggers: TriggersClient
     public let users: UsersClient
-    public let websockets: WebsocketsClient
+    public let voiceConversations: VoiceConversationsClient
+    public let voice: VoiceClient
     private let httpClient: HTTPClient
 
     /// Initialize the client with the specified configuration.
@@ -78,7 +78,6 @@ public final class MavenAGI: Sendable {
         self.analytics = AnalyticsClient(config: config)
         self.appSettings = AppSettingsClient(config: config)
         self.assets = AssetsClient(config: config)
-        self.auth = AuthClient(config: config)
         self.commons = CommonsClient(config: config)
         self.conversation = ConversationClient(config: config)
         self.customers = CustomersClient(config: config)
@@ -91,7 +90,8 @@ public final class MavenAGI: Sendable {
         self.translations = TranslationsClient(config: config)
         self.triggers = TriggersClient(config: config)
         self.users = UsersClient(config: config)
-        self.websockets = WebsocketsClient(config: config)
+        self.voiceConversations = VoiceConversationsClient(config: config)
+        self.voice = VoiceClient(config: config)
         self.httpClient = HTTPClient(config: config)
     }
 }

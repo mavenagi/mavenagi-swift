@@ -11,6 +11,8 @@ public struct InboxItemMissingKnowledge: Codable, Hashable, Sendable {
     public let status: InboxItemStatus
     /// Severity of the inbox item.
     public let severity: InboxItemSeverity
+    /// A set of tags associated with the inbox item that are used for filtering.
+    public let tags: JSONValue?
     /// Fix associated with the inbox item.
     public let fix: InboxItemFixAddDocument
     /// List of Conversation information objects related to the inbox item.
@@ -24,6 +26,7 @@ public struct InboxItemMissingKnowledge: Codable, Hashable, Sendable {
         updatedAt: Date,
         status: InboxItemStatus,
         severity: InboxItemSeverity,
+        tags: JSONValue? = nil,
         fix: InboxItemFixAddDocument,
         conversations: [ConversationInformation],
         additionalProperties: [String: JSONValue] = .init()
@@ -33,6 +36,7 @@ public struct InboxItemMissingKnowledge: Codable, Hashable, Sendable {
         self.updatedAt = updatedAt
         self.status = status
         self.severity = severity
+        self.tags = tags
         self.fix = fix
         self.conversations = conversations
         self.additionalProperties = additionalProperties
@@ -45,6 +49,7 @@ public struct InboxItemMissingKnowledge: Codable, Hashable, Sendable {
         self.updatedAt = try container.decode(Date.self, forKey: .updatedAt)
         self.status = try container.decode(InboxItemStatus.self, forKey: .status)
         self.severity = try container.decode(InboxItemSeverity.self, forKey: .severity)
+        self.tags = try container.decodeIfPresent(JSONValue.self, forKey: .tags)
         self.fix = try container.decode(InboxItemFixAddDocument.self, forKey: .fix)
         self.conversations = try container.decode([ConversationInformation].self, forKey: .conversations)
         self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
@@ -58,6 +63,7 @@ public struct InboxItemMissingKnowledge: Codable, Hashable, Sendable {
         try container.encode(self.updatedAt, forKey: .updatedAt)
         try container.encode(self.status, forKey: .status)
         try container.encode(self.severity, forKey: .severity)
+        try container.encodeIfPresent(self.tags, forKey: .tags)
         try container.encode(self.fix, forKey: .fix)
         try container.encode(self.conversations, forKey: .conversations)
     }
@@ -69,6 +75,7 @@ public struct InboxItemMissingKnowledge: Codable, Hashable, Sendable {
         case updatedAt
         case status
         case severity
+        case tags
         case fix
         case conversations
     }

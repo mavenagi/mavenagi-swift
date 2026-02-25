@@ -9,6 +9,8 @@ public struct SegmentRequest: Codable, Hashable, Sendable {
     public let precondition: Precondition
     /// ID that uniquely identifies this segment
     public let segmentId: EntityIdBase
+    /// Desired status for the segment. If omitted, defaults to ACTIVE. In the future this will become required, so specify ACTIVE or INACTIVE if possible.
+    public let status: SegmentStatus?
     /// Additional properties that are not explicitly defined in the schema
     public let additionalProperties: [String: JSONValue]
 
@@ -17,12 +19,14 @@ public struct SegmentRequest: Codable, Hashable, Sendable {
         description: String? = nil,
         precondition: Precondition,
         segmentId: EntityIdBase,
+        status: SegmentStatus? = nil,
         additionalProperties: [String: JSONValue] = .init()
     ) {
         self.name = name
         self.description = description
         self.precondition = precondition
         self.segmentId = segmentId
+        self.status = status
         self.additionalProperties = additionalProperties
     }
 
@@ -32,6 +36,7 @@ public struct SegmentRequest: Codable, Hashable, Sendable {
         self.description = try container.decodeIfPresent(String.self, forKey: .description)
         self.precondition = try container.decode(Precondition.self, forKey: .precondition)
         self.segmentId = try container.decode(EntityIdBase.self, forKey: .segmentId)
+        self.status = try container.decodeIfPresent(SegmentStatus.self, forKey: .status)
         self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
     }
 
@@ -42,6 +47,7 @@ public struct SegmentRequest: Codable, Hashable, Sendable {
         try container.encodeIfPresent(self.description, forKey: .description)
         try container.encode(self.precondition, forKey: .precondition)
         try container.encode(self.segmentId, forKey: .segmentId)
+        try container.encodeIfPresent(self.status, forKey: .status)
     }
 
     /// Keys for encoding/decoding struct properties.
@@ -50,5 +56,6 @@ public struct SegmentRequest: Codable, Hashable, Sendable {
         case description
         case precondition
         case segmentId
+        case status
     }
 }

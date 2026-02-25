@@ -17,6 +17,8 @@ public struct SegmentResponse: Codable, Hashable, Sendable {
     public let referencedKnowledgeBaseCount: Int64?
     /// The number of active documents that reference this segment.
     public let referencedDocumentCount: Int64?
+    /// The number of active actions that reference this segment.
+    public let referencedActionCount: Int64?
     /// The status of the segment.
     /// 
     /// - ACTIVE: Segment is in use and will be evaluated for matching user questions.
@@ -35,6 +37,7 @@ public struct SegmentResponse: Codable, Hashable, Sendable {
         updatedAt: Date,
         referencedKnowledgeBaseCount: Int64? = nil,
         referencedDocumentCount: Int64? = nil,
+        referencedActionCount: Int64? = nil,
         status: SegmentStatus,
         additionalProperties: [String: JSONValue] = .init()
     ) {
@@ -46,6 +49,7 @@ public struct SegmentResponse: Codable, Hashable, Sendable {
         self.updatedAt = updatedAt
         self.referencedKnowledgeBaseCount = referencedKnowledgeBaseCount
         self.referencedDocumentCount = referencedDocumentCount
+        self.referencedActionCount = referencedActionCount
         self.status = status
         self.additionalProperties = additionalProperties
     }
@@ -60,6 +64,7 @@ public struct SegmentResponse: Codable, Hashable, Sendable {
         self.updatedAt = try container.decode(Date.self, forKey: .updatedAt)
         self.referencedKnowledgeBaseCount = try container.decodeIfPresent(Int64.self, forKey: .referencedKnowledgeBaseCount)
         self.referencedDocumentCount = try container.decodeIfPresent(Int64.self, forKey: .referencedDocumentCount)
+        self.referencedActionCount = try container.decodeIfPresent(Int64.self, forKey: .referencedActionCount)
         self.status = try container.decode(SegmentStatus.self, forKey: .status)
         self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
     }
@@ -75,6 +80,7 @@ public struct SegmentResponse: Codable, Hashable, Sendable {
         try container.encode(self.updatedAt, forKey: .updatedAt)
         try container.encodeIfPresent(self.referencedKnowledgeBaseCount, forKey: .referencedKnowledgeBaseCount)
         try container.encodeIfPresent(self.referencedDocumentCount, forKey: .referencedDocumentCount)
+        try container.encodeIfPresent(self.referencedActionCount, forKey: .referencedActionCount)
         try container.encode(self.status, forKey: .status)
     }
 
@@ -88,6 +94,7 @@ public struct SegmentResponse: Codable, Hashable, Sendable {
         case updatedAt
         case referencedKnowledgeBaseCount
         case referencedDocumentCount
+        case referencedActionCount
         case status
     }
 }

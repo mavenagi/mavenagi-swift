@@ -3,9 +3,9 @@ import Foundation
 /// Initialize conversation with configuration parameters
 public struct Config: Codable, Hashable, Sendable {
     public let type: Config
-    /// The user text to send into the conversation.
+    /// The input audio format from the client.
     public let inputFormat: AudioFormat
-    /// The user text to send into the conversation.
+    /// The output audio format to send to the client.
     public let outputFormat: AudioFormat
     /// The conversation ID which was created prior to starting this conversation.
     public let conversationId: String

@@ -11,6 +11,8 @@ public struct InboxItemCustom: Codable, Hashable, Sendable {
     public let status: InboxItemStatus
     /// Severity of the inbox item.
     public let severity: InboxItemSeverity
+    /// A set of tags associated with the inbox item that are used for filtering.
+    public let tags: JSONValue?
     /// Additional metadata associated with the inbox item.
     public let metadata: [String: String]
     /// Additional properties that are not explicitly defined in the schema
@@ -22,6 +24,7 @@ public struct InboxItemCustom: Codable, Hashable, Sendable {
         updatedAt: Date,
         status: InboxItemStatus,
         severity: InboxItemSeverity,
+        tags: JSONValue? = nil,
         metadata: [String: String],
         additionalProperties: [String: JSONValue] = .init()
     ) {
@@ -30,6 +33,7 @@ public struct InboxItemCustom: Codable, Hashable, Sendable {
         self.updatedAt = updatedAt
         self.status = status
         self.severity = severity
+        self.tags = tags
         self.metadata = metadata
         self.additionalProperties = additionalProperties
     }
@@ -41,6 +45,7 @@ public struct InboxItemCustom: Codable, Hashable, Sendable {
         self.updatedAt = try container.decode(Date.self, forKey: .updatedAt)
         self.status = try container.decode(InboxItemStatus.self, forKey: .status)
         self.severity = try container.decode(InboxItemSeverity.self, forKey: .severity)
+        self.tags = try container.decodeIfPresent(JSONValue.self, forKey: .tags)
         self.metadata = try container.decode([String: String].self, forKey: .metadata)
         self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
     }
@@ -53,6 +58,7 @@ public struct InboxItemCustom: Codable, Hashable, Sendable {
         try container.encode(self.updatedAt, forKey: .updatedAt)
         try container.encode(self.status, forKey: .status)
         try container.encode(self.severity, forKey: .severity)
+        try container.encodeIfPresent(self.tags, forKey: .tags)
         try container.encode(self.metadata, forKey: .metadata)
     }
 
@@ -63,6 +69,7 @@ public struct InboxItemCustom: Codable, Hashable, Sendable {
         case updatedAt
         case status
         case severity
+        case tags
         case metadata
     }
 }
