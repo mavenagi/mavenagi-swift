@@ -18,4 +18,5 @@ public enum EntityType: String, Codable, Hashable, CaseIterable, Sendable {
     case segment = "SEGMENT"
     case customer = "CUSTOMER"
     case intelligentField = "INTELLIGENT_FIELD"
+    case charter = "CHARTER"
 }
