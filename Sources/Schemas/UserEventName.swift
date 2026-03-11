@@ -11,4 +11,6 @@ public enum UserEventName: String, Codable, Hashable, CaseIterable, Sendable {
     case chatClosed = "CHAT_CLOSED"
     /// A text was inserted into a field
     case textInserted = "TEXT_INSERTED"
+    /// A CSAT rating was submitted
+    case csatSubmitted = "CSAT_SUBMITTED"
 }

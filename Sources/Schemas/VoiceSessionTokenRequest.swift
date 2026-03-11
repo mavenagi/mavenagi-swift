@@ -2,11 +2,16 @@ import Foundation
 
 public struct VoiceSessionTokenRequest: Codable, Hashable, Sendable {
     /// The end user identity for the voice session.
+    /// Must contain only alphanumeric characters, dots, hyphens, or underscores.
     public let appUserId: String
     /// The type of session token to generate.
     /// Use "webrtc" for browser-based calls via Twilio, or "websocket" for direct WebSocket connections.
     public let type: VoiceTokenType
     /// Arbitrary key-value metadata to associate with this session (e.g., conversationId, topic).
+    /// 
+    /// **Constraints**: at most 50 keys, each key up to 256 characters, each value up to 4096 characters.
+    /// Values are stored as-is — for small data, embed the value directly (e.g., `"callerName": "John Doe"`).
+    /// 
     /// For WebRTC tokens, this data is stored server-side and referenced by a secure ID
     /// encoded in the token identity, ensuring it cannot be tampered with by the client.
     /// For WebSocket tokens, clients can also pass data directly in the Config message.

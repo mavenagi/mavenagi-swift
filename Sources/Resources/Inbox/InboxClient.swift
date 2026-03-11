@@ -20,6 +20,19 @@ public final class InboxClient: Sendable {
         )
     }
 
+    /// Update an inbox item or create it if it doesn't exist.
+    ///
+    /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
+    public func createOrUpdate(request: InboxItemCreateRequest, requestOptions: RequestOptions? = nil) async throws -> InboxItem {
+        return try await httpClient.performRequest(
+            method: .put,
+            path: "/v1/inbox",
+            body: request,
+            requestOptions: requestOptions,
+            responseType: InboxItem.self
+        )
+    }
+
     /// Update inbox item tag fields. All tags provided will overwrite the existing tags on the inbox item.
     ///
     /// - Parameter inboxItemId: The ID of the inbox item to add tags to.

@@ -4159,6 +4159,94 @@ try await main()
 </dl>
 </details>
 
+<details><summary><code>client.inbox.<a href="/Sources/Resources/Inbox/InboxClient.swift">createOrUpdate</a>(request: InboxItemCreateRequest, requestOptions: RequestOptions?) -> InboxItem</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Update an inbox item or create it if it doesn't exist.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```swift
+import Foundation
+import Api
+
+private func main() async throws {
+    let client = MavenAGI(
+        appId: "<username>",
+        appSecret: "<password>"
+    )
+
+    _ = try await client.inbox.createOrUpdate(request: InboxItemCreateRequest(
+        inboxItemId: EntityIdBase(
+            referenceId: "todo-item-1"
+        ),
+        status: .open,
+        severity: .high,
+        metadata: [
+            "key": "value"
+        ],
+        title: "Todo Item",
+        description: "This is the first todo item.",
+        externalUrl: "todo.com",
+        deadline: try! Date("2026-12-31T23:59:59Z", strategy: .iso8601),
+        snoozedUntil: try! Date("2026-12-25T23:59:59Z", strategy: .iso8601)
+    ))
+}
+
+try await main()
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `InboxItemCreateRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `RequestOptions?` — Additional options for configuring the request, such as custom headers or timeout settings.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.inbox.<a href="/Sources/Resources/Inbox/InboxClient.swift">applyTags</a>(inboxItemId: String, request: Requests.InboxItemApplyTagsRequest, requestOptions: RequestOptions?) -> InboxItem</code></summary>
 <dl>
 <dd>
@@ -7709,7 +7797,7 @@ Creates a short-lived session token for authenticating voice connections.
 
 Supports two token types:
 - **webrtc**: A Twilio-compatible access token for browser-based WebRTC calls
-- **websocket**: An RS256 JWT for direct WebSocket connections to /v1/voice/conversations
+- **websocket**: An ES256 JWT for direct WebSocket connections to /v1/voice/conversations
 
 Session tokens are required before establishing any voice connection.
 </dd>
@@ -7736,7 +7824,7 @@ private func main() async throws {
     )
 
     _ = try await client.voice.sessionToken(request: VoiceSessionTokenRequest(
-        appUserId: "appUserId",
+        appUserId: "x",
         type: .webrtc
     ))
 }

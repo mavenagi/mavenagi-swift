@@ -234,6 +234,20 @@ public enum InboxItem: Codable, Hashable, Sendable {
         public let tags: JSONValue?
         /// Additional metadata associated with the inbox item.
         public let metadata: [String: String]
+        /// Title of the inbox item.
+        public let title: String?
+        /// Description of the inbox item.
+        public let description: String?
+        /// An optional URL that can be associated with the inbox item.
+        public let externalUrl: String?
+        /// An optional deadline for the inbox item.
+        public let deadline: Date?
+        /// An optional timestamp until which the inbox item is snoozed.
+        public let snoozedUntil: Date?
+        /// An optional assignee for the inbox item.
+        public let assignee: String?
+        /// An optional list of references to other entities that are related to this inbox item.
+        public let references: JSONValue?
         /// Additional properties that are not explicitly defined in the schema
         public let additionalProperties: [String: JSONValue]
 
@@ -245,6 +259,13 @@ public enum InboxItem: Codable, Hashable, Sendable {
             severity: InboxItemSeverity,
             tags: JSONValue? = nil,
             metadata: [String: String],
+            title: String? = nil,
+            description: String? = nil,
+            externalUrl: String? = nil,
+            deadline: Date? = nil,
+            snoozedUntil: Date? = nil,
+            assignee: String? = nil,
+            references: JSONValue? = nil,
             additionalProperties: [String: JSONValue] = .init()
         ) {
             self.id = id
@@ -254,6 +275,13 @@ public enum InboxItem: Codable, Hashable, Sendable {
             self.severity = severity
             self.tags = tags
             self.metadata = metadata
+            self.title = title
+            self.description = description
+            self.externalUrl = externalUrl
+            self.deadline = deadline
+            self.snoozedUntil = snoozedUntil
+            self.assignee = assignee
+            self.references = references
             self.additionalProperties = additionalProperties
         }
 
@@ -266,6 +294,13 @@ public enum InboxItem: Codable, Hashable, Sendable {
             self.severity = try container.decode(InboxItemSeverity.self, forKey: .severity)
             self.tags = try container.decodeIfPresent(JSONValue.self, forKey: .tags)
             self.metadata = try container.decode([String: String].self, forKey: .metadata)
+            self.title = try container.decodeIfPresent(String.self, forKey: .title)
+            self.description = try container.decodeIfPresent(String.self, forKey: .description)
+            self.externalUrl = try container.decodeIfPresent(String.self, forKey: .externalUrl)
+            self.deadline = try container.decodeIfPresent(Date.self, forKey: .deadline)
+            self.snoozedUntil = try container.decodeIfPresent(Date.self, forKey: .snoozedUntil)
+            self.assignee = try container.decodeIfPresent(String.self, forKey: .assignee)
+            self.references = try container.decodeIfPresent(JSONValue.self, forKey: .references)
             self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
         }
 
@@ -280,6 +315,13 @@ public enum InboxItem: Codable, Hashable, Sendable {
             try container.encode(self.severity, forKey: .severity)
             try container.encodeIfPresent(self.tags, forKey: .tags)
             try container.encode(self.metadata, forKey: .metadata)
+            try container.encodeIfPresent(self.title, forKey: .title)
+            try container.encodeIfPresent(self.description, forKey: .description)
+            try container.encodeIfPresent(self.externalUrl, forKey: .externalUrl)
+            try container.encodeIfPresent(self.deadline, forKey: .deadline)
+            try container.encodeIfPresent(self.snoozedUntil, forKey: .snoozedUntil)
+            try container.encodeIfPresent(self.assignee, forKey: .assignee)
+            try container.encodeIfPresent(self.references, forKey: .references)
         }
 
         /// Keys for encoding/decoding struct properties.
@@ -292,6 +334,13 @@ public enum InboxItem: Codable, Hashable, Sendable {
             case severity
             case tags
             case metadata
+            case title
+            case description
+            case externalUrl
+            case deadline
+            case snoozedUntil
+            case assignee
+            case references
         }
     }
 

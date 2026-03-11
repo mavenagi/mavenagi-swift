@@ -11,7 +11,7 @@ public final class VoiceClient: Sendable {
     /// 
     /// Supports two token types:
     /// - **webrtc**: A Twilio-compatible access token for browser-based WebRTC calls
-    /// - **websocket**: An RS256 JWT for direct WebSocket connections to /v1/voice/conversations
+    /// - **websocket**: An ES256 JWT for direct WebSocket connections to /v1/voice/conversations
     /// 
     /// Session tokens are required before establishing any voice connection.
     ///

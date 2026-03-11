@@ -31,7 +31,7 @@ import Api
         )
         let response = try await client.voice.sessionToken(
             request: VoiceSessionTokenRequest(
-                appUserId: "appUserId",
+                appUserId: "x",
                 type: .webrtc
             ),
             requestOptions: RequestOptions(additionalHeaders: stub.headers)
