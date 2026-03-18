@@ -5103,6 +5103,96 @@ try await main()
 </dl>
 </details>
 
+<details><summary><code>client.knowledge.<a href="/Sources/Resources/Knowledge/KnowledgeClient.swift">cancelKnowledgeBaseVersion</a>(knowledgeBaseReferenceId: String, request: CancelKnowledgeBaseVersionRequest, requestOptions: RequestOptions?) -> Void</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+in-progress knowledge base version.
+
+If the knowledge base has a version that is currently being ingested,
+this will cancel the ingestion workflow and set the version status to FAILED.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```swift
+import Foundation
+import Api
+
+private func main() async throws {
+    let client = MavenAGI(
+        appId: "<username>",
+        appSecret: "<password>"
+    )
+
+    _ = try await client.knowledge.cancelKnowledgeBaseVersion(
+        knowledgeBaseReferenceId: "knowledgeBaseReferenceId",
+        request: CancelKnowledgeBaseVersionRequest(
+
+        )
+    )
+}
+
+try await main()
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**knowledgeBaseReferenceId:** `String` — The reference ID of the knowledge base to cancel ingestion for. All other entity ID fields are inferred from the request.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `CancelKnowledgeBaseVersionRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `RequestOptions?` — Additional options for configuring the request, such as custom headers or timeout settings.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.knowledge.<a href="/Sources/Resources/Knowledge/KnowledgeClient.swift">patchKnowledgeBase</a>(knowledgeBaseReferenceId: String, request: Requests.KnowledgeBasePatchRequest, requestOptions: RequestOptions?) -> KnowledgeBaseResponse</code></summary>
 <dl>
 <dd>

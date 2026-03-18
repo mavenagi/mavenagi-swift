@@ -19,6 +19,7 @@ import Api
                         "referenceId": "x"
                       },
                       "enabled": true,
+                      "name": "name",
                       "description": "description",
                       "type": "CONVERSATION_CREATED"
                     },
@@ -31,6 +32,7 @@ import Api
                         "referenceId": "x"
                       },
                       "enabled": true,
+                      "name": "name",
                       "description": "description",
                       "type": "CONVERSATION_CREATED"
                     }
@@ -60,6 +62,7 @@ import Api
                         referenceId: "x"
                     ),
                     enabled: true,
+                    name: Optional("name"),
                     description: "description",
                     type: .conversationCreated
                 ),
@@ -72,6 +75,7 @@ import Api
                         referenceId: "x"
                     ),
                     enabled: true,
+                    name: Optional("name"),
                     description: "description",
                     type: .conversationCreated
                 )
@@ -200,6 +204,7 @@ import Api
                     "referenceId": "x"
                   },
                   "enabled": true,
+                  "name": "name",
                   "description": "description",
                   "type": "CONVERSATION_CREATED"
                 }
@@ -221,6 +226,7 @@ import Api
                 referenceId: "x"
             ),
             enabled: true,
+            name: Optional("name"),
             description: "description",
             type: .conversationCreated
         )
