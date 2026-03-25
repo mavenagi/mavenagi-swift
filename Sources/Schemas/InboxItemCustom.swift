@@ -21,12 +21,8 @@ public struct InboxItemCustom: Codable, Hashable, Sendable {
     public let description: String?
     /// An optional URL that can be associated with the inbox item.
     public let externalUrl: String?
-    /// An optional deadline for the inbox item.
-    public let deadline: Date?
-    /// An optional timestamp until which the inbox item is snoozed.
-    public let snoozedUntil: Date?
     /// An optional assignee for the inbox item.
-    public let assignee: String?
+    public let assignee: ScopedEntity?
     /// An optional list of references to other entities that are related to this inbox item.
     public let references: JSONValue?
     /// Additional properties that are not explicitly defined in the schema
@@ -43,9 +39,7 @@ public struct InboxItemCustom: Codable, Hashable, Sendable {
         title: String? = nil,
         description: String? = nil,
         externalUrl: String? = nil,
-        deadline: Date? = nil,
-        snoozedUntil: Date? = nil,
-        assignee: String? = nil,
+        assignee: ScopedEntity? = nil,
         references: JSONValue? = nil,
         additionalProperties: [String: JSONValue] = .init()
     ) {
@@ -59,8 +53,6 @@ public struct InboxItemCustom: Codable, Hashable, Sendable {
         self.title = title
         self.description = description
         self.externalUrl = externalUrl
-        self.deadline = deadline
-        self.snoozedUntil = snoozedUntil
         self.assignee = assignee
         self.references = references
         self.additionalProperties = additionalProperties
@@ -78,9 +70,7 @@ public struct InboxItemCustom: Codable, Hashable, Sendable {
         self.title = try container.decodeIfPresent(String.self, forKey: .title)
         self.description = try container.decodeIfPresent(String.self, forKey: .description)
         self.externalUrl = try container.decodeIfPresent(String.self, forKey: .externalUrl)
-        self.deadline = try container.decodeIfPresent(Date.self, forKey: .deadline)
-        self.snoozedUntil = try container.decodeIfPresent(Date.self, forKey: .snoozedUntil)
-        self.assignee = try container.decodeIfPresent(String.self, forKey: .assignee)
+        self.assignee = try container.decodeIfPresent(ScopedEntity.self, forKey: .assignee)
         self.references = try container.decodeIfPresent(JSONValue.self, forKey: .references)
         self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
     }
@@ -98,8 +88,6 @@ public struct InboxItemCustom: Codable, Hashable, Sendable {
         try container.encodeIfPresent(self.title, forKey: .title)
         try container.encodeIfPresent(self.description, forKey: .description)
         try container.encodeIfPresent(self.externalUrl, forKey: .externalUrl)
-        try container.encodeIfPresent(self.deadline, forKey: .deadline)
-        try container.encodeIfPresent(self.snoozedUntil, forKey: .snoozedUntil)
         try container.encodeIfPresent(self.assignee, forKey: .assignee)
         try container.encodeIfPresent(self.references, forKey: .references)
     }
@@ -116,8 +104,6 @@ public struct InboxItemCustom: Codable, Hashable, Sendable {
         case title
         case description
         case externalUrl
-        case deadline
-        case snoozedUntil
         case assignee
         case references
     }

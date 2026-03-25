@@ -3,7 +3,7 @@ import Foundation
 public struct AddDocumentFixRequest: Codable, Hashable, Sendable {
     /// Knowledge document to be added by this request
     public let knowledgeDocumentRequest: KnowledgeDocumentRequest
-    /// Reference id of the Knowledge Base the document will be added to. 
+    /// Reference id of the Knowledge Base the document will be added to.
     /// The appId is inferred from the request. Apps can only add documents to their own knowledge bases.
     public let knowledgeBaseReferenceId: String
     /// Additional properties that are not explicitly defined in the schema

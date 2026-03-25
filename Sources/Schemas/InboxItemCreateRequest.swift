@@ -10,17 +10,13 @@ public struct InboxItemCreateRequest: Codable, Hashable, Sendable {
     /// Additional metadata associated with the inbox item.
     public let metadata: [String: String]
     /// Title of the inbox item.
-    public let title: String?
+    public let title: String
     /// Description of the inbox item.
     public let description: String?
     /// An optional URL that can be associated with the inbox item.
     public let externalUrl: String?
-    /// An optional deadline for the inbox item.
-    public let deadline: Date?
-    /// An optional timestamp until which the inbox item is snoozed.
-    public let snoozedUntil: Date?
     /// An optional assignee for the inbox item.
-    public let assignee: String?
+    public let assignee: ScopedEntity?
     /// An optional list of references to other entities that are related to this inbox item.
     public let references: JSONValue?
     /// Additional properties that are not explicitly defined in the schema
@@ -31,12 +27,10 @@ public struct InboxItemCreateRequest: Codable, Hashable, Sendable {
         status: InboxItemStatus,
         severity: InboxItemSeverity,
         metadata: [String: String],
-        title: String? = nil,
+        title: String,
         description: String? = nil,
         externalUrl: String? = nil,
-        deadline: Date? = nil,
-        snoozedUntil: Date? = nil,
-        assignee: String? = nil,
+        assignee: ScopedEntity? = nil,
         references: JSONValue? = nil,
         additionalProperties: [String: JSONValue] = .init()
     ) {
@@ -47,8 +41,6 @@ public struct InboxItemCreateRequest: Codable, Hashable, Sendable {
         self.title = title
         self.description = description
         self.externalUrl = externalUrl
-        self.deadline = deadline
-        self.snoozedUntil = snoozedUntil
         self.assignee = assignee
         self.references = references
         self.additionalProperties = additionalProperties
@@ -60,12 +52,10 @@ public struct InboxItemCreateRequest: Codable, Hashable, Sendable {
         self.status = try container.decode(InboxItemStatus.self, forKey: .status)
         self.severity = try container.decode(InboxItemSeverity.self, forKey: .severity)
         self.metadata = try container.decode([String: String].self, forKey: .metadata)
-        self.title = try container.decodeIfPresent(String.self, forKey: .title)
+        self.title = try container.decode(String.self, forKey: .title)
         self.description = try container.decodeIfPresent(String.self, forKey: .description)
         self.externalUrl = try container.decodeIfPresent(String.self, forKey: .externalUrl)
-        self.deadline = try container.decodeIfPresent(Date.self, forKey: .deadline)
-        self.snoozedUntil = try container.decodeIfPresent(Date.self, forKey: .snoozedUntil)
-        self.assignee = try container.decodeIfPresent(String.self, forKey: .assignee)
+        self.assignee = try container.decodeIfPresent(ScopedEntity.self, forKey: .assignee)
         self.references = try container.decodeIfPresent(JSONValue.self, forKey: .references)
         self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
     }
@@ -77,11 +67,9 @@ public struct InboxItemCreateRequest: Codable, Hashable, Sendable {
         try container.encode(self.status, forKey: .status)
         try container.encode(self.severity, forKey: .severity)
         try container.encode(self.metadata, forKey: .metadata)
-        try container.encodeIfPresent(self.title, forKey: .title)
+        try container.encode(self.title, forKey: .title)
         try container.encodeIfPresent(self.description, forKey: .description)
         try container.encodeIfPresent(self.externalUrl, forKey: .externalUrl)
-        try container.encodeIfPresent(self.deadline, forKey: .deadline)
-        try container.encodeIfPresent(self.snoozedUntil, forKey: .snoozedUntil)
         try container.encodeIfPresent(self.assignee, forKey: .assignee)
         try container.encodeIfPresent(self.references, forKey: .references)
     }
@@ -95,8 +83,6 @@ public struct InboxItemCreateRequest: Codable, Hashable, Sendable {
         case title
         case description
         case externalUrl
-        case deadline
-        case snoozedUntil
         case assignee
         case references
     }

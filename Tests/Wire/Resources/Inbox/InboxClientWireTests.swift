@@ -729,9 +729,69 @@ import Api
                 ],
                 title: "Todo Item",
                 description: "This is the first todo item.",
-                externalUrl: "todo.com",
-                deadline: try! Date("2026-12-31T23:59:59Z", strategy: .iso8601),
-                snoozedUntil: try! Date("2026-12-25T23:59:59Z", strategy: .iso8601)
+                externalUrl: "todo.com"
+            ),
+            requestOptions: RequestOptions(additionalHeaders: stub.headers)
+        )
+        try #require(response == expectedResponse)
+    }
+
+    @Test func patch1() async throws -> Void {
+        let stub = HTTPStub()
+        stub.setResponse(
+            body: Data(
+                """
+                {
+                  "type": "custom",
+                  "id": {
+                    "referenceId": "todo-item-1",
+                    "appId": "myapp",
+                    "organizationId": "acme",
+                    "agentId": "support",
+                    "type": "INBOX_ITEM"
+                  },
+                  "status": "OPEN",
+                  "severity": "HIGH",
+                  "createdAt": "2025-01-01T00:00:00Z",
+                  "updatedAt": "2025-02-01T00:00:00Z",
+                  "metadata": {
+                    "key": "value"
+                  }
+                }
+                """.utf8
+            )
+        )
+        let client = MavenAGI(
+            baseURL: "https://api.fern.com",
+            appId: "<username>",
+            appSecret: "<password>",
+            urlSession: stub.urlSession
+        )
+        let expectedResponse = .custom(
+            .init(
+                id: EntityId(
+                    referenceId: "todo-item-1",
+                    appId: "myapp",
+                    organizationId: "acme",
+                    agentId: "support",
+                    type: .inboxItem
+                ),
+                status: .open,
+                severity: .high,
+                createdAt: try! Date("2025-01-01T00:00:00Z", strategy: .iso8601),
+                updatedAt: try! Date("2025-02-01T00:00:00Z", strategy: .iso8601),
+                metadata: [
+                    "key": "value"
+                ]
+            )
+        )
+        let response = try await client.inbox.patch(
+            inboxItemId: "custom-item-1",
+            request: .init(
+                status: .open,
+                metadata: [
+                    "key": "value"
+                ]
             ),
             requestOptions: RequestOptions(additionalHeaders: stub.headers)
         )

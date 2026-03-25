@@ -4206,9 +4206,7 @@ private func main() async throws {
         ],
         title: "Todo Item",
         description: "This is the first todo item.",
-        externalUrl: "todo.com",
-        deadline: try! Date("2026-12-31T23:59:59Z", strategy: .iso8601),
-        snoozedUntil: try! Date("2026-12-25T23:59:59Z", strategy: .iso8601)
+        externalUrl: "todo.com"
     ))
 }
 
@@ -4228,6 +4226,99 @@ try await main()
 <dd>
 
 **request:** `InboxItemCreateRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `RequestOptions?` — Additional options for configuring the request, such as custom headers or timeout settings.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.inbox.<a href="/Sources/Resources/Inbox/InboxClient.swift">patch</a>(inboxItemId: String, request: Requests.InboxItemPatchRequest, requestOptions: RequestOptions?) -> InboxItem</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Update mutable inbox item fields. Only supported for custom inbox items.
+
+The `appId` field can be provided to update a inbox item owned by a different app.
+All other fields will overwrite the existing value on the inbox item only if provided.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```swift
+import Foundation
+import Api
+
+private func main() async throws {
+    let client = MavenAGI(
+        appId: "<username>",
+        appSecret: "<password>"
+    )
+
+    _ = try await client.inbox.patch(
+        inboxItemId: "custom-item-1",
+        request: .init(
+            status: .open,
+            metadata: [
+                "key": "value"
+            ]
+        )
+    )
+}
+
+try await main()
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**inboxItemId:** `String` — The ID of the inbox item to patch
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Requests.InboxItemPatchRequest` 
     
 </dd>
 </dl>

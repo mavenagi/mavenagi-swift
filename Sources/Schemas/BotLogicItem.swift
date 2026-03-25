@@ -2,7 +2,9 @@ import Foundation
 
 public enum BotLogicItem: Codable, Hashable, Sendable {
     case actions(Actions)
+    case charters(Charters)
     case form(Form)
+    case intelligentFields(IntelligentFields)
     case knowledge(Knowledge)
     case safety(Safety)
     case segments(Segments)
@@ -14,8 +16,12 @@ public enum BotLogicItem: Codable, Hashable, Sendable {
         switch discriminant {
         case "actions":
             self = .actions(try Actions(from: decoder))
+        case "charters":
+            self = .charters(try Charters(from: decoder))
         case "form":
             self = .form(try Form(from: decoder))
+        case "intelligentFields":
+            self = .intelligentFields(try IntelligentFields(from: decoder))
         case "knowledge":
             self = .knowledge(try Knowledge(from: decoder))
         case "safety":
@@ -38,7 +44,11 @@ public enum BotLogicItem: Codable, Hashable, Sendable {
         switch self {
         case .actions(let data):
             try data.encode(to: encoder)
+        case .charters(let data):
+            try data.encode(to: encoder)
         case .form(let data):
+            try data.encode(to: encoder)
+        case .intelligentFields(let data):
             try data.encode(to: encoder)
         case .knowledge(let data):
             try data.encode(to: encoder)
@@ -295,6 +305,82 @@ public enum BotLogicItem: Codable, Hashable, Sendable {
         enum CodingKeys: String, CodingKey, CaseIterable {
             case type
             case matchingSegmentIds
+        }
+    }
+
+    public struct IntelligentFields: Codable, Hashable, Sendable {
+        public let type: String = "intelligentFields"
+        public let refreshedFields: [BotLogicIntelligentFieldDetail]
+        /// Additional properties that are not explicitly defined in the schema
+        public let additionalProperties: [String: JSONValue]
+
+        public init(
+            refreshedFields: [BotLogicIntelligentFieldDetail],
+            additionalProperties: [String: JSONValue] = .init()
+        ) {
+            self.refreshedFields = refreshedFields
+            self.additionalProperties = additionalProperties
+        }
+
+        public init(from decoder: Decoder) throws {
+            let container = try decoder.container(keyedBy: CodingKeys.self)
+            self.refreshedFields = try container.decode([BotLogicIntelligentFieldDetail].self, forKey: .refreshedFields)
+            self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
+        }
+
+        public func encode(to encoder: Encoder) throws -> Void {
+            var container = encoder.container(keyedBy: CodingKeys.self)
+            try encoder.encodeAdditionalProperties(self.additionalProperties)
+            try container.encode(self.type, forKey: .type)
+            try container.encode(self.refreshedFields, forKey: .refreshedFields)
+        }
+
+        /// Keys for encoding/decoding struct properties.
+        enum CodingKeys: String, CodingKey, CaseIterable {
+            case type
+            case refreshedFields
+        }
+    }
+
+    public struct Charters: Codable, Hashable, Sendable {
+        public let type: String = "charters"
+        /// Charters that matched the conversation state and were used to generate this response.
+        public let matchedCharters: [BotLogicCharterDetail]
+        /// True when too many charters fit the initial criteria and evaluation was cut short. The matchedCharters list may be incomplete.
+        public let evaluationTruncated: Bool
+        /// Additional properties that are not explicitly defined in the schema
+        public let additionalProperties: [String: JSONValue]
+
+        public init(
+            matchedCharters: [BotLogicCharterDetail],
+            evaluationTruncated: Bool,
+            additionalProperties: [String: JSONValue] = .init()
+        ) {
+            self.matchedCharters = matchedCharters
+            self.evaluationTruncated = evaluationTruncated
+            self.additionalProperties = additionalProperties
+        }
+
+        public init(from decoder: Decoder) throws {
+            let container = try decoder.container(keyedBy: CodingKeys.self)
+            self.matchedCharters = try container.decode([BotLogicCharterDetail].self, forKey: .matchedCharters)
+            self.evaluationTruncated = try container.decode(Bool.self, forKey: .evaluationTruncated)
+            self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
+        }
+
+        public func encode(to encoder: Encoder) throws -> Void {
+            var container = encoder.container(keyedBy: CodingKeys.self)
+            try encoder.encodeAdditionalProperties(self.additionalProperties)
+            try container.encode(self.type, forKey: .type)
+            try container.encode(self.matchedCharters, forKey: .matchedCharters)
+            try container.encode(self.evaluationTruncated, forKey: .evaluationTruncated)
+        }
+
+        /// Keys for encoding/decoding struct properties.
+        enum CodingKeys: String, CodingKey, CaseIterable {
+            case type
+            case matchedCharters
+            case evaluationTruncated
         }
     }
 

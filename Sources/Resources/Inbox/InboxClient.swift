@@ -33,6 +33,23 @@ public final class InboxClient: Sendable {
         )
     }
 
+    /// Update mutable inbox item fields. Only supported for custom inbox items.
+    /// 
+    /// The `appId` field can be provided to update a inbox item owned by a different app.
+    /// All other fields will overwrite the existing value on the inbox item only if provided.
+    ///
+    /// - Parameter inboxItemId: The ID of the inbox item to patch
+    /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
+    public func patch(inboxItemId: String, request: Requests.InboxItemPatchRequest, requestOptions: RequestOptions? = nil) async throws -> InboxItem {
+        return try await httpClient.performRequest(
+            method: .patch,
+            path: "/v1/inbox/\(inboxItemId)",
+            body: request,
+            requestOptions: requestOptions,
+            responseType: InboxItem.self
+        )
+    }
+
     /// Update inbox item tag fields. All tags provided will overwrite the existing tags on the inbox item.
     ///
     /// - Parameter inboxItemId: The ID of the inbox item to add tags to.
