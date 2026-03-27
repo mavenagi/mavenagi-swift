@@ -987,7 +987,7 @@ import Api
                 agentId: "support",
                 type: .knowledgeBase
             ),
-            content: "## Getting started This is a getting started guide for the help center.",
+            content: Optional("## Getting started This is a getting started guide for the help center."),
             title: Optional("Getting started"),
             metadata: [
                 "category": "getting-started"
@@ -1098,7 +1098,7 @@ import Api
         )
         let expectedResponse = KnowledgeDocumentResponse(
             processingStatus: Optional(.succeeded),
-            content: "content",
+            content: Optional("content"),
             asset: Optional(AttachmentResponse(
                 url: Optional("url"),
                 sizeBytes: Optional(1000000),
@@ -1235,7 +1235,7 @@ import Api
                 agentId: "support",
                 type: .knowledgeBase
             ),
-            content: "## Getting started This is a getting started guide for the help center.",
+            content: Optional("## Getting started This is a getting started guide for the help center."),
             title: Optional("Getting started"),
             metadata: [
                 "category": "getting-started"

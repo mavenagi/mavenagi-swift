@@ -26,8 +26,8 @@ public struct KnowledgeDocumentResponse: Codable, Hashable, Sendable {
     public let author: String?
     /// The current processing status of the knowledge document
     public let processingStatus: KnowledgeDocumentStatus?
-    /// The content of the document in markdown format. Not shown directly to users.
-    public let content: String
+    /// The content of the document in markdown format. Not shown directly to users. May be absent for asset-backed documents that have not yet been processed.
+    public let content: String?
     /// If the document is associated with an asset, this will contain the asset metadata
     public let asset: AttachmentResponse?
     /// Metadata for the knowledge document.
@@ -50,7 +50,7 @@ public struct KnowledgeDocumentResponse: Codable, Hashable, Sendable {
         language: String? = nil,
         author: String? = nil,
         processingStatus: KnowledgeDocumentStatus? = nil,
-        content: String,
+        content: String? = nil,
         asset: AttachmentResponse? = nil,
         metadata: [String: String],
         relevantEntities: JSONValue,
@@ -89,7 +89,7 @@ public struct KnowledgeDocumentResponse: Codable, Hashable, Sendable {
         self.language = try container.decodeIfPresent(String.self, forKey: .language)
         self.author = try container.decodeIfPresent(String.self, forKey: .author)
         self.processingStatus = try container.decodeIfPresent(KnowledgeDocumentStatus.self, forKey: .processingStatus)
-        self.content = try container.decode(String.self, forKey: .content)
+        self.content = try container.decodeIfPresent(String.self, forKey: .content)
         self.asset = try container.decodeIfPresent(AttachmentResponse.self, forKey: .asset)
         self.metadata = try container.decode([String: String].self, forKey: .metadata)
         self.relevantEntities = try container.decode(JSONValue.self, forKey: .relevantEntities)
@@ -111,7 +111,7 @@ public struct KnowledgeDocumentResponse: Codable, Hashable, Sendable {
         try container.encodeIfPresent(self.language, forKey: .language)
         try container.encodeIfPresent(self.author, forKey: .author)
         try container.encodeIfPresent(self.processingStatus, forKey: .processingStatus)
-        try container.encode(self.content, forKey: .content)
+        try container.encodeIfPresent(self.content, forKey: .content)
         try container.encodeIfPresent(self.asset, forKey: .asset)
         try container.encode(self.metadata, forKey: .metadata)
         try container.encode(self.relevantEntities, forKey: .relevantEntities)
