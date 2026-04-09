@@ -1,7 +1,7 @@
 import Foundation
 
 public struct CommitAssetUploadRequest: Codable, Hashable, Sendable {
-    /// MD5 hex digest of the uploaded file. Required for assets attached to knowledge documents. Used to verify blob integrity at ingestion time.
+    /// MD5 hex digest of the uploaded file. When provided, used to verify blob integrity.
     public let checksum: String?
     /// Additional properties that are not explicitly defined in the schema
     public let additionalProperties: [String: JSONValue]
