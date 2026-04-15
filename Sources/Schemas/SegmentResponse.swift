@@ -5,10 +5,10 @@ public struct SegmentResponse: Codable, Hashable, Sendable {
     public let name: String
     /// A plain text description of the segment.
     public let description: String?
-    /// The precondition that must be met for a conversation message to be included in the segment.
-    public let precondition: Precondition
     /// ID that uniquely identifies this segment
     public let segmentId: EntityId
+    /// The precondition that must be met for a conversation message to be included in the segment.
+    public let precondition: PreconditionResponse
     /// The date and time when the segment was created.
     public let createdAt: Date
     /// The date and time when the segment was last updated.
@@ -31,8 +31,8 @@ public struct SegmentResponse: Codable, Hashable, Sendable {
     public init(
         name: String,
         description: String? = nil,
-        precondition: Precondition,
         segmentId: EntityId,
+        precondition: PreconditionResponse,
         createdAt: Date,
         updatedAt: Date,
         referencedKnowledgeBaseCount: Int64? = nil,
@@ -43,8 +43,8 @@ public struct SegmentResponse: Codable, Hashable, Sendable {
     ) {
         self.name = name
         self.description = description
-        self.precondition = precondition
         self.segmentId = segmentId
+        self.precondition = precondition
         self.createdAt = createdAt
         self.updatedAt = updatedAt
         self.referencedKnowledgeBaseCount = referencedKnowledgeBaseCount
@@ -58,8 +58,8 @@ public struct SegmentResponse: Codable, Hashable, Sendable {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.name = try container.decode(String.self, forKey: .name)
         self.description = try container.decodeIfPresent(String.self, forKey: .description)
-        self.precondition = try container.decode(Precondition.self, forKey: .precondition)
         self.segmentId = try container.decode(EntityId.self, forKey: .segmentId)
+        self.precondition = try container.decode(PreconditionResponse.self, forKey: .precondition)
         self.createdAt = try container.decode(Date.self, forKey: .createdAt)
         self.updatedAt = try container.decode(Date.self, forKey: .updatedAt)
         self.referencedKnowledgeBaseCount = try container.decodeIfPresent(Int64.self, forKey: .referencedKnowledgeBaseCount)
@@ -74,8 +74,8 @@ public struct SegmentResponse: Codable, Hashable, Sendable {
         try encoder.encodeAdditionalProperties(self.additionalProperties)
         try container.encode(self.name, forKey: .name)
         try container.encodeIfPresent(self.description, forKey: .description)
-        try container.encode(self.precondition, forKey: .precondition)
         try container.encode(self.segmentId, forKey: .segmentId)
+        try container.encode(self.precondition, forKey: .precondition)
         try container.encode(self.createdAt, forKey: .createdAt)
         try container.encode(self.updatedAt, forKey: .updatedAt)
         try container.encodeIfPresent(self.referencedKnowledgeBaseCount, forKey: .referencedKnowledgeBaseCount)
@@ -88,8 +88,8 @@ public struct SegmentResponse: Codable, Hashable, Sendable {
     enum CodingKeys: String, CodingKey, CaseIterable {
         case name
         case description
-        case precondition
         case segmentId
+        case precondition
         case createdAt
         case updatedAt
         case referencedKnowledgeBaseCount

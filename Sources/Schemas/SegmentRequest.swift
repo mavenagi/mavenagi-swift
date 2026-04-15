@@ -5,10 +5,10 @@ public struct SegmentRequest: Codable, Hashable, Sendable {
     public let name: String
     /// A plain text description of the segment.
     public let description: String?
-    /// The precondition that must be met for a conversation message to be included in the segment.
-    public let precondition: Precondition
     /// ID that uniquely identifies this segment
     public let segmentId: EntityIdBase
+    /// The precondition that must be met for a conversation message to be included in the segment.
+    public let precondition: Precondition
     /// Desired status for the segment. If omitted, defaults to ACTIVE. In the future this will become required, so specify ACTIVE or INACTIVE if possible.
     public let status: SegmentStatus?
     /// Additional properties that are not explicitly defined in the schema
@@ -17,15 +17,15 @@ public struct SegmentRequest: Codable, Hashable, Sendable {
     public init(
         name: String,
         description: String? = nil,
-        precondition: Precondition,
         segmentId: EntityIdBase,
+        precondition: Precondition,
         status: SegmentStatus? = nil,
         additionalProperties: [String: JSONValue] = .init()
     ) {
         self.name = name
         self.description = description
-        self.precondition = precondition
         self.segmentId = segmentId
+        self.precondition = precondition
         self.status = status
         self.additionalProperties = additionalProperties
     }
@@ -34,8 +34,8 @@ public struct SegmentRequest: Codable, Hashable, Sendable {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.name = try container.decode(String.self, forKey: .name)
         self.description = try container.decodeIfPresent(String.self, forKey: .description)
-        self.precondition = try container.decode(Precondition.self, forKey: .precondition)
         self.segmentId = try container.decode(EntityIdBase.self, forKey: .segmentId)
+        self.precondition = try container.decode(Precondition.self, forKey: .precondition)
         self.status = try container.decodeIfPresent(SegmentStatus.self, forKey: .status)
         self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
     }
@@ -45,8 +45,8 @@ public struct SegmentRequest: Codable, Hashable, Sendable {
         try encoder.encodeAdditionalProperties(self.additionalProperties)
         try container.encode(self.name, forKey: .name)
         try container.encodeIfPresent(self.description, forKey: .description)
-        try container.encode(self.precondition, forKey: .precondition)
         try container.encode(self.segmentId, forKey: .segmentId)
+        try container.encode(self.precondition, forKey: .precondition)
         try container.encodeIfPresent(self.status, forKey: .status)
     }
 
@@ -54,8 +54,8 @@ public struct SegmentRequest: Codable, Hashable, Sendable {
     enum CodingKeys: String, CodingKey, CaseIterable {
         case name
         case description
-        case precondition
         case segmentId
+        case precondition
         case status
     }
 }

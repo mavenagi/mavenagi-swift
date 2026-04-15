@@ -18,14 +18,6 @@ import Api
                         "appId": "appId",
                         "referenceId": "x"
                       },
-                      "createdAt": "2024-01-15T09:30:00Z",
-                      "updatedAt": "2024-01-15T09:30:00Z",
-                      "referencedKnowledgeBaseCount": 1000000,
-                      "referencedDocumentCount": 1000000,
-                      "referencedActionCount": 1000000,
-                      "status": "ACTIVE",
-                      "name": "name",
-                      "description": "description",
                       "precondition": {
                         "preconditionType": "user",
                         "key": "key",
@@ -35,7 +27,15 @@ import Api
                           "values"
                         ],
                         "operator": "NOT"
-                      }
+                      },
+                      "createdAt": "2024-01-15T09:30:00Z",
+                      "updatedAt": "2024-01-15T09:30:00Z",
+                      "referencedKnowledgeBaseCount": 1000000,
+                      "referencedDocumentCount": 1000000,
+                      "referencedActionCount": 1000000,
+                      "status": "ACTIVE",
+                      "name": "name",
+                      "description": "description"
                     },
                     {
                       "segmentId": {
@@ -45,14 +45,6 @@ import Api
                         "appId": "appId",
                         "referenceId": "x"
                       },
-                      "createdAt": "2024-01-15T09:30:00Z",
-                      "updatedAt": "2024-01-15T09:30:00Z",
-                      "referencedKnowledgeBaseCount": 1000000,
-                      "referencedDocumentCount": 1000000,
-                      "referencedActionCount": 1000000,
-                      "status": "ACTIVE",
-                      "name": "name",
-                      "description": "description",
                       "precondition": {
                         "preconditionType": "user",
                         "key": "key",
@@ -62,7 +54,15 @@ import Api
                           "values"
                         ],
                         "operator": "NOT"
-                      }
+                      },
+                      "createdAt": "2024-01-15T09:30:00Z",
+                      "updatedAt": "2024-01-15T09:30:00Z",
+                      "referencedKnowledgeBaseCount": 1000000,
+                      "referencedDocumentCount": 1000000,
+                      "referencedActionCount": 1000000,
+                      "status": "ACTIVE",
+                      "name": "name",
+                      "description": "description"
                     }
                   ],
                   "number": 1,
@@ -89,14 +89,6 @@ import Api
                         appId: "appId",
                         referenceId: "x"
                     ),
-                    createdAt: try! Date("2024-01-15T09:30:00Z", strategy: .iso8601),
-                    updatedAt: try! Date("2024-01-15T09:30:00Z", strategy: .iso8601),
-                    referencedKnowledgeBaseCount: Optional(1000000),
-                    referencedDocumentCount: Optional(1000000),
-                    referencedActionCount: Optional(1000000),
-                    status: .active,
-                    name: "name",
-                    description: Optional("description"),
                     precondition: .user(
                         .init(
                             key: "key",
@@ -107,7 +99,15 @@ import Api
                             ]),
                             operator: Optional(.not)
                         )
-                    )
+                    ),
+                    createdAt: try! Date("2024-01-15T09:30:00Z", strategy: .iso8601),
+                    updatedAt: try! Date("2024-01-15T09:30:00Z", strategy: .iso8601),
+                    referencedKnowledgeBaseCount: Optional(1000000),
+                    referencedDocumentCount: Optional(1000000),
+                    referencedActionCount: Optional(1000000),
+                    status: .active,
+                    name: "name",
+                    description: Optional("description")
                 ),
                 SegmentResponse(
                     segmentId: EntityId(
@@ -117,14 +117,6 @@ import Api
                         appId: "appId",
                         referenceId: "x"
                     ),
-                    createdAt: try! Date("2024-01-15T09:30:00Z", strategy: .iso8601),
-                    updatedAt: try! Date("2024-01-15T09:30:00Z", strategy: .iso8601),
-                    referencedKnowledgeBaseCount: Optional(1000000),
-                    referencedDocumentCount: Optional(1000000),
-                    referencedActionCount: Optional(1000000),
-                    status: .active,
-                    name: "name",
-                    description: Optional("description"),
                     precondition: .user(
                         .init(
                             key: "key",
@@ -135,7 +127,15 @@ import Api
                             ]),
                             operator: Optional(.not)
                         )
-                    )
+                    ),
+                    createdAt: try! Date("2024-01-15T09:30:00Z", strategy: .iso8601),
+                    updatedAt: try! Date("2024-01-15T09:30:00Z", strategy: .iso8601),
+                    referencedKnowledgeBaseCount: Optional(1000000),
+                    referencedDocumentCount: Optional(1000000),
+                    referencedActionCount: Optional(1000000),
+                    status: .active,
+                    name: "name",
+                    description: Optional("description")
                 )
             ],
             number: 1,
@@ -234,6 +234,9 @@ import Api
         let response = try await client.segments.createOrUpdate(
             request: SegmentRequest(
                 name: "Admin users",
+                segmentId: EntityIdBase(
+                    referenceId: "admin-users"
+                ),
                 precondition: Precondition.group(
                     .init(
                         operator: .and,
@@ -250,9 +253,6 @@ import Api
                             )
                         ]
                     )
-                ),
-                segmentId: EntityIdBase(
-                    referenceId: "admin-users"
                 )
             ),
             requestOptions: RequestOptions(additionalHeaders: stub.headers)
@@ -359,14 +359,6 @@ import Api
                     "appId": "appId",
                     "referenceId": "x"
                   },
-                  "createdAt": "2024-01-15T09:30:00Z",
-                  "updatedAt": "2024-01-15T09:30:00Z",
-                  "referencedKnowledgeBaseCount": 1000000,
-                  "referencedDocumentCount": 1000000,
-                  "referencedActionCount": 1000000,
-                  "status": "ACTIVE",
-                  "name": "name",
-                  "description": "description",
                   "precondition": {
                     "preconditionType": "user",
                     "key": "key",
@@ -376,7 +368,15 @@ import Api
                       "values"
                     ],
                     "operator": "NOT"
-                  }
+                  },
+                  "createdAt": "2024-01-15T09:30:00Z",
+                  "updatedAt": "2024-01-15T09:30:00Z",
+                  "referencedKnowledgeBaseCount": 1000000,
+                  "referencedDocumentCount": 1000000,
+                  "referencedActionCount": 1000000,
+                  "status": "ACTIVE",
+                  "name": "name",
+                  "description": "description"
                 }
                 """.utf8
             )
@@ -395,14 +395,6 @@ import Api
                 appId: "appId",
                 referenceId: "x"
             ),
-            createdAt: try! Date("2024-01-15T09:30:00Z", strategy: .iso8601),
-            updatedAt: try! Date("2024-01-15T09:30:00Z", strategy: .iso8601),
-            referencedKnowledgeBaseCount: Optional(1000000),
-            referencedDocumentCount: Optional(1000000),
-            referencedActionCount: Optional(1000000),
-            status: .active,
-            name: "name",
-            description: Optional("description"),
             precondition: .user(
                 .init(
                     key: "key",
@@ -413,7 +405,15 @@ import Api
                     ]),
                     operator: Optional(.not)
                 )
-            )
+            ),
+            createdAt: try! Date("2024-01-15T09:30:00Z", strategy: .iso8601),
+            updatedAt: try! Date("2024-01-15T09:30:00Z", strategy: .iso8601),
+            referencedKnowledgeBaseCount: Optional(1000000),
+            referencedDocumentCount: Optional(1000000),
+            referencedActionCount: Optional(1000000),
+            status: .active,
+            name: "name",
+            description: Optional("description")
         )
         let response = try await client.segments.patch(
             segmentReferenceId: "segmentReferenceId",
@@ -438,14 +438,6 @@ import Api
                     "appId": "appId",
                     "referenceId": "x"
                   },
-                  "createdAt": "2024-01-15T09:30:00Z",
-                  "updatedAt": "2024-01-15T09:30:00Z",
-                  "referencedKnowledgeBaseCount": 1000000,
-                  "referencedDocumentCount": 1000000,
-                  "referencedActionCount": 1000000,
-                  "status": "ACTIVE",
-                  "name": "name",
-                  "description": "description",
                   "precondition": {
                     "preconditionType": "user",
                     "key": "key",
@@ -455,7 +447,15 @@ import Api
                       "values"
                     ],
                     "operator": "NOT"
-                  }
+                  },
+                  "createdAt": "2024-01-15T09:30:00Z",
+                  "updatedAt": "2024-01-15T09:30:00Z",
+                  "referencedKnowledgeBaseCount": 1000000,
+                  "referencedDocumentCount": 1000000,
+                  "referencedActionCount": 1000000,
+                  "status": "ACTIVE",
+                  "name": "name",
+                  "description": "description"
                 }
                 """.utf8
             )
@@ -474,14 +474,6 @@ import Api
                 appId: "appId",
                 referenceId: "x"
             ),
-            createdAt: try! Date("2024-01-15T09:30:00Z", strategy: .iso8601),
-            updatedAt: try! Date("2024-01-15T09:30:00Z", strategy: .iso8601),
-            referencedKnowledgeBaseCount: Optional(1000000),
-            referencedDocumentCount: Optional(1000000),
-            referencedActionCount: Optional(1000000),
-            status: .active,
-            name: "name",
-            description: Optional("description"),
             precondition: .user(
                 .init(
                     key: "key",
@@ -492,7 +484,15 @@ import Api
                     ]),
                     operator: Optional(.not)
                 )
-            )
+            ),
+            createdAt: try! Date("2024-01-15T09:30:00Z", strategy: .iso8601),
+            updatedAt: try! Date("2024-01-15T09:30:00Z", strategy: .iso8601),
+            referencedKnowledgeBaseCount: Optional(1000000),
+            referencedDocumentCount: Optional(1000000),
+            referencedActionCount: Optional(1000000),
+            status: .active,
+            name: "name",
+            description: Optional("description")
         )
         let response = try await client.segments.delete(
             segmentReferenceId: "segmentReferenceId",

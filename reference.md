@@ -6773,6 +6773,9 @@ private func main() async throws {
 
     _ = try await client.segments.createOrUpdate(request: SegmentRequest(
         name: "Admin users",
+        segmentId: EntityIdBase(
+            referenceId: "admin-users"
+        ),
         precondition: Precondition.group(
             .init(
                 operator: .and,
@@ -6789,9 +6792,6 @@ private func main() async throws {
                     )
                 ]
             )
-        ),
-        segmentId: EntityIdBase(
-            referenceId: "admin-users"
         )
     ))
 }
