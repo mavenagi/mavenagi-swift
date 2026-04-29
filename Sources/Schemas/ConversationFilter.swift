@@ -69,6 +69,8 @@ public struct ConversationFilter: Codable, Hashable, Sendable {
     public let inboxItemIds: [EntityIdFilter]?
     /// Whether to include simulation conversations in search results. Defaults to only non-simulation conversations.
     public let simulationFilter: SimulationFilter?
+    /// Filter by intelligent field values. All conditions are ANDed together.
+    public let intelligentFields: IntelligentFieldFilter?
     /// Additional properties that are not explicitly defined in the schema
     public let additionalProperties: [String: JSONValue]
 
@@ -97,6 +99,7 @@ public struct ConversationFilter: Codable, Hashable, Sendable {
         matchedSegmentIds: [EntityIdFilter]? = nil,
         inboxItemIds: [EntityIdFilter]? = nil,
         simulationFilter: SimulationFilter? = nil,
+        intelligentFields: IntelligentFieldFilter? = nil,
         additionalProperties: [String: JSONValue] = .init()
     ) {
         self.search = search
@@ -123,6 +126,7 @@ public struct ConversationFilter: Codable, Hashable, Sendable {
         self.matchedSegmentIds = matchedSegmentIds
         self.inboxItemIds = inboxItemIds
         self.simulationFilter = simulationFilter
+        self.intelligentFields = intelligentFields
         self.additionalProperties = additionalProperties
     }
 
@@ -152,6 +156,7 @@ public struct ConversationFilter: Codable, Hashable, Sendable {
         self.matchedSegmentIds = try container.decodeIfPresent([EntityIdFilter].self, forKey: .matchedSegmentIds)
         self.inboxItemIds = try container.decodeIfPresent([EntityIdFilter].self, forKey: .inboxItemIds)
         self.simulationFilter = try container.decodeIfPresent(SimulationFilter.self, forKey: .simulationFilter)
+        self.intelligentFields = try container.decodeIfPresent(IntelligentFieldFilter.self, forKey: .intelligentFields)
         self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
     }
 
@@ -182,6 +187,7 @@ public struct ConversationFilter: Codable, Hashable, Sendable {
         try container.encodeIfPresent(self.matchedSegmentIds, forKey: .matchedSegmentIds)
         try container.encodeIfPresent(self.inboxItemIds, forKey: .inboxItemIds)
         try container.encodeIfPresent(self.simulationFilter, forKey: .simulationFilter)
+        try container.encodeIfPresent(self.intelligentFields, forKey: .intelligentFields)
     }
 
     /// Keys for encoding/decoding struct properties.
@@ -210,5 +216,6 @@ public struct ConversationFilter: Codable, Hashable, Sendable {
         case matchedSegmentIds
         case inboxItemIds
         case simulationFilter
+        case intelligentFields
     }
 }
