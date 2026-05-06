@@ -157,7 +157,7 @@ import Api
                   "analysis": {
                     "userRequest": "userRequest",
                     "agentResponse": "agentResponse",
-                    "resolutionStatus": "resolutionStatus",
+                    "resolutionStatus": "UNKNOWN",
                     "category": "category",
                     "sentiment": "POSITIVE",
                     "quality": "GOOD",
@@ -430,7 +430,7 @@ import Api
             analysis: ConversationAnalysis(
                 userRequest: Optional("userRequest"),
                 agentResponse: Optional("agentResponse"),
-                resolutionStatus: Optional("resolutionStatus"),
+                resolutionStatus: Optional(.unknown),
                 category: Optional("category"),
                 sentiment: Optional(.positive),
                 quality: Optional(.good),
@@ -605,7 +605,7 @@ import Api
                   "open": false,
                   "llmEnabled": true,
                   "analysis": {
-                    "resolutionStatus": "Resolved",
+                    "resolutionStatus": "RESOLVED",
                     "sentiment": "POSITIVE",
                     "resolvedByMaven": true
                   },
@@ -701,7 +701,7 @@ import Api
             open: false,
             llmEnabled: true,
             analysis: ConversationAnalysis(
-                resolutionStatus: Optional("Resolved"),
+                resolutionStatus: Optional(.resolved),
                 sentiment: Optional(.positive),
                 resolvedByMaven: Optional(true)
             ),
@@ -941,7 +941,7 @@ import Api
                   "analysis": {
                     "userRequest": "userRequest",
                     "agentResponse": "agentResponse",
-                    "resolutionStatus": "resolutionStatus",
+                    "resolutionStatus": "UNKNOWN",
                     "category": "category",
                     "sentiment": "POSITIVE",
                     "quality": "GOOD",
@@ -1214,7 +1214,7 @@ import Api
             analysis: ConversationAnalysis(
                 userRequest: Optional("userRequest"),
                 agentResponse: Optional("agentResponse"),
-                resolutionStatus: Optional("resolutionStatus"),
+                resolutionStatus: Optional(.unknown),
                 category: Optional("category"),
                 sentiment: Optional(.positive),
                 quality: Optional(.good),
@@ -1500,7 +1500,7 @@ import Api
                   "analysis": {
                     "userRequest": "userRequest",
                     "agentResponse": "agentResponse",
-                    "resolutionStatus": "resolutionStatus",
+                    "resolutionStatus": "UNKNOWN",
                     "category": "category",
                     "sentiment": "POSITIVE",
                     "quality": "GOOD",
@@ -1773,7 +1773,7 @@ import Api
             analysis: ConversationAnalysis(
                 userRequest: Optional("userRequest"),
                 agentResponse: Optional("agentResponse"),
-                resolutionStatus: Optional("resolutionStatus"),
+                resolutionStatus: Optional(.unknown),
                 category: Optional("category"),
                 sentiment: Optional(.positive),
                 quality: Optional(.good),
@@ -1944,7 +1944,7 @@ import Api
                   "open": false,
                   "llmEnabled": true,
                   "analysis": {
-                    "resolutionStatus": "Resolved",
+                    "resolutionStatus": "RESOLVED",
                     "sentiment": "POSITIVE",
                     "resolvedByMaven": true
                   },
@@ -2040,7 +2040,7 @@ import Api
             open: false,
             llmEnabled: true,
             analysis: ConversationAnalysis(
-                resolutionStatus: Optional("Resolved"),
+                resolutionStatus: Optional(.resolved),
                 sentiment: Optional(.positive),
                 resolvedByMaven: Optional(true)
             ),
@@ -2424,7 +2424,7 @@ import Api
                   "analysis": {
                     "userRequest": "userRequest",
                     "agentResponse": "agentResponse",
-                    "resolutionStatus": "resolutionStatus",
+                    "resolutionStatus": "UNKNOWN",
                     "category": "category",
                     "sentiment": "POSITIVE",
                     "quality": "GOOD",
@@ -2697,7 +2697,7 @@ import Api
             analysis: ConversationAnalysis(
                 userRequest: Optional("userRequest"),
                 agentResponse: Optional("agentResponse"),
-                resolutionStatus: Optional("resolutionStatus"),
+                resolutionStatus: Optional(.unknown),
                 category: Optional("category"),
                 sentiment: Optional(.positive),
                 quality: Optional(.good),
@@ -2971,7 +2971,7 @@ import Api
                       "analysis": {
                         "userRequest": "userRequest",
                         "agentResponse": "agentResponse",
-                        "resolutionStatus": "resolutionStatus",
+                        "resolutionStatus": "UNKNOWN",
                         "category": "category",
                         "sentiment": "POSITIVE",
                         "quality": "GOOD",
@@ -3150,7 +3150,7 @@ import Api
                       "analysis": {
                         "userRequest": "userRequest",
                         "agentResponse": "agentResponse",
-                        "resolutionStatus": "resolutionStatus",
+                        "resolutionStatus": "UNKNOWN",
                         "category": "category",
                         "sentiment": "POSITIVE",
                         "quality": "GOOD",
@@ -3335,7 +3335,7 @@ import Api
                     analysis: ConversationAnalysis(
                         userRequest: Optional("userRequest"),
                         agentResponse: Optional("agentResponse"),
-                        resolutionStatus: Optional("resolutionStatus"),
+                        resolutionStatus: Optional(.unknown),
                         category: Optional("category"),
                         sentiment: Optional(.positive),
                         quality: Optional(.good),
@@ -3497,7 +3497,7 @@ import Api
                     analysis: ConversationAnalysis(
                         userRequest: Optional("userRequest"),
                         agentResponse: Optional("agentResponse"),
-                        resolutionStatus: Optional("resolutionStatus"),
+                        resolutionStatus: Optional(.unknown),
                         category: Optional("category"),
                         sentiment: Optional(.positive),
                         quality: Optional(.good),

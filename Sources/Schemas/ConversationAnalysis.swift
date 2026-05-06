@@ -6,7 +6,7 @@ public struct ConversationAnalysis: Codable, Hashable, Sendable {
     /// Generated agent response summary of the conversation
     public let agentResponse: String?
     /// Generated resolution status of the conversation
-    public let resolutionStatus: String?
+    public let resolutionStatus: ResolutionStatus?
     /// Generated category of the conversation
     public let category: String?
     /// Generated sentiment of the conversation
@@ -31,7 +31,7 @@ public struct ConversationAnalysis: Codable, Hashable, Sendable {
     public init(
         userRequest: String? = nil,
         agentResponse: String? = nil,
-        resolutionStatus: String? = nil,
+        resolutionStatus: ResolutionStatus? = nil,
         category: String? = nil,
         sentiment: Sentiment? = nil,
         quality: Quality? = nil,
@@ -62,7 +62,7 @@ public struct ConversationAnalysis: Codable, Hashable, Sendable {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.userRequest = try container.decodeIfPresent(String.self, forKey: .userRequest)
         self.agentResponse = try container.decodeIfPresent(String.self, forKey: .agentResponse)
-        self.resolutionStatus = try container.decodeIfPresent(String.self, forKey: .resolutionStatus)
+        self.resolutionStatus = try container.decodeIfPresent(ResolutionStatus.self, forKey: .resolutionStatus)
         self.category = try container.decodeIfPresent(String.self, forKey: .category)
         self.sentiment = try container.decodeIfPresent(Sentiment.self, forKey: .sentiment)
         self.quality = try container.decodeIfPresent(Quality.self, forKey: .quality)
