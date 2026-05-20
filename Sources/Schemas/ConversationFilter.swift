@@ -65,6 +65,13 @@ public struct ConversationFilter: Codable, Hashable, Sendable {
     public let hasAttachment: Bool?
     /// Filter by the segments that any message on a conversation matched.
     public let matchedSegmentIds: [EntityIdFilter]?
+    /// Filter by the charters that any bot-response message on a conversation matched.
+    /// References without a matching charter for the calling agent contribute nothing
+    /// to the filter — they neither error nor warn, they simply produce no matches.
+    public let matchedCharterIds: [EntityIdFilter]?
+    /// Filter by whether any bot-response message in the conversation ran in charter mode.
+    /// Omit to match every conversation regardless of charter state.
+    public let anyMsgCharterMode: Bool?
     /// Filter by inbox item IDs associated with the conversation
     public let inboxItemIds: [EntityIdFilter]?
     /// Whether to include simulation conversations in search results. Defaults to only non-simulation conversations.
@@ -97,6 +104,8 @@ public struct ConversationFilter: Codable, Hashable, Sendable {
         userMessageCount: NumberRange? = nil,
         hasAttachment: Bool? = nil,
         matchedSegmentIds: [EntityIdFilter]? = nil,
+        matchedCharterIds: [EntityIdFilter]? = nil,
+        anyMsgCharterMode: Bool? = nil,
         inboxItemIds: [EntityIdFilter]? = nil,
         simulationFilter: SimulationFilter? = nil,
         intelligentFields: IntelligentFieldFilter? = nil,
@@ -124,6 +133,8 @@ public struct ConversationFilter: Codable, Hashable, Sendable {
         self.userMessageCount = userMessageCount
         self.hasAttachment = hasAttachment
         self.matchedSegmentIds = matchedSegmentIds
+        self.matchedCharterIds = matchedCharterIds
+        self.anyMsgCharterMode = anyMsgCharterMode
         self.inboxItemIds = inboxItemIds
         self.simulationFilter = simulationFilter
         self.intelligentFields = intelligentFields
@@ -154,6 +165,8 @@ public struct ConversationFilter: Codable, Hashable, Sendable {
         self.userMessageCount = try container.decodeIfPresent(NumberRange.self, forKey: .userMessageCount)
         self.hasAttachment = try container.decodeIfPresent(Bool.self, forKey: .hasAttachment)
         self.matchedSegmentIds = try container.decodeIfPresent([EntityIdFilter].self, forKey: .matchedSegmentIds)
+        self.matchedCharterIds = try container.decodeIfPresent([EntityIdFilter].self, forKey: .matchedCharterIds)
+        self.anyMsgCharterMode = try container.decodeIfPresent(Bool.self, forKey: .anyMsgCharterMode)
         self.inboxItemIds = try container.decodeIfPresent([EntityIdFilter].self, forKey: .inboxItemIds)
         self.simulationFilter = try container.decodeIfPresent(SimulationFilter.self, forKey: .simulationFilter)
         self.intelligentFields = try container.decodeIfPresent(IntelligentFieldFilter.self, forKey: .intelligentFields)
@@ -185,6 +198,8 @@ public struct ConversationFilter: Codable, Hashable, Sendable {
         try container.encodeIfPresent(self.userMessageCount, forKey: .userMessageCount)
         try container.encodeIfPresent(self.hasAttachment, forKey: .hasAttachment)
         try container.encodeIfPresent(self.matchedSegmentIds, forKey: .matchedSegmentIds)
+        try container.encodeIfPresent(self.matchedCharterIds, forKey: .matchedCharterIds)
+        try container.encodeIfPresent(self.anyMsgCharterMode, forKey: .anyMsgCharterMode)
         try container.encodeIfPresent(self.inboxItemIds, forKey: .inboxItemIds)
         try container.encodeIfPresent(self.simulationFilter, forKey: .simulationFilter)
         try container.encodeIfPresent(self.intelligentFields, forKey: .intelligentFields)
@@ -214,6 +229,8 @@ public struct ConversationFilter: Codable, Hashable, Sendable {
         case userMessageCount
         case hasAttachment
         case matchedSegmentIds
+        case matchedCharterIds
+        case anyMsgCharterMode
         case inboxItemIds
         case simulationFilter
         case intelligentFields
