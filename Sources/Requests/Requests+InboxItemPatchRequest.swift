@@ -8,7 +8,12 @@ extension Requests {
         public let status: InboxItemStatus?
         /// Severity of the inbox item.
         public let severity: InboxItemSeverity?
-        /// Additional metadata associated with the inbox item.
+        /// Set of 16 key-value pairs that can be attached to an object. This can be useful for storing
+        /// additional information about the object in a structured format, and querying for objects
+        /// via API or the dashboard.
+        /// 
+        /// Keys are strings with a maximum length of 64 characters. Values are strings with a maximum
+        /// length of 512 characters.
         public let metadata: [String: String]?
         /// Additional properties that are not explicitly defined in the schema
         public let additionalProperties: [String: JSONValue]

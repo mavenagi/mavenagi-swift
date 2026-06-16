@@ -13,6 +13,8 @@ public struct KnowledgeBaseVersion: Codable, Hashable, Sendable {
     public let createdAt: Date
     /// The date and time the knowledge base version was last updated.
     public let updatedAt: Date
+    /// The indexing status of the knowledge base version.
+    public let indexingState: KnowledgeBaseIndexingProgressState?
     /// Additional properties that are not explicitly defined in the schema
     public let additionalProperties: [String: JSONValue]
 
@@ -23,6 +25,7 @@ public struct KnowledgeBaseVersion: Codable, Hashable, Sendable {
         errorMessage: String? = nil,
         createdAt: Date,
         updatedAt: Date,
+        indexingState: KnowledgeBaseIndexingProgressState? = nil,
         additionalProperties: [String: JSONValue] = .init()
     ) {
         self.type = type
@@ -31,6 +34,7 @@ public struct KnowledgeBaseVersion: Codable, Hashable, Sendable {
         self.errorMessage = errorMessage
         self.createdAt = createdAt
         self.updatedAt = updatedAt
+        self.indexingState = indexingState
         self.additionalProperties = additionalProperties
     }
 
@@ -42,6 +46,7 @@ public struct KnowledgeBaseVersion: Codable, Hashable, Sendable {
         self.errorMessage = try container.decodeIfPresent(String.self, forKey: .errorMessage)
         self.createdAt = try container.decode(Date.self, forKey: .createdAt)
         self.updatedAt = try container.decode(Date.self, forKey: .updatedAt)
+        self.indexingState = try container.decodeIfPresent(KnowledgeBaseIndexingProgressState.self, forKey: .indexingState)
         self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
     }
 
@@ -54,6 +59,7 @@ public struct KnowledgeBaseVersion: Codable, Hashable, Sendable {
         try container.encodeIfPresent(self.errorMessage, forKey: .errorMessage)
         try container.encode(self.createdAt, forKey: .createdAt)
         try container.encode(self.updatedAt, forKey: .updatedAt)
+        try container.encodeIfPresent(self.indexingState, forKey: .indexingState)
     }
 
     /// Keys for encoding/decoding struct properties.
@@ -64,5 +70,6 @@ public struct KnowledgeBaseVersion: Codable, Hashable, Sendable {
         case errorMessage
         case createdAt
         case updatedAt
+        case indexingState
     }
 }

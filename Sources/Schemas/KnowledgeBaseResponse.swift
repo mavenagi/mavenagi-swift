@@ -37,6 +37,8 @@ public struct KnowledgeBaseResponse: Codable, Hashable, Sendable {
     public let segmentIds: JSONValue
     /// The source URL of URL and RSS knowledge bases that was used for crawl.
     public let url: String?
+    /// The indexing status of the latest version of the knowledge base.
+    public let indexingState: KnowledgeBaseIndexingProgressState?
     /// Additional properties that are not explicitly defined in the schema
     public let additionalProperties: [String: JSONValue]
 
@@ -56,6 +58,7 @@ public struct KnowledgeBaseResponse: Codable, Hashable, Sendable {
         segmentId: EntityId? = nil,
         segmentIds: JSONValue,
         url: String? = nil,
+        indexingState: KnowledgeBaseIndexingProgressState? = nil,
         additionalProperties: [String: JSONValue] = .init()
     ) {
         self.name = name
@@ -73,6 +76,7 @@ public struct KnowledgeBaseResponse: Codable, Hashable, Sendable {
         self.segmentId = segmentId
         self.segmentIds = segmentIds
         self.url = url
+        self.indexingState = indexingState
         self.additionalProperties = additionalProperties
     }
 
@@ -93,6 +97,7 @@ public struct KnowledgeBaseResponse: Codable, Hashable, Sendable {
         self.segmentId = try container.decodeIfPresent(EntityId.self, forKey: .segmentId)
         self.segmentIds = try container.decode(JSONValue.self, forKey: .segmentIds)
         self.url = try container.decodeIfPresent(String.self, forKey: .url)
+        self.indexingState = try container.decodeIfPresent(KnowledgeBaseIndexingProgressState.self, forKey: .indexingState)
         self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
     }
 
@@ -114,6 +119,7 @@ public struct KnowledgeBaseResponse: Codable, Hashable, Sendable {
         try container.encodeIfPresent(self.segmentId, forKey: .segmentId)
         try container.encode(self.segmentIds, forKey: .segmentIds)
         try container.encodeIfPresent(self.url, forKey: .url)
+        try container.encodeIfPresent(self.indexingState, forKey: .indexingState)
     }
 
     /// Keys for encoding/decoding struct properties.
@@ -133,5 +139,6 @@ public struct KnowledgeBaseResponse: Codable, Hashable, Sendable {
         case segmentId
         case segmentIds
         case url
+        case indexingState
     }
 }

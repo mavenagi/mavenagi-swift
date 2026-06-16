@@ -54,6 +54,19 @@ import Api
                         }
                       ],
                       "url": "url",
+                      "indexingState": {
+                        "versionId": {
+                          "organizationId": "organizationId",
+                          "agentId": "agentId",
+                          "type": "AGENT",
+                          "appId": "appId",
+                          "referenceId": "x"
+                        },
+                        "status": "BUILDING",
+                        "expectedCount": 1000000,
+                        "indexedCount": 1000000,
+                        "failedCount": 1000000
+                      },
                       "name": "name",
                       "precondition": {
                         "preconditionType": "user",
@@ -110,6 +123,19 @@ import Api
                         }
                       ],
                       "url": "url",
+                      "indexingState": {
+                        "versionId": {
+                          "organizationId": "organizationId",
+                          "agentId": "agentId",
+                          "type": "AGENT",
+                          "appId": "appId",
+                          "referenceId": "x"
+                        },
+                        "status": "BUILDING",
+                        "expectedCount": 1000000,
+                        "indexedCount": 1000000,
+                        "failedCount": 1000000
+                      },
                       "name": "name",
                       "precondition": {
                         "preconditionType": "user",
@@ -173,6 +199,19 @@ import Api
                     )),
                     segmentIds: [],
                     url: Optional("url"),
+                    indexingState: Optional(KnowledgeBaseIndexingProgressState(
+                        versionId: EntityId(
+                            organizationId: "organizationId",
+                            agentId: "agentId",
+                            type: .agent,
+                            appId: "appId",
+                            referenceId: "x"
+                        ),
+                        status: .building,
+                        expectedCount: 1000000,
+                        indexedCount: 1000000,
+                        failedCount: 1000000
+                    )),
                     name: "name",
                     precondition: Optional(.user(
                         .init(
@@ -220,6 +259,19 @@ import Api
                     )),
                     segmentIds: [],
                     url: Optional("url"),
+                    indexingState: Optional(KnowledgeBaseIndexingProgressState(
+                        versionId: EntityId(
+                            organizationId: "organizationId",
+                            agentId: "agentId",
+                            type: .agent,
+                            appId: "appId",
+                            referenceId: "x"
+                        ),
+                        status: .building,
+                        expectedCount: 1000000,
+                        indexedCount: 1000000,
+                        failedCount: 1000000
+                    )),
                     name: "name",
                     precondition: Optional(.user(
                         .init(
@@ -672,6 +724,19 @@ import Api
                       "errorMessage": "errorMessage",
                       "createdAt": "2024-01-15T09:30:00Z",
                       "updatedAt": "2024-01-15T09:30:00Z",
+                      "indexingState": {
+                        "versionId": {
+                          "organizationId": "organizationId",
+                          "agentId": "agentId",
+                          "type": "AGENT",
+                          "appId": "appId",
+                          "referenceId": "x"
+                        },
+                        "status": "BUILDING",
+                        "expectedCount": 1000000,
+                        "indexedCount": 1000000,
+                        "failedCount": 1000000
+                      },
                       "type": "FULL"
                     },
                     {
@@ -686,6 +751,19 @@ import Api
                       "errorMessage": "errorMessage",
                       "createdAt": "2024-01-15T09:30:00Z",
                       "updatedAt": "2024-01-15T09:30:00Z",
+                      "indexingState": {
+                        "versionId": {
+                          "organizationId": "organizationId",
+                          "agentId": "agentId",
+                          "type": "AGENT",
+                          "appId": "appId",
+                          "referenceId": "x"
+                        },
+                        "status": "BUILDING",
+                        "expectedCount": 1000000,
+                        "indexedCount": 1000000,
+                        "failedCount": 1000000
+                      },
                       "type": "FULL"
                     }
                   ]
@@ -713,6 +791,19 @@ import Api
                     errorMessage: Optional("errorMessage"),
                     createdAt: try! Date("2024-01-15T09:30:00Z", strategy: .iso8601),
                     updatedAt: try! Date("2024-01-15T09:30:00Z", strategy: .iso8601),
+                    indexingState: Optional(KnowledgeBaseIndexingProgressState(
+                        versionId: EntityId(
+                            organizationId: "organizationId",
+                            agentId: "agentId",
+                            type: .agent,
+                            appId: "appId",
+                            referenceId: "x"
+                        ),
+                        status: .building,
+                        expectedCount: 1000000,
+                        indexedCount: 1000000,
+                        failedCount: 1000000
+                    )),
                     type: .full
                 ),
                 KnowledgeBaseVersion(
@@ -727,6 +818,19 @@ import Api
                     errorMessage: Optional("errorMessage"),
                     createdAt: try! Date("2024-01-15T09:30:00Z", strategy: .iso8601),
                     updatedAt: try! Date("2024-01-15T09:30:00Z", strategy: .iso8601),
+                    indexingState: Optional(KnowledgeBaseIndexingProgressState(
+                        versionId: EntityId(
+                            organizationId: "organizationId",
+                            agentId: "agentId",
+                            type: .agent,
+                            appId: "appId",
+                            referenceId: "x"
+                        ),
+                        status: .building,
+                        expectedCount: 1000000,
+                        indexedCount: 1000000,
+                        failedCount: 1000000
+                    )),
                     type: .full
                 )
             ]
