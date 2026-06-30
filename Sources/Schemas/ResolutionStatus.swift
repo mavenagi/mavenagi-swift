@@ -6,6 +6,7 @@ public enum ResolutionStatus: String, Codable, Hashable, CaseIterable, Sendable 
     case inProgress = "IN_PROGRESS"
     case resolved = "RESOLVED"
     case escalated = "ESCALATED"
+    case incomplete = "INCOMPLETE"
     case negativeFeedback = "NEGATIVE_FEEDBACK"
     case contentSafetyFlagged = "CONTENT_SAFETY_FLAGGED"
     case promptAttackFlagged = "PROMPT_ATTACK_FLAGGED"
