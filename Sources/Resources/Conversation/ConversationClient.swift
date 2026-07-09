@@ -17,13 +17,13 @@ public final class ConversationClient: Sendable {
     /// - messages can be added to the conversation with the `appendNewMessages` or `ask` APIs.
     ///
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
-    public func initialize(request: ConversationRequest, requestOptions: RequestOptions? = nil) async throws -> ConversationResponse {
+    public func initialize(request: ConversationRequest, requestOptions: RequestOptions? = nil) async throws -> InitializeConversationResponse {
         return try await httpClient.performRequest(
             method: .post,
             path: "/v1/conversations",
             body: request,
             requestOptions: requestOptions,
-            responseType: ConversationResponse.self
+            responseType: InitializeConversationResponse.self
         )
     }
 

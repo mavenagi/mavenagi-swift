@@ -19,4 +19,6 @@ public enum EntityType: String, Codable, Hashable, CaseIterable, Sendable {
     case customer = "CUSTOMER"
     case intelligentField = "INTELLIGENT_FIELD"
     case charter = "CHARTER"
+    case conversationKickoff = "CONVERSATION_KICKOFF"
+    case agentVariant = "AGENT_VARIANT"
 }

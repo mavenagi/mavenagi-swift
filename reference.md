@@ -2019,7 +2019,7 @@ try await main()
 </details>
 
 ## Conversation
-<details><summary><code>client.conversation.<a href="/Sources/Resources/Conversation/ConversationClient.swift">initialize</a>(request: ConversationRequest, requestOptions: RequestOptions?) -> ConversationResponse</code></summary>
+<details><summary><code>client.conversation.<a href="/Sources/Resources/Conversation/ConversationClient.swift">initialize</a>(request: ConversationRequest, requestOptions: RequestOptions?) -> InitializeConversationResponse</code></summary>
 <dl>
 <dd>
 

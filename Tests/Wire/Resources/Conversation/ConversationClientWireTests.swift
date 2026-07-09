@@ -9,6 +9,10 @@ import Api
             body: Data(
                 """
                 {
+                  "conversationKickoffResult": {
+                    "status": "SUCCESS",
+                    "message": "message"
+                  },
                   "messages": [
                     {
                       "type": "user",
@@ -297,7 +301,11 @@ import Api
             appSecret: "<password>",
             urlSession: stub.urlSession
         )
-        let expectedResponse = ConversationResponse(
+        let expectedResponse = InitializeConversationResponse(
+            conversationKickoffResult: Optional(ConversationKickoffResult(
+                status: .success,
+                message: Optional("message")
+            )),
             messages: [
                 .user(
                     .init(
