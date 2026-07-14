@@ -50,7 +50,10 @@ import Api
                       "text": "text",
                       "userMessageType": "USER",
                       "createdAt": "2024-01-15T09:30:00Z",
-                      "updatedAt": "2024-01-15T09:30:00Z"
+                      "updatedAt": "2024-01-15T09:30:00Z",
+                      "appMetadata": {
+                        "appMetadata": "appMetadata"
+                      }
                     },
                     {
                       "type": "user",
@@ -88,7 +91,10 @@ import Api
                       "text": "text",
                       "userMessageType": "USER",
                       "createdAt": "2024-01-15T09:30:00Z",
-                      "updatedAt": "2024-01-15T09:30:00Z"
+                      "updatedAt": "2024-01-15T09:30:00Z",
+                      "appMetadata": {
+                        "appMetadata": "appMetadata"
+                      }
                     }
                   ],
                   "attachments": [
@@ -343,7 +349,10 @@ import Api
                         text: "text",
                         userMessageType: .user,
                         createdAt: Optional(try! Date("2024-01-15T09:30:00Z", strategy: .iso8601)),
-                        updatedAt: Optional(try! Date("2024-01-15T09:30:00Z", strategy: .iso8601))
+                        updatedAt: Optional(try! Date("2024-01-15T09:30:00Z", strategy: .iso8601)),
+                        appMetadata: Optional([
+                            "appMetadata": "appMetadata"
+                        ])
                     )
                 ),
                 .user(
@@ -382,7 +391,10 @@ import Api
                         text: "text",
                         userMessageType: .user,
                         createdAt: Optional(try! Date("2024-01-15T09:30:00Z", strategy: .iso8601)),
-                        updatedAt: Optional(try! Date("2024-01-15T09:30:00Z", strategy: .iso8601))
+                        updatedAt: Optional(try! Date("2024-01-15T09:30:00Z", strategy: .iso8601)),
+                        appMetadata: Optional([
+                            "appMetadata": "appMetadata"
+                        ])
                     )
                 )
             ],
@@ -838,7 +850,10 @@ import Api
                       "text": "text",
                       "userMessageType": "USER",
                       "createdAt": "2024-01-15T09:30:00Z",
-                      "updatedAt": "2024-01-15T09:30:00Z"
+                      "updatedAt": "2024-01-15T09:30:00Z",
+                      "appMetadata": {
+                        "appMetadata": "appMetadata"
+                      }
                     },
                     {
                       "type": "user",
@@ -876,7 +891,10 @@ import Api
                       "text": "text",
                       "userMessageType": "USER",
                       "createdAt": "2024-01-15T09:30:00Z",
-                      "updatedAt": "2024-01-15T09:30:00Z"
+                      "updatedAt": "2024-01-15T09:30:00Z",
+                      "appMetadata": {
+                        "appMetadata": "appMetadata"
+                      }
                     }
                   ],
                   "attachments": [
@@ -1127,7 +1145,10 @@ import Api
                         text: "text",
                         userMessageType: .user,
                         createdAt: Optional(try! Date("2024-01-15T09:30:00Z", strategy: .iso8601)),
-                        updatedAt: Optional(try! Date("2024-01-15T09:30:00Z", strategy: .iso8601))
+                        updatedAt: Optional(try! Date("2024-01-15T09:30:00Z", strategy: .iso8601)),
+                        appMetadata: Optional([
+                            "appMetadata": "appMetadata"
+                        ])
                     )
                 ),
                 .user(
@@ -1166,7 +1187,10 @@ import Api
                         text: "text",
                         userMessageType: .user,
                         createdAt: Optional(try! Date("2024-01-15T09:30:00Z", strategy: .iso8601)),
-                        updatedAt: Optional(try! Date("2024-01-15T09:30:00Z", strategy: .iso8601))
+                        updatedAt: Optional(try! Date("2024-01-15T09:30:00Z", strategy: .iso8601)),
+                        appMetadata: Optional([
+                            "appMetadata": "appMetadata"
+                        ])
                     )
                 )
             ],
@@ -1397,7 +1421,10 @@ import Api
                       "text": "text",
                       "userMessageType": "USER",
                       "createdAt": "2024-01-15T09:30:00Z",
-                      "updatedAt": "2024-01-15T09:30:00Z"
+                      "updatedAt": "2024-01-15T09:30:00Z",
+                      "appMetadata": {
+                        "appMetadata": "appMetadata"
+                      }
                     },
                     {
                       "type": "user",
@@ -1435,7 +1462,10 @@ import Api
                       "text": "text",
                       "userMessageType": "USER",
                       "createdAt": "2024-01-15T09:30:00Z",
-                      "updatedAt": "2024-01-15T09:30:00Z"
+                      "updatedAt": "2024-01-15T09:30:00Z",
+                      "appMetadata": {
+                        "appMetadata": "appMetadata"
+                      }
                     }
                   ],
                   "attachments": [
@@ -1686,7 +1716,10 @@ import Api
                         text: "text",
                         userMessageType: .user,
                         createdAt: Optional(try! Date("2024-01-15T09:30:00Z", strategy: .iso8601)),
-                        updatedAt: Optional(try! Date("2024-01-15T09:30:00Z", strategy: .iso8601))
+                        updatedAt: Optional(try! Date("2024-01-15T09:30:00Z", strategy: .iso8601)),
+                        appMetadata: Optional([
+                            "appMetadata": "appMetadata"
+                        ])
                     )
                 ),
                 .user(
@@ -1725,7 +1758,10 @@ import Api
                         text: "text",
                         userMessageType: .user,
                         createdAt: Optional(try! Date("2024-01-15T09:30:00Z", strategy: .iso8601)),
-                        updatedAt: Optional(try! Date("2024-01-15T09:30:00Z", strategy: .iso8601))
+                        updatedAt: Optional(try! Date("2024-01-15T09:30:00Z", strategy: .iso8601)),
+                        appMetadata: Optional([
+                            "appMetadata": "appMetadata"
+                        ])
                     )
                 )
             ],
@@ -2321,7 +2357,10 @@ import Api
                       "text": "text",
                       "userMessageType": "USER",
                       "createdAt": "2024-01-15T09:30:00Z",
-                      "updatedAt": "2024-01-15T09:30:00Z"
+                      "updatedAt": "2024-01-15T09:30:00Z",
+                      "appMetadata": {
+                        "appMetadata": "appMetadata"
+                      }
                     },
                     {
                       "type": "user",
@@ -2359,7 +2398,10 @@ import Api
                       "text": "text",
                       "userMessageType": "USER",
                       "createdAt": "2024-01-15T09:30:00Z",
-                      "updatedAt": "2024-01-15T09:30:00Z"
+                      "updatedAt": "2024-01-15T09:30:00Z",
+                      "appMetadata": {
+                        "appMetadata": "appMetadata"
+                      }
                     }
                   ],
                   "attachments": [
@@ -2610,7 +2652,10 @@ import Api
                         text: "text",
                         userMessageType: .user,
                         createdAt: Optional(try! Date("2024-01-15T09:30:00Z", strategy: .iso8601)),
-                        updatedAt: Optional(try! Date("2024-01-15T09:30:00Z", strategy: .iso8601))
+                        updatedAt: Optional(try! Date("2024-01-15T09:30:00Z", strategy: .iso8601)),
+                        appMetadata: Optional([
+                            "appMetadata": "appMetadata"
+                        ])
                     )
                 ),
                 .user(
@@ -2649,7 +2694,10 @@ import Api
                         text: "text",
                         userMessageType: .user,
                         createdAt: Optional(try! Date("2024-01-15T09:30:00Z", strategy: .iso8601)),
-                        updatedAt: Optional(try! Date("2024-01-15T09:30:00Z", strategy: .iso8601))
+                        updatedAt: Optional(try! Date("2024-01-15T09:30:00Z", strategy: .iso8601)),
+                        appMetadata: Optional([
+                            "appMetadata": "appMetadata"
+                        ])
                     )
                 )
             ],

@@ -6,6 +6,8 @@ public enum KnowledgeBaseIndexingStatus: String, Codable, Hashable, CaseIterable
     case indexing = "INDEXING"
     case indexed = "INDEXED"
     case published = "PUBLISHED"
+    case rollingBack = "ROLLING_BACK"
     case failed = "FAILED"
     case superseded = "SUPERSEDED"
+    case rolledBack = "ROLLED_BACK"
 }

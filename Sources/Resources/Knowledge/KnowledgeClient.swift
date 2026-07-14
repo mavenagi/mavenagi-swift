@@ -82,6 +82,18 @@ public final class KnowledgeClient: Sendable {
         )
     }
 
+    /// Rolls the knowledge base back to its previous published version.
+    ///
+    /// - Parameter knowledgeBaseReferenceId: The reference ID of the knowledge base to roll back. All other entity ID fields are inferred from the request.
+    /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
+    public func rollbackKnowledgeBaseVersion(knowledgeBaseReferenceId: String, requestOptions: RequestOptions? = nil) async throws -> Void {
+        return try await httpClient.performRequest(
+            method: .post,
+            path: "/v1/knowledge/\(knowledgeBaseReferenceId)/rollback",
+            requestOptions: requestOptions
+        )
+    }
+
     /// Update mutable knowledge base fields
     /// 
     /// The `appId` field can be provided to update a knowledge base owned by a different app.

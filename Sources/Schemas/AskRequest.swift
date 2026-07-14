@@ -14,6 +14,13 @@ public struct AskRequest: Codable, Hashable, Sendable {
     public let transientData: [String: String]?
     /// IANA timezone identifier (e.g. "America/New_York", "Europe/London") to be used for time-based operations in the conversation.
     public let timezone: String?
+    /// Key-value metadata to persist on the user message created by this request. Unlike
+    /// `transientData` (which is never persisted) this is stored and returned when the message
+    /// is read back via the API or dashboard, and unlike user data it is not sent to the LLM.
+    /// Applied only when the message is first created — if `conversationMessageId` already
+    /// exists the message is reused and its metadata is not updated. Keys and values are strings
+    /// with a maximum length of 500 characters each.
+    public let appMetadata: [String: String]?
     /// Additional properties that are not explicitly defined in the schema
     public let additionalProperties: [String: JSONValue]
 
@@ -24,6 +31,7 @@ public struct AskRequest: Codable, Hashable, Sendable {
         attachments: [AttachmentRequest]? = nil,
         transientData: [String: String]? = nil,
         timezone: String? = nil,
+        appMetadata: [String: String]? = nil,
         additionalProperties: [String: JSONValue] = .init()
     ) {
         self.conversationMessageId = conversationMessageId
@@ -32,6 +40,7 @@ public struct AskRequest: Codable, Hashable, Sendable {
         self.attachments = attachments
         self.transientData = transientData
         self.timezone = timezone
+        self.appMetadata = appMetadata
         self.additionalProperties = additionalProperties
     }
 
@@ -43,6 +52,7 @@ public struct AskRequest: Codable, Hashable, Sendable {
         self.attachments = try container.decodeIfPresent([AttachmentRequest].self, forKey: .attachments)
         self.transientData = try container.decodeIfPresent([String: String].self, forKey: .transientData)
         self.timezone = try container.decodeIfPresent(String.self, forKey: .timezone)
+        self.appMetadata = try container.decodeIfPresent([String: String].self, forKey: .appMetadata)
         self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
     }
 
@@ -55,6 +65,7 @@ public struct AskRequest: Codable, Hashable, Sendable {
         try container.encodeIfPresent(self.attachments, forKey: .attachments)
         try container.encodeIfPresent(self.transientData, forKey: .transientData)
         try container.encodeIfPresent(self.timezone, forKey: .timezone)
+        try container.encodeIfPresent(self.appMetadata, forKey: .appMetadata)
     }
 
     /// Keys for encoding/decoding struct properties.
@@ -65,5 +76,6 @@ public struct AskRequest: Codable, Hashable, Sendable {
         case attachments
         case transientData
         case timezone
+        case appMetadata
     }
 }

@@ -10,6 +10,13 @@ public struct ConversationMessageRequest: Codable, Hashable, Sendable {
     public let createdAt: Date?
     /// The date and time the conversation was last updated
     public let updatedAt: Date?
+    /// Key-value metadata for this message, supplied by the app which created the message.
+    /// Useful for storing additional structured information about the message and querying
+    /// for it via API or the dashboard.
+    /// 
+    /// Keys are strings with a maximum length of 500 characters. Values are strings with a
+    /// maximum length of 500 characters.
+    public let appMetadata: [String: String]?
     /// The ID that uniquely identifies this message within the conversation
     public let conversationMessageId: EntityIdBase
     /// The attachments to the message.
@@ -23,6 +30,7 @@ public struct ConversationMessageRequest: Codable, Hashable, Sendable {
         userMessageType: UserConversationMessageType,
         createdAt: Date? = nil,
         updatedAt: Date? = nil,
+        appMetadata: [String: String]? = nil,
         conversationMessageId: EntityIdBase,
         attachments: [AttachmentRequest]? = nil,
         additionalProperties: [String: JSONValue] = .init()
@@ -32,6 +40,7 @@ public struct ConversationMessageRequest: Codable, Hashable, Sendable {
         self.userMessageType = userMessageType
         self.createdAt = createdAt
         self.updatedAt = updatedAt
+        self.appMetadata = appMetadata
         self.conversationMessageId = conversationMessageId
         self.attachments = attachments
         self.additionalProperties = additionalProperties
@@ -44,6 +53,7 @@ public struct ConversationMessageRequest: Codable, Hashable, Sendable {
         self.userMessageType = try container.decode(UserConversationMessageType.self, forKey: .userMessageType)
         self.createdAt = try container.decodeIfPresent(Date.self, forKey: .createdAt)
         self.updatedAt = try container.decodeIfPresent(Date.self, forKey: .updatedAt)
+        self.appMetadata = try container.decodeIfPresent([String: String].self, forKey: .appMetadata)
         self.conversationMessageId = try container.decode(EntityIdBase.self, forKey: .conversationMessageId)
         self.attachments = try container.decodeIfPresent([AttachmentRequest].self, forKey: .attachments)
         self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
@@ -57,6 +67,7 @@ public struct ConversationMessageRequest: Codable, Hashable, Sendable {
         try container.encode(self.userMessageType, forKey: .userMessageType)
         try container.encodeIfPresent(self.createdAt, forKey: .createdAt)
         try container.encodeIfPresent(self.updatedAt, forKey: .updatedAt)
+        try container.encodeIfPresent(self.appMetadata, forKey: .appMetadata)
         try container.encode(self.conversationMessageId, forKey: .conversationMessageId)
         try container.encodeIfPresent(self.attachments, forKey: .attachments)
     }
@@ -68,6 +79,7 @@ public struct ConversationMessageRequest: Codable, Hashable, Sendable {
         case userMessageType
         case createdAt
         case updatedAt
+        case appMetadata
         case conversationMessageId
         case attachments
     }
