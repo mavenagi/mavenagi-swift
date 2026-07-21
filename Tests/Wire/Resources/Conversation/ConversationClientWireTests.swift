@@ -250,6 +250,26 @@ import Api
                         "referenceId": "x"
                       }
                     ],
+                    "matchedCharterIds": [
+                      {
+                        "type": "AGENT",
+                        "appId": "appId",
+                        "referenceId": "x"
+                      },
+                      {
+                        "type": "AGENT",
+                        "appId": "appId",
+                        "referenceId": "x"
+                      }
+                    ],
+                    "matchedCharterNames": [
+                      "matchedCharterNames",
+                      "matchedCharterNames"
+                    ],
+                    "matchedSegmentedCharterNames": [
+                      "matchedSegmentedCharterNames",
+                      "matchedSegmentedCharterNames"
+                    ],
                     "insertCount": 1,
                     "thumbsUpCount": 1,
                     "thumbsDownCount": 1,
@@ -537,6 +557,26 @@ import Api
                         referenceId: "x"
                     )
                 ],
+                matchedCharterIds: [
+                    EntityIdWithoutAgent(
+                        type: .agent,
+                        appId: "appId",
+                        referenceId: "x"
+                    ),
+                    EntityIdWithoutAgent(
+                        type: .agent,
+                        appId: "appId",
+                        referenceId: "x"
+                    )
+                ],
+                matchedCharterNames: [
+                    "matchedCharterNames",
+                    "matchedCharterNames"
+                ],
+                matchedSegmentedCharterNames: [
+                    "matchedSegmentedCharterNames",
+                    "matchedSegmentedCharterNames"
+                ],
                 insertCount: 1,
                 thumbsUpCount: 1,
                 thumbsDownCount: 1,
@@ -632,6 +672,9 @@ import Api
                   "summary": {
                     "actionIds": [],
                     "incompleteActionIds": [],
+                    "matchedCharterIds": [],
+                    "matchedCharterNames": [],
+                    "matchedSegmentedCharterNames": [],
                     "insertCount": 0,
                     "thumbsUpCount": 0,
                     "thumbsDownCount": 0,
@@ -728,6 +771,9 @@ import Api
             summary: ConversationSummary(
                 actionIds: [],
                 incompleteActionIds: [],
+                matchedCharterIds: [],
+                matchedCharterNames: [],
+                matchedSegmentedCharterNames: [],
                 insertCount: 0,
                 thumbsUpCount: 0,
                 thumbsDownCount: 0,
@@ -1050,6 +1096,26 @@ import Api
                         "referenceId": "x"
                       }
                     ],
+                    "matchedCharterIds": [
+                      {
+                        "type": "AGENT",
+                        "appId": "appId",
+                        "referenceId": "x"
+                      },
+                      {
+                        "type": "AGENT",
+                        "appId": "appId",
+                        "referenceId": "x"
+                      }
+                    ],
+                    "matchedCharterNames": [
+                      "matchedCharterNames",
+                      "matchedCharterNames"
+                    ],
+                    "matchedSegmentedCharterNames": [
+                      "matchedSegmentedCharterNames",
+                      "matchedSegmentedCharterNames"
+                    ],
                     "insertCount": 1,
                     "thumbsUpCount": 1,
                     "thumbsDownCount": 1,
@@ -1332,6 +1398,26 @@ import Api
                         appId: "appId",
                         referenceId: "x"
                     )
+                ],
+                matchedCharterIds: [
+                    EntityIdWithoutAgent(
+                        type: .agent,
+                        appId: "appId",
+                        referenceId: "x"
+                    ),
+                    EntityIdWithoutAgent(
+                        type: .agent,
+                        appId: "appId",
+                        referenceId: "x"
+                    )
+                ],
+                matchedCharterNames: [
+                    "matchedCharterNames",
+                    "matchedCharterNames"
+                ],
+                matchedSegmentedCharterNames: [
+                    "matchedSegmentedCharterNames",
+                    "matchedSegmentedCharterNames"
                 ],
                 insertCount: 1,
                 thumbsUpCount: 1,
@@ -1621,6 +1707,26 @@ import Api
                         "referenceId": "x"
                       }
                     ],
+                    "matchedCharterIds": [
+                      {
+                        "type": "AGENT",
+                        "appId": "appId",
+                        "referenceId": "x"
+                      },
+                      {
+                        "type": "AGENT",
+                        "appId": "appId",
+                        "referenceId": "x"
+                      }
+                    ],
+                    "matchedCharterNames": [
+                      "matchedCharterNames",
+                      "matchedCharterNames"
+                    ],
+                    "matchedSegmentedCharterNames": [
+                      "matchedSegmentedCharterNames",
+                      "matchedSegmentedCharterNames"
+                    ],
                     "insertCount": 1,
                     "thumbsUpCount": 1,
                     "thumbsDownCount": 1,
@@ -1904,6 +2010,26 @@ import Api
                         referenceId: "x"
                     )
                 ],
+                matchedCharterIds: [
+                    EntityIdWithoutAgent(
+                        type: .agent,
+                        appId: "appId",
+                        referenceId: "x"
+                    ),
+                    EntityIdWithoutAgent(
+                        type: .agent,
+                        appId: "appId",
+                        referenceId: "x"
+                    )
+                ],
+                matchedCharterNames: [
+                    "matchedCharterNames",
+                    "matchedCharterNames"
+                ],
+                matchedSegmentedCharterNames: [
+                    "matchedSegmentedCharterNames",
+                    "matchedSegmentedCharterNames"
+                ],
                 insertCount: 1,
                 thumbsUpCount: 1,
                 thumbsDownCount: 1,
@@ -1995,6 +2121,9 @@ import Api
                   "summary": {
                     "actionIds": [],
                     "incompleteActionIds": [],
+                    "matchedCharterIds": [],
+                    "matchedCharterNames": [],
+                    "matchedSegmentedCharterNames": [],
                     "insertCount": 0,
                     "thumbsUpCount": 0,
                     "thumbsDownCount": 0,
@@ -2091,6 +2220,9 @@ import Api
             summary: ConversationSummary(
                 actionIds: [],
                 incompleteActionIds: [],
+                matchedCharterIds: [],
+                matchedCharterNames: [],
+                matchedSegmentedCharterNames: [],
                 insertCount: 0,
                 thumbsUpCount: 0,
                 thumbsDownCount: 0,
@@ -2557,6 +2689,26 @@ import Api
                         "referenceId": "x"
                       }
                     ],
+                    "matchedCharterIds": [
+                      {
+                        "type": "AGENT",
+                        "appId": "appId",
+                        "referenceId": "x"
+                      },
+                      {
+                        "type": "AGENT",
+                        "appId": "appId",
+                        "referenceId": "x"
+                      }
+                    ],
+                    "matchedCharterNames": [
+                      "matchedCharterNames",
+                      "matchedCharterNames"
+                    ],
+                    "matchedSegmentedCharterNames": [
+                      "matchedSegmentedCharterNames",
+                      "matchedSegmentedCharterNames"
+                    ],
                     "insertCount": 1,
                     "thumbsUpCount": 1,
                     "thumbsDownCount": 1,
@@ -2840,6 +2992,26 @@ import Api
                         referenceId: "x"
                     )
                 ],
+                matchedCharterIds: [
+                    EntityIdWithoutAgent(
+                        type: .agent,
+                        appId: "appId",
+                        referenceId: "x"
+                    ),
+                    EntityIdWithoutAgent(
+                        type: .agent,
+                        appId: "appId",
+                        referenceId: "x"
+                    )
+                ],
+                matchedCharterNames: [
+                    "matchedCharterNames",
+                    "matchedCharterNames"
+                ],
+                matchedSegmentedCharterNames: [
+                    "matchedSegmentedCharterNames",
+                    "matchedSegmentedCharterNames"
+                ],
                 insertCount: 1,
                 thumbsUpCount: 1,
                 thumbsDownCount: 1,
@@ -3110,6 +3282,26 @@ import Api
                             "referenceId": "x"
                           }
                         ],
+                        "matchedCharterIds": [
+                          {
+                            "type": "AGENT",
+                            "appId": "appId",
+                            "referenceId": "x"
+                          },
+                          {
+                            "type": "AGENT",
+                            "appId": "appId",
+                            "referenceId": "x"
+                          }
+                        ],
+                        "matchedCharterNames": [
+                          "matchedCharterNames",
+                          "matchedCharterNames"
+                        ],
+                        "matchedSegmentedCharterNames": [
+                          "matchedSegmentedCharterNames",
+                          "matchedSegmentedCharterNames"
+                        ],
                         "insertCount": 1,
                         "thumbsUpCount": 1,
                         "thumbsDownCount": 1,
@@ -3288,6 +3480,26 @@ import Api
                             "appId": "appId",
                             "referenceId": "x"
                           }
+                        ],
+                        "matchedCharterIds": [
+                          {
+                            "type": "AGENT",
+                            "appId": "appId",
+                            "referenceId": "x"
+                          },
+                          {
+                            "type": "AGENT",
+                            "appId": "appId",
+                            "referenceId": "x"
+                          }
+                        ],
+                        "matchedCharterNames": [
+                          "matchedCharterNames",
+                          "matchedCharterNames"
+                        ],
+                        "matchedSegmentedCharterNames": [
+                          "matchedSegmentedCharterNames",
+                          "matchedSegmentedCharterNames"
                         ],
                         "insertCount": 1,
                         "thumbsUpCount": 1,
@@ -3478,6 +3690,26 @@ import Api
                                 referenceId: "x"
                             )
                         ],
+                        matchedCharterIds: [
+                            EntityIdWithoutAgent(
+                                type: .agent,
+                                appId: "appId",
+                                referenceId: "x"
+                            ),
+                            EntityIdWithoutAgent(
+                                type: .agent,
+                                appId: "appId",
+                                referenceId: "x"
+                            )
+                        ],
+                        matchedCharterNames: [
+                            "matchedCharterNames",
+                            "matchedCharterNames"
+                        ],
+                        matchedSegmentedCharterNames: [
+                            "matchedSegmentedCharterNames",
+                            "matchedSegmentedCharterNames"
+                        ],
                         insertCount: 1,
                         thumbsUpCount: 1,
                         thumbsDownCount: 1,
@@ -3639,6 +3871,26 @@ import Api
                                 appId: "appId",
                                 referenceId: "x"
                             )
+                        ],
+                        matchedCharterIds: [
+                            EntityIdWithoutAgent(
+                                type: .agent,
+                                appId: "appId",
+                                referenceId: "x"
+                            ),
+                            EntityIdWithoutAgent(
+                                type: .agent,
+                                appId: "appId",
+                                referenceId: "x"
+                            )
+                        ],
+                        matchedCharterNames: [
+                            "matchedCharterNames",
+                            "matchedCharterNames"
+                        ],
+                        matchedSegmentedCharterNames: [
+                            "matchedSegmentedCharterNames",
+                            "matchedSegmentedCharterNames"
                         ],
                         insertCount: 1,
                         thumbsUpCount: 1,

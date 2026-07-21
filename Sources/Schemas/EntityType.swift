@@ -21,4 +21,5 @@ public enum EntityType: String, Codable, Hashable, CaseIterable, Sendable {
     case charter = "CHARTER"
     case conversationKickoff = "CONVERSATION_KICKOFF"
     case agentVariant = "AGENT_VARIANT"
+    case configSnapshot = "CONFIG_SNAPSHOT"
 }

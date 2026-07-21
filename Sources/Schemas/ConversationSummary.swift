@@ -5,6 +5,12 @@ public struct ConversationSummary: Codable, Hashable, Sendable {
     public let actionIds: [EntityIdWithoutAgent]
     /// The IDs of the actions that were taken by Maven but not completed in the conversation. Occurs when the user is shown an action form but does not submit it.
     public let incompleteActionIds: [EntityIdWithoutAgent]
+    /// The IDs of the charters that were matched anywhere in the conversation.
+    public let matchedCharterIds: [EntityIdWithoutAgent]
+    /// The names of the charters that were matched anywhere in the conversation.
+    public let matchedCharterNames: [String]
+    /// The names of the matched charters that are gated by a segment (i.e. have a segment condition) anywhere in the conversation.
+    public let matchedSegmentedCharterNames: [String]
     /// The number of insert events on messages in the conversation.
     public let insertCount: Int
     /// The number of thumbs up events on messages in the conversation.
@@ -52,6 +58,9 @@ public struct ConversationSummary: Codable, Hashable, Sendable {
     public init(
         actionIds: [EntityIdWithoutAgent],
         incompleteActionIds: [EntityIdWithoutAgent],
+        matchedCharterIds: [EntityIdWithoutAgent],
+        matchedCharterNames: [String],
+        matchedSegmentedCharterNames: [String],
         insertCount: Int,
         thumbsUpCount: Int,
         thumbsDownCount: Int,
@@ -72,6 +81,9 @@ public struct ConversationSummary: Codable, Hashable, Sendable {
     ) {
         self.actionIds = actionIds
         self.incompleteActionIds = incompleteActionIds
+        self.matchedCharterIds = matchedCharterIds
+        self.matchedCharterNames = matchedCharterNames
+        self.matchedSegmentedCharterNames = matchedSegmentedCharterNames
         self.insertCount = insertCount
         self.thumbsUpCount = thumbsUpCount
         self.thumbsDownCount = thumbsDownCount
@@ -95,6 +107,9 @@ public struct ConversationSummary: Codable, Hashable, Sendable {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.actionIds = try container.decode([EntityIdWithoutAgent].self, forKey: .actionIds)
         self.incompleteActionIds = try container.decode([EntityIdWithoutAgent].self, forKey: .incompleteActionIds)
+        self.matchedCharterIds = try container.decode([EntityIdWithoutAgent].self, forKey: .matchedCharterIds)
+        self.matchedCharterNames = try container.decode([String].self, forKey: .matchedCharterNames)
+        self.matchedSegmentedCharterNames = try container.decode([String].self, forKey: .matchedSegmentedCharterNames)
         self.insertCount = try container.decode(Int.self, forKey: .insertCount)
         self.thumbsUpCount = try container.decode(Int.self, forKey: .thumbsUpCount)
         self.thumbsDownCount = try container.decode(Int.self, forKey: .thumbsDownCount)
@@ -119,6 +134,9 @@ public struct ConversationSummary: Codable, Hashable, Sendable {
         try encoder.encodeAdditionalProperties(self.additionalProperties)
         try container.encode(self.actionIds, forKey: .actionIds)
         try container.encode(self.incompleteActionIds, forKey: .incompleteActionIds)
+        try container.encode(self.matchedCharterIds, forKey: .matchedCharterIds)
+        try container.encode(self.matchedCharterNames, forKey: .matchedCharterNames)
+        try container.encode(self.matchedSegmentedCharterNames, forKey: .matchedSegmentedCharterNames)
         try container.encode(self.insertCount, forKey: .insertCount)
         try container.encode(self.thumbsUpCount, forKey: .thumbsUpCount)
         try container.encode(self.thumbsDownCount, forKey: .thumbsDownCount)
@@ -141,6 +159,9 @@ public struct ConversationSummary: Codable, Hashable, Sendable {
     enum CodingKeys: String, CodingKey, CaseIterable {
         case actionIds
         case incompleteActionIds
+        case matchedCharterIds
+        case matchedCharterNames
+        case matchedSegmentedCharterNames
         case insertCount
         case thumbsUpCount
         case thumbsDownCount
