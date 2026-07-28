@@ -17,6 +17,7 @@ public enum IntelligentFieldCondition: Codable, Hashable, Sendable {
     case numeric(Numeric)
     case set(Set)
     case string(String)
+    case universal(Universal)
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
@@ -30,6 +31,8 @@ public enum IntelligentFieldCondition: Codable, Hashable, Sendable {
             self = .set(try Set(from: decoder))
         case "string":
             self = .string(try String(from: decoder))
+        case "universal":
+            self = .universal(try Universal(from: decoder))
         default:
             throw DecodingError.dataCorrupted(
                 DecodingError.Context(
@@ -49,6 +52,8 @@ public enum IntelligentFieldCondition: Codable, Hashable, Sendable {
         case .set(let data):
             try data.encode(to: encoder)
         case .string(let data):
+            try data.encode(to: encoder)
+        case .universal(let data):
             try data.encode(to: encoder)
         }
     }
@@ -173,6 +178,40 @@ public enum IntelligentFieldCondition: Codable, Hashable, Sendable {
         public init(from decoder: Decoder) throws {
             let container = try decoder.container(keyedBy: CodingKeys.self)
             self.value = try container.decode(SetCondition.self, forKey: .value)
+            self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
+        }
+
+        public func encode(to encoder: Encoder) throws -> Void {
+            var container = encoder.container(keyedBy: CodingKeys.self)
+            try encoder.encodeAdditionalProperties(self.additionalProperties)
+            try container.encode(self.fieldValidationType, forKey: .fieldValidationType)
+            try container.encode(self.value, forKey: .value)
+        }
+
+        /// Keys for encoding/decoding struct properties.
+        enum CodingKeys: String, CodingKey, CaseIterable {
+            case fieldValidationType
+            case value
+        }
+    }
+
+    public struct Universal: Codable, Hashable, Sendable {
+        public let fieldValidationType: Swift.String = "universal"
+        public let value: UniversalCondition
+        /// Additional properties that are not explicitly defined in the schema
+        public let additionalProperties: [Swift.String: JSONValue]
+
+        public init(
+            value: UniversalCondition,
+            additionalProperties: [Swift.String: JSONValue] = .init()
+        ) {
+            self.value = value
+            self.additionalProperties = additionalProperties
+        }
+
+        public init(from decoder: Decoder) throws {
+            let container = try decoder.container(keyedBy: CodingKeys.self)
+            self.value = try container.decode(UniversalCondition.self, forKey: .value)
             self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
         }
 

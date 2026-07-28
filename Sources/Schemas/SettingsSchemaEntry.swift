@@ -7,11 +7,13 @@ public indirect enum SettingsSchemaEntry: Codable, Hashable, Sendable {
     case complexarray(Complexarray)
     case dropdown(Dropdown)
     case image(Image)
+    case jsonSchema(JsonSchema)
     case multiline(Multiline)
     case number(Number)
     case oauth(Oauth)
     case oneOf(OneOf)
     case section(Section)
+    case `switch`(Switch)
     case text(Text)
 
     public init(from decoder: Decoder) throws {
@@ -30,6 +32,8 @@ public indirect enum SettingsSchemaEntry: Codable, Hashable, Sendable {
             self = .dropdown(try Dropdown(from: decoder))
         case "image":
             self = .image(try Image(from: decoder))
+        case "jsonSchema":
+            self = .jsonSchema(try JsonSchema(from: decoder))
         case "multiline":
             self = .multiline(try Multiline(from: decoder))
         case "number":
@@ -40,6 +44,8 @@ public indirect enum SettingsSchemaEntry: Codable, Hashable, Sendable {
             self = .oneOf(try OneOf(from: decoder))
         case "section":
             self = .section(try Section(from: decoder))
+        case "switch":
+            self = .switch(try Switch(from: decoder))
         case "text":
             self = .text(try Text(from: decoder))
         default:
@@ -66,6 +72,8 @@ public indirect enum SettingsSchemaEntry: Codable, Hashable, Sendable {
             try data.encode(to: encoder)
         case .image(let data):
             try data.encode(to: encoder)
+        case .jsonSchema(let data):
+            try data.encode(to: encoder)
         case .multiline(let data):
             try data.encode(to: encoder)
         case .number(let data):
@@ -75,6 +83,8 @@ public indirect enum SettingsSchemaEntry: Codable, Hashable, Sendable {
         case .oneOf(let data):
             try data.encode(to: encoder)
         case .section(let data):
+            try data.encode(to: encoder)
+        case .switch(let data):
             try data.encode(to: encoder)
         case .text(let data):
             try data.encode(to: encoder)
@@ -560,6 +570,71 @@ public indirect enum SettingsSchemaEntry: Codable, Hashable, Sendable {
         }
     }
 
+    public struct Switch: Codable, Hashable, Sendable {
+        public let type: String = "switch"
+        public let key: String
+        public let displayName: String
+        public let description: String?
+        public let visibility: VisibilityType?
+        /// Whether the setting must have a value upon install. Defaults to false.
+        public let required: Bool?
+        public let defaultValue: Bool?
+        /// Additional properties that are not explicitly defined in the schema
+        public let additionalProperties: [String: JSONValue]
+
+        public init(
+            key: String,
+            displayName: String,
+            description: String? = nil,
+            visibility: VisibilityType? = nil,
+            required: Bool? = nil,
+            defaultValue: Bool? = nil,
+            additionalProperties: [String: JSONValue] = .init()
+        ) {
+            self.key = key
+            self.displayName = displayName
+            self.description = description
+            self.visibility = visibility
+            self.required = required
+            self.defaultValue = defaultValue
+            self.additionalProperties = additionalProperties
+        }
+
+        public init(from decoder: Decoder) throws {
+            let container = try decoder.container(keyedBy: CodingKeys.self)
+            self.key = try container.decode(String.self, forKey: .key)
+            self.displayName = try container.decode(String.self, forKey: .displayName)
+            self.description = try container.decodeIfPresent(String.self, forKey: .description)
+            self.visibility = try container.decodeIfPresent(VisibilityType.self, forKey: .visibility)
+            self.required = try container.decodeIfPresent(Bool.self, forKey: .required)
+            self.defaultValue = try container.decodeIfPresent(Bool.self, forKey: .defaultValue)
+            self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
+        }
+
+        public func encode(to encoder: Encoder) throws -> Void {
+            var container = encoder.container(keyedBy: CodingKeys.self)
+            try encoder.encodeAdditionalProperties(self.additionalProperties)
+            try container.encode(self.type, forKey: .type)
+            try container.encode(self.key, forKey: .key)
+            try container.encode(self.displayName, forKey: .displayName)
+            try container.encodeIfPresent(self.description, forKey: .description)
+            try container.encodeIfPresent(self.visibility, forKey: .visibility)
+            try container.encodeIfPresent(self.required, forKey: .required)
+            try container.encodeIfPresent(self.defaultValue, forKey: .defaultValue)
+        }
+
+        /// Keys for encoding/decoding struct properties.
+        enum CodingKeys: String, CodingKey, CaseIterable {
+            case type
+            case key
+            case displayName
+            case description
+            case visibility
+            case required
+            case defaultValue
+        }
+    }
+
     public struct Dropdown: Codable, Hashable, Sendable {
         public let type: String = "dropdown"
         public let key: String
@@ -944,6 +1019,78 @@ public indirect enum SettingsSchemaEntry: Codable, Hashable, Sendable {
             case visibility
             case required
             case unionOptions
+            case defaultValue
+        }
+    }
+
+    public struct JsonSchema: Codable, Hashable, Sendable {
+        public let type: String = "jsonSchema"
+        public let key: String
+        public let displayName: String
+        public let description: String?
+        public let visibility: VisibilityType?
+        /// Whether the setting must have a value upon install. Defaults to false.
+        public let required: Bool?
+        /// JSON Schema (as a JSON string) describing the expected shape of this setting's value.
+        public let jsonSchema: String
+        public let defaultValue: JSONValue?
+        /// Additional properties that are not explicitly defined in the schema
+        public let additionalProperties: [String: JSONValue]
+
+        public init(
+            key: String,
+            displayName: String,
+            description: String? = nil,
+            visibility: VisibilityType? = nil,
+            required: Bool? = nil,
+            jsonSchema: String,
+            defaultValue: JSONValue? = nil,
+            additionalProperties: [String: JSONValue] = .init()
+        ) {
+            self.key = key
+            self.displayName = displayName
+            self.description = description
+            self.visibility = visibility
+            self.required = required
+            self.jsonSchema = jsonSchema
+            self.defaultValue = defaultValue
+            self.additionalProperties = additionalProperties
+        }
+
+        public init(from decoder: Decoder) throws {
+            let container = try decoder.container(keyedBy: CodingKeys.self)
+            self.key = try container.decode(String.self, forKey: .key)
+            self.displayName = try container.decode(String.self, forKey: .displayName)
+            self.description = try container.decodeIfPresent(String.self, forKey: .description)
+            self.visibility = try container.decodeIfPresent(VisibilityType.self, forKey: .visibility)
+            self.required = try container.decodeIfPresent(Bool.self, forKey: .required)
+            self.jsonSchema = try container.decode(String.self, forKey: .jsonSchema)
+            self.defaultValue = try container.decodeIfPresent(JSONValue.self, forKey: .defaultValue)
+            self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
+        }
+
+        public func encode(to encoder: Encoder) throws -> Void {
+            var container = encoder.container(keyedBy: CodingKeys.self)
+            try encoder.encodeAdditionalProperties(self.additionalProperties)
+            try container.encode(self.type, forKey: .type)
+            try container.encode(self.key, forKey: .key)
+            try container.encode(self.displayName, forKey: .displayName)
+            try container.encodeIfPresent(self.description, forKey: .description)
+            try container.encodeIfPresent(self.visibility, forKey: .visibility)
+            try container.encodeIfPresent(self.required, forKey: .required)
+            try container.encode(self.jsonSchema, forKey: .jsonSchema)
+            try container.encodeIfPresent(self.defaultValue, forKey: .defaultValue)
+        }
+
+        /// Keys for encoding/decoding struct properties.
+        enum CodingKeys: String, CodingKey, CaseIterable {
+            case type
+            case key
+            case displayName
+            case description
+            case visibility
+            case required
+            case jsonSchema
             case defaultValue
         }
     }

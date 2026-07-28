@@ -23,6 +23,7 @@ public enum ConversationField: String, Codable, Hashable, CaseIterable, Sendable
     case languages = "Languages"
     case actions = "Actions"
     case incompleteActions = "IncompleteActions"
+    case charters = "Charters"
     case sources = "Sources"
     case createdAt = "CreatedAt"
     case predictedNps = "PredictedNPS"
