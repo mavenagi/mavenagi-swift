@@ -9,10 +9,26 @@ import Api
             body: Data(
                 """
                 {
-                  "conversationKickoffResult": {
-                    "status": "SUCCESS",
-                    "message": "message"
-                  },
+                  "conversationKickoffResults": [
+                    {
+                      "referenceId": "referenceId",
+                      "appId": "appId",
+                      "status": "SUCCESS",
+                      "message": "message",
+                      "startedAt": "2024-01-15T09:30:00Z",
+                      "completedAt": "2024-01-15T09:30:00Z",
+                      "durationMs": 1000000
+                    },
+                    {
+                      "referenceId": "referenceId",
+                      "appId": "appId",
+                      "status": "SUCCESS",
+                      "message": "message",
+                      "startedAt": "2024-01-15T09:30:00Z",
+                      "completedAt": "2024-01-15T09:30:00Z",
+                      "durationMs": 1000000
+                    }
+                  ],
                   "messages": [
                     {
                       "type": "user",
@@ -316,6 +332,24 @@ import Api
                         "referenceId": "x"
                       }
                     ]
+                  },
+                  "relatedEntities": {
+                    "SPAWN_FROM": [
+                      {
+                        "organizationId": "organizationId",
+                        "agentId": "agentId",
+                        "type": "AGENT",
+                        "appId": "appId",
+                        "referenceId": "x"
+                      },
+                      {
+                        "organizationId": "organizationId",
+                        "agentId": "agentId",
+                        "type": "AGENT",
+                        "appId": "appId",
+                        "referenceId": "x"
+                      }
+                    ]
                   }
                 }
                 """.utf8
@@ -328,10 +362,26 @@ import Api
             urlSession: stub.urlSession
         )
         let expectedResponse = InitializeConversationResponse(
-            conversationKickoffResult: Optional(ConversationKickoffResult(
-                status: .success,
-                message: Optional("message")
-            )),
+            conversationKickoffResults: [
+                ConversationKickoffExecutionResponse(
+                    referenceId: Optional("referenceId"),
+                    appId: Optional("appId"),
+                    status: .success,
+                    message: Optional("message"),
+                    startedAt: Optional(try! Date("2024-01-15T09:30:00Z", strategy: .iso8601)),
+                    completedAt: Optional(try! Date("2024-01-15T09:30:00Z", strategy: .iso8601)),
+                    durationMs: Optional(1000000)
+                ),
+                ConversationKickoffExecutionResponse(
+                    referenceId: Optional("referenceId"),
+                    appId: Optional("appId"),
+                    status: .success,
+                    message: Optional("message"),
+                    startedAt: Optional(try! Date("2024-01-15T09:30:00Z", strategy: .iso8601)),
+                    completedAt: Optional(try! Date("2024-01-15T09:30:00Z", strategy: .iso8601)),
+                    durationMs: Optional(1000000)
+                )
+            ],
             messages: [
                 .user(
                     .init(
@@ -613,7 +663,25 @@ import Api
                 additionalPromptText: Optional("additionalPromptText"),
                 persona: Optional(.casualBuddy),
                 availableKnowledgeBases: Optional([])
-            ))
+            )),
+            relatedEntities: Optional([
+                .spawnFrom: [
+                    EntityId(
+                        organizationId: "organizationId",
+                        agentId: "agentId",
+                        type: .agent,
+                        appId: "appId",
+                        referenceId: "x"
+                    ),
+                    EntityId(
+                        organizationId: "organizationId",
+                        agentId: "agentId",
+                        type: .agent,
+                        appId: "appId",
+                        referenceId: "x"
+                    )
+                ]
+            ])
         )
         let response = try await client.conversation.initialize(
             request: ConversationRequest(
@@ -1162,6 +1230,24 @@ import Api
                         "referenceId": "x"
                       }
                     ]
+                  },
+                  "relatedEntities": {
+                    "SPAWN_FROM": [
+                      {
+                        "organizationId": "organizationId",
+                        "agentId": "agentId",
+                        "type": "AGENT",
+                        "appId": "appId",
+                        "referenceId": "x"
+                      },
+                      {
+                        "organizationId": "organizationId",
+                        "agentId": "agentId",
+                        "type": "AGENT",
+                        "appId": "appId",
+                        "referenceId": "x"
+                      }
+                    ]
                   }
                 }
                 """.utf8
@@ -1455,7 +1541,25 @@ import Api
                 additionalPromptText: Optional("additionalPromptText"),
                 persona: Optional(.casualBuddy),
                 availableKnowledgeBases: Optional([])
-            ))
+            )),
+            relatedEntities: Optional([
+                .spawnFrom: [
+                    EntityId(
+                        organizationId: "organizationId",
+                        agentId: "agentId",
+                        type: .agent,
+                        appId: "appId",
+                        referenceId: "x"
+                    ),
+                    EntityId(
+                        organizationId: "organizationId",
+                        agentId: "agentId",
+                        type: .agent,
+                        appId: "appId",
+                        referenceId: "x"
+                    )
+                ]
+            ])
         )
         let response = try await client.conversation.get(
             conversationId: "conversationId",
@@ -1773,6 +1877,24 @@ import Api
                         "referenceId": "x"
                       }
                     ]
+                  },
+                  "relatedEntities": {
+                    "SPAWN_FROM": [
+                      {
+                        "organizationId": "organizationId",
+                        "agentId": "agentId",
+                        "type": "AGENT",
+                        "appId": "appId",
+                        "referenceId": "x"
+                      },
+                      {
+                        "organizationId": "organizationId",
+                        "agentId": "agentId",
+                        "type": "AGENT",
+                        "appId": "appId",
+                        "referenceId": "x"
+                      }
+                    ]
                   }
                 }
                 """.utf8
@@ -2066,7 +2188,25 @@ import Api
                 additionalPromptText: Optional("additionalPromptText"),
                 persona: Optional(.casualBuddy),
                 availableKnowledgeBases: Optional([])
-            ))
+            )),
+            relatedEntities: Optional([
+                .spawnFrom: [
+                    EntityId(
+                        organizationId: "organizationId",
+                        agentId: "agentId",
+                        type: .agent,
+                        appId: "appId",
+                        referenceId: "x"
+                    ),
+                    EntityId(
+                        organizationId: "organizationId",
+                        agentId: "agentId",
+                        type: .agent,
+                        appId: "appId",
+                        referenceId: "x"
+                    )
+                ]
+            ])
         )
         let response = try await client.conversation.appendNewMessages(
             conversationId: "conversationId",
@@ -2755,6 +2895,24 @@ import Api
                         "referenceId": "x"
                       }
                     ]
+                  },
+                  "relatedEntities": {
+                    "SPAWN_FROM": [
+                      {
+                        "organizationId": "organizationId",
+                        "agentId": "agentId",
+                        "type": "AGENT",
+                        "appId": "appId",
+                        "referenceId": "x"
+                      },
+                      {
+                        "organizationId": "organizationId",
+                        "agentId": "agentId",
+                        "type": "AGENT",
+                        "appId": "appId",
+                        "referenceId": "x"
+                      }
+                    ]
                   }
                 }
                 """.utf8
@@ -3048,7 +3206,25 @@ import Api
                 additionalPromptText: Optional("additionalPromptText"),
                 persona: Optional(.casualBuddy),
                 availableKnowledgeBases: Optional([])
-            ))
+            )),
+            relatedEntities: Optional([
+                .spawnFrom: [
+                    EntityId(
+                        organizationId: "organizationId",
+                        agentId: "agentId",
+                        type: .agent,
+                        appId: "appId",
+                        referenceId: "x"
+                    ),
+                    EntityId(
+                        organizationId: "organizationId",
+                        agentId: "agentId",
+                        type: .agent,
+                        appId: "appId",
+                        referenceId: "x"
+                    )
+                ]
+            ])
         )
         let response = try await client.conversation.submitActionForm(
             conversationId: "conversationId",
@@ -3348,6 +3524,24 @@ import Api
                             "referenceId": "x"
                           }
                         ]
+                      },
+                      "relatedEntities": {
+                        "SPAWN_FROM": [
+                          {
+                            "organizationId": "organizationId",
+                            "agentId": "agentId",
+                            "type": "AGENT",
+                            "appId": "appId",
+                            "referenceId": "x"
+                          },
+                          {
+                            "organizationId": "organizationId",
+                            "agentId": "agentId",
+                            "type": "AGENT",
+                            "appId": "appId",
+                            "referenceId": "x"
+                          }
+                        ]
                       }
                     },
                     {
@@ -3539,6 +3733,24 @@ import Api
                         "additionalPromptText": "additionalPromptText",
                         "persona": "CASUAL_BUDDY",
                         "availableKnowledgeBases": [
+                          {
+                            "organizationId": "organizationId",
+                            "agentId": "agentId",
+                            "type": "AGENT",
+                            "appId": "appId",
+                            "referenceId": "x"
+                          }
+                        ]
+                      },
+                      "relatedEntities": {
+                        "SPAWN_FROM": [
+                          {
+                            "organizationId": "organizationId",
+                            "agentId": "agentId",
+                            "type": "AGENT",
+                            "appId": "appId",
+                            "referenceId": "x"
+                          },
                           {
                             "organizationId": "organizationId",
                             "agentId": "agentId",
@@ -3746,7 +3958,25 @@ import Api
                         additionalPromptText: Optional("additionalPromptText"),
                         persona: Optional(.casualBuddy),
                         availableKnowledgeBases: Optional([])
-                    ))
+                    )),
+                    relatedEntities: Optional([
+                        .spawnFrom: [
+                            EntityId(
+                                organizationId: "organizationId",
+                                agentId: "agentId",
+                                type: .agent,
+                                appId: "appId",
+                                referenceId: "x"
+                            ),
+                            EntityId(
+                                organizationId: "organizationId",
+                                agentId: "agentId",
+                                type: .agent,
+                                appId: "appId",
+                                referenceId: "x"
+                            )
+                        ]
+                    ])
                 ),
                 ConversationPreview(
                     responseConfig: Optional(ResponseConfig(
@@ -3928,7 +4158,25 @@ import Api
                         additionalPromptText: Optional("additionalPromptText"),
                         persona: Optional(.casualBuddy),
                         availableKnowledgeBases: Optional([])
-                    ))
+                    )),
+                    relatedEntities: Optional([
+                        .spawnFrom: [
+                            EntityId(
+                                organizationId: "organizationId",
+                                agentId: "agentId",
+                                type: .agent,
+                                appId: "appId",
+                                referenceId: "x"
+                            ),
+                            EntityId(
+                                organizationId: "organizationId",
+                                agentId: "agentId",
+                                type: .agent,
+                                appId: "appId",
+                                referenceId: "x"
+                            )
+                        ]
+                    ])
                 )
             ],
             number: 1,

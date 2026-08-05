@@ -35,6 +35,11 @@ public struct ConversationPreview: Codable, Hashable, Sendable {
     /// Additional context used for simulation runs. When present, this conversation is treated as a simulation.
     /// Simulation conversations are excluded from normal search results unless explicitly included via the `simulationFilter` field.
     public let simulationContext: SimulationContext?
+    /// Related entity ids grouped by relationship type.
+    /// 
+    /// - `SPAWN_FROM`: the conversation this one was spawned from (set via `ConversationCreateRequest.spawnedFromConversationId`).
+    /// - `SPAWN_TO`: the conversations that were spawned from this conversation.
+    public let relatedEntities: [RelationshipType: [EntityId]]?
     /// Additional properties that are not explicitly defined in the schema
     public let additionalProperties: [String: JSONValue]
 
@@ -54,6 +59,7 @@ public struct ConversationPreview: Codable, Hashable, Sendable {
         open: Bool,
         llmEnabled: Bool,
         simulationContext: SimulationContext? = nil,
+        relatedEntities: [RelationshipType: [EntityId]]? = nil,
         additionalProperties: [String: JSONValue] = .init()
     ) {
         self.responseConfig = responseConfig
@@ -71,6 +77,7 @@ public struct ConversationPreview: Codable, Hashable, Sendable {
         self.open = open
         self.llmEnabled = llmEnabled
         self.simulationContext = simulationContext
+        self.relatedEntities = relatedEntities
         self.additionalProperties = additionalProperties
     }
 
@@ -91,6 +98,7 @@ public struct ConversationPreview: Codable, Hashable, Sendable {
         self.open = try container.decode(Bool.self, forKey: .open)
         self.llmEnabled = try container.decode(Bool.self, forKey: .llmEnabled)
         self.simulationContext = try container.decodeIfPresent(SimulationContext.self, forKey: .simulationContext)
+        self.relatedEntities = try container.decodeIfPresent([RelationshipType: [EntityId]].self, forKey: .relatedEntities)
         self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
     }
 
@@ -112,6 +120,7 @@ public struct ConversationPreview: Codable, Hashable, Sendable {
         try container.encode(self.open, forKey: .open)
         try container.encode(self.llmEnabled, forKey: .llmEnabled)
         try container.encodeIfPresent(self.simulationContext, forKey: .simulationContext)
+        try container.encodeIfPresent(self.relatedEntities, forKey: .relatedEntities)
     }
 
     /// Keys for encoding/decoding struct properties.
@@ -131,5 +140,6 @@ public struct ConversationPreview: Codable, Hashable, Sendable {
         case open
         case llmEnabled
         case simulationContext
+        case relatedEntities
     }
 }

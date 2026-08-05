@@ -3,6 +3,7 @@ import Foundation
 public enum ConversationPreconditionResponse: Codable, Hashable, Sendable {
     case actionExecuted(ActionExecuted)
     case app(App)
+    case conversationState(ConversationState)
     case intelligentField(IntelligentField)
     case metadata(Metadata)
     case responseConfig(ResponseConfig)
@@ -16,6 +17,8 @@ public enum ConversationPreconditionResponse: Codable, Hashable, Sendable {
             self = .actionExecuted(try ActionExecuted(from: decoder))
         case "app":
             self = .app(try App(from: decoder))
+        case "conversationState":
+            self = .conversationState(try ConversationState(from: decoder))
         case "intelligentField":
             self = .intelligentField(try IntelligentField(from: decoder))
         case "metadata":
@@ -39,6 +42,8 @@ public enum ConversationPreconditionResponse: Codable, Hashable, Sendable {
         case .actionExecuted(let data):
             try data.encode(to: encoder)
         case .app(let data):
+            try data.encode(to: encoder)
+        case .conversationState(let data):
             try data.encode(to: encoder)
         case .intelligentField(let data):
             try data.encode(to: encoder)
@@ -157,6 +162,8 @@ public enum ConversationPreconditionResponse: Codable, Hashable, Sendable {
         public let actionId: String
         /// App ID that the given actionId belongs to. If not provided, the calling appId will be used.
         public let appId: String?
+        /// Restricts which round the action must have executed in. Defaults to ANY when omitted, matching an action executed in any round.
+        public let conversationRound: ConversationRound?
         /// Additional properties that are not explicitly defined in the schema
         public let additionalProperties: [String: JSONValue]
 
@@ -164,11 +171,13 @@ public enum ConversationPreconditionResponse: Codable, Hashable, Sendable {
             operator: PreconditionOperator? = nil,
             actionId: String,
             appId: String? = nil,
+            conversationRound: ConversationRound? = nil,
             additionalProperties: [String: JSONValue] = .init()
         ) {
             self.operator = `operator`
             self.actionId = actionId
             self.appId = appId
+            self.conversationRound = conversationRound
             self.additionalProperties = additionalProperties
         }
 
@@ -177,6 +186,7 @@ public enum ConversationPreconditionResponse: Codable, Hashable, Sendable {
             self.operator = try container.decodeIfPresent(PreconditionOperator.self, forKey: .operator)
             self.actionId = try container.decode(String.self, forKey: .actionId)
             self.appId = try container.decodeIfPresent(String.self, forKey: .appId)
+            self.conversationRound = try container.decodeIfPresent(ConversationRound.self, forKey: .conversationRound)
             self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
         }
 
@@ -187,6 +197,7 @@ public enum ConversationPreconditionResponse: Codable, Hashable, Sendable {
             try container.encodeIfPresent(self.operator, forKey: .operator)
             try container.encode(self.actionId, forKey: .actionId)
             try container.encodeIfPresent(self.appId, forKey: .appId)
+            try container.encodeIfPresent(self.conversationRound, forKey: .conversationRound)
         }
 
         /// Keys for encoding/decoding struct properties.
@@ -195,6 +206,7 @@ public enum ConversationPreconditionResponse: Codable, Hashable, Sendable {
             case `operator`
             case actionId
             case appId
+            case conversationRound
         }
     }
 
@@ -302,6 +314,48 @@ public enum ConversationPreconditionResponse: Codable, Hashable, Sendable {
             case conversationPreconditionType
             case `operator`
             case appId
+        }
+    }
+
+    public struct ConversationState: Codable, Hashable, Sendable {
+        public let conversationPreconditionType: String = "conversationState"
+        /// Operator to apply to this precondition
+        public let `operator`: PreconditionOperator?
+        /// The conversation state that must be active for the precondition to be met. Combine with the NOT operator to match every state except this one (e.g. NOT + WELCOME gates on "not the welcome state").
+        public let state: Api.ConversationState
+        /// Additional properties that are not explicitly defined in the schema
+        public let additionalProperties: [String: JSONValue]
+
+        public init(
+            operator: PreconditionOperator? = nil,
+            state: Api.ConversationState,
+            additionalProperties: [String: JSONValue] = .init()
+        ) {
+            self.operator = `operator`
+            self.state = state
+            self.additionalProperties = additionalProperties
+        }
+
+        public init(from decoder: Decoder) throws {
+            let container = try decoder.container(keyedBy: CodingKeys.self)
+            self.operator = try container.decodeIfPresent(PreconditionOperator.self, forKey: .operator)
+            self.state = try container.decode(Api.ConversationState.self, forKey: .state)
+            self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
+        }
+
+        public func encode(to encoder: Encoder) throws -> Void {
+            var container = encoder.container(keyedBy: CodingKeys.self)
+            try encoder.encodeAdditionalProperties(self.additionalProperties)
+            try container.encode(self.conversationPreconditionType, forKey: .conversationPreconditionType)
+            try container.encodeIfPresent(self.operator, forKey: .operator)
+            try container.encode(self.state, forKey: .state)
+        }
+
+        /// Keys for encoding/decoding struct properties.
+        enum CodingKeys: String, CodingKey, CaseIterable {
+            case conversationPreconditionType
+            case `operator`
+            case state
         }
     }
 

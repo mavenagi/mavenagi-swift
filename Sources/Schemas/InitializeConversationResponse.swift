@@ -44,10 +44,16 @@ public struct InitializeConversationResponse: Codable, Hashable, Sendable {
     /// Additional context used for simulation runs. When present, this conversation is treated as a simulation.
     /// Simulation conversations are excluded from normal search results unless explicitly included via the `simulationFilter` field.
     public let simulationContext: SimulationContext?
-    /// Result of the Conversation Kickoff, when one ran during conversation initialization.
-    /// Only present on this initialize response; other endpoints that return a conversation
-    /// do not include it.
-    public let conversationKickoffResult: ConversationKickoffResult?
+    /// Related entity ids grouped by relationship type.
+    /// 
+    /// - `SPAWN_FROM`: the conversation this one was spawned from (set via `ConversationCreateRequest.spawnedFromConversationId`).
+    /// - `SPAWN_TO`: the conversations that were spawned from this conversation.
+    public let relatedEntities: [RelationshipType: [EntityId]]?
+    /// Results of the Conversation Kickoffs that ran during conversation initialization, one
+    /// entry per kickoff in the order they were recorded. Empty when no kickoff ran. Only
+    /// present on this initialize response; other endpoints that return a conversation do not
+    /// include it.
+    public let conversationKickoffResults: [ConversationKickoffExecutionResponse]
     /// Additional properties that are not explicitly defined in the schema
     public let additionalProperties: [String: JSONValue]
 
@@ -69,7 +75,8 @@ public struct InitializeConversationResponse: Codable, Hashable, Sendable {
         open: Bool,
         llmEnabled: Bool,
         simulationContext: SimulationContext? = nil,
-        conversationKickoffResult: ConversationKickoffResult? = nil,
+        relatedEntities: [RelationshipType: [EntityId]]? = nil,
+        conversationKickoffResults: [ConversationKickoffExecutionResponse],
         additionalProperties: [String: JSONValue] = .init()
     ) {
         self.messages = messages
@@ -89,7 +96,8 @@ public struct InitializeConversationResponse: Codable, Hashable, Sendable {
         self.open = open
         self.llmEnabled = llmEnabled
         self.simulationContext = simulationContext
-        self.conversationKickoffResult = conversationKickoffResult
+        self.relatedEntities = relatedEntities
+        self.conversationKickoffResults = conversationKickoffResults
         self.additionalProperties = additionalProperties
     }
 
@@ -112,7 +120,8 @@ public struct InitializeConversationResponse: Codable, Hashable, Sendable {
         self.open = try container.decode(Bool.self, forKey: .open)
         self.llmEnabled = try container.decode(Bool.self, forKey: .llmEnabled)
         self.simulationContext = try container.decodeIfPresent(SimulationContext.self, forKey: .simulationContext)
-        self.conversationKickoffResult = try container.decodeIfPresent(ConversationKickoffResult.self, forKey: .conversationKickoffResult)
+        self.relatedEntities = try container.decodeIfPresent([RelationshipType: [EntityId]].self, forKey: .relatedEntities)
+        self.conversationKickoffResults = try container.decode([ConversationKickoffExecutionResponse].self, forKey: .conversationKickoffResults)
         self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
     }
 
@@ -136,7 +145,8 @@ public struct InitializeConversationResponse: Codable, Hashable, Sendable {
         try container.encode(self.open, forKey: .open)
         try container.encode(self.llmEnabled, forKey: .llmEnabled)
         try container.encodeIfPresent(self.simulationContext, forKey: .simulationContext)
-        try container.encodeIfPresent(self.conversationKickoffResult, forKey: .conversationKickoffResult)
+        try container.encodeIfPresent(self.relatedEntities, forKey: .relatedEntities)
+        try container.encode(self.conversationKickoffResults, forKey: .conversationKickoffResults)
     }
 
     /// Keys for encoding/decoding struct properties.
@@ -158,6 +168,7 @@ public struct InitializeConversationResponse: Codable, Hashable, Sendable {
         case open
         case llmEnabled
         case simulationContext
-        case conversationKickoffResult
+        case relatedEntities
+        case conversationKickoffResults
     }
 }

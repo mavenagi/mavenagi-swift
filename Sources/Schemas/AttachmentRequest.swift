@@ -19,6 +19,8 @@ public struct AttachmentRequest: Codable, Hashable, Sendable {
     /// - image/webp
     /// - application/pdf
     /// - text/plain
+    /// - text/markdown
+    /// - text/x-markdown
     /// - text/csv
     /// - application/vnd.openxmlformats-officedocument.wordprocessingml.document
     /// - application/vnd.openxmlformats-officedocument.spreadsheetml.sheet

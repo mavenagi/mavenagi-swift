@@ -30,6 +30,8 @@ public struct ConversationRequest: Codable, Hashable, Sendable {
     public let metadata: [String: String]?
     /// The messages in the conversation
     public let messages: [ConversationMessageRequest]
+    /// The unique identifier of the conversation this new conversation was spawned from, if applicable.
+    public let spawnedFromConversationId: EntityId?
     /// Additional properties that are not explicitly defined in the schema
     public let additionalProperties: [String: JSONValue]
 
@@ -44,6 +46,7 @@ public struct ConversationRequest: Codable, Hashable, Sendable {
         tags: JSONValue? = nil,
         metadata: [String: String]? = nil,
         messages: [ConversationMessageRequest],
+        spawnedFromConversationId: EntityId? = nil,
         additionalProperties: [String: JSONValue] = .init()
     ) {
         self.conversationId = conversationId
@@ -56,6 +59,7 @@ public struct ConversationRequest: Codable, Hashable, Sendable {
         self.tags = tags
         self.metadata = metadata
         self.messages = messages
+        self.spawnedFromConversationId = spawnedFromConversationId
         self.additionalProperties = additionalProperties
     }
 
@@ -71,6 +75,7 @@ public struct ConversationRequest: Codable, Hashable, Sendable {
         self.tags = try container.decodeIfPresent(JSONValue.self, forKey: .tags)
         self.metadata = try container.decodeIfPresent([String: String].self, forKey: .metadata)
         self.messages = try container.decode([ConversationMessageRequest].self, forKey: .messages)
+        self.spawnedFromConversationId = try container.decodeIfPresent(EntityId.self, forKey: .spawnedFromConversationId)
         self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
     }
 
@@ -87,6 +92,7 @@ public struct ConversationRequest: Codable, Hashable, Sendable {
         try container.encodeIfPresent(self.tags, forKey: .tags)
         try container.encodeIfPresent(self.metadata, forKey: .metadata)
         try container.encode(self.messages, forKey: .messages)
+        try container.encodeIfPresent(self.spawnedFromConversationId, forKey: .spawnedFromConversationId)
     }
 
     /// Keys for encoding/decoding struct properties.
@@ -101,5 +107,6 @@ public struct ConversationRequest: Codable, Hashable, Sendable {
         case tags
         case metadata
         case messages
+        case spawnedFromConversationId
     }
 }

@@ -2031,7 +2031,7 @@ try await main()
 <dl>
 <dd>
 
-Initialize a new conversation. 
+Initialize a new conversation.
 Only required if the ask request wishes to supply conversation level data or when syncing to external systems.
 
 Conversations can not be modified using this API. If the conversation already exists then the existing conversation will be returned.
@@ -2138,9 +2138,9 @@ try await main()
 <dl>
 <dd>
 
-Update mutable conversation fields. 
+Update mutable conversation fields.
 
-The `appId` field can be provided to update a conversation owned by a different app. 
+The `appId` field can be provided to update a conversation owned by a different app.
 All other fields will overwrite the existing value on the conversation only if provided.
 </dd>
 </dl>
@@ -2318,15 +2318,15 @@ try await main()
 <dl>
 <dd>
 
-Wipes a conversation of all user data. 
-The conversation ID will still exist and non-user specific data will still be retained. 
-Attempts to modify or add messages to the conversation will throw an error. 
+Wipes a conversation of all user data.
+The conversation ID will still exist and non-user specific data will still be retained.
+Attempts to modify or add messages to the conversation will throw an error.
 
-Simulation conversations will no longer be visible in search results nor metrics. 
+Simulation conversations will no longer be visible in search results nor metrics.
 Non-simulation conversations will remain visible - they can not be fully removed from the system.
 
 <Warning>This is a destructive operation and cannot be undone. <br/><br/>
-The exact fields cleared include: the conversation subject, userRequest, agentResponse. 
+The exact fields cleared include: the conversation subject, userRequest, agentResponse.
 As well as the text response, followup questions, and backend LLM prompt of all messages.</Warning>
 </dd>
 </dl>
@@ -2526,8 +2526,8 @@ try await main()
 <dl>
 <dd>
 
-Get an answer from Maven for a given user question. If the user question or its answer already exists, 
-they will be reused and will not be updated. Messages do not allow modification once generated. 
+Get an answer from Maven for a given user question. If the user question or its answer already exists,
+they will be reused and will not be updated. Messages do not allow modification once generated.
 
 Concurrency Behavior:
 - If another API call is made for the same user question while a response is mid-stream, partial answers may be returned.
@@ -2638,13 +2638,13 @@ try await main()
 <dl>
 <dd>
 
-Get an answer from Maven for a given user question with a streaming response. The response will be sent as a stream of events. 
-The text portions of stream responses should be concatenated to form the full response text. 
+Get an answer from Maven for a given user question with a streaming response. The response will be sent as a stream of events.
+The text portions of stream responses should be concatenated to form the full response text.
 Action and metadata events should overwrite past data and do not need concatenation.
 
-If the user question or its answer already exists, they will be reused and will not be updated. 
+If the user question or its answer already exists, they will be reused and will not be updated.
 Messages do not allow modification once generated.
-        
+
 Concurrency Behavior:
 - If another API call is made for the same user question while a response is mid-stream, partial answers may be returned.
 - The second caller will receive a truncated or partial response depending on where the first stream is in its processing. The first caller's stream will remain unaffected and continue delivering the full response.
@@ -2917,10 +2917,10 @@ try await main()
 <dl>
 <dd>
 
-Submit a filled out action form. 
+Submit a filled out action form.
 Action forms can not be submitted more than once, attempting to do so will result in an error.
 
-Additionally, form submission is only allowed when the form is the last message in the conversation. 
+Additionally, form submission is only allowed when the form is the last message in the conversation.
 Forms should be disabled in surface UI if a conversation continues and they remain unsubmitted.
 </dd>
 </dl>
@@ -3015,7 +3015,7 @@ try await main()
 <dl>
 <dd>
 
-Replaced by `updateConversationMetadata`. 
+Replaced by `updateConversationMetadata`.
 
 Adds metadata to an existing conversation. If a metadata field already exists, it will be overwritten.
 </dd>
@@ -3104,10 +3104,10 @@ try await main()
 <dl>
 <dd>
 
-Update metadata supplied by the calling application for an existing conversation. 
+Update metadata supplied by the calling application for an existing conversation.
 Does not modify metadata saved by other apps.
 
-If a metadata field already exists for the calling app, it will be overwritten. 
+If a metadata field already exists for the calling app, it will be overwritten.
 If it does not exist, it will be added. Will not remove metadata fields.
 
 Returns all metadata saved by any app on the conversation.
@@ -3276,11 +3276,11 @@ try await main()
 <dl>
 <dd>
 
-Export conversations to a CSV file. 
+Export conversations to a CSV file.
 
 This will output a summary of each conversation that matches the supplied filter. A maximum of 10,000 conversations can be exported at a time.
 
-For most use cases it is recommended to use the `search` API instead and convert the JSON response to your desired format. 
+For most use cases it is recommended to use the `search` API instead and convert the JSON response to your desired format.
 The CSV format may change over time and should not be relied upon by code consumers.
 </dd>
 </dl>
@@ -3360,7 +3360,7 @@ try await main()
 Deliver a message to a user or conversation.
 
 <Warning>
-Currently, messages can only be successfully delivered to conversations with the `ASYNC` capability that are `open`. 
+Currently, messages can only be successfully delivered to conversations with the `ASYNC` capability that are `open`.
 User message delivery is not yet supported.
 </Warning>
 </dd>

@@ -7,6 +7,8 @@ public struct ConversationExecutedActionPrecondition: Codable, Hashable, Sendabl
     public let actionId: String
     /// App ID that the given actionId belongs to. If not provided, the calling appId will be used.
     public let appId: String?
+    /// Restricts which round the action must have executed in. Defaults to ANY when omitted, matching an action executed in any round.
+    public let conversationRound: ConversationRound?
     /// Additional properties that are not explicitly defined in the schema
     public let additionalProperties: [String: JSONValue]
 
@@ -14,11 +16,13 @@ public struct ConversationExecutedActionPrecondition: Codable, Hashable, Sendabl
         operator: PreconditionOperator? = nil,
         actionId: String,
         appId: String? = nil,
+        conversationRound: ConversationRound? = nil,
         additionalProperties: [String: JSONValue] = .init()
     ) {
         self.operator = `operator`
         self.actionId = actionId
         self.appId = appId
+        self.conversationRound = conversationRound
         self.additionalProperties = additionalProperties
     }
 
@@ -27,6 +31,7 @@ public struct ConversationExecutedActionPrecondition: Codable, Hashable, Sendabl
         self.operator = try container.decodeIfPresent(PreconditionOperator.self, forKey: .operator)
         self.actionId = try container.decode(String.self, forKey: .actionId)
         self.appId = try container.decodeIfPresent(String.self, forKey: .appId)
+        self.conversationRound = try container.decodeIfPresent(ConversationRound.self, forKey: .conversationRound)
         self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
     }
 
@@ -36,6 +41,7 @@ public struct ConversationExecutedActionPrecondition: Codable, Hashable, Sendabl
         try container.encodeIfPresent(self.operator, forKey: .operator)
         try container.encode(self.actionId, forKey: .actionId)
         try container.encodeIfPresent(self.appId, forKey: .appId)
+        try container.encodeIfPresent(self.conversationRound, forKey: .conversationRound)
     }
 
     /// Keys for encoding/decoding struct properties.
@@ -43,5 +49,6 @@ public struct ConversationExecutedActionPrecondition: Codable, Hashable, Sendabl
         case `operator`
         case actionId
         case appId
+        case conversationRound
     }
 }

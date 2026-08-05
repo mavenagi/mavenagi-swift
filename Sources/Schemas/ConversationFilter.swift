@@ -1,11 +1,11 @@
 import Foundation
 
 public struct ConversationFilter: Codable, Hashable, Sendable {
-    /// Full-text search query for matching conversations by content. 
-    /// When you search with this parameter, you're performing a full-text search across all textual content 
+    /// Full-text search query for matching conversations by content.
+    /// When you search with this parameter, you're performing a full-text search across all textual content
     /// in the conversations, including both the user's messages and the AI's responses.
     /// 
-    /// This field also supports a syntax for advanced filtering the `metadata` and `tags` fields.           
+    /// This field also supports a syntax for advanced filtering the `metadata` and `tags` fields.
     /// 
     /// Metadata examples:
     /// - `metadata:myvalue` - matches conversations with any metadata field set to `myvalue`
@@ -33,8 +33,8 @@ public struct ConversationFilter: Codable, Hashable, Sendable {
     public let actions: [EntityIdFilter]?
     /// Filter by actions that were suggested but not completed by the AI agent
     public let incompleteActions: [EntityIdFilter]?
-    /// Filter by feedback types received in the conversation. 
-    /// This is a legacy field that maps to Events saved in the system for `ThumbsUp`, `ThumbsDown`, and `Insert`. 
+    /// Filter by feedback types received in the conversation.
+    /// This is a legacy field that maps to Events saved in the system for `ThumbsUp`, `ThumbsDown`, and `Insert`.
     /// The `Handoff` filter will pass if any bot responses on the conversation returned the system fallback message; there are no corresponding handoff events.
     public let feedback: [FeedbackType]?
     /// Filter by human agents who participated in the conversation
@@ -56,8 +56,16 @@ public struct ConversationFilter: Codable, Hashable, Sendable {
     /// Filter by agent user IDs associated with the conversation
     public let agentUserIds: [String]?
     /// Filter by conversation resolution status which is determined by AI based on the conversation content.
+    /// 
+    /// When `resolutionStatus`, `resolvedByMaven`, and `billable` are combined in a single filter,
+    /// precedence is applied in the following order: `resolutionStatus`, `resolvedByMaven`,
+    /// and then `billable`.          
     public let resolutionStatus: [ResolutionStatus]?
-    /// Filter conversations based on whether they were resolved by Maven AI
+    /// Filter conversations based on whether they were resolved by Maven AI.
+    /// 
+    /// When `resolutionStatus`, `resolvedByMaven`, and `billable` are combined in a single filter,
+    /// precedence is applied in the following order: `resolutionStatus`, `resolvedByMaven`,
+    /// and then `billable`.          
     public let resolvedByMaven: Bool?
     /// Filter by the number of messages sent by the user in the conversation
     public let userMessageCount: NumberRange?
@@ -78,6 +86,16 @@ public struct ConversationFilter: Codable, Hashable, Sendable {
     public let simulationFilter: SimulationFilter?
     /// Filter by intelligent field values. All conditions are ANDed together.
     public let intelligentFields: IntelligentFieldFilter?
+    /// Filter by whether the conversation is billable. Defaults to all eligible conversations,
+    /// which means ELIGIBLE_AND_BILLABLE and ELIGIBLE_AND_NOT_BILLABLE.
+    /// 
+    /// When `resolutionStatus`, `resolvedByMaven`, and `billable` are combined in a single filter,
+    /// precedence is applied in the following order: `resolutionStatus`, `resolvedByMaven`,
+    /// and then `billable`.
+    /// 
+    /// If billable is `null` or `[]` then defaults to all eligible conversations,
+    /// which means ELIGIBLE_AND_BILLABLE and ELIGIBLE_AND_NOT_BILLABLE.
+    public let billable: [BillableFilterField]?
     /// Additional properties that are not explicitly defined in the schema
     public let additionalProperties: [String: JSONValue]
 
@@ -109,6 +127,7 @@ public struct ConversationFilter: Codable, Hashable, Sendable {
         inboxItemIds: [EntityIdFilter]? = nil,
         simulationFilter: SimulationFilter? = nil,
         intelligentFields: IntelligentFieldFilter? = nil,
+        billable: [BillableFilterField]? = nil,
         additionalProperties: [String: JSONValue] = .init()
     ) {
         self.search = search
@@ -138,6 +157,7 @@ public struct ConversationFilter: Codable, Hashable, Sendable {
         self.inboxItemIds = inboxItemIds
         self.simulationFilter = simulationFilter
         self.intelligentFields = intelligentFields
+        self.billable = billable
         self.additionalProperties = additionalProperties
     }
 
@@ -170,6 +190,7 @@ public struct ConversationFilter: Codable, Hashable, Sendable {
         self.inboxItemIds = try container.decodeIfPresent([EntityIdFilter].self, forKey: .inboxItemIds)
         self.simulationFilter = try container.decodeIfPresent(SimulationFilter.self, forKey: .simulationFilter)
         self.intelligentFields = try container.decodeIfPresent(IntelligentFieldFilter.self, forKey: .intelligentFields)
+        self.billable = try container.decodeIfPresent([BillableFilterField].self, forKey: .billable)
         self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
     }
 
@@ -203,6 +224,7 @@ public struct ConversationFilter: Codable, Hashable, Sendable {
         try container.encodeIfPresent(self.inboxItemIds, forKey: .inboxItemIds)
         try container.encodeIfPresent(self.simulationFilter, forKey: .simulationFilter)
         try container.encodeIfPresent(self.intelligentFields, forKey: .intelligentFields)
+        try container.encodeIfPresent(self.billable, forKey: .billable)
     }
 
     /// Keys for encoding/decoding struct properties.
@@ -234,5 +256,6 @@ public struct ConversationFilter: Codable, Hashable, Sendable {
         case inboxItemIds
         case simulationFilter
         case intelligentFields
+        case billable
     }
 }

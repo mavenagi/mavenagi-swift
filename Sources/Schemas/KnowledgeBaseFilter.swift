@@ -22,6 +22,8 @@ public struct KnowledgeBaseFilter: Codable, Hashable, Sendable {
     public let createdBefore: Date?
     /// Filter by app IDs
     public let appIds: [String]?
+    /// Filter by knowledge base type.
+    public let types: [KnowledgeBaseType]?
     /// Filter knowledge bases by the most recent version status
     public let mostRecentVersionStatus: [KnowledgeBaseVersionStatus]?
     /// Filter knowledge bases by the LLM inclusion status
@@ -39,6 +41,7 @@ public struct KnowledgeBaseFilter: Codable, Hashable, Sendable {
         createdAfter: Date? = nil,
         createdBefore: Date? = nil,
         appIds: [String]? = nil,
+        types: [KnowledgeBaseType]? = nil,
         mostRecentVersionStatus: [KnowledgeBaseVersionStatus]? = nil,
         llmInclusionStatus: LlmInclusionStatus? = nil,
         segmentId: String? = nil,
@@ -50,6 +53,7 @@ public struct KnowledgeBaseFilter: Codable, Hashable, Sendable {
         self.createdAfter = createdAfter
         self.createdBefore = createdBefore
         self.appIds = appIds
+        self.types = types
         self.mostRecentVersionStatus = mostRecentVersionStatus
         self.llmInclusionStatus = llmInclusionStatus
         self.segmentId = segmentId
@@ -64,6 +68,7 @@ public struct KnowledgeBaseFilter: Codable, Hashable, Sendable {
         self.createdAfter = try container.decodeIfPresent(Date.self, forKey: .createdAfter)
         self.createdBefore = try container.decodeIfPresent(Date.self, forKey: .createdBefore)
         self.appIds = try container.decodeIfPresent([String].self, forKey: .appIds)
+        self.types = try container.decodeIfPresent([KnowledgeBaseType].self, forKey: .types)
         self.mostRecentVersionStatus = try container.decodeIfPresent([KnowledgeBaseVersionStatus].self, forKey: .mostRecentVersionStatus)
         self.llmInclusionStatus = try container.decodeIfPresent(LlmInclusionStatus.self, forKey: .llmInclusionStatus)
         self.segmentId = try container.decodeIfPresent(String.self, forKey: .segmentId)
@@ -79,6 +84,7 @@ public struct KnowledgeBaseFilter: Codable, Hashable, Sendable {
         try container.encodeIfPresent(self.createdAfter, forKey: .createdAfter)
         try container.encodeIfPresent(self.createdBefore, forKey: .createdBefore)
         try container.encodeIfPresent(self.appIds, forKey: .appIds)
+        try container.encodeIfPresent(self.types, forKey: .types)
         try container.encodeIfPresent(self.mostRecentVersionStatus, forKey: .mostRecentVersionStatus)
         try container.encodeIfPresent(self.llmInclusionStatus, forKey: .llmInclusionStatus)
         try container.encodeIfPresent(self.segmentId, forKey: .segmentId)
@@ -92,6 +98,7 @@ public struct KnowledgeBaseFilter: Codable, Hashable, Sendable {
         case createdAfter
         case createdBefore
         case appIds
+        case types
         case mostRecentVersionStatus
         case llmInclusionStatus
         case segmentId
