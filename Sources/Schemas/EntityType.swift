@@ -23,4 +23,5 @@ public enum EntityType: String, Codable, Hashable, CaseIterable, Sendable {
     case agentVariant = "AGENT_VARIANT"
     case configSnapshot = "CONFIG_SNAPSHOT"
     case asset = "ASSET"
+    case trafficConfig = "TRAFFIC_CONFIG"
 }

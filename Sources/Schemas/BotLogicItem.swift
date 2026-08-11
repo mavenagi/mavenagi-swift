@@ -8,6 +8,7 @@ public enum BotLogicItem: Codable, Hashable, Sendable {
     case knowledge(Knowledge)
     case safety(Safety)
     case segments(Segments)
+    case steering(Steering)
     case user(User)
 
     public init(from decoder: Decoder) throws {
@@ -28,6 +29,8 @@ public enum BotLogicItem: Codable, Hashable, Sendable {
             self = .safety(try Safety(from: decoder))
         case "segments":
             self = .segments(try Segments(from: decoder))
+        case "steering":
+            self = .steering(try Steering(from: decoder))
         case "user":
             self = .user(try User(from: decoder))
         default:
@@ -55,6 +58,8 @@ public enum BotLogicItem: Codable, Hashable, Sendable {
         case .safety(let data):
             try data.encode(to: encoder)
         case .segments(let data):
+            try data.encode(to: encoder)
+        case .steering(let data):
             try data.encode(to: encoder)
         case .user(let data):
             try data.encode(to: encoder)
@@ -381,6 +386,48 @@ public enum BotLogicItem: Codable, Hashable, Sendable {
             case type
             case matchedCharters
             case evaluationTruncated
+        }
+    }
+
+    public struct Steering: Codable, Hashable, Sendable {
+        public let type: String = "steering"
+        /// The ask type that triggered this response.
+        public let askType: AskType
+        /// The steering text the agent was given, if any.
+        public let text: String?
+        /// Additional properties that are not explicitly defined in the schema
+        public let additionalProperties: [String: JSONValue]
+
+        public init(
+            askType: AskType,
+            text: String? = nil,
+            additionalProperties: [String: JSONValue] = .init()
+        ) {
+            self.askType = askType
+            self.text = text
+            self.additionalProperties = additionalProperties
+        }
+
+        public init(from decoder: Decoder) throws {
+            let container = try decoder.container(keyedBy: CodingKeys.self)
+            self.askType = try container.decode(AskType.self, forKey: .askType)
+            self.text = try container.decodeIfPresent(String.self, forKey: .text)
+            self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
+        }
+
+        public func encode(to encoder: Encoder) throws -> Void {
+            var container = encoder.container(keyedBy: CodingKeys.self)
+            try encoder.encodeAdditionalProperties(self.additionalProperties)
+            try container.encode(self.type, forKey: .type)
+            try container.encode(self.askType, forKey: .askType)
+            try container.encodeIfPresent(self.text, forKey: .text)
+        }
+
+        /// Keys for encoding/decoding struct properties.
+        enum CodingKeys: String, CodingKey, CaseIterable {
+            case type
+            case askType
+            case text
         }
     }
 

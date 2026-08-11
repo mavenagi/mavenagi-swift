@@ -30,7 +30,7 @@ public struct ActionResponse: Codable, Hashable, Sendable {
     /// Segments are replacing inline preconditions - an Action may not have both an inline precondition and a segment.
     /// Inline precondition support will be removed in a future release.
     public let segmentId: EntityId?
-    /// A human-readable explanation of the precondition associated with this action, if present.
+    /// No longer populated. This field is always absent and will be removed in a future release.
     public let preconditionExplanation: String?
     /// Whether the action has been deleted. Deleted actions will not sent to the LLM nor returned in search results.
     public let deleted: Bool

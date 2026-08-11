@@ -33,6 +33,8 @@ public struct ConversationFilter: Codable, Hashable, Sendable {
     public let actions: [EntityIdFilter]?
     /// Filter by actions that were suggested but not completed by the AI agent
     public let incompleteActions: [EntityIdFilter]?
+    /// Filter by actions that returned an error when executed in the conversation
+    public let erroredActions: [EntityIdFilter]?
     /// Filter by feedback types received in the conversation.
     /// This is a legacy field that maps to Events saved in the system for `ThumbsUp`, `ThumbsDown`, and `Insert`.
     /// The `Handoff` filter will pass if any bot responses on the conversation returned the system fallback message; there are no corresponding handoff events.
@@ -107,6 +109,7 @@ public struct ConversationFilter: Codable, Hashable, Sendable {
         categories: [String]? = nil,
         actions: [EntityIdFilter]? = nil,
         incompleteActions: [EntityIdFilter]? = nil,
+        erroredActions: [EntityIdFilter]? = nil,
         feedback: [FeedbackType]? = nil,
         humanAgents: [String]? = nil,
         humanAgentsWithInserts: [String]? = nil,
@@ -137,6 +140,7 @@ public struct ConversationFilter: Codable, Hashable, Sendable {
         self.categories = categories
         self.actions = actions
         self.incompleteActions = incompleteActions
+        self.erroredActions = erroredActions
         self.feedback = feedback
         self.humanAgents = humanAgents
         self.humanAgentsWithInserts = humanAgentsWithInserts
@@ -170,6 +174,7 @@ public struct ConversationFilter: Codable, Hashable, Sendable {
         self.categories = try container.decodeIfPresent([String].self, forKey: .categories)
         self.actions = try container.decodeIfPresent([EntityIdFilter].self, forKey: .actions)
         self.incompleteActions = try container.decodeIfPresent([EntityIdFilter].self, forKey: .incompleteActions)
+        self.erroredActions = try container.decodeIfPresent([EntityIdFilter].self, forKey: .erroredActions)
         self.feedback = try container.decodeIfPresent([FeedbackType].self, forKey: .feedback)
         self.humanAgents = try container.decodeIfPresent([String].self, forKey: .humanAgents)
         self.humanAgentsWithInserts = try container.decodeIfPresent([String].self, forKey: .humanAgentsWithInserts)
@@ -204,6 +209,7 @@ public struct ConversationFilter: Codable, Hashable, Sendable {
         try container.encodeIfPresent(self.categories, forKey: .categories)
         try container.encodeIfPresent(self.actions, forKey: .actions)
         try container.encodeIfPresent(self.incompleteActions, forKey: .incompleteActions)
+        try container.encodeIfPresent(self.erroredActions, forKey: .erroredActions)
         try container.encodeIfPresent(self.feedback, forKey: .feedback)
         try container.encodeIfPresent(self.humanAgents, forKey: .humanAgents)
         try container.encodeIfPresent(self.humanAgentsWithInserts, forKey: .humanAgentsWithInserts)
@@ -236,6 +242,7 @@ public struct ConversationFilter: Codable, Hashable, Sendable {
         case categories
         case actions
         case incompleteActions
+        case erroredActions
         case feedback
         case humanAgents
         case humanAgentsWithInserts

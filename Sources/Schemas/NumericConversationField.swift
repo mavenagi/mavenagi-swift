@@ -10,4 +10,6 @@ public enum NumericConversationField: String, Codable, Hashable, CaseIterable, S
     case firstResponseTime = "FirstResponseTime"
     case predictedNps = "PredictedNPS"
     case csat = "Csat"
+    case actionExecutionCount = "ActionExecutionCount"
+    case actionErrorCount = "ActionErrorCount"
 }
