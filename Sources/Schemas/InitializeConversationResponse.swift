@@ -49,6 +49,9 @@ public struct InitializeConversationResponse: Codable, Hashable, Sendable {
     /// - `SPAWN_FROM`: the conversation this one was spawned from (set via `ConversationCreateRequest.spawnedFromConversationId`).
     /// - `SPAWN_TO`: the conversations that were spawned from this conversation.
     public let relatedEntities: [RelationshipType: [EntityId]]?
+    /// Whether the conversation is spoken or written. Set by the platform and read-only —
+    /// it cannot be supplied when creating or updating a conversation.
+    public let conversationMode: ConversationMode?
     /// Results of the Conversation Kickoffs that ran during conversation initialization, one
     /// entry per kickoff in the order they were recorded. Empty when no kickoff ran. Only
     /// present on this initialize response; other endpoints that return a conversation do not
@@ -76,6 +79,7 @@ public struct InitializeConversationResponse: Codable, Hashable, Sendable {
         llmEnabled: Bool,
         simulationContext: SimulationContext? = nil,
         relatedEntities: [RelationshipType: [EntityId]]? = nil,
+        conversationMode: ConversationMode? = nil,
         conversationKickoffResults: [ConversationKickoffExecutionResponse],
         additionalProperties: [String: JSONValue] = .init()
     ) {
@@ -97,6 +101,7 @@ public struct InitializeConversationResponse: Codable, Hashable, Sendable {
         self.llmEnabled = llmEnabled
         self.simulationContext = simulationContext
         self.relatedEntities = relatedEntities
+        self.conversationMode = conversationMode
         self.conversationKickoffResults = conversationKickoffResults
         self.additionalProperties = additionalProperties
     }
@@ -121,6 +126,7 @@ public struct InitializeConversationResponse: Codable, Hashable, Sendable {
         self.llmEnabled = try container.decode(Bool.self, forKey: .llmEnabled)
         self.simulationContext = try container.decodeIfPresent(SimulationContext.self, forKey: .simulationContext)
         self.relatedEntities = try container.decodeIfPresent([RelationshipType: [EntityId]].self, forKey: .relatedEntities)
+        self.conversationMode = try container.decodeIfPresent(ConversationMode.self, forKey: .conversationMode)
         self.conversationKickoffResults = try container.decode([ConversationKickoffExecutionResponse].self, forKey: .conversationKickoffResults)
         self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
     }
@@ -146,6 +152,7 @@ public struct InitializeConversationResponse: Codable, Hashable, Sendable {
         try container.encode(self.llmEnabled, forKey: .llmEnabled)
         try container.encodeIfPresent(self.simulationContext, forKey: .simulationContext)
         try container.encodeIfPresent(self.relatedEntities, forKey: .relatedEntities)
+        try container.encodeIfPresent(self.conversationMode, forKey: .conversationMode)
         try container.encode(self.conversationKickoffResults, forKey: .conversationKickoffResults)
     }
 
@@ -169,6 +176,7 @@ public struct InitializeConversationResponse: Codable, Hashable, Sendable {
         case llmEnabled
         case simulationContext
         case relatedEntities
+        case conversationMode
         case conversationKickoffResults
     }
 }

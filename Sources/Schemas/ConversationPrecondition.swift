@@ -3,6 +3,7 @@ import Foundation
 public enum ConversationPrecondition: Codable, Hashable, Sendable {
     case actionExecuted(ActionExecuted)
     case app(App)
+    case conversationMode(ConversationMode)
     case conversationState(ConversationState)
     case intelligentField(IntelligentField)
     case metadata(Metadata)
@@ -17,6 +18,8 @@ public enum ConversationPrecondition: Codable, Hashable, Sendable {
             self = .actionExecuted(try ActionExecuted(from: decoder))
         case "app":
             self = .app(try App(from: decoder))
+        case "conversationMode":
+            self = .conversationMode(try ConversationMode(from: decoder))
         case "conversationState":
             self = .conversationState(try ConversationState(from: decoder))
         case "intelligentField":
@@ -42,6 +45,8 @@ public enum ConversationPrecondition: Codable, Hashable, Sendable {
         case .actionExecuted(let data):
             try data.encode(to: encoder)
         case .app(let data):
+            try data.encode(to: encoder)
+        case .conversationMode(let data):
             try data.encode(to: encoder)
         case .conversationState(let data):
             try data.encode(to: encoder)
@@ -164,6 +169,17 @@ public enum ConversationPrecondition: Codable, Hashable, Sendable {
         public let appId: String?
         /// Restricts which round the action must have executed in. Defaults to ANY when omitted, matching an action executed in any round.
         public let conversationRound: ConversationRound?
+        /// Restricts the match to executions whose returned data satisfies this condition.
+        /// When omitted, any execution of the action matches regardless of what it returned.
+        /// 
+        /// Actions may return `{response, data}`, where `data` is a JSON object persisted
+        /// alongside the response. This gates the precondition on what the action returned
+        /// rather than only on whether it ran.
+        /// 
+        /// The precondition is met when *some* execution of the action in scope returned data
+        /// satisfying this condition. An action that executed but returned no data never
+        /// matches, except via `universal` `IS_UNDETERMINED`.
+        public let dataCondition: ObjectCondition?
         /// Additional properties that are not explicitly defined in the schema
         public let additionalProperties: [String: JSONValue]
 
@@ -172,12 +188,14 @@ public enum ConversationPrecondition: Codable, Hashable, Sendable {
             actionId: String,
             appId: String? = nil,
             conversationRound: ConversationRound? = nil,
+            dataCondition: ObjectCondition? = nil,
             additionalProperties: [String: JSONValue] = .init()
         ) {
             self.operator = `operator`
             self.actionId = actionId
             self.appId = appId
             self.conversationRound = conversationRound
+            self.dataCondition = dataCondition
             self.additionalProperties = additionalProperties
         }
 
@@ -187,6 +205,7 @@ public enum ConversationPrecondition: Codable, Hashable, Sendable {
             self.actionId = try container.decode(String.self, forKey: .actionId)
             self.appId = try container.decodeIfPresent(String.self, forKey: .appId)
             self.conversationRound = try container.decodeIfPresent(ConversationRound.self, forKey: .conversationRound)
+            self.dataCondition = try container.decodeIfPresent(ObjectCondition.self, forKey: .dataCondition)
             self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
         }
 
@@ -198,6 +217,7 @@ public enum ConversationPrecondition: Codable, Hashable, Sendable {
             try container.encode(self.actionId, forKey: .actionId)
             try container.encodeIfPresent(self.appId, forKey: .appId)
             try container.encodeIfPresent(self.conversationRound, forKey: .conversationRound)
+            try container.encodeIfPresent(self.dataCondition, forKey: .dataCondition)
         }
 
         /// Keys for encoding/decoding struct properties.
@@ -207,6 +227,7 @@ public enum ConversationPrecondition: Codable, Hashable, Sendable {
             case actionId
             case appId
             case conversationRound
+            case dataCondition
         }
     }
 
@@ -356,6 +377,48 @@ public enum ConversationPrecondition: Codable, Hashable, Sendable {
             case conversationPreconditionType
             case `operator`
             case state
+        }
+    }
+
+    public struct ConversationMode: Codable, Hashable, Sendable {
+        public let conversationPreconditionType: String = "conversationMode"
+        /// Operator to apply to this precondition
+        public let `operator`: PreconditionOperator?
+        /// The mode the conversation must be running in for the precondition to be met. Omit the operator for an exact match, or set it to NOT to invert (NOT + VOICE is equivalent to TEXT). Any other operator is rejected with a 400.
+        public let conversationMode: Api.ConversationMode
+        /// Additional properties that are not explicitly defined in the schema
+        public let additionalProperties: [String: JSONValue]
+
+        public init(
+            operator: PreconditionOperator? = nil,
+            conversationMode: Api.ConversationMode,
+            additionalProperties: [String: JSONValue] = .init()
+        ) {
+            self.operator = `operator`
+            self.conversationMode = conversationMode
+            self.additionalProperties = additionalProperties
+        }
+
+        public init(from decoder: Decoder) throws {
+            let container = try decoder.container(keyedBy: CodingKeys.self)
+            self.operator = try container.decodeIfPresent(PreconditionOperator.self, forKey: .operator)
+            self.conversationMode = try container.decode(Api.ConversationMode.self, forKey: .conversationMode)
+            self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
+        }
+
+        public func encode(to encoder: Encoder) throws -> Void {
+            var container = encoder.container(keyedBy: CodingKeys.self)
+            try encoder.encodeAdditionalProperties(self.additionalProperties)
+            try container.encode(self.conversationPreconditionType, forKey: .conversationPreconditionType)
+            try container.encodeIfPresent(self.operator, forKey: .operator)
+            try container.encode(self.conversationMode, forKey: .conversationMode)
+        }
+
+        /// Keys for encoding/decoding struct properties.
+        enum CodingKeys: String, CodingKey, CaseIterable {
+            case conversationPreconditionType
+            case `operator`
+            case conversationMode
         }
     }
 

@@ -5206,10 +5206,13 @@ try await main()
 <dl>
 <dd>
 
-in-progress knowledge base version.
+Cancel an in-progress knowledge base version.
 
-If the knowledge base has a version that is currently being ingested,
-this will cancel the ingestion workflow and set the version status to FAILED.
+If the knowledge base has a version that is currently being ingested, this cancels the
+ingestion workflow and sets the version status to CANCELED.
+
+An app still refreshing that version finds out on its next write to it: adding or
+removing a document on a canceled version is rejected rather than succeeding.
 </dd>
 </dl>
 </dd>

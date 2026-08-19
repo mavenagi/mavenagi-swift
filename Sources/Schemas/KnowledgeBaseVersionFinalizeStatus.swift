@@ -1,7 +1,10 @@
 import Foundation
 
-/// Whether the knowledge base version processing was successful or not.
+/// How the knowledge base version processing ended.
 public enum KnowledgeBaseVersionFinalizeStatus: String, Codable, Hashable, CaseIterable, Sendable {
     case succeeded = "SUCCEEDED"
     case failed = "FAILED"
+    /// Processing stopped before completing because it was cancelled, rather than because it
+    /// failed.
+    case canceled = "CANCELED"
 }

@@ -40,6 +40,9 @@ public struct ConversationPreview: Codable, Hashable, Sendable {
     /// - `SPAWN_FROM`: the conversation this one was spawned from (set via `ConversationCreateRequest.spawnedFromConversationId`).
     /// - `SPAWN_TO`: the conversations that were spawned from this conversation.
     public let relatedEntities: [RelationshipType: [EntityId]]?
+    /// Whether the conversation is spoken or written. Set by the platform and read-only —
+    /// it cannot be supplied when creating or updating a conversation.
+    public let conversationMode: ConversationMode?
     /// Additional properties that are not explicitly defined in the schema
     public let additionalProperties: [String: JSONValue]
 
@@ -60,6 +63,7 @@ public struct ConversationPreview: Codable, Hashable, Sendable {
         llmEnabled: Bool,
         simulationContext: SimulationContext? = nil,
         relatedEntities: [RelationshipType: [EntityId]]? = nil,
+        conversationMode: ConversationMode? = nil,
         additionalProperties: [String: JSONValue] = .init()
     ) {
         self.responseConfig = responseConfig
@@ -78,6 +82,7 @@ public struct ConversationPreview: Codable, Hashable, Sendable {
         self.llmEnabled = llmEnabled
         self.simulationContext = simulationContext
         self.relatedEntities = relatedEntities
+        self.conversationMode = conversationMode
         self.additionalProperties = additionalProperties
     }
 
@@ -99,6 +104,7 @@ public struct ConversationPreview: Codable, Hashable, Sendable {
         self.llmEnabled = try container.decode(Bool.self, forKey: .llmEnabled)
         self.simulationContext = try container.decodeIfPresent(SimulationContext.self, forKey: .simulationContext)
         self.relatedEntities = try container.decodeIfPresent([RelationshipType: [EntityId]].self, forKey: .relatedEntities)
+        self.conversationMode = try container.decodeIfPresent(ConversationMode.self, forKey: .conversationMode)
         self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
     }
 
@@ -121,6 +127,7 @@ public struct ConversationPreview: Codable, Hashable, Sendable {
         try container.encode(self.llmEnabled, forKey: .llmEnabled)
         try container.encodeIfPresent(self.simulationContext, forKey: .simulationContext)
         try container.encodeIfPresent(self.relatedEntities, forKey: .relatedEntities)
+        try container.encodeIfPresent(self.conversationMode, forKey: .conversationMode)
     }
 
     /// Keys for encoding/decoding struct properties.
@@ -141,5 +148,6 @@ public struct ConversationPreview: Codable, Hashable, Sendable {
         case llmEnabled
         case simulationContext
         case relatedEntities
+        case conversationMode
     }
 }

@@ -40,6 +40,9 @@ public struct ConversationResponse: Codable, Hashable, Sendable {
     /// - `SPAWN_FROM`: the conversation this one was spawned from (set via `ConversationCreateRequest.spawnedFromConversationId`).
     /// - `SPAWN_TO`: the conversations that were spawned from this conversation.
     public let relatedEntities: [RelationshipType: [EntityId]]?
+    /// Whether the conversation is spoken or written. Set by the platform and read-only —
+    /// it cannot be supplied when creating or updating a conversation.
+    public let conversationMode: ConversationMode?
     /// The messages in the conversation
     public let messages: [ConversationMessageResponse]
     /// The attachments associated with this conversation. Additional attachments may be associated to individual messages.
@@ -66,6 +69,7 @@ public struct ConversationResponse: Codable, Hashable, Sendable {
         llmEnabled: Bool,
         simulationContext: SimulationContext? = nil,
         relatedEntities: [RelationshipType: [EntityId]]? = nil,
+        conversationMode: ConversationMode? = nil,
         messages: [ConversationMessageResponse],
         attachments: [AttachmentResponse],
         additionalProperties: [String: JSONValue] = .init()
@@ -86,6 +90,7 @@ public struct ConversationResponse: Codable, Hashable, Sendable {
         self.llmEnabled = llmEnabled
         self.simulationContext = simulationContext
         self.relatedEntities = relatedEntities
+        self.conversationMode = conversationMode
         self.messages = messages
         self.attachments = attachments
         self.additionalProperties = additionalProperties
@@ -109,6 +114,7 @@ public struct ConversationResponse: Codable, Hashable, Sendable {
         self.llmEnabled = try container.decode(Bool.self, forKey: .llmEnabled)
         self.simulationContext = try container.decodeIfPresent(SimulationContext.self, forKey: .simulationContext)
         self.relatedEntities = try container.decodeIfPresent([RelationshipType: [EntityId]].self, forKey: .relatedEntities)
+        self.conversationMode = try container.decodeIfPresent(ConversationMode.self, forKey: .conversationMode)
         self.messages = try container.decode([ConversationMessageResponse].self, forKey: .messages)
         self.attachments = try container.decode([AttachmentResponse].self, forKey: .attachments)
         self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
@@ -133,6 +139,7 @@ public struct ConversationResponse: Codable, Hashable, Sendable {
         try container.encode(self.llmEnabled, forKey: .llmEnabled)
         try container.encodeIfPresent(self.simulationContext, forKey: .simulationContext)
         try container.encodeIfPresent(self.relatedEntities, forKey: .relatedEntities)
+        try container.encodeIfPresent(self.conversationMode, forKey: .conversationMode)
         try container.encode(self.messages, forKey: .messages)
         try container.encode(self.attachments, forKey: .attachments)
     }
@@ -155,6 +162,7 @@ public struct ConversationResponse: Codable, Hashable, Sendable {
         case llmEnabled
         case simulationContext
         case relatedEntities
+        case conversationMode
         case messages
         case attachments
     }

@@ -350,7 +350,8 @@ import Api
                         "referenceId": "x"
                       }
                     ]
-                  }
+                  },
+                  "conversationMode": "VOICE"
                 }
                 """.utf8
             )
@@ -681,7 +682,8 @@ import Api
                         referenceId: "x"
                     )
                 ]
-            ])
+            ]),
+            conversationMode: Optional(.voice)
         )
         let response = try await client.conversation.initialize(
             request: ConversationRequest(
@@ -732,6 +734,7 @@ import Api
                   "deleted": false,
                   "open": false,
                   "llmEnabled": true,
+                  "conversationMode": "TEXT",
                   "analysis": {
                     "resolutionStatus": "RESOLVED",
                     "sentiment": "POSITIVE",
@@ -831,6 +834,7 @@ import Api
             deleted: false,
             open: false,
             llmEnabled: true,
+            conversationMode: Optional(.text),
             analysis: ConversationAnalysis(
                 resolutionStatus: Optional(.resolved),
                 sentiment: Optional(.positive),
@@ -1248,7 +1252,8 @@ import Api
                         "referenceId": "x"
                       }
                     ]
-                  }
+                  },
+                  "conversationMode": "VOICE"
                 }
                 """.utf8
             )
@@ -1559,7 +1564,8 @@ import Api
                         referenceId: "x"
                     )
                 ]
-            ])
+            ]),
+            conversationMode: Optional(.voice)
         )
         let response = try await client.conversation.get(
             conversationId: "conversationId",
@@ -1895,7 +1901,8 @@ import Api
                         "referenceId": "x"
                       }
                     ]
-                  }
+                  },
+                  "conversationMode": "VOICE"
                 }
                 """.utf8
             )
@@ -2206,7 +2213,8 @@ import Api
                         referenceId: "x"
                     )
                 ]
-            ])
+            ]),
+            conversationMode: Optional(.voice)
         )
         let response = try await client.conversation.appendNewMessages(
             conversationId: "conversationId",
@@ -2253,6 +2261,7 @@ import Api
                   "deleted": false,
                   "open": false,
                   "llmEnabled": true,
+                  "conversationMode": "TEXT",
                   "analysis": {
                     "resolutionStatus": "RESOLVED",
                     "sentiment": "POSITIVE",
@@ -2352,6 +2361,7 @@ import Api
             deleted: false,
             open: false,
             llmEnabled: true,
+            conversationMode: Optional(.text),
             analysis: ConversationAnalysis(
                 resolutionStatus: Optional(.resolved),
                 sentiment: Optional(.positive),
@@ -2913,7 +2923,8 @@ import Api
                         "referenceId": "x"
                       }
                     ]
-                  }
+                  },
+                  "conversationMode": "VOICE"
                 }
                 """.utf8
             )
@@ -3224,7 +3235,8 @@ import Api
                         referenceId: "x"
                     )
                 ]
-            ])
+            ]),
+            conversationMode: Optional(.voice)
         )
         let response = try await client.conversation.submitActionForm(
             conversationId: "conversationId",
@@ -3542,7 +3554,8 @@ import Api
                             "referenceId": "x"
                           }
                         ]
-                      }
+                      },
+                      "conversationMode": "VOICE"
                     },
                     {
                       "responseConfig": {
@@ -3759,7 +3772,8 @@ import Api
                             "referenceId": "x"
                           }
                         ]
-                      }
+                      },
+                      "conversationMode": "VOICE"
                     }
                   ],
                   "number": 1,
@@ -3976,7 +3990,8 @@ import Api
                                 referenceId: "x"
                             )
                         ]
-                    ])
+                    ]),
+                    conversationMode: Optional(.voice)
                 ),
                 ConversationPreview(
                     responseConfig: Optional(ResponseConfig(
@@ -4176,7 +4191,8 @@ import Api
                                 referenceId: "x"
                             )
                         ]
-                    ])
+                    ]),
+                    conversationMode: Optional(.voice)
                 )
             ],
             number: 1,

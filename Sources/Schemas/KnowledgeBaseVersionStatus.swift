@@ -5,4 +5,6 @@ public enum KnowledgeBaseVersionStatus: String, Codable, Hashable, CaseIterable,
     case succeeded = "SUCCEEDED"
     case failed = "FAILED"
     case inProgress = "IN_PROGRESS"
+    /// Stopped before completing, by a cancel request rather than a failure.
+    case canceled = "CANCELED"
 }
