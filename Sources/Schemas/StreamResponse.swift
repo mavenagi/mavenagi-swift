@@ -6,6 +6,7 @@ public enum StreamResponse: Codable, Hashable, Sendable {
     case end(End)
     case metadata(Metadata)
     case oauthButton(OauthButton)
+    case object(Object)
     case start(Start)
     case text(Text)
 
@@ -23,6 +24,8 @@ public enum StreamResponse: Codable, Hashable, Sendable {
             self = .metadata(try Metadata(from: decoder))
         case "oauthButton":
             self = .oauthButton(try OauthButton(from: decoder))
+        case "object":
+            self = .object(try Object(from: decoder))
         case "start":
             self = .start(try Start(from: decoder))
         case "text":
@@ -48,6 +51,8 @@ public enum StreamResponse: Codable, Hashable, Sendable {
         case .metadata(let data):
             try data.encode(to: encoder)
         case .oauthButton(let data):
+            try data.encode(to: encoder)
+        case .object(let data):
             try data.encode(to: encoder)
         case .start(let data):
             try data.encode(to: encoder)
@@ -241,6 +246,41 @@ public enum StreamResponse: Codable, Hashable, Sendable {
             case label
             case specSchema
             case spec
+        }
+    }
+
+    public struct Object: Codable, Hashable, Sendable {
+        public let eventType: String = "object"
+        /// The answer, matching the schema the ask supplied. Every property the schema requires is present, with `null` where a nullable one does not apply.
+        public let object: JSONValue
+        /// Additional properties that are not explicitly defined in the schema
+        public let additionalProperties: [String: JSONValue]
+
+        public init(
+            object: JSONValue,
+            additionalProperties: [String: JSONValue] = .init()
+        ) {
+            self.object = object
+            self.additionalProperties = additionalProperties
+        }
+
+        public init(from decoder: Decoder) throws {
+            let container = try decoder.container(keyedBy: CodingKeys.self)
+            self.object = try container.decode(JSONValue.self, forKey: .object)
+            self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
+        }
+
+        public func encode(to encoder: Encoder) throws -> Void {
+            var container = encoder.container(keyedBy: CodingKeys.self)
+            try encoder.encodeAdditionalProperties(self.additionalProperties)
+            try container.encode(self.eventType, forKey: .eventType)
+            try container.encode(self.object, forKey: .object)
+        }
+
+        /// Keys for encoding/decoding struct properties.
+        enum CodingKeys: String, CodingKey, CaseIterable {
+            case eventType
+            case object
         }
     }
 

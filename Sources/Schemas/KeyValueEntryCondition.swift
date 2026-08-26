@@ -6,13 +6,13 @@ public struct KeyValueEntryCondition: Codable, Hashable, Sendable {
     /// The path must address a single value. Wildcards, filters, slices and recursive descent (`orders[*].total`, `$..total`) address many values and are rejected, as is a path with a syntax error.
     public let path: String
     /// The condition to evaluate against the value at `path`.
-    public let condition: IntelligentFieldCondition
+    public let condition: FieldCondition
     /// Additional properties that are not explicitly defined in the schema
     public let additionalProperties: [String: JSONValue]
 
     public init(
         path: String,
-        condition: IntelligentFieldCondition,
+        condition: FieldCondition,
         additionalProperties: [String: JSONValue] = .init()
     ) {
         self.path = path
@@ -23,7 +23,7 @@ public struct KeyValueEntryCondition: Codable, Hashable, Sendable {
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.path = try container.decode(String.self, forKey: .path)
-        self.condition = try container.decode(IntelligentFieldCondition.self, forKey: .condition)
+        self.condition = try container.decode(FieldCondition.self, forKey: .condition)
         self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
     }
 

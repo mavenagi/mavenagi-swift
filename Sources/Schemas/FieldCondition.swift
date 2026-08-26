@@ -1,18 +1,26 @@
 import Foundation
 
-/// The condition to evaluate against an intelligent field's value.
-/// Use the appropriate type based on the field's validationType:
-/// - `string`: For STRING and MULTILINE fields
-/// - `numeric`: For NUMBER fields
-/// - `boolean`: For BOOLEAN fields
-/// - `set`: For MULTI_SELECT fields (unordered set of values)
+/// A condition on a single value, discriminated by the type the value is
+/// validated as. Used wherever a value needs testing regardless of where it
+/// came from: an intelligent field's computed value, or a value addressed by
+/// path inside data an action returned.
 /// 
-/// Note: single select fields are represented as STRING/NUMBER with a list of
-/// enumOptions.
+/// Pick the variant by type:
+/// - `string`: For STRING and MULTILINE values
+/// - `numeric`: For NUMBER values
+/// - `boolean`: For BOOLEAN values
+/// - `set`: For MULTI_SELECT values (unordered set of values)
 /// 
-/// The caller is responsible for querying the validationType and enumOptions
-/// from the intelligent field API to ensure the values are valid enumOptions.
-public enum IntelligentFieldCondition: Codable, Hashable, Sendable {
+/// The declared type is what the value is coerced to, not an assertion about
+/// how it is already stored. Action data is untyped, so a `numeric` condition
+/// against it coerces the same way a `numeric` intelligent field condition
+/// coerces a STRING field the bot was asked to answer with a number.
+/// 
+/// For intelligent fields specifically: single select fields are represented
+/// as STRING/NUMBER with a list of enumOptions, and the caller is responsible
+/// for querying the validationType and enumOptions from the intelligent field
+/// API to ensure the values are valid enumOptions.
+public enum FieldCondition: Codable, Hashable, Sendable {
     case boolean(Boolean)
     case numeric(Numeric)
     case set(Set)

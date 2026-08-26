@@ -4866,6 +4866,476 @@ try await main()
 </dl>
 </details>
 
+## IntelligentFields
+<details><summary><code>client.intelligentFields.<a href="/Sources/Resources/IntelligentFields/IntelligentFieldsClient.swift">createOrUpdate</a>(request: IntelligentFieldRequest, requestOptions: RequestOptions?) -> IntelligentFieldResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Create a new intelligent field. Intelligent fields are used to store custom LLM-generated values on entities like conversations or events.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```swift
+import Foundation
+import Api
+
+private func main() async throws {
+    let client = MavenAGI(
+        appId: "<username>",
+        appSecret: "<password>"
+    )
+
+    _ = try await client.intelligentFields.createOrUpdate(request: IntelligentFieldRequest(
+        entityType: .conversation,
+        name: "Ticket Priority",
+        description: "The priority of the conversation based on urgency",
+        validationType: .string,
+        definition: "The priority of the conversation based on the urgency and importance; draw from the content / messages in the conversation; must be one of HIGH, MEDIUM, or LOW.",
+        enumOptions: [
+            EnumOption(
+                value: "HIGH",
+                label: "High Priority"
+            ),
+            EnumOption(
+                value: "MEDIUM",
+                label: "Medium Priority"
+            ),
+            EnumOption(
+                value: "LOW",
+                label: "Low Priority"
+            )
+        ],
+        fieldId: EntityIdBase(
+            referenceId: "ticket-priority"
+        )
+    ))
+}
+
+try await main()
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `IntelligentFieldRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `RequestOptions?` — Additional options for configuring the request, such as custom headers or timeout settings.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.intelligentFields.<a href="/Sources/Resources/IntelligentFields/IntelligentFieldsClient.swift">get</a>(fieldReferenceId: String, appId: String?, requestOptions: RequestOptions?) -> IntelligentFieldDetailResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get an intelligent field by its supplied ID
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```swift
+import Foundation
+import Api
+
+private func main() async throws {
+    let client = MavenAGI(
+        appId: "<username>",
+        appSecret: "<password>"
+    )
+
+    _ = try await client.intelligentFields.get(fieldReferenceId: "ticket-priority")
+}
+
+try await main()
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**fieldReferenceId:** `String` — The reference ID of the intelligent field to get. All other entity ID fields are inferred from the request.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**appId:** `String?` — The App ID of the intelligent field to get. If not provided the ID of the calling app will be used.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `RequestOptions?` — Additional options for configuring the request, such as custom headers or timeout settings.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.intelligentFields.<a href="/Sources/Resources/IntelligentFields/IntelligentFieldsClient.swift">patch</a>(fieldReferenceId: String, request: Requests.IntelligentFieldPatchRequest, requestOptions: RequestOptions?) -> IntelligentFieldResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Patch an intelligent field. Can be used to update the definition, status, or other mutable properties.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```swift
+import Foundation
+import Api
+
+private func main() async throws {
+    let client = MavenAGI(
+        appId: "<username>",
+        appSecret: "<password>"
+    )
+
+    _ = try await client.intelligentFields.patch(
+        fieldReferenceId: "ticket-priority",
+        request: .init(definition: "The priority of the conversation based on the urgency and importance; draw from the content / messages in the conversation; must be one of HIGH, MEDIUM, or LOW.")
+    )
+}
+
+try await main()
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**fieldReferenceId:** `String` — The reference ID of the intelligent field to patch.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Requests.IntelligentFieldPatchRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `RequestOptions?` — Additional options for configuring the request, such as custom headers or timeout settings.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.intelligentFields.<a href="/Sources/Resources/IntelligentFields/IntelligentFieldsClient.swift">delete</a>(fieldReferenceId: String, appId: String?, variantReferenceId: String?, variantAppId: String?, requestOptions: RequestOptions?) -> IntelligentFieldResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Soft delete an intelligent field. Only INACTIVE fields can be deleted.
+
+Deleted fields are excluded from search results but can still be retrieved by ID.
+Creating a new field with the same referenceId as a deleted field will overwrite
+the deleted field and restore it to INACTIVE status.
+
+Deleted fields cannot be modified.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```swift
+import Foundation
+import Api
+
+private func main() async throws {
+    let client = MavenAGI(
+        appId: "<username>",
+        appSecret: "<password>"
+    )
+
+    _ = try await client.intelligentFields.delete(fieldReferenceId: "ticket-priority")
+}
+
+try await main()
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**fieldReferenceId:** `String` — The reference ID of the intelligent field to delete.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**appId:** `String?` — The App ID of the intelligent field to delete. If not provided, the ID of the calling app will be used.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**variantReferenceId:** `String?` — The agent variant reference ID of the intelligent field to delete.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**variantAppId:** `String?` — The App ID of the agent variant reference for the intelligent field to delete. If not provided, the ID of the calling app will be used.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `RequestOptions?` — Additional options for configuring the request, such as custom headers or timeout settings.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.intelligentFields.<a href="/Sources/Resources/IntelligentFields/IntelligentFieldsClient.swift">searchValues</a>(request: IntelligentFieldValueSearchRequest, requestOptions: RequestOptions?) -> IntelligentFieldValueSearchResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Search computed values for intelligent fields across entities. Supports filtering by field properties and target entity.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```swift
+import Foundation
+import Api
+
+private func main() async throws {
+    let client = MavenAGI(
+        appId: "<username>",
+        appSecret: "<password>"
+    )
+
+    _ = try await client.intelligentFields.searchValues(request: IntelligentFieldValueSearchRequest(
+        page: 0,
+        size: 20,
+        sortDesc: true,
+        fieldFilter: IntelligentFieldValueFieldFilter(
+            fieldIds: [
+                EntityId(
+                    type: .intelligentField,
+                    appId: "zendesk",
+                    referenceId: "ticket-priority",
+                    organizationId: "acme",
+                    agentId: "support"
+                )
+            ]
+        ),
+        entityFilter: IntelligentFieldValueEntityFilter(
+            entityIds: [
+                EntityId(
+                    type: .conversation,
+                    appId: "zendesk",
+                    referenceId: "conv-123",
+                    organizationId: "acme",
+                    agentId: "support"
+                )
+            ]
+        ),
+        sort: .createdAt
+    ))
+}
+
+try await main()
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `IntelligentFieldValueSearchRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `RequestOptions?` — Additional options for configuring the request, such as custom headers or timeout settings.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Knowledge
 <details><summary><code>client.knowledge.<a href="/Sources/Resources/Knowledge/KnowledgeClient.swift">searchKnowledgeBases</a>(request: KnowledgeBaseSearchRequest, requestOptions: RequestOptions?) -> KnowledgeBasesResponse</code></summary>
 <dl>
@@ -5620,6 +6090,106 @@ try await main()
 <dd>
 
 **request:** `FinalizeKnowledgeBaseVersionRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `RequestOptions?` — Additional options for configuring the request, such as custom headers or timeout settings.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.knowledge.<a href="/Sources/Resources/Knowledge/KnowledgeClient.swift">updateKnowledgeBaseVersionProgress</a>(knowledgeBaseReferenceId: String, request: KnowledgeBaseVersionProgressRequest, requestOptions: RequestOptions?) -> KnowledgeBaseVersion</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Report refresh progress for an in-progress knowledge base version.
+
+Progress is advisory and shown to users while a refresh runs. Each call replaces the
+version's entire progress state - no history is kept, only the most recent value is
+retained. Will throw an exception if the target version is not in progress.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```swift
+import Foundation
+import Api
+
+private func main() async throws {
+    let client = MavenAGI(
+        appId: "<username>",
+        appSecret: "<password>"
+    )
+
+    _ = try await client.knowledge.updateKnowledgeBaseVersionProgress(
+        knowledgeBaseReferenceId: "help-center",
+        request: KnowledgeBaseVersionProgressRequest(
+            versionId: EntityIdWithoutAgent(
+                type: .knowledgeBaseVersion,
+                appId: "maven",
+                referenceId: "versionId"
+            ),
+            progress: KnowledgeBaseVersionProgress(
+                message: "Fetching articles from the help center",
+                completedCount: 120,
+                totalCount: 500
+            )
+        )
+    )
+}
+
+try await main()
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**knowledgeBaseReferenceId:** `String` — The reference ID of the knowledge base to report progress for. All other entity ID fields are inferred from the request.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `KnowledgeBaseVersionProgressRequest` 
     
 </dd>
 </dl>
@@ -7080,7 +7650,7 @@ try await main()
 </dl>
 </details>
 
-<details><summary><code>client.segments.<a href="/Sources/Resources/Segments/SegmentsClient.swift">delete</a>(segmentReferenceId: String, appId: String?, requestOptions: RequestOptions?) -> SegmentResponse</code></summary>
+<details><summary><code>client.segments.<a href="/Sources/Resources/Segments/SegmentsClient.swift">delete</a>(segmentReferenceId: String, appId: String?, variantReferenceId: String?, variantAppId: String?, requestOptions: RequestOptions?) -> SegmentResponse</code></summary>
 <dl>
 <dd>
 
@@ -7147,6 +7717,30 @@ try await main()
 <dd>
 
 **appId:** `String?` — The App ID of the segment to delete. If not provided, the ID of the calling app will be used.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**variantReferenceId:** `String?` 
+
+The reference ID of the agent variant this delete is scoped to. When set, the
+deletion is staged in that variant's working set instead of being applied to the
+agent's live configuration.
+
+Omit this parameter to delete directly from the agent. Variant scoping is not
+active yet: a variant supplied today is accepted and ignored, and the delete applies
+to the agent.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**variantAppId:** `String?` — The App ID of the agent variant named by `variantReferenceId`. If not provided, the ID of the calling app will be used.
     
 </dd>
 </dl>

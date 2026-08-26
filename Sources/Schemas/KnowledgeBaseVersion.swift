@@ -15,6 +15,9 @@ public struct KnowledgeBaseVersion: Codable, Hashable, Sendable {
     public let updatedAt: Date
     /// The indexing status of the knowledge base version.
     public let indexingState: KnowledgeBaseIndexingProgressState?
+    /// Refresh progress most recently reported by the app that owns this knowledge base.
+    /// Only populated while the version is in progress - absent once the version has completed.
+    public let progress: KnowledgeBaseVersionProgress?
     /// Additional properties that are not explicitly defined in the schema
     public let additionalProperties: [String: JSONValue]
 
@@ -26,6 +29,7 @@ public struct KnowledgeBaseVersion: Codable, Hashable, Sendable {
         createdAt: Date,
         updatedAt: Date,
         indexingState: KnowledgeBaseIndexingProgressState? = nil,
+        progress: KnowledgeBaseVersionProgress? = nil,
         additionalProperties: [String: JSONValue] = .init()
     ) {
         self.type = type
@@ -35,6 +39,7 @@ public struct KnowledgeBaseVersion: Codable, Hashable, Sendable {
         self.createdAt = createdAt
         self.updatedAt = updatedAt
         self.indexingState = indexingState
+        self.progress = progress
         self.additionalProperties = additionalProperties
     }
 
@@ -47,6 +52,7 @@ public struct KnowledgeBaseVersion: Codable, Hashable, Sendable {
         self.createdAt = try container.decode(Date.self, forKey: .createdAt)
         self.updatedAt = try container.decode(Date.self, forKey: .updatedAt)
         self.indexingState = try container.decodeIfPresent(KnowledgeBaseIndexingProgressState.self, forKey: .indexingState)
+        self.progress = try container.decodeIfPresent(KnowledgeBaseVersionProgress.self, forKey: .progress)
         self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
     }
 
@@ -60,6 +66,7 @@ public struct KnowledgeBaseVersion: Codable, Hashable, Sendable {
         try container.encode(self.createdAt, forKey: .createdAt)
         try container.encode(self.updatedAt, forKey: .updatedAt)
         try container.encodeIfPresent(self.indexingState, forKey: .indexingState)
+        try container.encodeIfPresent(self.progress, forKey: .progress)
     }
 
     /// Keys for encoding/decoding struct properties.
@@ -71,5 +78,6 @@ public struct KnowledgeBaseVersion: Codable, Hashable, Sendable {
         case createdAt
         case updatedAt
         case indexingState
+        case progress
     }
 }

@@ -5,7 +5,11 @@ public struct ConversationGroupBy: Codable, Hashable, Sendable {
     public let limit: Int?
     /// Field used for data grouping.
     public let field: ConversationField
-    /// Numeric ranges for grouping data into predefined buckets. Applies only to numeric fields.
+    /// Fully specified ID of the intelligent field. Required when `field` is
+    /// `IntelligentField`, and ignored otherwise.
+    public let intelligentFieldId: EntityId?
+    /// Numeric ranges for grouping data into predefined buckets.
+    /// Applies only to numeric fields and to NUMBER-validated intelligent fields.
     public let ranges: [Range]?
     /// Additional properties that are not explicitly defined in the schema
     public let additionalProperties: [String: JSONValue]
@@ -13,11 +17,13 @@ public struct ConversationGroupBy: Codable, Hashable, Sendable {
     public init(
         limit: Int? = nil,
         field: ConversationField,
+        intelligentFieldId: EntityId? = nil,
         ranges: [Range]? = nil,
         additionalProperties: [String: JSONValue] = .init()
     ) {
         self.limit = limit
         self.field = field
+        self.intelligentFieldId = intelligentFieldId
         self.ranges = ranges
         self.additionalProperties = additionalProperties
     }
@@ -26,6 +32,7 @@ public struct ConversationGroupBy: Codable, Hashable, Sendable {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.limit = try container.decodeIfPresent(Int.self, forKey: .limit)
         self.field = try container.decode(ConversationField.self, forKey: .field)
+        self.intelligentFieldId = try container.decodeIfPresent(EntityId.self, forKey: .intelligentFieldId)
         self.ranges = try container.decodeIfPresent([Range].self, forKey: .ranges)
         self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
     }
@@ -35,6 +42,7 @@ public struct ConversationGroupBy: Codable, Hashable, Sendable {
         try encoder.encodeAdditionalProperties(self.additionalProperties)
         try container.encodeIfPresent(self.limit, forKey: .limit)
         try container.encode(self.field, forKey: .field)
+        try container.encodeIfPresent(self.intelligentFieldId, forKey: .intelligentFieldId)
         try container.encodeIfPresent(self.ranges, forKey: .ranges)
     }
 
@@ -42,6 +50,7 @@ public struct ConversationGroupBy: Codable, Hashable, Sendable {
     enum CodingKeys: String, CodingKey, CaseIterable {
         case limit
         case field
+        case intelligentFieldId
         case ranges
     }
 }

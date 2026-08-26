@@ -235,26 +235,21 @@ public enum BotResponse: Codable, Hashable, Sendable {
 
     public struct Object: Codable, Hashable, Sendable {
         public let type: String = "object"
-        /// A human-readable name for the generated object, for use in the UI.
-        public let label: String?
-        /// The generated object conforming to the provided schema.
+        /// The answer, matching the schema the ask supplied. Every property the schema requires is present, with `null` where a nullable one does not apply.
         public let object: JSONValue
         /// Additional properties that are not explicitly defined in the schema
         public let additionalProperties: [String: JSONValue]
 
         public init(
-            label: String? = nil,
             object: JSONValue,
             additionalProperties: [String: JSONValue] = .init()
         ) {
-            self.label = label
             self.object = object
             self.additionalProperties = additionalProperties
         }
 
         public init(from decoder: Decoder) throws {
             let container = try decoder.container(keyedBy: CodingKeys.self)
-            self.label = try container.decodeIfPresent(String.self, forKey: .label)
             self.object = try container.decode(JSONValue.self, forKey: .object)
             self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
         }
@@ -263,14 +258,12 @@ public enum BotResponse: Codable, Hashable, Sendable {
             var container = encoder.container(keyedBy: CodingKeys.self)
             try encoder.encodeAdditionalProperties(self.additionalProperties)
             try container.encode(self.type, forKey: .type)
-            try container.encodeIfPresent(self.label, forKey: .label)
             try container.encode(self.object, forKey: .object)
         }
 
         /// Keys for encoding/decoding struct properties.
         enum CodingKeys: String, CodingKey, CaseIterable {
             case type
-            case label
             case object
         }
     }

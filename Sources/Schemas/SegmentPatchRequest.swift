@@ -11,6 +11,12 @@ public struct SegmentPatchRequest: Codable, Hashable, Sendable {
     public let precondition: Precondition?
     /// The status of the segment. Segments can only be deactivated if they are not set on any actions or active knowledge bases.
     public let status: SegmentStatus?
+    /// The agent variant this patch is scoped to. When set, the patch is staged in that
+    /// variant's working set instead of being applied to the agent's live configuration.
+    /// 
+    /// Omit this field to patch the agent directly. Variant scoping is not active yet: a
+    /// variant supplied today is accepted and ignored, and the patch applies to the agent.
+    public let variantId: EntityIdWithoutAgent?
     /// Additional properties that are not explicitly defined in the schema
     public let additionalProperties: [String: JSONValue]
 
@@ -20,6 +26,7 @@ public struct SegmentPatchRequest: Codable, Hashable, Sendable {
         description: String? = nil,
         precondition: Precondition? = nil,
         status: SegmentStatus? = nil,
+        variantId: EntityIdWithoutAgent? = nil,
         additionalProperties: [String: JSONValue] = .init()
     ) {
         self.appId = appId
@@ -27,6 +34,7 @@ public struct SegmentPatchRequest: Codable, Hashable, Sendable {
         self.description = description
         self.precondition = precondition
         self.status = status
+        self.variantId = variantId
         self.additionalProperties = additionalProperties
     }
 
@@ -37,6 +45,7 @@ public struct SegmentPatchRequest: Codable, Hashable, Sendable {
         self.description = try container.decodeIfPresent(String.self, forKey: .description)
         self.precondition = try container.decodeIfPresent(Precondition.self, forKey: .precondition)
         self.status = try container.decodeIfPresent(SegmentStatus.self, forKey: .status)
+        self.variantId = try container.decodeIfPresent(EntityIdWithoutAgent.self, forKey: .variantId)
         self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
     }
 
@@ -48,6 +57,7 @@ public struct SegmentPatchRequest: Codable, Hashable, Sendable {
         try container.encodeIfPresent(self.description, forKey: .description)
         try container.encodeIfPresent(self.precondition, forKey: .precondition)
         try container.encodeIfPresent(self.status, forKey: .status)
+        try container.encodeIfPresent(self.variantId, forKey: .variantId)
     }
 
     /// Keys for encoding/decoding struct properties.
@@ -57,5 +67,6 @@ public struct SegmentPatchRequest: Codable, Hashable, Sendable {
         case description
         case precondition
         case status
+        case variantId
     }
 }

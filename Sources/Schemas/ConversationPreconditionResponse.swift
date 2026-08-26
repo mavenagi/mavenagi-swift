@@ -429,14 +429,14 @@ public enum ConversationPreconditionResponse: Codable, Hashable, Sendable {
         /// Human-readable display name of the intelligent field. Resolved server-side.
         public let name: String?
         /// The condition to evaluate against the field's value.
-        public let fieldCondition: IntelligentFieldCondition
+        public let fieldCondition: FieldCondition
         /// Additional properties that are not explicitly defined in the schema
         public let additionalProperties: [String: JSONValue]
 
         public init(
             fieldIdWithoutAgent: EntityIdWithoutAgent,
             name: String? = nil,
-            fieldCondition: IntelligentFieldCondition,
+            fieldCondition: FieldCondition,
             additionalProperties: [String: JSONValue] = .init()
         ) {
             self.fieldIdWithoutAgent = fieldIdWithoutAgent
@@ -449,7 +449,7 @@ public enum ConversationPreconditionResponse: Codable, Hashable, Sendable {
             let container = try decoder.container(keyedBy: CodingKeys.self)
             self.fieldIdWithoutAgent = try container.decode(EntityIdWithoutAgent.self, forKey: .fieldIdWithoutAgent)
             self.name = try container.decodeIfPresent(String.self, forKey: .name)
-            self.fieldCondition = try container.decode(IntelligentFieldCondition.self, forKey: .fieldCondition)
+            self.fieldCondition = try container.decode(FieldCondition.self, forKey: .fieldCondition)
             self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
         }
 

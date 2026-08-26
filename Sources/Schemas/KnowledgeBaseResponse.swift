@@ -39,6 +39,9 @@ public struct KnowledgeBaseResponse: Codable, Hashable, Sendable {
     public let url: String?
     /// The indexing status of the latest version of the knowledge base.
     public let indexingState: KnowledgeBaseIndexingProgressState?
+    /// Refresh progress most recently reported by the app that owns this knowledge base.
+    /// Only populated while the latest version is in progress - absent once it has completed.
+    public let progress: KnowledgeBaseVersionProgress?
     /// Additional properties that are not explicitly defined in the schema
     public let additionalProperties: [String: JSONValue]
 
@@ -59,6 +62,7 @@ public struct KnowledgeBaseResponse: Codable, Hashable, Sendable {
         segmentIds: JSONValue,
         url: String? = nil,
         indexingState: KnowledgeBaseIndexingProgressState? = nil,
+        progress: KnowledgeBaseVersionProgress? = nil,
         additionalProperties: [String: JSONValue] = .init()
     ) {
         self.name = name
@@ -77,6 +81,7 @@ public struct KnowledgeBaseResponse: Codable, Hashable, Sendable {
         self.segmentIds = segmentIds
         self.url = url
         self.indexingState = indexingState
+        self.progress = progress
         self.additionalProperties = additionalProperties
     }
 
@@ -98,6 +103,7 @@ public struct KnowledgeBaseResponse: Codable, Hashable, Sendable {
         self.segmentIds = try container.decode(JSONValue.self, forKey: .segmentIds)
         self.url = try container.decodeIfPresent(String.self, forKey: .url)
         self.indexingState = try container.decodeIfPresent(KnowledgeBaseIndexingProgressState.self, forKey: .indexingState)
+        self.progress = try container.decodeIfPresent(KnowledgeBaseVersionProgress.self, forKey: .progress)
         self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
     }
 
@@ -120,6 +126,7 @@ public struct KnowledgeBaseResponse: Codable, Hashable, Sendable {
         try container.encode(self.segmentIds, forKey: .segmentIds)
         try container.encodeIfPresent(self.url, forKey: .url)
         try container.encodeIfPresent(self.indexingState, forKey: .indexingState)
+        try container.encodeIfPresent(self.progress, forKey: .progress)
     }
 
     /// Keys for encoding/decoding struct properties.
@@ -140,5 +147,6 @@ public struct KnowledgeBaseResponse: Codable, Hashable, Sendable {
         case segmentIds
         case url
         case indexingState
+        case progress
     }
 }

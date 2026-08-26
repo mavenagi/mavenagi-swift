@@ -13,6 +13,7 @@ public final class MavenAGI: Sendable {
     public let events: EventsClient
     public let inbox: InboxClient
     public let integrations: IntegrationsClient
+    public let intelligentFields: IntelligentFieldsClient
     public let knowledge: KnowledgeClient
     public let organizations: OrganizationsClient
     public let segments: SegmentsClient
@@ -84,6 +85,7 @@ public final class MavenAGI: Sendable {
         self.events = EventsClient(config: config)
         self.inbox = InboxClient(config: config)
         self.integrations = IntegrationsClient(config: config)
+        self.intelligentFields = IntelligentFieldsClient(config: config)
         self.knowledge = KnowledgeClient(config: config)
         self.organizations = OrganizationsClient(config: config)
         self.segments = SegmentsClient(config: config)

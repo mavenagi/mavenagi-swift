@@ -12,4 +12,7 @@ public enum NumericConversationField: String, Codable, Hashable, CaseIterable, S
     case csat = "Csat"
     case actionExecutionCount = "ActionExecutionCount"
     case actionErrorCount = "ActionErrorCount"
+    /// Selects a NUMBER-validated intelligent field rather than a built-in numeric field.
+    /// When used, `intelligentFieldId` must also be set to identify which field.
+    case intelligentField = "IntelligentField"
 }

@@ -72,13 +72,23 @@ public final class SegmentsClient: Sendable {
     ///
     /// - Parameter segmentReferenceId: The reference ID of the segment to delete. All other entity ID fields are inferred from the request.
     /// - Parameter appId: The App ID of the segment to delete. If not provided, the ID of the calling app will be used.
+    /// - Parameter variantReferenceId: The reference ID of the agent variant this delete is scoped to. When set, the
+    /// deletion is staged in that variant's working set instead of being applied to the
+    /// agent's live configuration.
+    /// 
+    /// Omit this parameter to delete directly from the agent. Variant scoping is not
+    /// active yet: a variant supplied today is accepted and ignored, and the delete applies
+    /// to the agent.
+    /// - Parameter variantAppId: The App ID of the agent variant named by `variantReferenceId`. If not provided, the ID of the calling app will be used.
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
-    public func delete(segmentReferenceId: String, appId: String? = nil, requestOptions: RequestOptions? = nil) async throws -> SegmentResponse {
+    public func delete(segmentReferenceId: String, appId: String? = nil, variantReferenceId: String? = nil, variantAppId: String? = nil, requestOptions: RequestOptions? = nil) async throws -> SegmentResponse {
         return try await httpClient.performRequest(
             method: .delete,
             path: "/v1/segments/\(segmentReferenceId)",
             queryParams: [
-                "appId": appId.map { .string($0) }
+                "appId": appId.map { .string($0) }, 
+                "variantReferenceId": variantReferenceId.map { .string($0) }, 
+                "variantAppId": variantAppId.map { .string($0) }
             ],
             requestOptions: requestOptions,
             responseType: SegmentResponse.self

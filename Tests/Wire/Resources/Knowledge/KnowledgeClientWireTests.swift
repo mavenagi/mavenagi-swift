@@ -67,6 +67,11 @@ import Api
                         "indexedCount": 1000000,
                         "failedCount": 1000000
                       },
+                      "progress": {
+                        "message": "message",
+                        "completedCount": 1000000,
+                        "totalCount": 1000000
+                      },
                       "name": "name",
                       "precondition": {
                         "preconditionType": "user",
@@ -135,6 +140,11 @@ import Api
                         "expectedCount": 1000000,
                         "indexedCount": 1000000,
                         "failedCount": 1000000
+                      },
+                      "progress": {
+                        "message": "message",
+                        "completedCount": 1000000,
+                        "totalCount": 1000000
                       },
                       "name": "name",
                       "precondition": {
@@ -212,6 +222,11 @@ import Api
                         indexedCount: 1000000,
                         failedCount: 1000000
                     )),
+                    progress: Optional(KnowledgeBaseVersionProgress(
+                        message: "message",
+                        completedCount: Optional(1000000),
+                        totalCount: Optional(1000000)
+                    )),
                     name: "name",
                     precondition: Optional(.user(
                         .init(
@@ -271,6 +286,11 @@ import Api
                         expectedCount: 1000000,
                         indexedCount: 1000000,
                         failedCount: 1000000
+                    )),
+                    progress: Optional(KnowledgeBaseVersionProgress(
+                        message: "message",
+                        completedCount: Optional(1000000),
+                        totalCount: Optional(1000000)
                     )),
                     name: "name",
                     precondition: Optional(.user(
@@ -705,6 +725,75 @@ import Api
         try #require(response == expectedResponse)
     }
 
+    @Test func updateKnowledgeBaseVersionProgress1() async throws -> Void {
+        let stub = HTTPStub()
+        stub.setResponse(
+            body: Data(
+                """
+                {
+                  "versionId": {
+                    "type": "KNOWLEDGE_BASE_VERSION",
+                    "referenceId": "versionId",
+                    "appId": "maven",
+                    "organizationId": "acme",
+                    "agentId": "support"
+                  },
+                  "type": "FULL",
+                  "status": "IN_PROGRESS",
+                  "createdAt": "2024-01-01T00:00:00Z",
+                  "updatedAt": "2024-02-02T00:00:00Z",
+                  "progress": {
+                    "message": "Fetching articles from the help center",
+                    "completedCount": 120,
+                    "totalCount": 500
+                  }
+                }
+                """.utf8
+            )
+        )
+        let client = MavenAGI(
+            baseURL: "https://api.fern.com",
+            appId: "<username>",
+            appSecret: "<password>",
+            urlSession: stub.urlSession
+        )
+        let expectedResponse = KnowledgeBaseVersion(
+            versionId: EntityId(
+                type: .knowledgeBaseVersion,
+                referenceId: "versionId",
+                appId: "maven",
+                organizationId: "acme",
+                agentId: "support"
+            ),
+            type: .full,
+            status: .inProgress,
+            createdAt: try! Date("2024-01-01T00:00:00Z", strategy: .iso8601),
+            updatedAt: try! Date("2024-02-02T00:00:00Z", strategy: .iso8601),
+            progress: Optional(KnowledgeBaseVersionProgress(
+                message: "Fetching articles from the help center",
+                completedCount: Optional(120),
+                totalCount: Optional(500)
+            ))
+        )
+        let response = try await client.knowledge.updateKnowledgeBaseVersionProgress(
+            knowledgeBaseReferenceId: "help-center",
+            request: KnowledgeBaseVersionProgressRequest(
+                versionId: EntityIdWithoutAgent(
+                    type: .knowledgeBaseVersion,
+                    appId: "maven",
+                    referenceId: "versionId"
+                ),
+                progress: KnowledgeBaseVersionProgress(
+                    message: "Fetching articles from the help center",
+                    completedCount: 120,
+                    totalCount: 500
+                )
+            ),
+            requestOptions: RequestOptions(additionalHeaders: stub.headers)
+        )
+        try #require(response == expectedResponse)
+    }
+
     @Test func listKnowledgeBaseVersions1() async throws -> Void {
         let stub = HTTPStub()
         stub.setResponse(
@@ -737,6 +826,11 @@ import Api
                         "indexedCount": 1000000,
                         "failedCount": 1000000
                       },
+                      "progress": {
+                        "message": "message",
+                        "completedCount": 1000000,
+                        "totalCount": 1000000
+                      },
                       "type": "FULL"
                     },
                     {
@@ -763,6 +857,11 @@ import Api
                         "expectedCount": 1000000,
                         "indexedCount": 1000000,
                         "failedCount": 1000000
+                      },
+                      "progress": {
+                        "message": "message",
+                        "completedCount": 1000000,
+                        "totalCount": 1000000
                       },
                       "type": "FULL"
                     }
@@ -804,6 +903,11 @@ import Api
                         indexedCount: 1000000,
                         failedCount: 1000000
                     )),
+                    progress: Optional(KnowledgeBaseVersionProgress(
+                        message: "message",
+                        completedCount: Optional(1000000),
+                        totalCount: Optional(1000000)
+                    )),
                     type: .full
                 ),
                 KnowledgeBaseVersion(
@@ -830,6 +934,11 @@ import Api
                         expectedCount: 1000000,
                         indexedCount: 1000000,
                         failedCount: 1000000
+                    )),
+                    progress: Optional(KnowledgeBaseVersionProgress(
+                        message: "message",
+                        completedCount: Optional(1000000),
+                        totalCount: Optional(1000000)
                     )),
                     type: .full
                 )

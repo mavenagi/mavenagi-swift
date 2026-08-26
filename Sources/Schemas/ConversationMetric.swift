@@ -94,20 +94,26 @@ public enum ConversationMetric: Codable, Hashable, Sendable {
         public let type: String = "sum"
         /// Numeric field to apply the metric to.
         public let targetField: NumericConversationField
+        /// Fully specified ID of the intelligent field. Required when `targetField` is
+        /// `IntelligentField`, and ignored otherwise.
+        public let intelligentFieldId: EntityId?
         /// Additional properties that are not explicitly defined in the schema
         public let additionalProperties: [String: JSONValue]
 
         public init(
             targetField: NumericConversationField,
+            intelligentFieldId: EntityId? = nil,
             additionalProperties: [String: JSONValue] = .init()
         ) {
             self.targetField = targetField
+            self.intelligentFieldId = intelligentFieldId
             self.additionalProperties = additionalProperties
         }
 
         public init(from decoder: Decoder) throws {
             let container = try decoder.container(keyedBy: CodingKeys.self)
             self.targetField = try container.decode(NumericConversationField.self, forKey: .targetField)
+            self.intelligentFieldId = try container.decodeIfPresent(EntityId.self, forKey: .intelligentFieldId)
             self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
         }
 
@@ -116,12 +122,14 @@ public enum ConversationMetric: Codable, Hashable, Sendable {
             try encoder.encodeAdditionalProperties(self.additionalProperties)
             try container.encode(self.type, forKey: .type)
             try container.encode(self.targetField, forKey: .targetField)
+            try container.encodeIfPresent(self.intelligentFieldId, forKey: .intelligentFieldId)
         }
 
         /// Keys for encoding/decoding struct properties.
         enum CodingKeys: String, CodingKey, CaseIterable {
             case type
             case targetField
+            case intelligentFieldId
         }
     }
 
@@ -129,20 +137,26 @@ public enum ConversationMetric: Codable, Hashable, Sendable {
         public let type: String = "average"
         /// Numeric field to apply the metric to.
         public let targetField: NumericConversationField
+        /// Fully specified ID of the intelligent field. Required when `targetField` is
+        /// `IntelligentField`, and ignored otherwise.
+        public let intelligentFieldId: EntityId?
         /// Additional properties that are not explicitly defined in the schema
         public let additionalProperties: [String: JSONValue]
 
         public init(
             targetField: NumericConversationField,
+            intelligentFieldId: EntityId? = nil,
             additionalProperties: [String: JSONValue] = .init()
         ) {
             self.targetField = targetField
+            self.intelligentFieldId = intelligentFieldId
             self.additionalProperties = additionalProperties
         }
 
         public init(from decoder: Decoder) throws {
             let container = try decoder.container(keyedBy: CodingKeys.self)
             self.targetField = try container.decode(NumericConversationField.self, forKey: .targetField)
+            self.intelligentFieldId = try container.decodeIfPresent(EntityId.self, forKey: .intelligentFieldId)
             self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
         }
 
@@ -151,12 +165,14 @@ public enum ConversationMetric: Codable, Hashable, Sendable {
             try encoder.encodeAdditionalProperties(self.additionalProperties)
             try container.encode(self.type, forKey: .type)
             try container.encode(self.targetField, forKey: .targetField)
+            try container.encodeIfPresent(self.intelligentFieldId, forKey: .intelligentFieldId)
         }
 
         /// Keys for encoding/decoding struct properties.
         enum CodingKeys: String, CodingKey, CaseIterable {
             case type
             case targetField
+            case intelligentFieldId
         }
     }
 
@@ -164,20 +180,26 @@ public enum ConversationMetric: Codable, Hashable, Sendable {
         public let type: String = "min"
         /// Numeric field to apply the metric to.
         public let targetField: NumericConversationField
+        /// Fully specified ID of the intelligent field. Required when `targetField` is
+        /// `IntelligentField`, and ignored otherwise.
+        public let intelligentFieldId: EntityId?
         /// Additional properties that are not explicitly defined in the schema
         public let additionalProperties: [String: JSONValue]
 
         public init(
             targetField: NumericConversationField,
+            intelligentFieldId: EntityId? = nil,
             additionalProperties: [String: JSONValue] = .init()
         ) {
             self.targetField = targetField
+            self.intelligentFieldId = intelligentFieldId
             self.additionalProperties = additionalProperties
         }
 
         public init(from decoder: Decoder) throws {
             let container = try decoder.container(keyedBy: CodingKeys.self)
             self.targetField = try container.decode(NumericConversationField.self, forKey: .targetField)
+            self.intelligentFieldId = try container.decodeIfPresent(EntityId.self, forKey: .intelligentFieldId)
             self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
         }
 
@@ -186,12 +208,14 @@ public enum ConversationMetric: Codable, Hashable, Sendable {
             try encoder.encodeAdditionalProperties(self.additionalProperties)
             try container.encode(self.type, forKey: .type)
             try container.encode(self.targetField, forKey: .targetField)
+            try container.encodeIfPresent(self.intelligentFieldId, forKey: .intelligentFieldId)
         }
 
         /// Keys for encoding/decoding struct properties.
         enum CodingKeys: String, CodingKey, CaseIterable {
             case type
             case targetField
+            case intelligentFieldId
         }
     }
 
@@ -199,20 +223,26 @@ public enum ConversationMetric: Codable, Hashable, Sendable {
         public let type: String = "max"
         /// Numeric field to apply the metric to.
         public let targetField: NumericConversationField
+        /// Fully specified ID of the intelligent field. Required when `targetField` is
+        /// `IntelligentField`, and ignored otherwise.
+        public let intelligentFieldId: EntityId?
         /// Additional properties that are not explicitly defined in the schema
         public let additionalProperties: [String: JSONValue]
 
         public init(
             targetField: NumericConversationField,
+            intelligentFieldId: EntityId? = nil,
             additionalProperties: [String: JSONValue] = .init()
         ) {
             self.targetField = targetField
+            self.intelligentFieldId = intelligentFieldId
             self.additionalProperties = additionalProperties
         }
 
         public init(from decoder: Decoder) throws {
             let container = try decoder.container(keyedBy: CodingKeys.self)
             self.targetField = try container.decode(NumericConversationField.self, forKey: .targetField)
+            self.intelligentFieldId = try container.decodeIfPresent(EntityId.self, forKey: .intelligentFieldId)
             self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
         }
 
@@ -221,12 +251,14 @@ public enum ConversationMetric: Codable, Hashable, Sendable {
             try encoder.encodeAdditionalProperties(self.additionalProperties)
             try container.encode(self.type, forKey: .type)
             try container.encode(self.targetField, forKey: .targetField)
+            try container.encodeIfPresent(self.intelligentFieldId, forKey: .intelligentFieldId)
         }
 
         /// Keys for encoding/decoding struct properties.
         enum CodingKeys: String, CodingKey, CaseIterable {
             case type
             case targetField
+            case intelligentFieldId
         }
     }
 
@@ -234,6 +266,9 @@ public enum ConversationMetric: Codable, Hashable, Sendable {
         public let type: String = "percentile"
         /// Numeric field to apply the metric to.
         public let targetField: NumericConversationField
+        /// Fully specified ID of the intelligent field. Required when `targetField` is
+        /// `IntelligentField`, and ignored otherwise.
+        public let intelligentFieldId: EntityId?
         /// The percentile to calculate. Example: 25 computes the 25th percentile.
         public let percentile: Double
         /// Additional properties that are not explicitly defined in the schema
@@ -241,10 +276,12 @@ public enum ConversationMetric: Codable, Hashable, Sendable {
 
         public init(
             targetField: NumericConversationField,
+            intelligentFieldId: EntityId? = nil,
             percentile: Double,
             additionalProperties: [String: JSONValue] = .init()
         ) {
             self.targetField = targetField
+            self.intelligentFieldId = intelligentFieldId
             self.percentile = percentile
             self.additionalProperties = additionalProperties
         }
@@ -252,6 +289,7 @@ public enum ConversationMetric: Codable, Hashable, Sendable {
         public init(from decoder: Decoder) throws {
             let container = try decoder.container(keyedBy: CodingKeys.self)
             self.targetField = try container.decode(NumericConversationField.self, forKey: .targetField)
+            self.intelligentFieldId = try container.decodeIfPresent(EntityId.self, forKey: .intelligentFieldId)
             self.percentile = try container.decode(Double.self, forKey: .percentile)
             self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
         }
@@ -261,6 +299,7 @@ public enum ConversationMetric: Codable, Hashable, Sendable {
             try encoder.encodeAdditionalProperties(self.additionalProperties)
             try container.encode(self.type, forKey: .type)
             try container.encode(self.targetField, forKey: .targetField)
+            try container.encodeIfPresent(self.intelligentFieldId, forKey: .intelligentFieldId)
             try container.encode(self.percentile, forKey: .percentile)
         }
 
@@ -268,6 +307,7 @@ public enum ConversationMetric: Codable, Hashable, Sendable {
         enum CodingKeys: String, CodingKey, CaseIterable {
             case type
             case targetField
+            case intelligentFieldId
             case percentile
         }
     }
@@ -276,20 +316,26 @@ public enum ConversationMetric: Codable, Hashable, Sendable {
         public let type: String = "median"
         /// Numeric field to apply the metric to.
         public let targetField: NumericConversationField
+        /// Fully specified ID of the intelligent field. Required when `targetField` is
+        /// `IntelligentField`, and ignored otherwise.
+        public let intelligentFieldId: EntityId?
         /// Additional properties that are not explicitly defined in the schema
         public let additionalProperties: [String: JSONValue]
 
         public init(
             targetField: NumericConversationField,
+            intelligentFieldId: EntityId? = nil,
             additionalProperties: [String: JSONValue] = .init()
         ) {
             self.targetField = targetField
+            self.intelligentFieldId = intelligentFieldId
             self.additionalProperties = additionalProperties
         }
 
         public init(from decoder: Decoder) throws {
             let container = try decoder.container(keyedBy: CodingKeys.self)
             self.targetField = try container.decode(NumericConversationField.self, forKey: .targetField)
+            self.intelligentFieldId = try container.decodeIfPresent(EntityId.self, forKey: .intelligentFieldId)
             self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
         }
 
@@ -298,12 +344,14 @@ public enum ConversationMetric: Codable, Hashable, Sendable {
             try encoder.encodeAdditionalProperties(self.additionalProperties)
             try container.encode(self.type, forKey: .type)
             try container.encode(self.targetField, forKey: .targetField)
+            try container.encodeIfPresent(self.intelligentFieldId, forKey: .intelligentFieldId)
         }
 
         /// Keys for encoding/decoding struct properties.
         enum CodingKeys: String, CodingKey, CaseIterable {
             case type
             case targetField
+            case intelligentFieldId
         }
     }
 
@@ -311,20 +359,26 @@ public enum ConversationMetric: Codable, Hashable, Sendable {
         public let type: String = "distinctCount"
         /// Field to apply the metric to.
         public let targetField: ConversationField
+        /// Fully specified ID of the intelligent field. Required when `targetField` is
+        /// `IntelligentField`, and ignored otherwise.
+        public let intelligentFieldId: EntityId?
         /// Additional properties that are not explicitly defined in the schema
         public let additionalProperties: [String: JSONValue]
 
         public init(
             targetField: ConversationField,
+            intelligentFieldId: EntityId? = nil,
             additionalProperties: [String: JSONValue] = .init()
         ) {
             self.targetField = targetField
+            self.intelligentFieldId = intelligentFieldId
             self.additionalProperties = additionalProperties
         }
 
         public init(from decoder: Decoder) throws {
             let container = try decoder.container(keyedBy: CodingKeys.self)
             self.targetField = try container.decode(ConversationField.self, forKey: .targetField)
+            self.intelligentFieldId = try container.decodeIfPresent(EntityId.self, forKey: .intelligentFieldId)
             self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
         }
 
@@ -333,12 +387,14 @@ public enum ConversationMetric: Codable, Hashable, Sendable {
             try encoder.encodeAdditionalProperties(self.additionalProperties)
             try container.encode(self.type, forKey: .type)
             try container.encode(self.targetField, forKey: .targetField)
+            try container.encodeIfPresent(self.intelligentFieldId, forKey: .intelligentFieldId)
         }
 
         /// Keys for encoding/decoding struct properties.
         enum CodingKeys: String, CodingKey, CaseIterable {
             case type
             case targetField
+            case intelligentFieldId
         }
     }
 

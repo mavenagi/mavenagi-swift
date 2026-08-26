@@ -144,6 +144,24 @@ public final class KnowledgeClient: Sendable {
         )
     }
 
+    /// Report refresh progress for an in-progress knowledge base version.
+    /// 
+    /// Progress is advisory and shown to users while a refresh runs. Each call replaces the
+    /// version's entire progress state - no history is kept, only the most recent value is
+    /// retained. Will throw an exception if the target version is not in progress.
+    ///
+    /// - Parameter knowledgeBaseReferenceId: The reference ID of the knowledge base to report progress for. All other entity ID fields are inferred from the request.
+    /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
+    public func updateKnowledgeBaseVersionProgress(knowledgeBaseReferenceId: String, request: KnowledgeBaseVersionProgressRequest, requestOptions: RequestOptions? = nil) async throws -> KnowledgeBaseVersion {
+        return try await httpClient.performRequest(
+            method: .post,
+            path: "/v1/knowledge/\(knowledgeBaseReferenceId)/version/progress",
+            body: request,
+            requestOptions: requestOptions,
+            responseType: KnowledgeBaseVersion.self
+        )
+    }
+
     /// List all active versions for a knowledge base. Returns the most recent versions first.
     ///
     /// - Parameter knowledgeBaseReferenceId: The reference ID of the knowledge base to list versions for. All other entity ID fields are inferred from the request.

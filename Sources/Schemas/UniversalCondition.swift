@@ -1,9 +1,9 @@
 import Foundation
 
-/// Type-independent conditions that apply to any intelligent field regardless of its
-/// validationType. Currently only a presence (determined/undetermined) check. Modeled as
+/// Type-independent conditions that apply to any value regardless of the type it is
+/// validated as. Currently only a presence (determined/undetermined) check. Modeled as
 /// its own discriminated union so future type-independent operators can be added without
-/// changing the top-level IntelligentFieldCondition union.
+/// changing the top-level FieldCondition union.
 public enum UniversalCondition: Codable, Hashable, Sendable {
     case presence(Presence)
 

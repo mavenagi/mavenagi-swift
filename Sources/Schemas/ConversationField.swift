@@ -33,6 +33,12 @@ public enum ConversationField: String, Codable, Hashable, CaseIterable, Sendable
     case csat = "Csat"
     case organizationId = "OrganizationId"
     case agentId = "AgentId"
+    /// The environment configured on the agent: DEMO, STAGING, or PRODUCTION. Constant within a
+    /// single agent, so it only separates conversations on a cross-agent request.
+    case agentEnvironment = "AgentEnvironment"
     case inboxItems = "InboxItems"
     case involvedApps = "InvolvedApps"
+    /// Selects an intelligent field rather than a built-in conversation field.
+    /// When used, `intelligentFieldId` must also be set to identify which field.
+    case intelligentField = "IntelligentField"
 }

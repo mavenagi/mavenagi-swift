@@ -7,6 +7,9 @@ public struct ConversationsSearchRequest: Codable, Hashable, Sendable {
     public let size: Int?
     /// Whether to sort descending, defaults to true
     public let sortDesc: Bool?
+    /// Field to sort results by. `IntelligentField` is not supported here - sorting conversations
+    /// by an intelligent field value is not available. Intelligent fields can be filtered on via
+    /// `filter.intelligentFields`, and grouped or aggregated through the analytics APIs.
     public let sort: ConversationField?
     public let filter: ConversationFilter?
     /// Additional properties that are not explicitly defined in the schema

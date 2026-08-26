@@ -14,13 +14,13 @@ public struct IntelligentFieldPrecondition: Codable, Hashable, Sendable {
     /// The ID of the intelligent field.
     public let fieldIdWithoutAgent: EntityIdWithoutAgent
     /// The condition to evaluate against the field's value.
-    public let fieldCondition: IntelligentFieldCondition
+    public let fieldCondition: FieldCondition
     /// Additional properties that are not explicitly defined in the schema
     public let additionalProperties: [String: JSONValue]
 
     public init(
         fieldIdWithoutAgent: EntityIdWithoutAgent,
-        fieldCondition: IntelligentFieldCondition,
+        fieldCondition: FieldCondition,
         additionalProperties: [String: JSONValue] = .init()
     ) {
         self.fieldIdWithoutAgent = fieldIdWithoutAgent
@@ -31,7 +31,7 @@ public struct IntelligentFieldPrecondition: Codable, Hashable, Sendable {
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.fieldIdWithoutAgent = try container.decode(EntityIdWithoutAgent.self, forKey: .fieldIdWithoutAgent)
-        self.fieldCondition = try container.decode(IntelligentFieldCondition.self, forKey: .fieldCondition)
+        self.fieldCondition = try container.decode(FieldCondition.self, forKey: .fieldCondition)
         self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
     }
 

@@ -15,6 +15,31 @@ public struct AskRequest: Codable, Hashable, Sendable {
     /// required to optional to support the non-user turn types — existing USER_MESSAGE callers
     /// are unaffected.)
     public let text: String?
+    /// What form the answer takes. Omit it for prose, or send `jsonSchema` to additionally get a
+    /// `BotObjectResponse` matching a schema you supply.
+    /// 
+    /// Set per ask and independent of `type`, so one conversation can mix prose and structured
+    /// turns. Only the answer's form changes: knowledge, actions, charters and segments apply
+    /// the same way either way.
+    /// 
+    /// A structured answer accompanies the prose one rather than replacing it — the same turn
+    /// produces both, so the conversation stays readable. On `ask_stream` the prose still streams
+    /// on `text` events as it always has, and the object arrives whole on a single `object` event
+    /// near the end.
+    /// 
+    /// Every answering turn carries an object, including one where the agent asks a clarifying
+    /// question rather than answering. Shape the schema so it can say "not enough information"
+    /// — a populated object is not on its own evidence of a confident answer.
+    /// 
+    /// Two exceptions. A turn that asks the user to *act* produces an action form from the
+    /// action rather than from an answer, so it carries no object; the turn that answers after
+    /// the form is submitted does carry one. Leave the `FORMS` capability off if you need an
+    /// object on every turn.
+    /// 
+    /// A turn answered verbatim by a `STRICT_RETURN` charter also carries no object. That
+    /// charter's manual is returned exactly as written without consulting the agent, so there is
+    /// nothing to shape into the requested schema — the turn returns the manual as `text` alone.
+    public let textFormat: TextFormat?
     /// The attachments to the message. Image attachments will be sent to the LLM as additional data.
     /// Non-image attachments can be stored and downloaded from the API but will not be sent to the LLM.
     public let attachments: [AttachmentRequest]?
@@ -37,6 +62,7 @@ public struct AskRequest: Codable, Hashable, Sendable {
         userId: EntityIdBase,
         type: AskType? = nil,
         text: String? = nil,
+        textFormat: TextFormat? = nil,
         attachments: [AttachmentRequest]? = nil,
         transientData: [String: String]? = nil,
         timezone: String? = nil,
@@ -47,6 +73,7 @@ public struct AskRequest: Codable, Hashable, Sendable {
         self.userId = userId
         self.type = type
         self.text = text
+        self.textFormat = textFormat
         self.attachments = attachments
         self.transientData = transientData
         self.timezone = timezone
@@ -60,6 +87,7 @@ public struct AskRequest: Codable, Hashable, Sendable {
         self.userId = try container.decode(EntityIdBase.self, forKey: .userId)
         self.type = try container.decodeIfPresent(AskType.self, forKey: .type)
         self.text = try container.decodeIfPresent(String.self, forKey: .text)
+        self.textFormat = try container.decodeIfPresent(TextFormat.self, forKey: .textFormat)
         self.attachments = try container.decodeIfPresent([AttachmentRequest].self, forKey: .attachments)
         self.transientData = try container.decodeIfPresent([String: String].self, forKey: .transientData)
         self.timezone = try container.decodeIfPresent(String.self, forKey: .timezone)
@@ -74,6 +102,7 @@ public struct AskRequest: Codable, Hashable, Sendable {
         try container.encode(self.userId, forKey: .userId)
         try container.encodeIfPresent(self.type, forKey: .type)
         try container.encodeIfPresent(self.text, forKey: .text)
+        try container.encodeIfPresent(self.textFormat, forKey: .textFormat)
         try container.encodeIfPresent(self.attachments, forKey: .attachments)
         try container.encodeIfPresent(self.transientData, forKey: .transientData)
         try container.encodeIfPresent(self.timezone, forKey: .timezone)
@@ -86,6 +115,7 @@ public struct AskRequest: Codable, Hashable, Sendable {
         case userId
         case type
         case text
+        case textFormat
         case attachments
         case transientData
         case timezone
