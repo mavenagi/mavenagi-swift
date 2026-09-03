@@ -4209,6 +4209,879 @@ import Api
         try #require(response == expectedResponse)
     }
 
+    @Test func searchCursor1() async throws -> Void {
+        let stub = HTTPStub()
+        stub.setResponse(
+            body: Data(
+                """
+                {
+                  "conversations": [
+                    {
+                      "responseConfig": {
+                        "capabilities": [
+                          "MARKDOWN",
+                          "MARKDOWN"
+                        ],
+                        "isCopilot": true,
+                        "responseLength": "SHORT",
+                        "contextFilter": {
+                          "scopeType": "byEntities",
+                          "entities": [
+                            {
+                              "entityId": {
+                                "organizationId": "organizationId",
+                                "agentId": "agentId",
+                                "type": "AGENT",
+                                "appId": "appId",
+                                "referenceId": "x"
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "subject": "subject",
+                      "url": "url",
+                      "createdAt": "2024-01-15T09:30:00Z",
+                      "updatedAt": "2024-01-15T09:30:00Z",
+                      "tags": [
+                        "tags"
+                      ],
+                      "metadata": {
+                        "metadata": "metadata"
+                      },
+                      "allMetadata": {
+                        "allMetadata": {
+                          "allMetadata": "allMetadata"
+                        }
+                      },
+                      "conversationId": {
+                        "organizationId": "organizationId",
+                        "agentId": "agentId",
+                        "type": "AGENT",
+                        "appId": "appId",
+                        "referenceId": "x"
+                      },
+                      "analysis": {
+                        "userRequest": "userRequest",
+                        "agentResponse": "agentResponse",
+                        "resolutionStatus": "UNKNOWN",
+                        "category": "category",
+                        "sentiment": "POSITIVE",
+                        "quality": "GOOD",
+                        "qualityReason": "MISSING_KNOWLEDGE",
+                        "resolvedByMaven": true,
+                        "primaryLanguage": "primaryLanguage",
+                        "predictedNps": 1.1,
+                        "csat": 1.1,
+                        "intelligentFieldValues": [
+                          {
+                            "fieldId": {
+                              "organizationId": "organizationId",
+                              "agentId": "agentId",
+                              "type": "AGENT",
+                              "appId": "appId",
+                              "referenceId": "x"
+                            },
+                            "name": "name",
+                            "entityId": {
+                              "organizationId": "organizationId",
+                              "agentId": "agentId",
+                              "type": "AGENT",
+                              "appId": "appId",
+                              "referenceId": "x"
+                            },
+                            "value": {
+                              "key": "value"
+                            },
+                            "confidence": 1.1,
+                            "rationale": "rationale",
+                            "createdAt": "2024-01-15T09:30:00Z"
+                          },
+                          {
+                            "fieldId": {
+                              "organizationId": "organizationId",
+                              "agentId": "agentId",
+                              "type": "AGENT",
+                              "appId": "appId",
+                              "referenceId": "x"
+                            },
+                            "name": "name",
+                            "entityId": {
+                              "organizationId": "organizationId",
+                              "agentId": "agentId",
+                              "type": "AGENT",
+                              "appId": "appId",
+                              "referenceId": "x"
+                            },
+                            "value": {
+                              "key": "value"
+                            },
+                            "confidence": 1.1,
+                            "rationale": "rationale",
+                            "createdAt": "2024-01-15T09:30:00Z"
+                          }
+                        ]
+                      },
+                      "summary": {
+                        "actionIds": [
+                          {
+                            "type": "AGENT",
+                            "appId": "appId",
+                            "referenceId": "x"
+                          },
+                          {
+                            "type": "AGENT",
+                            "appId": "appId",
+                            "referenceId": "x"
+                          }
+                        ],
+                        "incompleteActionIds": [
+                          {
+                            "type": "AGENT",
+                            "appId": "appId",
+                            "referenceId": "x"
+                          },
+                          {
+                            "type": "AGENT",
+                            "appId": "appId",
+                            "referenceId": "x"
+                          }
+                        ],
+                        "matchedCharterIds": [
+                          {
+                            "type": "AGENT",
+                            "appId": "appId",
+                            "referenceId": "x"
+                          },
+                          {
+                            "type": "AGENT",
+                            "appId": "appId",
+                            "referenceId": "x"
+                          }
+                        ],
+                        "matchedCharterNames": [
+                          "matchedCharterNames",
+                          "matchedCharterNames"
+                        ],
+                        "matchedSegmentedCharterNames": [
+                          "matchedSegmentedCharterNames",
+                          "matchedSegmentedCharterNames"
+                        ],
+                        "insertCount": 1,
+                        "thumbsUpCount": 1,
+                        "thumbsDownCount": 1,
+                        "handoffCount": 1,
+                        "userMessageCount": 1,
+                        "botMessageCount": 1,
+                        "csat": 1.1,
+                        "handleTime": 1000000,
+                        "humanAgentResponseDelay": 1000000,
+                        "humanAgents": [
+                          "humanAgents",
+                          "humanAgents"
+                        ],
+                        "humanAgentsWithInserts": [
+                          "humanAgentsWithInserts",
+                          "humanAgentsWithInserts"
+                        ],
+                        "users": [
+                          "users",
+                          "users"
+                        ],
+                        "userIdentifiers": [
+                          "userIdentifiers",
+                          "userIdentifiers"
+                        ],
+                        "lastUserMessage": "lastUserMessage",
+                        "lastBotMessage": "lastBotMessage",
+                        "involvedAppIds": [
+                          "involvedAppIds"
+                        ]
+                      },
+                      "deleted": true,
+                      "open": true,
+                      "llmEnabled": true,
+                      "simulationContext": {
+                        "additionalPromptText": "additionalPromptText",
+                        "persona": "CASUAL_BUDDY",
+                        "availableKnowledgeBases": [
+                          {
+                            "organizationId": "organizationId",
+                            "agentId": "agentId",
+                            "type": "AGENT",
+                            "appId": "appId",
+                            "referenceId": "x"
+                          }
+                        ]
+                      },
+                      "relatedEntities": {
+                        "SPAWN_FROM": [
+                          {
+                            "organizationId": "organizationId",
+                            "agentId": "agentId",
+                            "type": "AGENT",
+                            "appId": "appId",
+                            "referenceId": "x"
+                          },
+                          {
+                            "organizationId": "organizationId",
+                            "agentId": "agentId",
+                            "type": "AGENT",
+                            "appId": "appId",
+                            "referenceId": "x"
+                          }
+                        ]
+                      },
+                      "conversationMode": "VOICE"
+                    },
+                    {
+                      "responseConfig": {
+                        "capabilities": [
+                          "MARKDOWN",
+                          "MARKDOWN"
+                        ],
+                        "isCopilot": true,
+                        "responseLength": "SHORT",
+                        "contextFilter": {
+                          "scopeType": "byEntities",
+                          "entities": [
+                            {
+                              "entityId": {
+                                "organizationId": "organizationId",
+                                "agentId": "agentId",
+                                "type": "AGENT",
+                                "appId": "appId",
+                                "referenceId": "x"
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "subject": "subject",
+                      "url": "url",
+                      "createdAt": "2024-01-15T09:30:00Z",
+                      "updatedAt": "2024-01-15T09:30:00Z",
+                      "tags": [
+                        "tags"
+                      ],
+                      "metadata": {
+                        "metadata": "metadata"
+                      },
+                      "allMetadata": {
+                        "allMetadata": {
+                          "allMetadata": "allMetadata"
+                        }
+                      },
+                      "conversationId": {
+                        "organizationId": "organizationId",
+                        "agentId": "agentId",
+                        "type": "AGENT",
+                        "appId": "appId",
+                        "referenceId": "x"
+                      },
+                      "analysis": {
+                        "userRequest": "userRequest",
+                        "agentResponse": "agentResponse",
+                        "resolutionStatus": "UNKNOWN",
+                        "category": "category",
+                        "sentiment": "POSITIVE",
+                        "quality": "GOOD",
+                        "qualityReason": "MISSING_KNOWLEDGE",
+                        "resolvedByMaven": true,
+                        "primaryLanguage": "primaryLanguage",
+                        "predictedNps": 1.1,
+                        "csat": 1.1,
+                        "intelligentFieldValues": [
+                          {
+                            "fieldId": {
+                              "organizationId": "organizationId",
+                              "agentId": "agentId",
+                              "type": "AGENT",
+                              "appId": "appId",
+                              "referenceId": "x"
+                            },
+                            "name": "name",
+                            "entityId": {
+                              "organizationId": "organizationId",
+                              "agentId": "agentId",
+                              "type": "AGENT",
+                              "appId": "appId",
+                              "referenceId": "x"
+                            },
+                            "value": {
+                              "key": "value"
+                            },
+                            "confidence": 1.1,
+                            "rationale": "rationale",
+                            "createdAt": "2024-01-15T09:30:00Z"
+                          },
+                          {
+                            "fieldId": {
+                              "organizationId": "organizationId",
+                              "agentId": "agentId",
+                              "type": "AGENT",
+                              "appId": "appId",
+                              "referenceId": "x"
+                            },
+                            "name": "name",
+                            "entityId": {
+                              "organizationId": "organizationId",
+                              "agentId": "agentId",
+                              "type": "AGENT",
+                              "appId": "appId",
+                              "referenceId": "x"
+                            },
+                            "value": {
+                              "key": "value"
+                            },
+                            "confidence": 1.1,
+                            "rationale": "rationale",
+                            "createdAt": "2024-01-15T09:30:00Z"
+                          }
+                        ]
+                      },
+                      "summary": {
+                        "actionIds": [
+                          {
+                            "type": "AGENT",
+                            "appId": "appId",
+                            "referenceId": "x"
+                          },
+                          {
+                            "type": "AGENT",
+                            "appId": "appId",
+                            "referenceId": "x"
+                          }
+                        ],
+                        "incompleteActionIds": [
+                          {
+                            "type": "AGENT",
+                            "appId": "appId",
+                            "referenceId": "x"
+                          },
+                          {
+                            "type": "AGENT",
+                            "appId": "appId",
+                            "referenceId": "x"
+                          }
+                        ],
+                        "matchedCharterIds": [
+                          {
+                            "type": "AGENT",
+                            "appId": "appId",
+                            "referenceId": "x"
+                          },
+                          {
+                            "type": "AGENT",
+                            "appId": "appId",
+                            "referenceId": "x"
+                          }
+                        ],
+                        "matchedCharterNames": [
+                          "matchedCharterNames",
+                          "matchedCharterNames"
+                        ],
+                        "matchedSegmentedCharterNames": [
+                          "matchedSegmentedCharterNames",
+                          "matchedSegmentedCharterNames"
+                        ],
+                        "insertCount": 1,
+                        "thumbsUpCount": 1,
+                        "thumbsDownCount": 1,
+                        "handoffCount": 1,
+                        "userMessageCount": 1,
+                        "botMessageCount": 1,
+                        "csat": 1.1,
+                        "handleTime": 1000000,
+                        "humanAgentResponseDelay": 1000000,
+                        "humanAgents": [
+                          "humanAgents",
+                          "humanAgents"
+                        ],
+                        "humanAgentsWithInserts": [
+                          "humanAgentsWithInserts",
+                          "humanAgentsWithInserts"
+                        ],
+                        "users": [
+                          "users",
+                          "users"
+                        ],
+                        "userIdentifiers": [
+                          "userIdentifiers",
+                          "userIdentifiers"
+                        ],
+                        "lastUserMessage": "lastUserMessage",
+                        "lastBotMessage": "lastBotMessage",
+                        "involvedAppIds": [
+                          "involvedAppIds"
+                        ]
+                      },
+                      "deleted": true,
+                      "open": true,
+                      "llmEnabled": true,
+                      "simulationContext": {
+                        "additionalPromptText": "additionalPromptText",
+                        "persona": "CASUAL_BUDDY",
+                        "availableKnowledgeBases": [
+                          {
+                            "organizationId": "organizationId",
+                            "agentId": "agentId",
+                            "type": "AGENT",
+                            "appId": "appId",
+                            "referenceId": "x"
+                          }
+                        ]
+                      },
+                      "relatedEntities": {
+                        "SPAWN_FROM": [
+                          {
+                            "organizationId": "organizationId",
+                            "agentId": "agentId",
+                            "type": "AGENT",
+                            "appId": "appId",
+                            "referenceId": "x"
+                          },
+                          {
+                            "organizationId": "organizationId",
+                            "agentId": "agentId",
+                            "type": "AGENT",
+                            "appId": "appId",
+                            "referenceId": "x"
+                          }
+                        ]
+                      },
+                      "conversationMode": "VOICE"
+                    }
+                  ],
+                  "totalElements": 1000000,
+                  "nextCursor": "nextCursor"
+                }
+                """.utf8
+            )
+        )
+        let client = MavenAGI(
+            baseURL: "https://api.fern.com",
+            appId: "<username>",
+            appSecret: "<password>",
+            urlSession: stub.urlSession
+        )
+        let expectedResponse = ConversationsCursorSearchResponse(
+            conversations: [
+                ConversationPreview(
+                    responseConfig: Optional(ResponseConfig(
+                        capabilities: [
+                            .markdown,
+                            .markdown
+                        ],
+                        isCopilot: true,
+                        responseLength: .short,
+                        contextFilter: Optional(.byEntities(
+                            .init(
+                                entities: []
+                            )
+                        ))
+                    )),
+                    subject: Optional("subject"),
+                    url: Optional("url"),
+                    createdAt: Optional(try! Date("2024-01-15T09:30:00Z", strategy: .iso8601)),
+                    updatedAt: Optional(try! Date("2024-01-15T09:30:00Z", strategy: .iso8601)),
+                    tags: Optional([]),
+                    metadata: Optional([
+                        "metadata": "metadata"
+                    ]),
+                    allMetadata: [
+                        "allMetadata": [
+                            "allMetadata": "allMetadata"
+                        ]
+                    ],
+                    conversationId: EntityId(
+                        organizationId: "organizationId",
+                        agentId: "agentId",
+                        type: .agent,
+                        appId: "appId",
+                        referenceId: "x"
+                    ),
+                    analysis: ConversationAnalysis(
+                        userRequest: Optional("userRequest"),
+                        agentResponse: Optional("agentResponse"),
+                        resolutionStatus: Optional(.unknown),
+                        category: Optional("category"),
+                        sentiment: Optional(.positive),
+                        quality: Optional(.good),
+                        qualityReason: Optional(.missingKnowledge),
+                        resolvedByMaven: Optional(true),
+                        primaryLanguage: Optional("primaryLanguage"),
+                        predictedNps: Optional(1.1),
+                        csat: Optional(1.1),
+                        intelligentFieldValues: Optional([
+                            IntelligentFieldValueResponse(
+                                fieldId: EntityId(
+                                    organizationId: "organizationId",
+                                    agentId: "agentId",
+                                    type: .agent,
+                                    appId: "appId",
+                                    referenceId: "x"
+                                ),
+                                name: "name",
+                                entityId: EntityId(
+                                    organizationId: "organizationId",
+                                    agentId: "agentId",
+                                    type: .agent,
+                                    appId: "appId",
+                                    referenceId: "x"
+                                ),
+                                value: Optional(JSONValue.object(
+                                    [
+                                        "key": JSONValue.string("value")
+                                    ]
+                                )),
+                                confidence: Optional(1.1),
+                                rationale: Optional("rationale"),
+                                createdAt: Optional(try! Date("2024-01-15T09:30:00Z", strategy: .iso8601))
+                            ),
+                            IntelligentFieldValueResponse(
+                                fieldId: EntityId(
+                                    organizationId: "organizationId",
+                                    agentId: "agentId",
+                                    type: .agent,
+                                    appId: "appId",
+                                    referenceId: "x"
+                                ),
+                                name: "name",
+                                entityId: EntityId(
+                                    organizationId: "organizationId",
+                                    agentId: "agentId",
+                                    type: .agent,
+                                    appId: "appId",
+                                    referenceId: "x"
+                                ),
+                                value: Optional(JSONValue.object(
+                                    [
+                                        "key": JSONValue.string("value")
+                                    ]
+                                )),
+                                confidence: Optional(1.1),
+                                rationale: Optional("rationale"),
+                                createdAt: Optional(try! Date("2024-01-15T09:30:00Z", strategy: .iso8601))
+                            )
+                        ])
+                    ),
+                    summary: ConversationSummary(
+                        actionIds: [
+                            EntityIdWithoutAgent(
+                                type: .agent,
+                                appId: "appId",
+                                referenceId: "x"
+                            ),
+                            EntityIdWithoutAgent(
+                                type: .agent,
+                                appId: "appId",
+                                referenceId: "x"
+                            )
+                        ],
+                        incompleteActionIds: [
+                            EntityIdWithoutAgent(
+                                type: .agent,
+                                appId: "appId",
+                                referenceId: "x"
+                            ),
+                            EntityIdWithoutAgent(
+                                type: .agent,
+                                appId: "appId",
+                                referenceId: "x"
+                            )
+                        ],
+                        matchedCharterIds: [
+                            EntityIdWithoutAgent(
+                                type: .agent,
+                                appId: "appId",
+                                referenceId: "x"
+                            ),
+                            EntityIdWithoutAgent(
+                                type: .agent,
+                                appId: "appId",
+                                referenceId: "x"
+                            )
+                        ],
+                        matchedCharterNames: [
+                            "matchedCharterNames",
+                            "matchedCharterNames"
+                        ],
+                        matchedSegmentedCharterNames: [
+                            "matchedSegmentedCharterNames",
+                            "matchedSegmentedCharterNames"
+                        ],
+                        insertCount: 1,
+                        thumbsUpCount: 1,
+                        thumbsDownCount: 1,
+                        handoffCount: 1,
+                        userMessageCount: 1,
+                        botMessageCount: 1,
+                        csat: Optional(1.1),
+                        handleTime: Optional(1000000),
+                        humanAgentResponseDelay: Optional(1000000),
+                        humanAgents: [
+                            "humanAgents",
+                            "humanAgents"
+                        ],
+                        humanAgentsWithInserts: [
+                            "humanAgentsWithInserts",
+                            "humanAgentsWithInserts"
+                        ],
+                        users: [
+                            "users",
+                            "users"
+                        ],
+                        userIdentifiers: [
+                            "userIdentifiers",
+                            "userIdentifiers"
+                        ],
+                        lastUserMessage: Optional("lastUserMessage"),
+                        lastBotMessage: Optional("lastBotMessage"),
+                        involvedAppIds: []
+                    ),
+                    deleted: true,
+                    open: true,
+                    llmEnabled: true,
+                    simulationContext: Optional(SimulationContext(
+                        additionalPromptText: Optional("additionalPromptText"),
+                        persona: Optional(.casualBuddy),
+                        availableKnowledgeBases: Optional([])
+                    )),
+                    relatedEntities: Optional([
+                        .spawnFrom: [
+                            EntityId(
+                                organizationId: "organizationId",
+                                agentId: "agentId",
+                                type: .agent,
+                                appId: "appId",
+                                referenceId: "x"
+                            ),
+                            EntityId(
+                                organizationId: "organizationId",
+                                agentId: "agentId",
+                                type: .agent,
+                                appId: "appId",
+                                referenceId: "x"
+                            )
+                        ]
+                    ]),
+                    conversationMode: Optional(.voice)
+                ),
+                ConversationPreview(
+                    responseConfig: Optional(ResponseConfig(
+                        capabilities: [
+                            .markdown,
+                            .markdown
+                        ],
+                        isCopilot: true,
+                        responseLength: .short,
+                        contextFilter: Optional(.byEntities(
+                            .init(
+                                entities: []
+                            )
+                        ))
+                    )),
+                    subject: Optional("subject"),
+                    url: Optional("url"),
+                    createdAt: Optional(try! Date("2024-01-15T09:30:00Z", strategy: .iso8601)),
+                    updatedAt: Optional(try! Date("2024-01-15T09:30:00Z", strategy: .iso8601)),
+                    tags: Optional([]),
+                    metadata: Optional([
+                        "metadata": "metadata"
+                    ]),
+                    allMetadata: [
+                        "allMetadata": [
+                            "allMetadata": "allMetadata"
+                        ]
+                    ],
+                    conversationId: EntityId(
+                        organizationId: "organizationId",
+                        agentId: "agentId",
+                        type: .agent,
+                        appId: "appId",
+                        referenceId: "x"
+                    ),
+                    analysis: ConversationAnalysis(
+                        userRequest: Optional("userRequest"),
+                        agentResponse: Optional("agentResponse"),
+                        resolutionStatus: Optional(.unknown),
+                        category: Optional("category"),
+                        sentiment: Optional(.positive),
+                        quality: Optional(.good),
+                        qualityReason: Optional(.missingKnowledge),
+                        resolvedByMaven: Optional(true),
+                        primaryLanguage: Optional("primaryLanguage"),
+                        predictedNps: Optional(1.1),
+                        csat: Optional(1.1),
+                        intelligentFieldValues: Optional([
+                            IntelligentFieldValueResponse(
+                                fieldId: EntityId(
+                                    organizationId: "organizationId",
+                                    agentId: "agentId",
+                                    type: .agent,
+                                    appId: "appId",
+                                    referenceId: "x"
+                                ),
+                                name: "name",
+                                entityId: EntityId(
+                                    organizationId: "organizationId",
+                                    agentId: "agentId",
+                                    type: .agent,
+                                    appId: "appId",
+                                    referenceId: "x"
+                                ),
+                                value: Optional(JSONValue.object(
+                                    [
+                                        "key": JSONValue.string("value")
+                                    ]
+                                )),
+                                confidence: Optional(1.1),
+                                rationale: Optional("rationale"),
+                                createdAt: Optional(try! Date("2024-01-15T09:30:00Z", strategy: .iso8601))
+                            ),
+                            IntelligentFieldValueResponse(
+                                fieldId: EntityId(
+                                    organizationId: "organizationId",
+                                    agentId: "agentId",
+                                    type: .agent,
+                                    appId: "appId",
+                                    referenceId: "x"
+                                ),
+                                name: "name",
+                                entityId: EntityId(
+                                    organizationId: "organizationId",
+                                    agentId: "agentId",
+                                    type: .agent,
+                                    appId: "appId",
+                                    referenceId: "x"
+                                ),
+                                value: Optional(JSONValue.object(
+                                    [
+                                        "key": JSONValue.string("value")
+                                    ]
+                                )),
+                                confidence: Optional(1.1),
+                                rationale: Optional("rationale"),
+                                createdAt: Optional(try! Date("2024-01-15T09:30:00Z", strategy: .iso8601))
+                            )
+                        ])
+                    ),
+                    summary: ConversationSummary(
+                        actionIds: [
+                            EntityIdWithoutAgent(
+                                type: .agent,
+                                appId: "appId",
+                                referenceId: "x"
+                            ),
+                            EntityIdWithoutAgent(
+                                type: .agent,
+                                appId: "appId",
+                                referenceId: "x"
+                            )
+                        ],
+                        incompleteActionIds: [
+                            EntityIdWithoutAgent(
+                                type: .agent,
+                                appId: "appId",
+                                referenceId: "x"
+                            ),
+                            EntityIdWithoutAgent(
+                                type: .agent,
+                                appId: "appId",
+                                referenceId: "x"
+                            )
+                        ],
+                        matchedCharterIds: [
+                            EntityIdWithoutAgent(
+                                type: .agent,
+                                appId: "appId",
+                                referenceId: "x"
+                            ),
+                            EntityIdWithoutAgent(
+                                type: .agent,
+                                appId: "appId",
+                                referenceId: "x"
+                            )
+                        ],
+                        matchedCharterNames: [
+                            "matchedCharterNames",
+                            "matchedCharterNames"
+                        ],
+                        matchedSegmentedCharterNames: [
+                            "matchedSegmentedCharterNames",
+                            "matchedSegmentedCharterNames"
+                        ],
+                        insertCount: 1,
+                        thumbsUpCount: 1,
+                        thumbsDownCount: 1,
+                        handoffCount: 1,
+                        userMessageCount: 1,
+                        botMessageCount: 1,
+                        csat: Optional(1.1),
+                        handleTime: Optional(1000000),
+                        humanAgentResponseDelay: Optional(1000000),
+                        humanAgents: [
+                            "humanAgents",
+                            "humanAgents"
+                        ],
+                        humanAgentsWithInserts: [
+                            "humanAgentsWithInserts",
+                            "humanAgentsWithInserts"
+                        ],
+                        users: [
+                            "users",
+                            "users"
+                        ],
+                        userIdentifiers: [
+                            "userIdentifiers",
+                            "userIdentifiers"
+                        ],
+                        lastUserMessage: Optional("lastUserMessage"),
+                        lastBotMessage: Optional("lastBotMessage"),
+                        involvedAppIds: []
+                    ),
+                    deleted: true,
+                    open: true,
+                    llmEnabled: true,
+                    simulationContext: Optional(SimulationContext(
+                        additionalPromptText: Optional("additionalPromptText"),
+                        persona: Optional(.casualBuddy),
+                        availableKnowledgeBases: Optional([])
+                    )),
+                    relatedEntities: Optional([
+                        .spawnFrom: [
+                            EntityId(
+                                organizationId: "organizationId",
+                                agentId: "agentId",
+                                type: .agent,
+                                appId: "appId",
+                                referenceId: "x"
+                            ),
+                            EntityId(
+                                organizationId: "organizationId",
+                                agentId: "agentId",
+                                type: .agent,
+                                appId: "appId",
+                                referenceId: "x"
+                            )
+                        ]
+                    ]),
+                    conversationMode: Optional(.voice)
+                )
+            ],
+            totalElements: Optional(1000000),
+            nextCursor: Optional("nextCursor")
+        )
+        let response = try await client.conversation.searchCursor(
+            request: ConversationsCursorSearchRequest(
+
+            ),
+            requestOptions: RequestOptions(additionalHeaders: stub.headers)
+        )
+        try #require(response == expectedResponse)
+    }
+
     @Test func deliverMessage1() async throws -> Void {
         let stub = HTTPStub()
         stub.setResponse(

@@ -831,6 +831,11 @@ import Api
                         "completedCount": 1000000,
                         "totalCount": 1000000
                       },
+                      "documentDeltas": {
+                        "addedCount": 1000000,
+                        "updatedCount": 1000000,
+                        "removedCount": 1000000
+                      },
                       "type": "FULL"
                     },
                     {
@@ -862,6 +867,11 @@ import Api
                         "message": "message",
                         "completedCount": 1000000,
                         "totalCount": 1000000
+                      },
+                      "documentDeltas": {
+                        "addedCount": 1000000,
+                        "updatedCount": 1000000,
+                        "removedCount": 1000000
                       },
                       "type": "FULL"
                     }
@@ -908,6 +918,11 @@ import Api
                         completedCount: Optional(1000000),
                         totalCount: Optional(1000000)
                     )),
+                    documentDeltas: Optional(KnowledgeBaseDocumentDeltas(
+                        addedCount: 1000000,
+                        updatedCount: 1000000,
+                        removedCount: 1000000
+                    )),
                     type: .full
                 ),
                 KnowledgeBaseVersion(
@@ -939,6 +954,11 @@ import Api
                         message: "message",
                         completedCount: Optional(1000000),
                         totalCount: Optional(1000000)
+                    )),
+                    documentDeltas: Optional(KnowledgeBaseDocumentDeltas(
+                        addedCount: 1000000,
+                        updatedCount: 1000000,
+                        removedCount: 1000000
                     )),
                     type: .full
                 )

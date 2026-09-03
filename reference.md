@@ -2828,7 +2828,9 @@ try await main()
 <dl>
 <dd>
 
-Update feedback or create it if it doesn't exist
+Replaced by the Create events API, which records feedback as a user event.
+
+Update feedback or create it if it doesn't exist.
 </dd>
 </dl>
 </dd>
@@ -3245,6 +3247,92 @@ try await main()
 <dd>
 
 **request:** `ConversationsSearchRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `RequestOptions?` — Additional options for configuring the request, such as custom headers or timeout settings.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.conversation.<a href="/Sources/Resources/Conversation/ConversationClient.swift">searchCursor</a>(request: ConversationsCursorSearchRequest, requestOptions: RequestOptions?) -> ConversationsCursorSearchResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Search conversations using cursor pagination, which can read past the 10,000th result that
+`search` cannot reach.
+
+Results are ordered by conversation creation time. Start with no `cursor`, then pass each
+response's `nextCursor` back unchanged until the response omits it. Keep every other field
+identical for the whole traversal — changing the filter, size, or sort direction mid-way is
+rejected rather than silently restarting you at the beginning.
+
+`nextCursor` is the only reliable end-of-results signal. Do not stop early because a page
+came back with fewer conversations than you asked for: that happens legitimately, and more
+pages may still remain.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```swift
+import Foundation
+import Api
+
+private func main() async throws {
+    let client = MavenAGI(
+        appId: "<username>",
+        appSecret: "<password>"
+    )
+
+    _ = try await client.conversation.searchCursor(request: ConversationsCursorSearchRequest(
+
+    ))
+}
+
+try await main()
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `ConversationsCursorSearchRequest` 
     
 </dd>
 </dl>

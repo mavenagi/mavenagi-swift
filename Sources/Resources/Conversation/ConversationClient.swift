@@ -165,7 +165,9 @@ public final class ConversationClient: Sendable {
         )
     }
 
-    /// Update feedback or create it if it doesn't exist
+    /// Replaced by the Create events API, which records feedback as a user event.
+    /// 
+    /// Update feedback or create it if it doesn't exist.
     ///
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
     public func createFeedback(request: FeedbackRequest, requestOptions: RequestOptions? = nil) async throws -> Feedback {
@@ -242,6 +244,29 @@ public final class ConversationClient: Sendable {
             body: request,
             requestOptions: requestOptions,
             responseType: ConversationsResponse.self
+        )
+    }
+
+    /// Search conversations using cursor pagination, which can read past the 10,000th result that
+    /// `search` cannot reach.
+    /// 
+    /// Results are ordered by conversation creation time. Start with no `cursor`, then pass each
+    /// response's `nextCursor` back unchanged until the response omits it. Keep every other field
+    /// identical for the whole traversal — changing the filter, size, or sort direction mid-way is
+    /// rejected rather than silently restarting you at the beginning.
+    /// 
+    /// `nextCursor` is the only reliable end-of-results signal. Do not stop early because a page
+    /// came back with fewer conversations than you asked for: that happens legitimately, and more
+    /// pages may still remain.
+    ///
+    /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
+    public func searchCursor(request: ConversationsCursorSearchRequest, requestOptions: RequestOptions? = nil) async throws -> ConversationsCursorSearchResponse {
+        return try await httpClient.performRequest(
+            method: .post,
+            path: "/v1/conversations/search/cursor",
+            body: request,
+            requestOptions: requestOptions,
+            responseType: ConversationsCursorSearchResponse.self
         )
     }
 
