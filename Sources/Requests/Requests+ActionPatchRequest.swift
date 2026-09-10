@@ -8,12 +8,15 @@ extension Requests {
         public let instructions: String?
         /// Determines whether the action is sent to the LLM as part of a conversation.
         public let llmInclusionStatus: LlmInclusionStatus?
-        /// The ID of the segment that must be matched for the action to be relevant to a conversation. 
+        /// The ID of the segment that must be matched for the action to be relevant to a conversation.
         /// A null value will remove the segment from the action, it will be available on all conversations.
         /// 
         /// Segments are replacing inline preconditions - an action may not have both an inline precondition and a segment.
         /// Inline precondition support will be removed in a future release.
         public let segmentId: Nullable<EntityId>?
+        /// Whether executing this action causes side effects.
+        /// A null value clears it back to undeclared.
+        public let sideEffects: Nullable<SideEffects>?
         /// Additional properties that are not explicitly defined in the schema
         public let additionalProperties: [String: JSONValue]
 
@@ -22,12 +25,14 @@ extension Requests {
             instructions: String? = nil,
             llmInclusionStatus: LlmInclusionStatus? = nil,
             segmentId: Nullable<EntityId>? = nil,
+            sideEffects: Nullable<SideEffects>? = nil,
             additionalProperties: [String: JSONValue] = .init()
         ) {
             self.appId = appId
             self.instructions = instructions
             self.llmInclusionStatus = llmInclusionStatus
             self.segmentId = segmentId
+            self.sideEffects = sideEffects
             self.additionalProperties = additionalProperties
         }
 
@@ -37,6 +42,7 @@ extension Requests {
             self.instructions = try container.decodeIfPresent(String.self, forKey: .instructions)
             self.llmInclusionStatus = try container.decodeIfPresent(LlmInclusionStatus.self, forKey: .llmInclusionStatus)
             self.segmentId = try container.decodeNullableIfPresent(EntityId.self, forKey: .segmentId)
+            self.sideEffects = try container.decodeNullableIfPresent(SideEffects.self, forKey: .sideEffects)
             self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
         }
 
@@ -47,6 +53,7 @@ extension Requests {
             try container.encodeIfPresent(self.instructions, forKey: .instructions)
             try container.encodeIfPresent(self.llmInclusionStatus, forKey: .llmInclusionStatus)
             try container.encodeNullableIfPresent(self.segmentId, forKey: .segmentId)
+            try container.encodeNullableIfPresent(self.sideEffects, forKey: .sideEffects)
         }
 
         /// Keys for encoding/decoding struct properties.
@@ -55,6 +62,7 @@ extension Requests {
             case instructions
             case llmInclusionStatus
             case segmentId
+            case sideEffects
         }
     }
 }

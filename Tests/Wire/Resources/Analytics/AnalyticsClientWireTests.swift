@@ -26,6 +26,22 @@ import Api
                           "value": "2023-10-01T00:00:00Z"
                         }
                       },
+                      "identifiers": [
+                        {
+                          "field": "Category",
+                          "value": {
+                            "type": "string",
+                            "value": "Sales"
+                          }
+                        },
+                        {
+                          "field": "CreatedAt",
+                          "value": {
+                            "type": "dateTime",
+                            "value": "2023-10-01T00:00:00Z"
+                          }
+                        }
+                      ],
                       "data": {
                         "count": {
                           "type": "double",
@@ -52,6 +68,22 @@ import Api
                           "value": "2023-10-01T00:00:00Z"
                         }
                       },
+                      "identifiers": [
+                        {
+                          "field": "Category",
+                          "value": {
+                            "type": "string",
+                            "value": "Support"
+                          }
+                        },
+                        {
+                          "field": "CreatedAt",
+                          "value": {
+                            "type": "dateTime",
+                            "value": "2023-10-01T00:00:00Z"
+                          }
+                        }
+                      ],
                       "data": {
                         "count": {
                           "type": "double",
@@ -71,13 +103,29 @@ import Api
                       "identifier": {
                         "Category": {
                           "type": "string",
-                          "value": "Sales",
-                          "CreatedAt": {
+                          "value": "Sales"
+                        },
+                        "CreatedAt": {
+                          "type": "dateTime",
+                          "value": "2023-10-02T00:00:00Z"
+                        }
+                      },
+                      "identifiers": [
+                        {
+                          "field": "Category",
+                          "value": {
+                            "type": "string",
+                            "value": "Sales"
+                          }
+                        },
+                        {
+                          "field": "CreatedAt",
+                          "value": {
                             "type": "dateTime",
                             "value": "2023-10-02T00:00:00Z"
                           }
                         }
-                      },
+                      ],
                       "data": {
                         "count": {
                           "type": "double",
@@ -104,6 +152,22 @@ import Api
                           "value": "2023-10-02T00:00:00Z"
                         }
                       },
+                      "identifiers": [
+                        {
+                          "field": "Category",
+                          "value": {
+                            "type": "string",
+                            "value": "Support"
+                          }
+                        },
+                        {
+                          "field": "CreatedAt",
+                          "value": {
+                            "type": "dateTime",
+                            "value": "2023-10-02T00:00:00Z"
+                          }
+                        }
+                      ],
                       "data": {
                         "count": {
                           "type": "double",
@@ -142,6 +206,16 @@ import Api
                         .category: "Sales", 
                         .createdAt: try! Date("2023-10-01T00:00:00Z", strategy: .iso8601)
                     ],
+                    identifiers: [
+                        ConversationRowIdentifier(
+                            field: .category,
+                            value: "Sales"
+                        ),
+                        ConversationRowIdentifier(
+                            field: .createdAt,
+                            value: try! Date("2023-10-01T00:00:00Z", strategy: .iso8601)
+                        )
+                    ],
                     data: [
                         "count": 5, 
                         "avg_first_response_time": 150, 
@@ -153,6 +227,16 @@ import Api
                         .category: "Support", 
                         .createdAt: try! Date("2023-10-01T00:00:00Z", strategy: .iso8601)
                     ],
+                    identifiers: [
+                        ConversationRowIdentifier(
+                            field: .category,
+                            value: "Support"
+                        ),
+                        ConversationRowIdentifier(
+                            field: .createdAt,
+                            value: try! Date("2023-10-01T00:00:00Z", strategy: .iso8601)
+                        )
+                    ],
                     data: [
                         "count": 10, 
                         "avg_first_response_time": 300, 
@@ -161,7 +245,18 @@ import Api
                 ),
                 ConversationRow(
                     identifier: [
-                        .category: "Sales"
+                        .category: "Sales", 
+                        .createdAt: try! Date("2023-10-02T00:00:00Z", strategy: .iso8601)
+                    ],
+                    identifiers: [
+                        ConversationRowIdentifier(
+                            field: .category,
+                            value: "Sales"
+                        ),
+                        ConversationRowIdentifier(
+                            field: .createdAt,
+                            value: try! Date("2023-10-02T00:00:00Z", strategy: .iso8601)
+                        )
                     ],
                     data: [
                         "count": 7, 
@@ -173,6 +268,16 @@ import Api
                     identifier: [
                         .category: "Support", 
                         .createdAt: try! Date("2023-10-02T00:00:00Z", strategy: .iso8601)
+                    ],
+                    identifiers: [
+                        ConversationRowIdentifier(
+                            field: .category,
+                            value: "Support"
+                        ),
+                        ConversationRowIdentifier(
+                            field: .createdAt,
+                            value: try! Date("2023-10-02T00:00:00Z", strategy: .iso8601)
+                        )
                     ],
                     data: [
                         "count": 8, 
@@ -524,6 +629,15 @@ import Api
                           "value": "John Doe"
                         }
                       },
+                      "identifiers": [
+                        {
+                          "field": "CreatedBy",
+                          "value": {
+                            "type": "string",
+                            "value": "John Doe"
+                          }
+                        }
+                      ],
                       "data": {
                         "feedback_count": {
                           "type": "double",
@@ -538,6 +652,15 @@ import Api
                           "value": "Jane Smith"
                         }
                       },
+                      "identifiers": [
+                        {
+                          "field": "CreatedBy",
+                          "value": {
+                            "type": "string",
+                            "value": "Jane Smith"
+                          }
+                        }
+                      ],
                       "data": {
                         "feedback_count": {
                           "type": "double",
@@ -566,6 +689,12 @@ import Api
                     identifier: [
                         .createdBy: "John Doe"
                     ],
+                    identifiers: [
+                        FeedbackRowIdentifier(
+                            field: .createdBy,
+                            value: "John Doe"
+                        )
+                    ],
                     data: [
                         "feedback_count": 5
                     ]
@@ -573,6 +702,12 @@ import Api
                 FeedbackRow(
                     identifier: [
                         .createdBy: "Jane Smith"
+                    ],
+                    identifiers: [
+                        FeedbackRowIdentifier(
+                            field: .createdBy,
+                            value: "Jane Smith"
+                        )
                     ],
                     data: [
                         "feedback_count": 3
@@ -626,6 +761,15 @@ import Api
                           "value": "2023-10-01T00:00:00Z"
                         }
                       },
+                      "identifiers": [
+                        {
+                          "field": "CreatedAt",
+                          "value": {
+                            "type": "dateTime",
+                            "value": "2023-10-01T00:00:00Z"
+                          }
+                        }
+                      ],
                       "data": {
                         "user_count": {
                           "type": "double",
@@ -652,6 +796,12 @@ import Api
                 AgentUserRow(
                     identifier: [
                         .createdAt: try! Date("2023-10-01T00:00:00Z", strategy: .iso8601)
+                    ],
+                    identifiers: [
+                        AgentUserRowIdentifier(
+                            field: .createdAt,
+                            value: try! Date("2023-10-01T00:00:00Z", strategy: .iso8601)
+                        )
                     ],
                     data: [
                         "user_count": 5
@@ -697,6 +847,15 @@ import Api
                           "value": "CHAT_OPENED"
                         }
                       },
+                      "identifiers": [
+                        {
+                          "field": "EVENT_NAME",
+                          "value": {
+                            "type": "string",
+                            "value": "CHAT_OPENED"
+                          }
+                        }
+                      ],
                       "data": {
                         "event_count": {
                           "type": "double",
@@ -711,6 +870,15 @@ import Api
                           "value": "CHAT_CLOSED"
                         }
                       },
+                      "identifiers": [
+                        {
+                          "field": "EVENT_NAME",
+                          "value": {
+                            "type": "string",
+                            "value": "CHAT_CLOSED"
+                          }
+                        }
+                      ],
                       "data": {
                         "event_count": {
                           "type": "double",
@@ -738,6 +906,12 @@ import Api
                     identifier: [
                         .eventName: "CHAT_OPENED"
                     ],
+                    identifiers: [
+                        EventRowIdentifier(
+                            field: .eventName,
+                            value: "CHAT_OPENED"
+                        )
+                    ],
                     data: [
                         "event_count": 50
                     ]
@@ -745,6 +919,12 @@ import Api
                 EventRow(
                     identifier: [
                         .eventName: "CHAT_CLOSED"
+                    ],
+                    identifiers: [
+                        EventRowIdentifier(
+                            field: .eventName,
+                            value: "CHAT_CLOSED"
+                        )
                     ],
                     data: [
                         "event_count": 45

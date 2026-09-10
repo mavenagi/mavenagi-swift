@@ -15,6 +15,11 @@ public struct ActionResponse: Codable, Hashable, Sendable {
     public let userFormParameters: [ActionParameter]
     /// The ISO 639-1 code for the language used in all fields of this action. Will be derived using the description's text if not specified.
     public let language: String?
+    /// Whether executing this action causes side effects. Absent means the action has never
+    /// declared either way.
+    /// 
+    /// This value is informational only. It does not yet affect action execution.
+    public let sideEffects: SideEffects?
     /// ID that uniquely identifies this action
     public let actionId: EntityId
     /// The instructions given to the LLM when determining whether to execute the action.
@@ -45,6 +50,7 @@ public struct ActionResponse: Codable, Hashable, Sendable {
         precondition: Precondition? = nil,
         userFormParameters: [ActionParameter],
         language: String? = nil,
+        sideEffects: SideEffects? = nil,
         actionId: EntityId,
         instructions: String? = nil,
         llmInclusionStatus: LlmInclusionStatus,
@@ -60,6 +66,7 @@ public struct ActionResponse: Codable, Hashable, Sendable {
         self.precondition = precondition
         self.userFormParameters = userFormParameters
         self.language = language
+        self.sideEffects = sideEffects
         self.actionId = actionId
         self.instructions = instructions
         self.llmInclusionStatus = llmInclusionStatus
@@ -78,6 +85,7 @@ public struct ActionResponse: Codable, Hashable, Sendable {
         self.precondition = try container.decodeIfPresent(Precondition.self, forKey: .precondition)
         self.userFormParameters = try container.decode([ActionParameter].self, forKey: .userFormParameters)
         self.language = try container.decodeIfPresent(String.self, forKey: .language)
+        self.sideEffects = try container.decodeIfPresent(SideEffects.self, forKey: .sideEffects)
         self.actionId = try container.decode(EntityId.self, forKey: .actionId)
         self.instructions = try container.decodeIfPresent(String.self, forKey: .instructions)
         self.llmInclusionStatus = try container.decode(LlmInclusionStatus.self, forKey: .llmInclusionStatus)
@@ -97,6 +105,7 @@ public struct ActionResponse: Codable, Hashable, Sendable {
         try container.encodeIfPresent(self.precondition, forKey: .precondition)
         try container.encode(self.userFormParameters, forKey: .userFormParameters)
         try container.encodeIfPresent(self.language, forKey: .language)
+        try container.encodeIfPresent(self.sideEffects, forKey: .sideEffects)
         try container.encode(self.actionId, forKey: .actionId)
         try container.encodeIfPresent(self.instructions, forKey: .instructions)
         try container.encode(self.llmInclusionStatus, forKey: .llmInclusionStatus)
@@ -114,6 +123,7 @@ public struct ActionResponse: Codable, Hashable, Sendable {
         case precondition
         case userFormParameters
         case language
+        case sideEffects
         case actionId
         case instructions
         case llmInclusionStatus

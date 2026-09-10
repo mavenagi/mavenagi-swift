@@ -53,6 +53,9 @@ public struct ConversationFilter: Codable, Hashable, Sendable {
     public let responseLength: [ResponseLength]?
     /// Filter by AI assessed sentiment analysis
     public let sentiment: [Sentiment]?
+    /// Filter by whether the conversation is spoken or written. Platform-assigned, never
+    /// customer-writable.
+    public let conversationMode: [ConversationMode]?
     /// Filter by tags applied to the conversation
     public let tags: [String]?
     /// Filter by agent user IDs associated with the conversation
@@ -118,6 +121,7 @@ public struct ConversationFilter: Codable, Hashable, Sendable {
         qualityReason: [QualityReason]? = nil,
         responseLength: [ResponseLength]? = nil,
         sentiment: [Sentiment]? = nil,
+        conversationMode: [ConversationMode]? = nil,
         tags: [String]? = nil,
         agentUserIds: [String]? = nil,
         resolutionStatus: [ResolutionStatus]? = nil,
@@ -149,6 +153,7 @@ public struct ConversationFilter: Codable, Hashable, Sendable {
         self.qualityReason = qualityReason
         self.responseLength = responseLength
         self.sentiment = sentiment
+        self.conversationMode = conversationMode
         self.tags = tags
         self.agentUserIds = agentUserIds
         self.resolutionStatus = resolutionStatus
@@ -183,6 +188,7 @@ public struct ConversationFilter: Codable, Hashable, Sendable {
         self.qualityReason = try container.decodeIfPresent([QualityReason].self, forKey: .qualityReason)
         self.responseLength = try container.decodeIfPresent([ResponseLength].self, forKey: .responseLength)
         self.sentiment = try container.decodeIfPresent([Sentiment].self, forKey: .sentiment)
+        self.conversationMode = try container.decodeIfPresent([ConversationMode].self, forKey: .conversationMode)
         self.tags = try container.decodeIfPresent([String].self, forKey: .tags)
         self.agentUserIds = try container.decodeIfPresent([String].self, forKey: .agentUserIds)
         self.resolutionStatus = try container.decodeIfPresent([ResolutionStatus].self, forKey: .resolutionStatus)
@@ -218,6 +224,7 @@ public struct ConversationFilter: Codable, Hashable, Sendable {
         try container.encodeIfPresent(self.qualityReason, forKey: .qualityReason)
         try container.encodeIfPresent(self.responseLength, forKey: .responseLength)
         try container.encodeIfPresent(self.sentiment, forKey: .sentiment)
+        try container.encodeIfPresent(self.conversationMode, forKey: .conversationMode)
         try container.encodeIfPresent(self.tags, forKey: .tags)
         try container.encodeIfPresent(self.agentUserIds, forKey: .agentUserIds)
         try container.encodeIfPresent(self.resolutionStatus, forKey: .resolutionStatus)
@@ -251,6 +258,7 @@ public struct ConversationFilter: Codable, Hashable, Sendable {
         case qualityReason
         case responseLength
         case sentiment
+        case conversationMode
         case tags
         case agentUserIds
         case resolutionStatus

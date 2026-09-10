@@ -123,7 +123,8 @@ import Api
                           }
                         }
                       ],
-                      "language": "language"
+                      "language": "language",
+                      "sideEffects": "NONE"
                     },
                     {
                       "actionId": {
@@ -238,7 +239,8 @@ import Api
                           }
                         }
                       ],
-                      "language": "language"
+                      "language": "language",
+                      "sideEffects": "NONE"
                     }
                   ],
                   "number": 1,
@@ -379,7 +381,8 @@ import Api
                             ))
                         )
                     ],
-                    language: Optional("language")
+                    language: Optional("language"),
+                    sideEffects: Optional(.none)
                 ),
                 ActionResponse(
                     actionId: EntityId(
@@ -503,7 +506,8 @@ import Api
                             ))
                         )
                     ],
-                    language: Optional("language")
+                    language: Optional("language"),
+                    sideEffects: Optional(.none)
                 )
             ],
             number: 1,

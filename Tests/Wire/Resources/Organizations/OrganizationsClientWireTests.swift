@@ -138,6 +138,22 @@ import Api
                           "value": "2023-10-01T00:00:00Z"
                         }
                       },
+                      "identifiers": [
+                        {
+                          "field": "Category",
+                          "value": {
+                            "type": "string",
+                            "value": "Sales"
+                          }
+                        },
+                        {
+                          "field": "CreatedAt",
+                          "value": {
+                            "type": "dateTime",
+                            "value": "2023-10-01T00:00:00Z"
+                          }
+                        }
+                      ],
                       "data": {
                         "count": {
                           "type": "double",
@@ -164,6 +180,22 @@ import Api
                           "value": "2023-10-01T00:00:00Z"
                         }
                       },
+                      "identifiers": [
+                        {
+                          "field": "Category",
+                          "value": {
+                            "type": "string",
+                            "value": "Support"
+                          }
+                        },
+                        {
+                          "field": "CreatedAt",
+                          "value": {
+                            "type": "dateTime",
+                            "value": "2023-10-01T00:00:00Z"
+                          }
+                        }
+                      ],
                       "data": {
                         "count": {
                           "type": "double",
@@ -183,13 +215,29 @@ import Api
                       "identifier": {
                         "Category": {
                           "type": "string",
-                          "value": "Sales",
-                          "CreatedAt": {
+                          "value": "Sales"
+                        },
+                        "CreatedAt": {
+                          "type": "dateTime",
+                          "value": "2023-10-02T00:00:00Z"
+                        }
+                      },
+                      "identifiers": [
+                        {
+                          "field": "Category",
+                          "value": {
+                            "type": "string",
+                            "value": "Sales"
+                          }
+                        },
+                        {
+                          "field": "CreatedAt",
+                          "value": {
                             "type": "dateTime",
                             "value": "2023-10-02T00:00:00Z"
                           }
                         }
-                      },
+                      ],
                       "data": {
                         "count": {
                           "type": "double",
@@ -216,6 +264,22 @@ import Api
                           "value": "2023-10-02T00:00:00Z"
                         }
                       },
+                      "identifiers": [
+                        {
+                          "field": "Category",
+                          "value": {
+                            "type": "string",
+                            "value": "Support"
+                          }
+                        },
+                        {
+                          "field": "CreatedAt",
+                          "value": {
+                            "type": "dateTime",
+                            "value": "2023-10-02T00:00:00Z"
+                          }
+                        }
+                      ],
                       "data": {
                         "count": {
                           "type": "double",
@@ -254,6 +318,16 @@ import Api
                         .category: "Sales", 
                         .createdAt: try! Date("2023-10-01T00:00:00Z", strategy: .iso8601)
                     ],
+                    identifiers: [
+                        ConversationRowIdentifier(
+                            field: .category,
+                            value: "Sales"
+                        ),
+                        ConversationRowIdentifier(
+                            field: .createdAt,
+                            value: try! Date("2023-10-01T00:00:00Z", strategy: .iso8601)
+                        )
+                    ],
                     data: [
                         "count": 5, 
                         "avg_first_response_time": 150, 
@@ -265,6 +339,16 @@ import Api
                         .category: "Support", 
                         .createdAt: try! Date("2023-10-01T00:00:00Z", strategy: .iso8601)
                     ],
+                    identifiers: [
+                        ConversationRowIdentifier(
+                            field: .category,
+                            value: "Support"
+                        ),
+                        ConversationRowIdentifier(
+                            field: .createdAt,
+                            value: try! Date("2023-10-01T00:00:00Z", strategy: .iso8601)
+                        )
+                    ],
                     data: [
                         "count": 10, 
                         "avg_first_response_time": 300, 
@@ -273,7 +357,18 @@ import Api
                 ),
                 ConversationRow(
                     identifier: [
-                        .category: "Sales"
+                        .category: "Sales", 
+                        .createdAt: try! Date("2023-10-02T00:00:00Z", strategy: .iso8601)
+                    ],
+                    identifiers: [
+                        ConversationRowIdentifier(
+                            field: .category,
+                            value: "Sales"
+                        ),
+                        ConversationRowIdentifier(
+                            field: .createdAt,
+                            value: try! Date("2023-10-02T00:00:00Z", strategy: .iso8601)
+                        )
                     ],
                     data: [
                         "count": 7, 
@@ -285,6 +380,16 @@ import Api
                     identifier: [
                         .category: "Support", 
                         .createdAt: try! Date("2023-10-02T00:00:00Z", strategy: .iso8601)
+                    ],
+                    identifiers: [
+                        ConversationRowIdentifier(
+                            field: .category,
+                            value: "Support"
+                        ),
+                        ConversationRowIdentifier(
+                            field: .createdAt,
+                            value: try! Date("2023-10-02T00:00:00Z", strategy: .iso8601)
+                        )
                     ],
                     data: [
                         "count": 8, 

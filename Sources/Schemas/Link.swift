@@ -1,8 +1,12 @@
 import Foundation
 
+/// A supporting link published by an app's author.
 public struct Link: Codable, Hashable, Sendable {
+    /// Link text.
     public let title: String
+    /// Optional longer explanation of where the link goes.
     public let description: String?
+    /// Destination URL.
     public let url: String
     /// Additional properties that are not explicitly defined in the schema
     public let additionalProperties: [String: JSONValue]

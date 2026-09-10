@@ -15,6 +15,11 @@ public struct ActionRequest: Codable, Hashable, Sendable {
     public let userFormParameters: [ActionParameter]
     /// The ISO 639-1 code for the language used in all fields of this action. Will be derived using the description's text if not specified.
     public let language: String?
+    /// Whether executing this action causes side effects. Absent means the action has never
+    /// declared either way.
+    /// 
+    /// This value is informational only. It does not yet affect action execution.
+    public let sideEffects: SideEffects?
     /// ID that uniquely identifies this action
     public let actionId: EntityIdBase
     /// Additional properties that are not explicitly defined in the schema
@@ -28,6 +33,7 @@ public struct ActionRequest: Codable, Hashable, Sendable {
         precondition: Precondition? = nil,
         userFormParameters: [ActionParameter],
         language: String? = nil,
+        sideEffects: SideEffects? = nil,
         actionId: EntityIdBase,
         additionalProperties: [String: JSONValue] = .init()
     ) {
@@ -38,6 +44,7 @@ public struct ActionRequest: Codable, Hashable, Sendable {
         self.precondition = precondition
         self.userFormParameters = userFormParameters
         self.language = language
+        self.sideEffects = sideEffects
         self.actionId = actionId
         self.additionalProperties = additionalProperties
     }
@@ -51,6 +58,7 @@ public struct ActionRequest: Codable, Hashable, Sendable {
         self.precondition = try container.decodeIfPresent(Precondition.self, forKey: .precondition)
         self.userFormParameters = try container.decode([ActionParameter].self, forKey: .userFormParameters)
         self.language = try container.decodeIfPresent(String.self, forKey: .language)
+        self.sideEffects = try container.decodeIfPresent(SideEffects.self, forKey: .sideEffects)
         self.actionId = try container.decode(EntityIdBase.self, forKey: .actionId)
         self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
     }
@@ -65,6 +73,7 @@ public struct ActionRequest: Codable, Hashable, Sendable {
         try container.encodeIfPresent(self.precondition, forKey: .precondition)
         try container.encode(self.userFormParameters, forKey: .userFormParameters)
         try container.encodeIfPresent(self.language, forKey: .language)
+        try container.encodeIfPresent(self.sideEffects, forKey: .sideEffects)
         try container.encode(self.actionId, forKey: .actionId)
     }
 
@@ -77,6 +86,7 @@ public struct ActionRequest: Codable, Hashable, Sendable {
         case precondition
         case userFormParameters
         case language
+        case sideEffects
         case actionId
     }
 }

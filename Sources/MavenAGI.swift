@@ -5,11 +5,13 @@ public final class MavenAGI: Sendable {
     public let actions: ActionsClient
     public let agents: AgentsClient
     public let analytics: AnalyticsClient
+    public let appDirectory: AppDirectoryClient
     public let appSettings: AppSettingsClient
     public let assets: AssetsClient
     public let commons: CommonsClient
     public let conversation: ConversationClient
     public let customers: CustomersClient
+    public let developersCommons: DevelopersCommonsClient
     public let events: EventsClient
     public let inbox: InboxClient
     public let integrations: IntegrationsClient
@@ -77,11 +79,13 @@ public final class MavenAGI: Sendable {
         self.actions = ActionsClient(config: config)
         self.agents = AgentsClient(config: config)
         self.analytics = AnalyticsClient(config: config)
+        self.appDirectory = AppDirectoryClient(config: config)
         self.appSettings = AppSettingsClient(config: config)
         self.assets = AssetsClient(config: config)
         self.commons = CommonsClient(config: config)
         self.conversation = ConversationClient(config: config)
         self.customers = CustomersClient(config: config)
+        self.developersCommons = DevelopersCommonsClient(config: config)
         self.events = EventsClient(config: config)
         self.inbox = InboxClient(config: config)
         self.integrations = IntegrationsClient(config: config)
