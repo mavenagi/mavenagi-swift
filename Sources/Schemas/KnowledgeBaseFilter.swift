@@ -30,7 +30,10 @@ public struct KnowledgeBaseFilter: Codable, Hashable, Sendable {
     public let llmInclusionStatus: LlmInclusionStatus?
     /// Filter knowledge bases by the segment they are assigned to.
     public let segmentId: String?
-    /// Filter knowledge bases by the segments they are assigned to. Uses OR semantics — returns knowledge bases assigned to any of the provided segments.
+    /// Deprecated. Segment assignment on knowledge bases is superseded by charters.
+    /// 
+    /// Filter knowledge bases by the segments they are assigned to. Uses OR semantics — returns knowledge bases
+    /// assigned to any of the provided segments.
     public let segmentIds: [EntityId]?
     /// Additional properties that are not explicitly defined in the schema
     public let additionalProperties: [String: JSONValue]

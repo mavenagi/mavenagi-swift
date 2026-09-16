@@ -9,7 +9,9 @@ public struct ActionResponse: Codable, Hashable, Sendable {
     public let userInteractionRequired: Bool
     /// When user interaction is required, the name of the button that is shown to the end user to confirm execution of the action. Defaults to "Submit" if not supplied.
     public let buttonName: String?
-    /// The preconditions that must be met for an action to be relevant to a conversation. Can be used to restrict actions to certain types of users.
+    /// Deprecated. Superseded by charters, which determine when knowledge bases and actions apply. Has no effect for agents using charters.
+    /// 
+    /// The preconditions that must be met for an action to be relevant to a conversation.
     public let precondition: Precondition?
     /// The parameters that the action uses as input. An action will only be executed when all of the required parameters are provided. During execution, actions all have access to the full Conversation and User objects. Parameter values may be inferred from the user's conversation by the LLM.
     public let userFormParameters: [ActionParameter]
@@ -31,9 +33,9 @@ public struct ActionResponse: Codable, Hashable, Sendable {
     /// - `WHEN_RELEVANT`: The action is available only in conversations where the action is determined to be relevant to the user's question.
     /// - `NEVER`: The action is not available for use in conversations.
     public let llmInclusionStatus: LlmInclusionStatus
-    /// The IDs of the segment that must be matched for the action to be relevant to a conversation.
-    /// Segments are replacing inline preconditions - an Action may not have both an inline precondition and a segment.
-    /// Inline precondition support will be removed in a future release.
+    /// Deprecated. Superseded by charters, which determine when knowledge bases and actions apply. Has no effect for agents using charters.
+    /// 
+    /// The ID of the segment that must be matched for the action to be relevant to a conversation.
     public let segmentId: EntityId?
     /// No longer populated. This field is always absent and will be removed in a future release.
     public let preconditionExplanation: String?

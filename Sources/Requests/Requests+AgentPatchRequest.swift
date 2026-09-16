@@ -12,14 +12,16 @@ extension Requests {
         public let enabledPiiCategories: JSONValue?
         /// The system fallback message.
         public let systemFallbackMessage: Nullable<String>?
-        /// The overall persona of the agent.
+        /// Deprecated. Superseded by charters, which determine agent behavior per turn. Has no effect for agents using charters.
         public let persona: LlmPersona?
-        /// Additional text directly appended to the prompt.
+        /// Deprecated. Superseded by charters, which determine agent behavior per turn. Has no effect for agents using charters.
         public let additionalPromptText: Nullable<String>?
         /// LLM prompt for category generation.
         public let categoryGenerationPromptText: Nullable<String>?
         /// LLM prompt for generating a response when the user's question has been detected as unsafe.
         public let contentSafetyViolationResponsePromptText: Nullable<String>?
+        /// Deprecated. Superseded by charters, which determine agent behavior per turn. Has no effect for agents using charters.
+        /// 
         /// Return the system fallback message on all questions that have no relevant knowledge bases or actions.
         public let rejectQuestionsWithoutKnowledge: Bool?
         /// Additional properties that are not explicitly defined in the schema

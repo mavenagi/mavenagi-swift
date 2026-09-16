@@ -1,9 +1,9 @@
 import Foundation
 
 public struct AgentPrompting: Codable, Hashable, Sendable {
-    /// The overall persona of the agent.
+    /// Deprecated. Superseded by charters, which determine agent behavior per turn. Has no effect for agents using charters.
     public let persona: LlmPersona
-    /// Additional text directly appended to the prompt. This field is replaced by Knowledge Documents with `llmInclusionsStatus` set to `ALWAYS`.
+    /// Deprecated. Superseded by charters, which determine agent behavior per turn. Has no effect for agents using charters.
     public let additionalPromptText: String?
     /// LLM prompt for category generation. 
     /// 
@@ -15,6 +15,8 @@ public struct AgentPrompting: Codable, Hashable, Sendable {
     /// Use this to provide custom LLM generated replies when dealing with content safety violations.
     /// When not set, the system fallback message will be used and replies will not be personalized by the LLM as it will not be involved.
     public let contentSafetyViolationResponsePromptText: String?
+    /// Deprecated. Superseded by charters, which determine agent behavior per turn. Has no effect for agents using charters.
+    /// 
     /// Return the system fallback message on all questions that have no relevant knowledge bases or actions.
     public let rejectQuestionsWithoutKnowledge: Bool
     /// Additional properties that are not explicitly defined in the schema

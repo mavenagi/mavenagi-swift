@@ -46,7 +46,8 @@ public enum EventResponse: Codable, Hashable, Sendable {
         public let eventName: UserEventName
         /// Information about the user who triggered the event
         public let userInfo: EventUserInfo
-        /// Information about any feedback associated with the event
+        /// Any rating carried by the event. A `BUTTON_CLICKED` thumbs up or down sets a single entry
+        /// with `thumbUp` true or false.
         public let feedbackInfo: [FeedbackInfo]?
         /// Information about any CSAT survey associated with the event
         public let csatInfo: CsatInfo?

@@ -73,6 +73,11 @@ public enum ConversationMessageResponse: Codable, Hashable, Sendable {
         /// - `LLM_ENABLED`: An answer was requested for this user message and the LLM was enabled.
         /// - `LLM_DISABLED`: An answer was requested for this user message and the LLM was disabled.
         public let responseState: UserMessageResponseState?
+        /// The timezone supplied with the creating request and used for the message's time-based
+        /// operations, normally an IANA identifier (e.g. "America/New_York", "Europe/London").
+        /// Absent when the request did not supply one, in which case the agent's default timezone
+        /// applied.
+        public let timezone: String?
         /// Additional properties that are not explicitly defined in the schema
         public let additionalProperties: [String: JSONValue]
 
@@ -90,6 +95,7 @@ public enum ConversationMessageResponse: Codable, Hashable, Sendable {
             userDisplayName: String? = nil,
             status: MessageStatus,
             responseState: UserMessageResponseState? = nil,
+            timezone: String? = nil,
             additionalProperties: [String: JSONValue] = .init()
         ) {
             self.userId = userId
@@ -105,6 +111,7 @@ public enum ConversationMessageResponse: Codable, Hashable, Sendable {
             self.userDisplayName = userDisplayName
             self.status = status
             self.responseState = responseState
+            self.timezone = timezone
             self.additionalProperties = additionalProperties
         }
 
@@ -123,6 +130,7 @@ public enum ConversationMessageResponse: Codable, Hashable, Sendable {
             self.userDisplayName = try container.decodeIfPresent(String.self, forKey: .userDisplayName)
             self.status = try container.decode(MessageStatus.self, forKey: .status)
             self.responseState = try container.decodeIfPresent(UserMessageResponseState.self, forKey: .responseState)
+            self.timezone = try container.decodeIfPresent(String.self, forKey: .timezone)
             self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
         }
 
@@ -143,6 +151,7 @@ public enum ConversationMessageResponse: Codable, Hashable, Sendable {
             try container.encodeIfPresent(self.userDisplayName, forKey: .userDisplayName)
             try container.encode(self.status, forKey: .status)
             try container.encodeIfPresent(self.responseState, forKey: .responseState)
+            try container.encodeIfPresent(self.timezone, forKey: .timezone)
         }
 
         /// Keys for encoding/decoding struct properties.
@@ -161,6 +170,7 @@ public enum ConversationMessageResponse: Codable, Hashable, Sendable {
             case userDisplayName
             case status
             case responseState
+            case timezone
         }
     }
 

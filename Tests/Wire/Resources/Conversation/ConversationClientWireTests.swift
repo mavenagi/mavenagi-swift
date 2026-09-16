@@ -60,6 +60,7 @@ import Api
                       "userDisplayName": "userDisplayName",
                       "status": "SENDING",
                       "responseState": "NOT_ASKED",
+                      "timezone": "timezone",
                       "userId": {
                         "referenceId": "x"
                       },
@@ -101,6 +102,7 @@ import Api
                       "userDisplayName": "userDisplayName",
                       "status": "SENDING",
                       "responseState": "NOT_ASKED",
+                      "timezone": "timezone",
                       "userId": {
                         "referenceId": "x"
                       },
@@ -414,6 +416,7 @@ import Api
                         userDisplayName: Optional("userDisplayName"),
                         status: .sending,
                         responseState: Optional(.notAsked),
+                        timezone: Optional("timezone"),
                         userId: EntityIdBase(
                             referenceId: "x"
                         ),
@@ -456,6 +459,7 @@ import Api
                         userDisplayName: Optional("userDisplayName"),
                         status: .sending,
                         responseState: Optional(.notAsked),
+                        timezone: Optional("timezone"),
                         userId: EntityIdBase(
                             referenceId: "x"
                         ),
@@ -962,6 +966,7 @@ import Api
                       "userDisplayName": "userDisplayName",
                       "status": "SENDING",
                       "responseState": "NOT_ASKED",
+                      "timezone": "timezone",
                       "userId": {
                         "referenceId": "x"
                       },
@@ -1003,6 +1008,7 @@ import Api
                       "userDisplayName": "userDisplayName",
                       "status": "SENDING",
                       "responseState": "NOT_ASKED",
+                      "timezone": "timezone",
                       "userId": {
                         "referenceId": "x"
                       },
@@ -1296,6 +1302,7 @@ import Api
                         userDisplayName: Optional("userDisplayName"),
                         status: .sending,
                         responseState: Optional(.notAsked),
+                        timezone: Optional("timezone"),
                         userId: EntityIdBase(
                             referenceId: "x"
                         ),
@@ -1338,6 +1345,7 @@ import Api
                         userDisplayName: Optional("userDisplayName"),
                         status: .sending,
                         responseState: Optional(.notAsked),
+                        timezone: Optional("timezone"),
                         userId: EntityIdBase(
                             referenceId: "x"
                         ),
@@ -1611,6 +1619,7 @@ import Api
                       "userDisplayName": "userDisplayName",
                       "status": "SENDING",
                       "responseState": "NOT_ASKED",
+                      "timezone": "timezone",
                       "userId": {
                         "referenceId": "x"
                       },
@@ -1652,6 +1661,7 @@ import Api
                       "userDisplayName": "userDisplayName",
                       "status": "SENDING",
                       "responseState": "NOT_ASKED",
+                      "timezone": "timezone",
                       "userId": {
                         "referenceId": "x"
                       },
@@ -1945,6 +1955,7 @@ import Api
                         userDisplayName: Optional("userDisplayName"),
                         status: .sending,
                         responseState: Optional(.notAsked),
+                        timezone: Optional("timezone"),
                         userId: EntityIdBase(
                             referenceId: "x"
                         ),
@@ -1987,6 +1998,7 @@ import Api
                         userDisplayName: Optional("userDisplayName"),
                         status: .sending,
                         responseState: Optional(.notAsked),
+                        timezone: Optional("timezone"),
                         userId: EntityIdBase(
                             referenceId: "x"
                         ),
@@ -2633,6 +2645,7 @@ import Api
                       "userDisplayName": "userDisplayName",
                       "status": "SENDING",
                       "responseState": "NOT_ASKED",
+                      "timezone": "timezone",
                       "userId": {
                         "referenceId": "x"
                       },
@@ -2674,6 +2687,7 @@ import Api
                       "userDisplayName": "userDisplayName",
                       "status": "SENDING",
                       "responseState": "NOT_ASKED",
+                      "timezone": "timezone",
                       "userId": {
                         "referenceId": "x"
                       },
@@ -2967,6 +2981,7 @@ import Api
                         userDisplayName: Optional("userDisplayName"),
                         status: .sending,
                         responseState: Optional(.notAsked),
+                        timezone: Optional("timezone"),
                         userId: EntityIdBase(
                             referenceId: "x"
                         ),
@@ -3009,6 +3024,7 @@ import Api
                         userDisplayName: Optional("userDisplayName"),
                         status: .sending,
                         responseState: Optional(.notAsked),
+                        timezone: Optional("timezone"),
                         userId: EntityIdBase(
                             referenceId: "x"
                         ),

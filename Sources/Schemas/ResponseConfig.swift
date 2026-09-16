@@ -14,9 +14,15 @@ public struct ResponseConfig: Codable, Hashable, Sendable {
     public let isCopilot: Bool
     /// The desired response length. Defaults to ResponseLength.MEDIUM.
     public let responseLength: ResponseLength
-    /// Filters that restrict the knowledge retrieval candidate pool.
-    /// - entities: specific entities to scope by
-    /// - entityTypes: entity types to scope by (e.g., AGENT, CUSTOMER)
+    /// Widens the knowledge retrieval candidate pool to include documents scoped to the given
+    /// entities, in addition to the agent's own knowledge.
+    /// 
+    /// Knowledge documents are scoped by setting `relevantEntities` on the document. A document
+    /// with no `relevantEntities` belongs to the agent and is always a retrieval candidate;
+    /// naming entities here additionally makes documents scoped to those entities retrievable.
+    /// Omitting this field restricts retrieval to the agent's own knowledge.
+    /// 
+    /// Only the `byEntities` variant is supported today - see `byEntityTypes`.
     public let contextFilter: KnowledgeContextFilter?
     /// Additional properties that are not explicitly defined in the schema
     public let additionalProperties: [String: JSONValue]

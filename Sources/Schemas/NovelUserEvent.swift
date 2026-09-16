@@ -14,7 +14,8 @@ public struct NovelUserEvent: Codable, Hashable, Sendable {
     public let userInfo: EventUserInfoBase
     /// Information about any CSAT associated with the event
     public let csatInfo: CsatInfo?
-    /// Information about any feedback associated with the event
+    /// Any rating carried by the event. A `BUTTON_CLICKED` thumbs up or down sets a single entry
+    /// with `thumbUp` true or false.
     public let feedbackInfo: [FeedbackInfo]?
     /// Information about the page on which the event occurred
     public let pageInfo: PageInfo?

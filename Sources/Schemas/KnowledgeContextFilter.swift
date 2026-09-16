@@ -2,6 +2,9 @@ import Foundation
 
 public enum KnowledgeContextFilter: Codable, Hashable, Sendable {
     case byEntities(ByEntities)
+    /// Not yet supported. This variant is accepted but has no effect on retrieval - a
+    /// conversation supplying it behaves as though no `contextFilter` were provided at all.
+    /// Use `byEntities` to scope retrieval today.
     case byEntityTypes(ByEntityTypes)
 
     public init(from decoder: Decoder) throws {
@@ -33,6 +36,15 @@ public enum KnowledgeContextFilter: Codable, Hashable, Sendable {
 
     public struct ByEntities: Codable, Hashable, Sendable {
         public let scopeType: String = "byEntities"
+        /// The entities whose documents should be retrievable, in addition to the agent's own
+        /// knowledge. Each `entityId` must be fully specified and must belong to the organization
+        /// and agent the request is made against; one that does not is rejected. Entities are never
+        /// silently dropped, which would omit exactly the documents the caller asked to bring into
+        /// scope.
+        /// 
+        /// `AGENT` and `FEEDBACK` are rejected: neither has an internal form to resolve to, and
+        /// `AGENT` in particular is redundant here because the agent's own knowledge is always in
+        /// scope. Every other `EntityType` is accepted.
         public let entities: JSONValue
         /// Additional properties that are not explicitly defined in the schema
         public let additionalProperties: [String: JSONValue]
@@ -65,6 +77,9 @@ public enum KnowledgeContextFilter: Codable, Hashable, Sendable {
         }
     }
 
+    /// Not yet supported. This variant is accepted but has no effect on retrieval - a
+    /// conversation supplying it behaves as though no `contextFilter` were provided at all.
+    /// Use `byEntities` to scope retrieval today.
     public struct ByEntityTypes: Codable, Hashable, Sendable {
         public let scopeType: String = "byEntityTypes"
         public let entityTypes: JSONValue

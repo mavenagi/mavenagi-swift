@@ -8,11 +8,10 @@ extension Requests {
         public let instructions: String?
         /// Determines whether the action is sent to the LLM as part of a conversation.
         public let llmInclusionStatus: LlmInclusionStatus?
+        /// Deprecated. Superseded by charters, which determine when knowledge bases and actions apply. Has no effect for agents using charters.
+        /// 
         /// The ID of the segment that must be matched for the action to be relevant to a conversation.
         /// A null value will remove the segment from the action, it will be available on all conversations.
-        /// 
-        /// Segments are replacing inline preconditions - an action may not have both an inline precondition and a segment.
-        /// Inline precondition support will be removed in a future release.
         public let segmentId: Nullable<EntityId>?
         /// Whether executing this action causes side effects.
         /// A null value clears it back to undeclared.

@@ -9,6 +9,9 @@ public struct EventFilter: Codable, Hashable, Sendable {
     public let userEventNames: [UserEventName]?
     public let systemEventNames: [SystemEventName]?
     public let agentUserIds: [String]?
+    /// Narrow to the events that carry a rating. `ThumbsUp` and `ThumbsDown` match `BUTTON_CLICKED`
+    /// events by their `feedbackInfo.thumbUp` value, and `Insert` matches `TEXT_INSERTED` events.
+    /// `Handoff` is no longer supported.
     public let legacyFeedbackTypes: [FeedbackType]?
     public let hasEventText: Bool?
     /// Additional properties that are not explicitly defined in the schema

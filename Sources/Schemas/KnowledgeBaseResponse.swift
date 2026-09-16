@@ -3,7 +3,9 @@ import Foundation
 public struct KnowledgeBaseResponse: Codable, Hashable, Sendable {
     /// The name of the knowledge base
     public let name: String
-    /// The preconditions that must be met for knowledge base be relevant to a conversation. Can be used to restrict knowledge bases to certain types of users.
+    /// Deprecated. Superseded by charters, which determine when knowledge bases and actions apply. Has no effect for agents using charters.
+    /// 
+    /// The preconditions that must be met for a knowledge base to be relevant to a conversation.
     public let precondition: Precondition?
     /// The date and time when the knowledge base was created.
     public let createdAt: Date
@@ -21,19 +23,21 @@ public struct KnowledgeBaseResponse: Codable, Hashable, Sendable {
     public let type: KnowledgeBaseType
     /// Metadata for the knowledge base.
     public let metadata: [String: String]
+    /// Deprecated. Superseded by charters, which determine when knowledge bases and actions apply. Has no effect for agents using charters.
+    /// 
     /// The tags of the knowledge base.
     public let tags: JSONValue
     /// Determines whether documents in the knowledge base are sent to the LLM as part of a conversation.
     public let llmInclusionStatus: LlmInclusionStatus
     /// How often the knowledge base should be refreshed.
     public let refreshFrequency: KnowledgeBaseRefreshFrequency
-    /// The IDs of the segment that must be matched for the knowledge base to be relevant to a conversation.
-    /// Segments are replacing inline preconditions - a Knowledge Base may not have both an inline precondition and a segment.
-    /// Inline precondition support will be removed in a future release.
+    /// Deprecated. Superseded by charters, which determine when knowledge bases and actions apply. Has no effect for agents using charters.
+    /// 
+    /// The ID of the segment that must be matched for the knowledge base to be relevant to a conversation.
     public let segmentId: EntityId?
+    /// Deprecated. Superseded by charters, which determine when knowledge bases and actions apply. Has no effect for agents using charters.
+    /// 
     /// The IDs of the segments that should be matched for the knowledge base to be relevant to a conversation.
-    /// Segments are replacing inline preconditions - a Knowledge Base may not have both an inline precondition and a segment.
-    /// Inline precondition support will be removed in a future release.
     public let segmentIds: JSONValue
     /// The source URL of URL and RSS knowledge bases that was used for crawl.
     public let url: String?

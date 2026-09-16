@@ -48,7 +48,11 @@ public final class AnalyticsClient: Sendable {
         )
     }
 
-    /// Retrieves structured feedback data formatted as a table, allowing users to group, filter,  and define specific metrics to display as columns.
+    /// Deprecated. Use `getEventTable` instead, which reports the same thumbs up/down and insert
+    /// activity as user events.
+    /// 
+    /// Retrieves structured feedback data formatted as a table, allowing users to group, filter,
+    /// and define specific metrics to display as columns.
     ///
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
     public func getFeedbackTable(request: FeedbackTableRequest, requestOptions: RequestOptions? = nil) async throws -> FeedbackTableResponse {

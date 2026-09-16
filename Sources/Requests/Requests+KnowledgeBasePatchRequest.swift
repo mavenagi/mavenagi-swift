@@ -6,23 +6,27 @@ extension Requests {
         public let appId: String?
         /// The name of the knowledge base.
         public let name: String?
+        /// Deprecated. Superseded by charters, which determine when knowledge bases and actions apply. Has no effect for agents using charters.
+        /// 
         /// The tags of the knowledge base.
         public let tags: JSONValue?
         /// Determines whether documents in the knowledge base are sent to the LLM as part of a conversation. Note that at this time knowledge bases can not be set to `ALWAYS`.
         public let llmInclusionStatus: LlmInclusionStatus?
-        /// The preconditions that must be met for a knowledge base to be relevant to a conversation. Can be used to restrict knowledge bases to certain types of users. A null value will remove the precondition from the knowledge base, it will be available on all conversations.
+        /// Deprecated. Superseded by charters, which determine when knowledge bases and actions apply. Has no effect for agents using charters.
+        /// 
+        /// The preconditions that must be met for a knowledge base to be relevant to a conversation.
+        /// A null value will remove the precondition from the knowledge base, it will be available on all conversations.
         public let precondition: Nullable<Precondition>?
+        /// Deprecated. Superseded by charters, which determine when knowledge bases and actions apply. Has no effect for agents using charters.
+        /// 
         /// The ID of a segment that must be matched for the knowledge base to be relevant to a conversation.
         /// A null value will remove the segment from the knowledge base, it will be available on all conversations.
-        /// 
-        /// Segments are replacing inline preconditions - a knowledge base may not have both an inline precondition and a segment.
-        /// Inline precondition support will be removed in a future release.
         public let segmentId: Nullable<EntityId>?
-        /// The IDs of segment that should be matched (under an OR clause) for the knowledge base to be relevant to a 
-        /// conversation. An empty list will remove segments from the knowledge base, it will be available on all 
-        /// conversations.
-        /// Segments are replacing inline preconditions - a knowledge base may not have both an inline precondition and a segment.
-        /// Inline precondition support will be removed in a future release.
+        /// Deprecated. Superseded by charters, which determine when knowledge bases and actions apply. Has no effect for agents using charters.
+        /// 
+        /// The IDs of segments that should be matched (under an OR clause) for the knowledge base to be relevant
+        /// to a conversation. An empty list will remove segments from the knowledge base, it will be available on
+        /// all conversations.
         public let segmentIds: [EntityId]?
         /// How often the knowledge base should be refreshed.
         public let refreshFrequency: KnowledgeBaseRefreshFrequency?

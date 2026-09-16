@@ -42,7 +42,18 @@ public struct KnowledgeDocumentRequest: Codable, Hashable, Sendable {
     public let createdAt: Date?
     /// The time at which this document was last modified.
     public let updatedAt: Date?
-    /// Scoped entities this document is associated with for context-based filtering. By default, the document is associated with the agent.
+    /// Narrows this document to the given entities. Omit it - the default - to make the document
+    /// part of the agent's general knowledge, retrievable on every conversation.
+    /// 
+    /// A document narrowed to entities is only retrieved on conversations whose
+    /// `responseConfig.contextFilter` names one of them, so it never surfaces on unrelated
+    /// conversations. Each `entityId` must be fully specified and must belong to the
+    /// organization and agent the request is made against; one that does not, or that names an
+    /// entity type with no internal form, is rejected rather than dropped - dropping the last
+    /// entity would widen the document back to the whole agent.
+    /// 
+    /// Changing the entities on an existing document is not supported yet: re-sending a
+    /// document with different `relevantEntities` but unchanged content is a no-op.
     public let relevantEntities: JSONValue?
     /// Additional properties that are not explicitly defined in the schema
     public let additionalProperties: [String: JSONValue]

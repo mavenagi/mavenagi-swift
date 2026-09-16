@@ -1,5 +1,6 @@
 import Foundation
 
+/// Not yet supported - see the `byEntityTypes` variant of `KnowledgeContextFilter`.
 public struct KnowledgeContextByEntityTypes: Codable, Hashable, Sendable {
     public let entityTypes: JSONValue
     /// Additional properties that are not explicitly defined in the schema

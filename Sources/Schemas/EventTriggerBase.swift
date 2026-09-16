@@ -10,7 +10,9 @@ public struct EventTriggerBase: Codable, Hashable, Sendable {
     /// Conversation triggers fire when a conversation is created, after each additional message, and upon deletion events.
     /// There is a small delay before trigger execution to allow time for conversation analysis to complete.
     /// 
-    /// Feedback can not be modified, so the feedback trigger fires immediately after feedback is created.
+    /// Events are immutable, so an event trigger fires immediately after the event is created.
+    /// 
+    /// Inbox triggers fire when an inbox item is created or updated.
     public let type: EventTriggerType
     /// Additional properties that are not explicitly defined in the schema
     public let additionalProperties: [String: JSONValue]
