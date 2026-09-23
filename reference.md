@@ -2518,6 +2518,676 @@ try await main()
 </dl>
 </details>
 
+## Charters
+<details><summary><code>client.charters.<a href="/Sources/Resources/Charters/ChartersClient.swift">createOrUpdate</a>(request: CharterRequest, requestOptions: RequestOptions?) -> CharterResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Create a new charter or update an existing one. Charters are governing
+documents that combine a precondition (when the charter applies), a manual
+(what the LLM should do), and the knowledge bases and actions the charter
+makes available.
+
+All charters in an agent form a tree (forest / multi-roots). When a
+charter is matched on a round, all its ancestor charters will be
+incorporated. Non-leaf charters are referred to as a charter group.
+
+Charters may specify a 0-indexed custom `userRank` that indicates
+preferences among its siblings. The rank is currently only meaningful
+for leaf charters as we enforce mutual exclusion among the leafs and
+pick only the highest ranked (lowest numerical value) leaf to include in
+the round. userRank may have gaps.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```swift
+import Foundation
+import Api
+
+private func main() async throws {
+    let client = MavenAGI(
+        appId: "<username>",
+        appSecret: "<password>"
+    )
+
+    _ = try await client.charters.createOrUpdate(request: CharterRequest(
+        parentCharterId: .null,
+        segmentId: .null,
+        precondition: .value(Precondition.conversation(
+            .init(
+                conversation: 
+            )
+        )),
+        status: .active,
+        type: .standard,
+        references: CharterReferences(
+            knowledgeBases: []
+        ),
+        name: "Cancellation Flow",
+        manual: "Guide the user through the cancellation process with empathy. Always confirm their intent before proceeding.",
+        charterId: EntityIdBase(
+            referenceId: "cancellation-flow"
+        )
+    ))
+}
+
+try await main()
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `CharterRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `RequestOptions?` — Additional options for configuring the request, such as custom headers or timeout settings.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.charters.<a href="/Sources/Resources/Charters/ChartersClient.swift">get</a>(charterReferenceId: String, appId: String?, requestOptions: RequestOptions?) -> CharterResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get a charter by its reference ID.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```swift
+import Foundation
+import Api
+
+private func main() async throws {
+    let client = MavenAGI(
+        appId: "<username>",
+        appSecret: "<password>"
+    )
+
+    _ = try await client.charters.get(charterReferenceId: "cancellation-flow")
+}
+
+try await main()
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**charterReferenceId:** `String` — The reference ID of the charter to get. All other entity ID fields are inferred from the request.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**appId:** `String?` — The App ID of the charter to get. If not provided, the ID of the calling app will be used.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `RequestOptions?` — Additional options for configuring the request, such as custom headers or timeout settings.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.charters.<a href="/Sources/Resources/Charters/ChartersClient.swift">patch</a>(charterReferenceId: String, request: Requests.CharterPatchRequest, requestOptions: RequestOptions?) -> CharterResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Update mutable fields on a charter. Only provided fields are modified.
+
+To move a charter within the tree, set `parentCharterId`.
+To promote to root level, set `parentCharterId` explicitly to null.
+
+**Status behavior**:
+  - Setting `status` to `INACTIVE` applies only to the targeted charter;
+    it does not cascade to descendants. However, its descendants will no
+    longer be incorporated at runtime.
+  - Setting `status` to `ACTIVE` applies only to the targeted charter.
+    The caller is responsible for ensuring ancestor charters are also `ACTIVE`
+    if the full subtree should be reachable at runtime.
+
+**userRank conflict resolution**: When `userRank` is set to a value already held by a
+sibling, siblings at that rank and above are shifted up by 1 (like linked list semantics).
+The caller does not need to manage uniqueness explicitly.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```swift
+import Foundation
+import Api
+
+private func main() async throws {
+    let client = MavenAGI(
+        appId: "<username>",
+        appSecret: "<password>"
+    )
+
+    _ = try await client.charters.patch(
+        charterReferenceId: "cancellation-flow",
+        request: .init(
+            precondition: .value(Precondition.conversation(
+                .init(
+                    conversation: 
+                )
+            )),
+            status: .active
+        )
+    )
+}
+
+try await main()
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**charterReferenceId:** `String` — The reference ID of the charter to patch.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Requests.CharterPatchRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `RequestOptions?` — Additional options for configuring the request, such as custom headers or timeout settings.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.charters.<a href="/Sources/Resources/Charters/ChartersClient.swift">delete</a>(charterReferenceId: String, appId: String?, variantReferenceId: String?, variantAppId: String?, requestOptions: RequestOptions?) -> CharterResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Delete a charter and all of its descendants recursively.
+
+The charter must be set to `INACTIVE` before it can be deleted. This prevents accidental
+deletion of active charters. Descendant charters may be in any status — they will be
+soft-deleted regardless.
+
+Deleted charters are excluded from list results but can be retrieved by ID for archival purposes.
+
+Deleted charters cannot be modified.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```swift
+import Foundation
+import Api
+
+private func main() async throws {
+    let client = MavenAGI(
+        appId: "<username>",
+        appSecret: "<password>"
+    )
+
+    _ = try await client.charters.delete(charterReferenceId: "cancellation-flow")
+}
+
+try await main()
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**charterReferenceId:** `String` — The reference ID of the charter to delete.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**appId:** `String?` — The App ID of the charter to delete. If not provided, the ID of the calling app will be used.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**variantReferenceId:** `String?` 
+
+The reference ID of the agent variant this delete is scoped to. When set, the
+deletion is staged in that variant's working set instead of being applied to the
+agent's live configuration.
+
+Omit this parameter to delete directly from the agent. Variant scoping is not
+active yet: a variant supplied today is accepted and ignored, and the delete applies
+to the agent.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**variantAppId:** `String?` — The App ID of the agent variant named by `variantReferenceId`. If not provided, the ID of the calling app will be used.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `RequestOptions?` — Additional options for configuring the request, such as custom headers or timeout settings.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.charters.<a href="/Sources/Resources/Charters/ChartersClient.swift">search</a>(request: CharterSearchRequest, requestOptions: RequestOptions?) -> CharterSearchResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Search for charters matching the provided filters. Supports filtering by
+referenced action IDs and knowledge base IDs to find charters that make
+specific context items available.
+
+Returns both ACTIVE and INACTIVE charters (DELETED charters are excluded).
+
+Results are ordered by the `sort` field (defaults to CreatedAt). Use `sortDesc`
+to control direction (defaults to descending). An empty filter list is
+equivalent to omitting the field (no filter applied).
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```swift
+import Foundation
+import Api
+
+private func main() async throws {
+    let client = MavenAGI(
+        appId: "<username>",
+        appSecret: "<password>"
+    )
+
+    _ = try await client.charters.search(request: CharterSearchRequest(
+        page: 0,
+        size: 20
+    ))
+}
+
+try await main()
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `CharterSearchRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `RequestOptions?` — Additional options for configuring the request, such as custom headers or timeout settings.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.charters.<a href="/Sources/Resources/Charters/ChartersClient.swift">getAncestors</a>(charterReferenceId: String, appId: String?, requestOptions: RequestOptions?) -> CharterAncestorsResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Return a flat list containing the specified charter and all of its ancestors
+up to the root. Useful for rendering tree context around search results.
+
+Each entry is a full charter, so an ancestor's references and precondition are
+readable without a follow-up request per level.
+
+The list is always finite: charter hierarchies are acyclic, so a charter is never its own
+ancestor and the walk to the root terminates.
+
+Returns 404 if the charter does not exist or is deleted.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```swift
+import Foundation
+import Api
+
+private func main() async throws {
+    let client = MavenAGI(
+        appId: "<username>",
+        appSecret: "<password>"
+    )
+
+    _ = try await client.charters.getAncestors(charterReferenceId: "cancellation-step-1")
+}
+
+try await main()
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**charterReferenceId:** `String` — The reference ID of the charter. All other entity ID fields are inferred from the request.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**appId:** `String?` — The App ID of the charter. If not provided, the ID of the calling app will be used.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `RequestOptions?` — Additional options for configuring the request, such as custom headers or timeout settings.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.charters.<a href="/Sources/Resources/Charters/ChartersClient.swift">listChildren</a>(request: CharterListChildrenRequest, requestOptions: RequestOptions?) -> CharterListChildrenResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Batch fetch direct children of the specified parent charters. Returns one
+group per requested parent in the same order as parentIds, with grandchild
+IDs populated on each child for expandability signals.
+
+Pass an empty parentIds list to fetch all root-level charters for the agent.
+Intended to be used for easy BFS traversal, though calling with parents
+at mixed levels are allowed. Roots and specific parents cannot be mixed
+in one request.
+
+DELETED charters are never returned.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```swift
+import Foundation
+import Api
+
+private func main() async throws {
+    let client = MavenAGI(
+        appId: "<username>",
+        appSecret: "<password>"
+    )
+
+    _ = try await client.charters.listChildren(request: CharterListChildrenRequest(
+        parentIds: []
+    ))
+}
+
+try await main()
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `CharterListChildrenRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `RequestOptions?` — Additional options for configuring the request, such as custom headers or timeout settings.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Conversation
 <details><summary><code>client.conversation.<a href="/Sources/Resources/Conversation/ConversationClient.swift">initialize</a>(request: ConversationRequest, requestOptions: RequestOptions?) -> InitializeConversationResponse</code></summary>
 <dl>
@@ -5469,7 +6139,12 @@ try await main()
 <dl>
 <dd>
 
-Create a new intelligent field. Intelligent fields are used to store custom LLM-generated values on entities like conversations or events.
+Create a new intelligent field, or replace it if one already exists with the same
+`fieldId.referenceId`. Intelligent fields hold LLM-generated values computed for
+entities such as conversations.
+
+New fields are created with `status: INACTIVE` and are not evaluated until activated
+with the patch endpoint. `definition` is limited to 5,000 characters.
 </dd>
 </dl>
 </dd>
@@ -5554,7 +6229,7 @@ try await main()
 </dl>
 </details>
 
-<details><summary><code>client.intelligentFields.<a href="/Sources/Resources/IntelligentFields/IntelligentFieldsClient.swift">get</a>(fieldReferenceId: String, appId: String?, requestOptions: RequestOptions?) -> IntelligentFieldDetailResponse</code></summary>
+<details><summary><code>client.intelligentFields.<a href="/Sources/Resources/IntelligentFields/IntelligentFieldsClient.swift">get</a>(fieldReferenceId: String, appId: String?, variantReferenceId: String?, variantAppId: String?, requestOptions: RequestOptions?) -> IntelligentFieldDetailResponse</code></summary>
 <dl>
 <dd>
 
@@ -5624,6 +6299,22 @@ try await main()
 <dl>
 <dd>
 
+**variantReferenceId:** `String?` — The agent variant reference ID to resolve the intelligent field's version through. If not provided, defaults to the agent's production variant.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**variantAppId:** `String?` — The App ID of the agent variant reference. If not provided, the ID of the calling app will be used.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **requestOptions:** `RequestOptions?` — Additional options for configuring the request, such as custom headers or timeout settings.
     
 </dd>
@@ -5648,7 +6339,12 @@ try await main()
 <dl>
 <dd>
 
-Patch an intelligent field. Can be used to update the definition, status, or other mutable properties.
+Update the mutable properties of an intelligent field. Only the properties present in
+the request body are changed.
+
+This is also how a field is activated and deactivated: set `status` to `ACTIVE` to
+start evaluating it, or `INACTIVE` to stop. `name`, `entityType`, and `validationType`
+cannot be changed after creation.
 </dd>
 </dl>
 </dd>
@@ -5837,7 +6533,12 @@ try await main()
 <dl>
 <dd>
 
-Search computed values for intelligent fields across entities. Supports filtering by field properties and target entity.
+Search the values that have been computed for intelligent fields, across entities.
+Supports filtering by properties of the field, by target entity, and by when the
+value was computed.
+
+Values only exist for fields that were ACTIVE when the entity was evaluated, so a
+newly activated field returns nothing until evaluation has run.
 </dd>
 </dl>
 </dd>

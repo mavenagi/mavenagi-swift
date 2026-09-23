@@ -1,26 +1,25 @@
 import Foundation
 
-/// The minimal set of fields describing an intelligent field's content, shared by both the
-/// field's own resource representation (IntelligentFieldBase) and a single staged edit's
-/// payload (IntelligentFieldPayload) -- kept as one type so the two don't drift out of sync on
-/// what "the same" field content looks like.
+/// The content of an intelligent field -- what it is called, and what the LLM should produce for it.
 public struct IntelligentFieldCore: Codable, Hashable, Sendable {
     /// Display name for the intelligent field
     public let name: String
     /// A plain text description of the intelligent field.
     public let description: String?
-    /// Result type hint used for schema generation, UI, and validation.
+    /// The type of value this field holds. It constrains the schema the LLM is asked to fill
+    /// and the JSON type of the computed `value`.
     /// 
-    /// - STRING / MULTILINE: single string value
-    /// - MULTI_SELECT: multiple values
-    /// - BOOLEAN: boolean value
-    /// - NUMBER: numeric value
+    /// - STRING / MULTILINE: a single string
+    /// - MULTI_SELECT: a list of strings
+    /// - BOOLEAN: `true` or `false`
+    /// - NUMBER: a number
     /// 
-    /// Note: for single select, use STRING/NUMBER with a list of enumOptions.
+    /// For a single select, use STRING or NUMBER together with `enumOptions`.
     public let validationType: IntelligentFieldType
     /// Definition used by the LLM when generating this field's value
     public let definition: String
-    /// Optional enum options for STRING/MULTILINE/NUMBER when a finite set is desired
+    /// The finite set of values this field may take. Omit to let the LLM produce any value of
+    /// the `validationType`. Options may be added later with the patch endpoint, but not removed.
     public let enumOptions: [EnumOption]?
     /// Additional properties that are not explicitly defined in the schema
     public let additionalProperties: [String: JSONValue]

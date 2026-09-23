@@ -1,6 +1,6 @@
 import Foundation
 
-/// Deprecated. Superseded by charters, which determine agent behavior per turn.
+/// Deprecated. Superseded by charters, which determine agent behavior per round.
 public enum LlmPersona: String, Codable, Hashable, CaseIterable, Sendable {
     case casualBuddy = "CASUAL_BUDDY"
     case empatheticSupporter = "EMPATHETIC_SUPPORTER"

@@ -1005,6 +1005,24 @@ import Api
                       "knowledgeBaseLlmInclusionStatus": "ALWAYS",
                       "createdAt": "2024-01-15T09:30:00Z",
                       "updatedAt": "2024-01-15T09:30:00Z",
+                      "relevantEntities": [
+                        {
+                          "entityId": {
+                            "organizationId": "organizationId",
+                            "agentId": "agentId",
+                            "type": "AGENT",
+                            "appId": "appId",
+                            "referenceId": "x"
+                          },
+                          "scopeEntityId": {
+                            "organizationId": "organizationId",
+                            "agentId": "agentId",
+                            "type": "AGENT",
+                            "appId": "appId",
+                            "referenceId": "x"
+                          }
+                        }
+                      ],
                       "url": "url",
                       "language": "language",
                       "author": "author"
@@ -1036,6 +1054,24 @@ import Api
                       "knowledgeBaseLlmInclusionStatus": "ALWAYS",
                       "createdAt": "2024-01-15T09:30:00Z",
                       "updatedAt": "2024-01-15T09:30:00Z",
+                      "relevantEntities": [
+                        {
+                          "entityId": {
+                            "organizationId": "organizationId",
+                            "agentId": "agentId",
+                            "type": "AGENT",
+                            "appId": "appId",
+                            "referenceId": "x"
+                          },
+                          "scopeEntityId": {
+                            "organizationId": "organizationId",
+                            "agentId": "agentId",
+                            "type": "AGENT",
+                            "appId": "appId",
+                            "referenceId": "x"
+                          }
+                        }
+                      ],
                       "url": "url",
                       "language": "language",
                       "author": "author"
@@ -1084,6 +1120,7 @@ import Api
                     knowledgeBaseLlmInclusionStatus: .always,
                     createdAt: try! Date("2024-01-15T09:30:00Z", strategy: .iso8601),
                     updatedAt: try! Date("2024-01-15T09:30:00Z", strategy: .iso8601),
+                    relevantEntities: [],
                     url: Optional("url"),
                     language: Optional("language"),
                     author: Optional("author")
@@ -1115,6 +1152,7 @@ import Api
                     knowledgeBaseLlmInclusionStatus: .always,
                     createdAt: try! Date("2024-01-15T09:30:00Z", strategy: .iso8601),
                     updatedAt: try! Date("2024-01-15T09:30:00Z", strategy: .iso8601),
+                    relevantEntities: [],
                     url: Optional("url"),
                     language: Optional("language"),
                     author: Optional("author")
@@ -1169,24 +1207,7 @@ import Api
                   "createdAt": "2024-01-01T00:00:00Z",
                   "updatedAt": "2024-02-02T00:00:00Z",
                   "llmInclusionStatus": "WHEN_RELEVANT",
-                  "relevantEntities": [
-                    {
-                      "entityId": {
-                        "type": "CUSTOMER",
-                        "appId": "crm",
-                        "organizationId": "acme",
-                        "agentId": "support",
-                        "referenceId": "customer-42"
-                      },
-                      "scopeEntityId": {
-                        "type": "AGENT",
-                        "appId": "maven",
-                        "organizationId": "acme",
-                        "agentId": "support",
-                        "referenceId": "support"
-                      }
-                    }
-                  ],
+                  "relevantEntities": [],
                   "knowledgeBaseLlmInclusionStatus": "WHEN_RELEVANT"
                 }
                 """.utf8
@@ -1272,24 +1293,6 @@ import Api
                   "metadata": {
                     "metadata": "metadata"
                   },
-                  "relevantEntities": [
-                    {
-                      "entityId": {
-                        "organizationId": "organizationId",
-                        "agentId": "agentId",
-                        "type": "AGENT",
-                        "appId": "appId",
-                        "referenceId": "x"
-                      },
-                      "scopeEntityId": {
-                        "organizationId": "organizationId",
-                        "agentId": "agentId",
-                        "type": "AGENT",
-                        "appId": "appId",
-                        "referenceId": "x"
-                      }
-                    }
-                  ],
                   "knowledgeDocumentId": {
                     "organizationId": "organizationId",
                     "agentId": "agentId",
@@ -1316,6 +1319,24 @@ import Api
                   "knowledgeBaseLlmInclusionStatus": "ALWAYS",
                   "createdAt": "2024-01-15T09:30:00Z",
                   "updatedAt": "2024-01-15T09:30:00Z",
+                  "relevantEntities": [
+                    {
+                      "entityId": {
+                        "organizationId": "organizationId",
+                        "agentId": "agentId",
+                        "type": "AGENT",
+                        "appId": "appId",
+                        "referenceId": "x"
+                      },
+                      "scopeEntityId": {
+                        "organizationId": "organizationId",
+                        "agentId": "agentId",
+                        "type": "AGENT",
+                        "appId": "appId",
+                        "referenceId": "x"
+                      }
+                    }
+                  ],
                   "url": "url",
                   "language": "language",
                   "author": "author"
@@ -1342,7 +1363,6 @@ import Api
             metadata: [
                 "metadata": "metadata"
             ],
-            relevantEntities: [],
             knowledgeDocumentId: EntityId(
                 organizationId: "organizationId",
                 agentId: "agentId",
@@ -1369,6 +1389,7 @@ import Api
             knowledgeBaseLlmInclusionStatus: .always,
             createdAt: try! Date("2024-01-15T09:30:00Z", strategy: .iso8601),
             updatedAt: try! Date("2024-01-15T09:30:00Z", strategy: .iso8601),
+            relevantEntities: [],
             url: Optional("url"),
             language: Optional("language"),
             author: Optional("author")
@@ -1417,24 +1438,7 @@ import Api
                   "createdAt": "2024-01-01T00:00:00Z",
                   "updatedAt": "2024-02-02T00:00:00Z",
                   "llmInclusionStatus": "WHEN_RELEVANT",
-                  "relevantEntities": [
-                    {
-                      "entityId": {
-                        "type": "CUSTOMER",
-                        "appId": "crm",
-                        "organizationId": "acme",
-                        "agentId": "support",
-                        "referenceId": "customer-42"
-                      },
-                      "scopeEntityId": {
-                        "type": "AGENT",
-                        "appId": "maven",
-                        "organizationId": "acme",
-                        "agentId": "support",
-                        "referenceId": "support"
-                      }
-                    }
-                  ],
+                  "relevantEntities": [],
                   "knowledgeBaseLlmInclusionStatus": "WHEN_RELEVANT"
                 }
                 """.utf8

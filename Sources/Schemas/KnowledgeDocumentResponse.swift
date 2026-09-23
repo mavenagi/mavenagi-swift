@@ -18,6 +18,9 @@ public struct KnowledgeDocumentResponse: Codable, Hashable, Sendable {
     public let createdAt: Date
     /// The time at which this document was last modified.
     public let updatedAt: Date
+    /// The entities this document is narrowed to. Empty for a document that is part of the
+    /// agent's general knowledge.
+    public let relevantEntities: JSONValue
     /// The URL of the document. Should be visible to end users. Will be shown as part of answers. Not used for crawling.
     public let url: String?
     /// The document language. Must be a valid ISO 639-1 language code.
@@ -32,8 +35,6 @@ public struct KnowledgeDocumentResponse: Codable, Hashable, Sendable {
     public let asset: AttachmentResponse?
     /// Metadata for the knowledge document.
     public let metadata: [String: String]
-    /// Scoped entities this document is associated with for context-based filtering.
-    public let relevantEntities: JSONValue
     /// Additional properties that are not explicitly defined in the schema
     public let additionalProperties: [String: JSONValue]
 
@@ -46,6 +47,7 @@ public struct KnowledgeDocumentResponse: Codable, Hashable, Sendable {
         knowledgeBaseLlmInclusionStatus: LlmInclusionStatus,
         createdAt: Date,
         updatedAt: Date,
+        relevantEntities: JSONValue,
         url: String? = nil,
         language: String? = nil,
         author: String? = nil,
@@ -53,7 +55,6 @@ public struct KnowledgeDocumentResponse: Codable, Hashable, Sendable {
         content: String? = nil,
         asset: AttachmentResponse? = nil,
         metadata: [String: String],
-        relevantEntities: JSONValue,
         additionalProperties: [String: JSONValue] = .init()
     ) {
         self.knowledgeDocumentId = knowledgeDocumentId
@@ -64,6 +65,7 @@ public struct KnowledgeDocumentResponse: Codable, Hashable, Sendable {
         self.knowledgeBaseLlmInclusionStatus = knowledgeBaseLlmInclusionStatus
         self.createdAt = createdAt
         self.updatedAt = updatedAt
+        self.relevantEntities = relevantEntities
         self.url = url
         self.language = language
         self.author = author
@@ -71,7 +73,6 @@ public struct KnowledgeDocumentResponse: Codable, Hashable, Sendable {
         self.content = content
         self.asset = asset
         self.metadata = metadata
-        self.relevantEntities = relevantEntities
         self.additionalProperties = additionalProperties
     }
 
@@ -85,6 +86,7 @@ public struct KnowledgeDocumentResponse: Codable, Hashable, Sendable {
         self.knowledgeBaseLlmInclusionStatus = try container.decode(LlmInclusionStatus.self, forKey: .knowledgeBaseLlmInclusionStatus)
         self.createdAt = try container.decode(Date.self, forKey: .createdAt)
         self.updatedAt = try container.decode(Date.self, forKey: .updatedAt)
+        self.relevantEntities = try container.decode(JSONValue.self, forKey: .relevantEntities)
         self.url = try container.decodeIfPresent(String.self, forKey: .url)
         self.language = try container.decodeIfPresent(String.self, forKey: .language)
         self.author = try container.decodeIfPresent(String.self, forKey: .author)
@@ -92,7 +94,6 @@ public struct KnowledgeDocumentResponse: Codable, Hashable, Sendable {
         self.content = try container.decodeIfPresent(String.self, forKey: .content)
         self.asset = try container.decodeIfPresent(AttachmentResponse.self, forKey: .asset)
         self.metadata = try container.decode([String: String].self, forKey: .metadata)
-        self.relevantEntities = try container.decode(JSONValue.self, forKey: .relevantEntities)
         self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
     }
 
@@ -107,6 +108,7 @@ public struct KnowledgeDocumentResponse: Codable, Hashable, Sendable {
         try container.encode(self.knowledgeBaseLlmInclusionStatus, forKey: .knowledgeBaseLlmInclusionStatus)
         try container.encode(self.createdAt, forKey: .createdAt)
         try container.encode(self.updatedAt, forKey: .updatedAt)
+        try container.encode(self.relevantEntities, forKey: .relevantEntities)
         try container.encodeIfPresent(self.url, forKey: .url)
         try container.encodeIfPresent(self.language, forKey: .language)
         try container.encodeIfPresent(self.author, forKey: .author)
@@ -114,7 +116,6 @@ public struct KnowledgeDocumentResponse: Codable, Hashable, Sendable {
         try container.encodeIfPresent(self.content, forKey: .content)
         try container.encodeIfPresent(self.asset, forKey: .asset)
         try container.encode(self.metadata, forKey: .metadata)
-        try container.encode(self.relevantEntities, forKey: .relevantEntities)
     }
 
     /// Keys for encoding/decoding struct properties.
@@ -127,6 +128,7 @@ public struct KnowledgeDocumentResponse: Codable, Hashable, Sendable {
         case knowledgeBaseLlmInclusionStatus
         case createdAt
         case updatedAt
+        case relevantEntities
         case url
         case language
         case author
@@ -134,6 +136,5 @@ public struct KnowledgeDocumentResponse: Codable, Hashable, Sendable {
         case content
         case asset
         case metadata
-        case relevantEntities
     }
 }

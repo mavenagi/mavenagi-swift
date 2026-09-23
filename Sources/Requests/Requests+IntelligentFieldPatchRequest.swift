@@ -4,16 +4,23 @@ extension Requests {
     public struct IntelligentFieldPatchRequest: Codable, Hashable, Sendable {
         /// The App ID of the intelligent field to update. If not provided the ID of the calling app will be used.
         public let appId: String?
-        /// The definition of the intelligent field. This text will be influential in guiding the LLM to produce the desired results.
+        /// The definition of the intelligent field. This text will be influential in guiding the LLM to produce the desired results. Limited to 5,000 characters.
         public let definition: String?
-        /// The lifecycle state for whether this field is evaluated by workflows. Use INACTIVE to deactivate.
+        /// The lifecycle state for whether this field is evaluated. Use ACTIVE to start
+        /// evaluating the field and INACTIVE to stop.
+        /// 
+        /// Each agent has a limit on how many fields may be ACTIVE at once; activating a
+        /// field beyond that limit is rejected. A field referenced by an active precondition
+        /// cannot be deactivated.
         public let status: IntelligentFieldStatus?
         /// A plain text description of the intelligent field.
         public let description: String?
-        /// Updated enum options for select/multi-select fields. Omit to leave unchanged. The new list must be a superset of the existing options (add-only; removals are rejected).
+        /// Updated enum options for fields that constrain the LLM to a finite set. Omit to leave unchanged. The new list must be a superset of the existing options (add-only; removals are rejected).
         public let enumOptions: [EnumOption]?
-        /// ID of the agent variant that this field belongs to, if applicable
+        /// The agent variant to stage this patch in, by reference ID. Its owning app is `variantAppId`.
         public let variantId: EntityIdBase?
+        /// The App ID of the agent variant named by `variantId`. If not provided, the ID of the calling app will be used — name the owning app to patch in a variant the caller does not own, as the platform's own seeded variants are.
+        public let variantAppId: String?
         /// Additional properties that are not explicitly defined in the schema
         public let additionalProperties: [String: JSONValue]
 
@@ -24,6 +31,7 @@ extension Requests {
             description: String? = nil,
             enumOptions: [EnumOption]? = nil,
             variantId: EntityIdBase? = nil,
+            variantAppId: String? = nil,
             additionalProperties: [String: JSONValue] = .init()
         ) {
             self.appId = appId
@@ -32,6 +40,7 @@ extension Requests {
             self.description = description
             self.enumOptions = enumOptions
             self.variantId = variantId
+            self.variantAppId = variantAppId
             self.additionalProperties = additionalProperties
         }
 
@@ -43,6 +52,7 @@ extension Requests {
             self.description = try container.decodeIfPresent(String.self, forKey: .description)
             self.enumOptions = try container.decodeIfPresent([EnumOption].self, forKey: .enumOptions)
             self.variantId = try container.decodeIfPresent(EntityIdBase.self, forKey: .variantId)
+            self.variantAppId = try container.decodeIfPresent(String.self, forKey: .variantAppId)
             self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
         }
 
@@ -55,6 +65,7 @@ extension Requests {
             try container.encodeIfPresent(self.description, forKey: .description)
             try container.encodeIfPresent(self.enumOptions, forKey: .enumOptions)
             try container.encodeIfPresent(self.variantId, forKey: .variantId)
+            try container.encodeIfPresent(self.variantAppId, forKey: .variantAppId)
         }
 
         /// Keys for encoding/decoding struct properties.
@@ -65,6 +76,7 @@ extension Requests {
             case description
             case enumOptions
             case variantId
+            case variantAppId
         }
     }
 }

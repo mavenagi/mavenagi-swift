@@ -8,16 +8,16 @@ import Foundation
 ///                  verbatim, without invoking the LLM. The charter cannot have children, and
 ///                  its manual must be non-blank — the manual is the response.
 /// 
-///                  A STRICT_RETURN charter references nothing: both `knowledgeBaseIds` and
+///                  A STRICT_RETURN charter references nothing: both `knowledgeBases` and
 ///                  `actionIds` must be empty, and a create or update supplying either is
-///                  rejected. With no LLM in the turn there is nothing to consult a knowledge
+///                  rejected. With no LLM in the round there is nothing to consult a knowledge
 ///                  base or to choose an action.
 /// 
 ///                  A STRICT_RETURN charter is matched exactly like any other charter — same
 ///                  ordering and mutual-exclusion rules. The only difference is what a match
-///                  does: the first matched STRICT_RETURN charter takes over the turn, so its
+///                  does: the first matched STRICT_RETURN charter takes over the round, so its
 ///                  manual is the whole response and every other matched charter is ignored.
-///                  (At most one applies per turn.)
+///                  (At most one applies per round.)
 public enum CharterType: String, Codable, Hashable, CaseIterable, Sendable {
     case standard = "STANDARD"
     case strictReturn = "STRICT_RETURN"

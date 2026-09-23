@@ -78,6 +78,9 @@ public struct ConversationFilter: Codable, Hashable, Sendable {
     /// Filter by whether any message in the conversation has an attachment
     public let hasAttachment: Bool?
     /// Filter by the segments that any message on a conversation matched.
+    /// 
+    /// Superseded by `matchedCharterIds`. Segments are being phased out in favour of
+    /// charter preconditions.
     public let matchedSegmentIds: [EntityIdFilter]?
     /// Filter by the charters that any bot-response message on a conversation matched.
     /// References without a matching charter for the calling agent contribute nothing

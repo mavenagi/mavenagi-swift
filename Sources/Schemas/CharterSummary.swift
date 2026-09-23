@@ -7,11 +7,7 @@ public struct CharterSummary: Codable, Hashable, Sendable {
     public let charterId: EntityId
     /// The display name of the charter.
     public let name: String
-    /// The segment backing this charter's rule. An implementation detail of `precondition`;
-    /// read that instead.
-    public let segmentSummary: Nullable<SegmentSummary>
-    /// The rule controlling when this charter applies, read from the charter's backing
-    /// segment. Null means wildcard (always matches).
+    /// The rule controlling when this charter applies. Null means wildcard (always matches).
     public let precondition: Nullable<PreconditionResponse>
     /// The ID of the parent charter. Null for root-level charters.
     public let parentCharterId: Nullable<EntityId>
@@ -31,7 +27,6 @@ public struct CharterSummary: Codable, Hashable, Sendable {
     public init(
         charterId: EntityId,
         name: String,
-        segmentSummary: Nullable<SegmentSummary>,
         precondition: Nullable<PreconditionResponse>,
         parentCharterId: Nullable<EntityId>,
         status: CharterStatus,
@@ -43,7 +38,6 @@ public struct CharterSummary: Codable, Hashable, Sendable {
     ) {
         self.charterId = charterId
         self.name = name
-        self.segmentSummary = segmentSummary
         self.precondition = precondition
         self.parentCharterId = parentCharterId
         self.status = status
@@ -58,7 +52,6 @@ public struct CharterSummary: Codable, Hashable, Sendable {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.charterId = try container.decode(EntityId.self, forKey: .charterId)
         self.name = try container.decode(String.self, forKey: .name)
-        self.segmentSummary = try container.decode(Nullable<SegmentSummary>.self, forKey: .segmentSummary)
         self.precondition = try container.decode(Nullable<PreconditionResponse>.self, forKey: .precondition)
         self.parentCharterId = try container.decode(Nullable<EntityId>.self, forKey: .parentCharterId)
         self.status = try container.decode(CharterStatus.self, forKey: .status)
@@ -74,7 +67,6 @@ public struct CharterSummary: Codable, Hashable, Sendable {
         try encoder.encodeAdditionalProperties(self.additionalProperties)
         try container.encode(self.charterId, forKey: .charterId)
         try container.encode(self.name, forKey: .name)
-        try container.encode(self.segmentSummary, forKey: .segmentSummary)
         try container.encode(self.precondition, forKey: .precondition)
         try container.encode(self.parentCharterId, forKey: .parentCharterId)
         try container.encode(self.status, forKey: .status)
@@ -88,7 +80,6 @@ public struct CharterSummary: Codable, Hashable, Sendable {
     enum CodingKeys: String, CodingKey, CaseIterable {
         case charterId
         case name
-        case segmentSummary
         case precondition
         case parentCharterId
         case status

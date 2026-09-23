@@ -7,7 +7,12 @@ public final class IntelligentFieldsClient: Sendable {
         self.httpClient = HTTPClient(config: config)
     }
 
-    /// Create a new intelligent field. Intelligent fields are used to store custom LLM-generated values on entities like conversations or events.
+    /// Create a new intelligent field, or replace it if one already exists with the same
+    /// `fieldId.referenceId`. Intelligent fields hold LLM-generated values computed for
+    /// entities such as conversations.
+    /// 
+    /// New fields are created with `status: INACTIVE` and are not evaluated until activated
+    /// with the patch endpoint. `definition` is limited to 5,000 characters.
     ///
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
     public func createOrUpdate(request: IntelligentFieldRequest, requestOptions: RequestOptions? = nil) async throws -> IntelligentFieldResponse {
@@ -24,20 +29,29 @@ public final class IntelligentFieldsClient: Sendable {
     ///
     /// - Parameter fieldReferenceId: The reference ID of the intelligent field to get. All other entity ID fields are inferred from the request.
     /// - Parameter appId: The App ID of the intelligent field to get. If not provided the ID of the calling app will be used.
+    /// - Parameter variantReferenceId: The agent variant reference ID to resolve the intelligent field's version through. If not provided, defaults to the agent's production variant.
+    /// - Parameter variantAppId: The App ID of the agent variant reference. If not provided, the ID of the calling app will be used.
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
-    public func get(fieldReferenceId: String, appId: String? = nil, requestOptions: RequestOptions? = nil) async throws -> IntelligentFieldDetailResponse {
+    public func get(fieldReferenceId: String, appId: String? = nil, variantReferenceId: String? = nil, variantAppId: String? = nil, requestOptions: RequestOptions? = nil) async throws -> IntelligentFieldDetailResponse {
         return try await httpClient.performRequest(
             method: .get,
             path: "/v1/intelligent-fields/\(fieldReferenceId)",
             queryParams: [
-                "appId": appId.map { .string($0) }
+                "appId": appId.map { .string($0) }, 
+                "variantReferenceId": variantReferenceId.map { .string($0) }, 
+                "variantAppId": variantAppId.map { .string($0) }
             ],
             requestOptions: requestOptions,
             responseType: IntelligentFieldDetailResponse.self
         )
     }
 
-    /// Patch an intelligent field. Can be used to update the definition, status, or other mutable properties.
+    /// Update the mutable properties of an intelligent field. Only the properties present in
+    /// the request body are changed.
+    /// 
+    /// This is also how a field is activated and deactivated: set `status` to `ACTIVE` to
+    /// start evaluating it, or `INACTIVE` to stop. `name`, `entityType`, and `validationType`
+    /// cannot be changed after creation.
     ///
     /// - Parameter fieldReferenceId: The reference ID of the intelligent field to patch.
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
@@ -78,7 +92,12 @@ public final class IntelligentFieldsClient: Sendable {
         )
     }
 
-    /// Search computed values for intelligent fields across entities. Supports filtering by field properties and target entity.
+    /// Search the values that have been computed for intelligent fields, across entities.
+    /// Supports filtering by properties of the field, by target entity, and by when the
+    /// value was computed.
+    /// 
+    /// Values only exist for fields that were ACTIVE when the entity was evaluated, so a
+    /// newly activated field returns nothing until evaluation has run.
     ///
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
     public func searchValues(request: IntelligentFieldValueSearchRequest, requestOptions: RequestOptions? = nil) async throws -> IntelligentFieldValueSearchResponse {

@@ -1,7 +1,7 @@
 import Foundation
 
 /// Controls whether this charter's direct children mutually exclude each other when more than
-/// one of them matches a turn. Set on the parent (group) charter; it has no effect on a charter
+/// one of them matches a round. Set on the parent (group) charter; it has no effect on a charter
 /// with no children.
 /// 
 /// - DEFAULT: Standard behavior. A parent's children are mutually exclusive only when all of that

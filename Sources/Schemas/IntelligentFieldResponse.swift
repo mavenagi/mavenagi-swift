@@ -3,24 +3,26 @@ import Foundation
 public struct IntelligentFieldResponse: Codable, Hashable, Sendable {
     /// Target entity type for evaluation. Only CONVERSATION is supported at this time. The backend will return an error for other types.
     public let entityType: EntityType
-    /// ID of the agent variant that created this field, if applicable
+    /// ID of the agent variant this field belongs to, if applicable
     public let variantId: EntityIdWithoutAgent?
     /// Display name for the intelligent field
     public let name: String
     /// A plain text description of the intelligent field.
     public let description: String?
-    /// Result type hint used for schema generation, UI, and validation.
+    /// The type of value this field holds. It constrains the schema the LLM is asked to fill
+    /// and the JSON type of the computed `value`.
     /// 
-    /// - STRING / MULTILINE: single string value
-    /// - MULTI_SELECT: multiple values
-    /// - BOOLEAN: boolean value
-    /// - NUMBER: numeric value
+    /// - STRING / MULTILINE: a single string
+    /// - MULTI_SELECT: a list of strings
+    /// - BOOLEAN: `true` or `false`
+    /// - NUMBER: a number
     /// 
-    /// Note: for single select, use STRING/NUMBER with a list of enumOptions.
+    /// For a single select, use STRING or NUMBER together with `enumOptions`.
     public let validationType: IntelligentFieldType
     /// Definition used by the LLM when generating this field's value
     public let definition: String
-    /// Optional enum options for STRING/MULTILINE/NUMBER when a finite set is desired
+    /// The finite set of values this field may take. Omit to let the LLM produce any value of
+    /// the `validationType`. Options may be added later with the patch endpoint, but not removed.
     public let enumOptions: [EnumOption]?
     /// ID that uniquely identifies this intelligent field
     public let fieldId: EntityId

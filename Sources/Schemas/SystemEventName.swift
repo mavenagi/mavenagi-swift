@@ -23,4 +23,6 @@ public enum SystemEventName: String, Codable, Hashable, CaseIterable, Sendable {
     case syncCompleted = "SYNC_COMPLETED"
     /// A data sync with an external system failed
     case syncFailed = "SYNC_FAILED"
+    /// An intelligent field's value on a conversation was set or changed. `references` carries the conversation and the field; `contextInfo.additionalData` carries `fieldReferenceId`, `fieldAppId`, the new `value` and the `previousValue`, both as JSON strings. An undetermined value is the JSON string `null` on either key. `previousValue` is absent only when the field was set for the first time and had no previous value at all.
+    case intelligentFieldValueChanged = "INTELLIGENT_FIELD_VALUE_CHANGED"
 }

@@ -1,6 +1,10 @@
 import Foundation
 
 /// Computes the median value of the specified field.
+/// 
+/// A group with no conversations in it has no median. Those results are omitted rather than
+/// reported as a value: the chart series has no point for that interval or bucket, and the
+/// table row has no entry for that column.
 public struct ConversationMedian: Codable, Hashable, Sendable {
     /// Numeric field to apply the metric to.
     public let targetField: NumericConversationField

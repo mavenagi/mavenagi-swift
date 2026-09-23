@@ -2,6 +2,8 @@ import Foundation
 
 public struct EventRow: Codable, Hashable, Sendable {
     /// The actual row data, where keys represent column headers and values contain the respective metric results.
+    /// A column the metric could not measure is absent from the map, so a row can carry fewer
+    /// entries than there are headers.
     public let data: [String: CellData]
     /// Keyed by field, so it cannot represent two groupings that share a key - notably two
     /// intelligent fields. Use `identifiers`, which carries one entry per grouping in request

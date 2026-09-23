@@ -4,6 +4,8 @@ public struct TimeSeries: Codable, Hashable, Sendable {
     /// Name of the series, derived from the grouping field or percentile metric.
     public let name: String
     /// List of time-based data points for the series.
+    /// An interval the metric could not measure has no point here, so a series can be shorter
+    /// than the number of intervals in the requested range.
     public let data: [TimeDataPoint]
     /// Additional properties that are not explicitly defined in the schema
     public let additionalProperties: [String: JSONValue]

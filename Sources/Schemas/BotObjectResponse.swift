@@ -1,6 +1,6 @@
 import Foundation
 
-/// The structured answer for an ask whose `textFormat` was `jsonSchema`. Accompanies the `BotTextResponse` rather than replacing it — the same turn produces both, so the conversation still reads as prose.
+/// The structured answer for an ask whose `textFormat` was `jsonSchema`. Accompanies the `BotTextResponse` rather than replacing it — the same round produces both, so the conversation still reads as prose.
 public struct BotObjectResponse: Codable, Hashable, Sendable {
     /// The answer, matching the schema the ask supplied. Every property the schema requires is present, with `null` where a nullable one does not apply.
     public let object: JSONValue

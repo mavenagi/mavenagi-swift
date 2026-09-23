@@ -5,6 +5,7 @@ public struct Series: Codable, Hashable, Sendable {
     /// If the metric is a percentile, the name represents the percentile value.
     public let name: String
     /// List of labeled data points for the series.
+    /// A bucket the metric could not measure has no point here.
     public let data: [LabeledPoint]
     /// Additional properties that are not explicitly defined in the schema
     public let additionalProperties: [String: JSONValue]

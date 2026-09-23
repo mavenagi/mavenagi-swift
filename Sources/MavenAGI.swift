@@ -8,6 +8,7 @@ public final class MavenAGI: Sendable {
     public let appDirectory: AppDirectoryClient
     public let appSettings: AppSettingsClient
     public let assets: AssetsClient
+    public let charters: ChartersClient
     public let commons: CommonsClient
     public let conversation: ConversationClient
     public let customers: CustomersClient
@@ -82,6 +83,7 @@ public final class MavenAGI: Sendable {
         self.appDirectory = AppDirectoryClient(config: config)
         self.appSettings = AppSettingsClient(config: config)
         self.assets = AssetsClient(config: config)
+        self.charters = ChartersClient(config: config)
         self.commons = CommonsClient(config: config)
         self.conversation = ConversationClient(config: config)
         self.customers = CustomersClient(config: config)

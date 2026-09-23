@@ -52,8 +52,10 @@ public struct KnowledgeDocumentRequest: Codable, Hashable, Sendable {
     /// entity type with no internal form, is rejected rather than dropped - dropping the last
     /// entity would widen the document back to the whole agent.
     /// 
-    /// Changing the entities on an existing document is not supported yet: re-sending a
-    /// document with different `relevantEntities` but unchanged content is a no-op.
+    /// Changing the entities on an existing document is not supported yet: document reuse is
+    /// decided by a checksum over `title`, `text`, `metadata`, `sourceUrl` and the attached
+    /// asset, so re-sending a document with different `relevantEntities` but none of those
+    /// changed returns the stored document and discards the new entities.
     public let relevantEntities: JSONValue?
     /// Additional properties that are not explicitly defined in the schema
     public let additionalProperties: [String: JSONValue]

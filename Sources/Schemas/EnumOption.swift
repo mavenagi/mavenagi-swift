@@ -1,6 +1,8 @@
 import Foundation
 
-/// Option for STRING/MULTILINE/NUMBER fields when a finite set is desired
+/// One allowed choice for a field whose value should come from a finite set. Use with
+/// MULTI_SELECT to constrain a list of choices, or with STRING/MULTILINE/NUMBER to make
+/// the field a single select.
 public struct EnumOption: Codable, Hashable, Sendable {
     /// The value of the option
     public let value: String

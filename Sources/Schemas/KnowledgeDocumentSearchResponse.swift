@@ -24,6 +24,9 @@ public struct KnowledgeDocumentSearchResponse: Codable, Hashable, Sendable {
     public let createdAt: Date
     /// The time at which this document was last modified.
     public let updatedAt: Date
+    /// The entities this document is narrowed to. Empty for a document that is part of the
+    /// agent's general knowledge.
+    public let relevantEntities: JSONValue
     /// Additional properties that are not explicitly defined in the schema
     public let additionalProperties: [String: JSONValue]
 
@@ -39,6 +42,7 @@ public struct KnowledgeDocumentSearchResponse: Codable, Hashable, Sendable {
         knowledgeBaseLlmInclusionStatus: LlmInclusionStatus,
         createdAt: Date,
         updatedAt: Date,
+        relevantEntities: JSONValue,
         additionalProperties: [String: JSONValue] = .init()
     ) {
         self.url = url
@@ -52,6 +56,7 @@ public struct KnowledgeDocumentSearchResponse: Codable, Hashable, Sendable {
         self.knowledgeBaseLlmInclusionStatus = knowledgeBaseLlmInclusionStatus
         self.createdAt = createdAt
         self.updatedAt = updatedAt
+        self.relevantEntities = relevantEntities
         self.additionalProperties = additionalProperties
     }
 
@@ -68,6 +73,7 @@ public struct KnowledgeDocumentSearchResponse: Codable, Hashable, Sendable {
         self.knowledgeBaseLlmInclusionStatus = try container.decode(LlmInclusionStatus.self, forKey: .knowledgeBaseLlmInclusionStatus)
         self.createdAt = try container.decode(Date.self, forKey: .createdAt)
         self.updatedAt = try container.decode(Date.self, forKey: .updatedAt)
+        self.relevantEntities = try container.decode(JSONValue.self, forKey: .relevantEntities)
         self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
     }
 
@@ -85,6 +91,7 @@ public struct KnowledgeDocumentSearchResponse: Codable, Hashable, Sendable {
         try container.encode(self.knowledgeBaseLlmInclusionStatus, forKey: .knowledgeBaseLlmInclusionStatus)
         try container.encode(self.createdAt, forKey: .createdAt)
         try container.encode(self.updatedAt, forKey: .updatedAt)
+        try container.encode(self.relevantEntities, forKey: .relevantEntities)
     }
 
     /// Keys for encoding/decoding struct properties.
@@ -100,5 +107,6 @@ public struct KnowledgeDocumentSearchResponse: Codable, Hashable, Sendable {
         case knowledgeBaseLlmInclusionStatus
         case createdAt
         case updatedAt
+        case relevantEntities
     }
 }

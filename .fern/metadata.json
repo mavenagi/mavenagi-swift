@@ -1,8 +1,9 @@
 {
-  "cliVersion": "3.11.0",
+  "cliVersion": "5.125.1",
   "generatorName": "fernapi/fern-swift-sdk",
   "generatorVersion": "0.25.2",
   "generatorConfig": {
     "clientClassName": "MavenAGI"
-  }
+  },
+  "originGitCommit": "870e6af0782c1ba21747f3f44bf493278b12c260"
 }

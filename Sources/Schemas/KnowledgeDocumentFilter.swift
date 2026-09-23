@@ -29,6 +29,17 @@ public struct KnowledgeDocumentFilter: Codable, Hashable, Sendable {
     public let knowledgeBaseVersionId: EntityIdWithoutAgent?
     /// Filter by the LLM inclusion status
     public let llmInclusionStatus: [LlmInclusionStatus]?
+    /// Return only documents narrowed to one of these entities. Uses OR semantics - a document
+    /// matching any of them is returned.
+    /// 
+    /// This is an exact match on the document's `relevantEntities`, not the widening a
+    /// conversation's `contextFilter` performs: filtering by a customer returns that customer's
+    /// documents and not the agent's general knowledge. Omit the field to search every
+    /// document regardless of what it is narrowed to; an empty list does the same.
+    /// 
+    /// Each `entityId` must be fully specified and belong to the organization and agent the
+    /// request is made against.
+    public let relevantEntities: [ScopedEntity]?
     /// Additional properties that are not explicitly defined in the schema
     public let additionalProperties: [String: JSONValue]
 
@@ -41,6 +52,7 @@ public struct KnowledgeDocumentFilter: Codable, Hashable, Sendable {
         appIds: [String]? = nil,
         knowledgeBaseVersionId: EntityIdWithoutAgent? = nil,
         llmInclusionStatus: [LlmInclusionStatus]? = nil,
+        relevantEntities: [ScopedEntity]? = nil,
         additionalProperties: [String: JSONValue] = .init()
     ) {
         self.search = search
@@ -51,6 +63,7 @@ public struct KnowledgeDocumentFilter: Codable, Hashable, Sendable {
         self.appIds = appIds
         self.knowledgeBaseVersionId = knowledgeBaseVersionId
         self.llmInclusionStatus = llmInclusionStatus
+        self.relevantEntities = relevantEntities
         self.additionalProperties = additionalProperties
     }
 
@@ -64,6 +77,7 @@ public struct KnowledgeDocumentFilter: Codable, Hashable, Sendable {
         self.appIds = try container.decodeIfPresent([String].self, forKey: .appIds)
         self.knowledgeBaseVersionId = try container.decodeIfPresent(EntityIdWithoutAgent.self, forKey: .knowledgeBaseVersionId)
         self.llmInclusionStatus = try container.decodeIfPresent([LlmInclusionStatus].self, forKey: .llmInclusionStatus)
+        self.relevantEntities = try container.decodeIfPresent([ScopedEntity].self, forKey: .relevantEntities)
         self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
     }
 
@@ -78,6 +92,7 @@ public struct KnowledgeDocumentFilter: Codable, Hashable, Sendable {
         try container.encodeIfPresent(self.appIds, forKey: .appIds)
         try container.encodeIfPresent(self.knowledgeBaseVersionId, forKey: .knowledgeBaseVersionId)
         try container.encodeIfPresent(self.llmInclusionStatus, forKey: .llmInclusionStatus)
+        try container.encodeIfPresent(self.relevantEntities, forKey: .relevantEntities)
     }
 
     /// Keys for encoding/decoding struct properties.
@@ -90,5 +105,6 @@ public struct KnowledgeDocumentFilter: Codable, Hashable, Sendable {
         case appIds
         case knowledgeBaseVersionId
         case llmInclusionStatus
+        case relevantEntities
     }
 }
