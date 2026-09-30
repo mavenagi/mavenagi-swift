@@ -7,6 +7,11 @@ public final class TriggersClient: Sendable {
         self.httpClient = HTTPClient(config: config)
     }
 
+    /// Deprecated. Use `POST /v1/capabilities/search`, which searches every kind of capability
+    /// at once. It returns the fields every capability shares rather than the whole Event
+    /// Trigger; fetch one by its kind and reference ID for the rest.
+    ///
+    /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
     public func search(request: EventTriggersSearchRequest, requestOptions: RequestOptions? = nil) async throws -> EventTriggersSearchResponse {
         return try await httpClient.performRequest(
             method: .post,
@@ -30,6 +35,9 @@ public final class TriggersClient: Sendable {
         )
     }
 
+    /// Deprecated. Use `GET /v1/capabilities/TRIGGER/{referenceId}`, which returns this same
+    /// object for a trigger and the equivalent for every other kind of capability.
+    /// 
     /// Get an event trigger by its supplied ID
     ///
     /// - Parameter triggerReferenceId: The reference ID of the event trigger to get. All other entity ID fields are inferred from the request.
@@ -43,6 +51,9 @@ public final class TriggersClient: Sendable {
         )
     }
 
+    /// Deprecated. Use `DELETE /v1/capabilities/TRIGGER/{referenceId}`, which deletes any kind
+    /// of capability the same way.
+    /// 
     /// Delete an event trigger
     ///
     /// - Parameter triggerReferenceId: The reference ID of the event trigger to delete. All other entity ID fields are inferred from the request.
@@ -55,6 +66,9 @@ public final class TriggersClient: Sendable {
         )
     }
 
+    /// Deprecated. Use `PATCH /v1/capabilities/TRIGGER/{referenceId}` with a `status`, which
+    /// publishes and unpublishes any kind of capability the same way.
+    /// 
     /// Updates an event trigger. Only the enabled field is editable.
     ///
     /// - Parameter triggerReferenceId: The reference ID of the event trigger to update. All other entity ID fields are inferred from the request.

@@ -2,10 +2,6 @@ import Foundation
 
 /// The content of an intelligent field -- what it is called, and what the LLM should produce for it.
 public struct IntelligentFieldCore: Codable, Hashable, Sendable {
-    /// Display name for the intelligent field
-    public let name: String
-    /// A plain text description of the intelligent field.
-    public let description: String?
     /// The type of value this field holds. It constrains the schema the LLM is asked to fill
     /// and the JSON type of the computed `value`.
     /// 
@@ -25,15 +21,11 @@ public struct IntelligentFieldCore: Codable, Hashable, Sendable {
     public let additionalProperties: [String: JSONValue]
 
     public init(
-        name: String,
-        description: String? = nil,
         validationType: IntelligentFieldType,
         definition: String,
         enumOptions: [EnumOption]? = nil,
         additionalProperties: [String: JSONValue] = .init()
     ) {
-        self.name = name
-        self.description = description
         self.validationType = validationType
         self.definition = definition
         self.enumOptions = enumOptions
@@ -42,8 +34,6 @@ public struct IntelligentFieldCore: Codable, Hashable, Sendable {
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.name = try container.decode(String.self, forKey: .name)
-        self.description = try container.decodeIfPresent(String.self, forKey: .description)
         self.validationType = try container.decode(IntelligentFieldType.self, forKey: .validationType)
         self.definition = try container.decode(String.self, forKey: .definition)
         self.enumOptions = try container.decodeIfPresent([EnumOption].self, forKey: .enumOptions)
@@ -53,8 +43,6 @@ public struct IntelligentFieldCore: Codable, Hashable, Sendable {
     public func encode(to encoder: Encoder) throws -> Void {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try encoder.encodeAdditionalProperties(self.additionalProperties)
-        try container.encode(self.name, forKey: .name)
-        try container.encodeIfPresent(self.description, forKey: .description)
         try container.encode(self.validationType, forKey: .validationType)
         try container.encode(self.definition, forKey: .definition)
         try container.encodeIfPresent(self.enumOptions, forKey: .enumOptions)
@@ -62,8 +50,6 @@ public struct IntelligentFieldCore: Codable, Hashable, Sendable {
 
     /// Keys for encoding/decoding struct properties.
     enum CodingKeys: String, CodingKey, CaseIterable {
-        case name
-        case description
         case validationType
         case definition
         case enumOptions

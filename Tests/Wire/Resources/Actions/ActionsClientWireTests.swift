@@ -29,8 +29,6 @@ import Api
                       },
                       "preconditionExplanation": "preconditionExplanation",
                       "deleted": true,
-                      "name": "name",
-                      "description": "description",
                       "userInteractionRequired": true,
                       "buttonName": "buttonName",
                       "precondition": {
@@ -124,7 +122,12 @@ import Api
                         }
                       ],
                       "language": "language",
-                      "sideEffects": "NONE"
+                      "sideEffects": "NONE",
+                      "name": "name",
+                      "description": "description",
+                      "createdAt": "2024-01-15T09:30:00Z",
+                      "updatedAt": "2024-01-15T09:30:00Z",
+                      "status": "ACTIVE"
                     },
                     {
                       "actionId": {
@@ -145,8 +148,6 @@ import Api
                       },
                       "preconditionExplanation": "preconditionExplanation",
                       "deleted": true,
-                      "name": "name",
-                      "description": "description",
                       "userInteractionRequired": true,
                       "buttonName": "buttonName",
                       "precondition": {
@@ -240,7 +241,12 @@ import Api
                         }
                       ],
                       "language": "language",
-                      "sideEffects": "NONE"
+                      "sideEffects": "NONE",
+                      "name": "name",
+                      "description": "description",
+                      "createdAt": "2024-01-15T09:30:00Z",
+                      "updatedAt": "2024-01-15T09:30:00Z",
+                      "status": "ACTIVE"
                     }
                   ],
                   "number": 1,
@@ -278,8 +284,6 @@ import Api
                     )),
                     preconditionExplanation: Optional("preconditionExplanation"),
                     deleted: true,
-                    name: "name",
-                    description: "description",
                     userInteractionRequired: true,
                     buttonName: Optional("buttonName"),
                     precondition: Optional(.user(
@@ -382,7 +386,12 @@ import Api
                         )
                     ],
                     language: Optional("language"),
-                    sideEffects: Optional(.none)
+                    sideEffects: Optional(.none),
+                    name: "name",
+                    description: Optional("description"),
+                    createdAt: try! Date("2024-01-15T09:30:00Z", strategy: .iso8601),
+                    updatedAt: try! Date("2024-01-15T09:30:00Z", strategy: .iso8601),
+                    status: .active
                 ),
                 ActionResponse(
                     actionId: EntityId(
@@ -403,8 +412,6 @@ import Api
                     )),
                     preconditionExplanation: Optional("preconditionExplanation"),
                     deleted: true,
-                    name: "name",
-                    description: "description",
                     userInteractionRequired: true,
                     buttonName: Optional("buttonName"),
                     precondition: Optional(.user(
@@ -507,7 +514,12 @@ import Api
                         )
                     ],
                     language: Optional("language"),
-                    sideEffects: Optional(.none)
+                    sideEffects: Optional(.none),
+                    name: "name",
+                    description: Optional("description"),
+                    createdAt: try! Date("2024-01-15T09:30:00Z", strategy: .iso8601),
+                    updatedAt: try! Date("2024-01-15T09:30:00Z", strategy: .iso8601),
+                    status: .active
                 )
             ],
             number: 1,
@@ -530,6 +542,9 @@ import Api
             body: Data(
                 """
                 {
+                  "createdAt": "2026-01-15T10:30:00Z",
+                  "updatedAt": "2026-01-15T10:30:00Z",
+                  "status": "ACTIVE",
                   "actionId": {
                     "referenceId": "get-balance",
                     "appId": "my-billing-system",
@@ -577,6 +592,9 @@ import Api
             urlSession: stub.urlSession
         )
         let expectedResponse = ActionResponse(
+            createdAt: try! Date("2026-01-15T10:30:00Z", strategy: .iso8601),
+            updatedAt: try! Date("2026-01-15T10:30:00Z", strategy: .iso8601),
+            status: .active,
             actionId: EntityId(
                 referenceId: "get-balance",
                 appId: "my-billing-system",
@@ -585,7 +603,7 @@ import Api
                 type: .action
             ),
             name: "Get the user's balance",
-            description: "This action calls an API to get the user's current balance.",
+            description: Optional("This action calls an API to get the user's current balance."),
             instructions: Optional("This action calls an API to get the user's current balance."),
             llmInclusionStatus: .whenRelevant,
             userInteractionRequired: false,
@@ -658,6 +676,9 @@ import Api
             body: Data(
                 """
                 {
+                  "createdAt": "2026-01-15T10:30:00Z",
+                  "updatedAt": "2026-01-15T10:30:00Z",
+                  "status": "ACTIVE",
                   "actionId": {
                     "referenceId": "get-balance",
                     "appId": "my-billing-system",
@@ -705,6 +726,9 @@ import Api
             urlSession: stub.urlSession
         )
         let expectedResponse = ActionResponse(
+            createdAt: try! Date("2026-01-15T10:30:00Z", strategy: .iso8601),
+            updatedAt: try! Date("2026-01-15T10:30:00Z", strategy: .iso8601),
+            status: .active,
             actionId: EntityId(
                 referenceId: "get-balance",
                 appId: "my-billing-system",
@@ -713,7 +737,7 @@ import Api
                 type: .action
             ),
             name: "Get the user's balance",
-            description: "This action calls an API to get the user's current balance.",
+            description: Optional("This action calls an API to get the user's current balance."),
             instructions: Optional("This action calls an API to get the user's current balance."),
             llmInclusionStatus: .whenRelevant,
             userInteractionRequired: false,
@@ -760,6 +784,9 @@ import Api
             body: Data(
                 """
                 {
+                  "createdAt": "2026-01-15T10:30:00Z",
+                  "updatedAt": "2026-01-15T10:30:00Z",
+                  "status": "ACTIVE",
                   "actionId": {
                     "referenceId": "get-balance",
                     "appId": "my-billing-system",
@@ -807,6 +834,9 @@ import Api
             urlSession: stub.urlSession
         )
         let expectedResponse = ActionResponse(
+            createdAt: try! Date("2026-01-15T10:30:00Z", strategy: .iso8601),
+            updatedAt: try! Date("2026-01-15T10:30:00Z", strategy: .iso8601),
+            status: .active,
             actionId: EntityId(
                 referenceId: "get-balance",
                 appId: "my-billing-system",
@@ -815,7 +845,7 @@ import Api
                 type: .action
             ),
             name: "Get the user's balance",
-            description: "This action calls an API to get the user's current balance.",
+            description: Optional("This action calls an API to get the user's current balance."),
             instructions: Optional("This action calls an API to get the user's current balance."),
             llmInclusionStatus: .whenRelevant,
             userInteractionRequired: false,

@@ -19,9 +19,12 @@ import Api
                         "referenceId": "x"
                       },
                       "enabled": true,
+                      "type": "CONVERSATION_CREATED",
                       "name": "name",
                       "description": "description",
-                      "type": "CONVERSATION_CREATED"
+                      "createdAt": "2024-01-15T09:30:00Z",
+                      "updatedAt": "2024-01-15T09:30:00Z",
+                      "status": "ACTIVE"
                     },
                     {
                       "triggerId": {
@@ -32,9 +35,12 @@ import Api
                         "referenceId": "x"
                       },
                       "enabled": true,
+                      "type": "CONVERSATION_CREATED",
                       "name": "name",
                       "description": "description",
-                      "type": "CONVERSATION_CREATED"
+                      "createdAt": "2024-01-15T09:30:00Z",
+                      "updatedAt": "2024-01-15T09:30:00Z",
+                      "status": "ACTIVE"
                     }
                   ],
                   "number": 1,
@@ -62,9 +68,12 @@ import Api
                         referenceId: "x"
                     ),
                     enabled: true,
-                    name: Optional("name"),
-                    description: "description",
-                    type: .conversationCreated
+                    type: .conversationCreated,
+                    name: "name",
+                    description: Optional("description"),
+                    createdAt: try! Date("2024-01-15T09:30:00Z", strategy: .iso8601),
+                    updatedAt: try! Date("2024-01-15T09:30:00Z", strategy: .iso8601),
+                    status: .active
                 ),
                 EventTriggerResponse(
                     triggerId: EntityId(
@@ -75,9 +84,12 @@ import Api
                         referenceId: "x"
                     ),
                     enabled: true,
-                    name: Optional("name"),
-                    description: "description",
-                    type: .conversationCreated
+                    type: .conversationCreated,
+                    name: "name",
+                    description: Optional("description"),
+                    createdAt: try! Date("2024-01-15T09:30:00Z", strategy: .iso8601),
+                    updatedAt: try! Date("2024-01-15T09:30:00Z", strategy: .iso8601),
+                    status: .active
                 )
             ],
             number: 1,
@@ -107,9 +119,13 @@ import Api
                     "agentId": "support",
                     "type": "EVENT_TRIGGER"
                   },
+                  "name": "Store in Snowflake",
                   "description": "Stores conversation data in Snowflake",
                   "type": "CONVERSATION_CREATED",
-                  "enabled": true
+                  "enabled": true,
+                  "createdAt": "2026-01-15T10:30:00Z",
+                  "updatedAt": "2026-01-15T10:30:00Z",
+                  "status": "ACTIVE"
                 }
                 """.utf8
             )
@@ -128,14 +144,18 @@ import Api
                 agentId: "support",
                 type: .eventTrigger
             ),
-            description: "Stores conversation data in Snowflake",
+            name: "Store in Snowflake",
+            description: Optional("Stores conversation data in Snowflake"),
             type: .conversationCreated,
-            enabled: true
+            enabled: true,
+            createdAt: try! Date("2026-01-15T10:30:00Z", strategy: .iso8601),
+            updatedAt: try! Date("2026-01-15T10:30:00Z", strategy: .iso8601),
+            status: .active
         )
         let response = try await client.triggers.createOrUpdate(
             request: EventTriggerRequest(
-                description: "Stores conversation data in Snowflake",
                 type: .conversationCreated,
+                description: "Stores conversation data in Snowflake",
                 triggerId: EntityIdBase(
                     referenceId: "store-in-snowflake"
                 )
@@ -158,9 +178,13 @@ import Api
                     "agentId": "support",
                     "type": "EVENT_TRIGGER"
                   },
+                  "name": "Store in Snowflake",
                   "description": "Stores conversation data in Snowflake",
                   "type": "CONVERSATION_CREATED",
-                  "enabled": true
+                  "enabled": true,
+                  "createdAt": "2026-01-15T10:30:00Z",
+                  "updatedAt": "2026-01-15T10:30:00Z",
+                  "status": "ACTIVE"
                 }
                 """.utf8
             )
@@ -179,9 +203,13 @@ import Api
                 agentId: "support",
                 type: .eventTrigger
             ),
-            description: "Stores conversation data in Snowflake",
+            name: "Store in Snowflake",
+            description: Optional("Stores conversation data in Snowflake"),
             type: .conversationCreated,
-            enabled: true
+            enabled: true,
+            createdAt: try! Date("2026-01-15T10:30:00Z", strategy: .iso8601),
+            updatedAt: try! Date("2026-01-15T10:30:00Z", strategy: .iso8601),
+            status: .active
         )
         let response = try await client.triggers.get(
             triggerReferenceId: "store-in-snowflake",
@@ -204,9 +232,12 @@ import Api
                     "referenceId": "x"
                   },
                   "enabled": true,
+                  "type": "CONVERSATION_CREATED",
                   "name": "name",
                   "description": "description",
-                  "type": "CONVERSATION_CREATED"
+                  "createdAt": "2024-01-15T09:30:00Z",
+                  "updatedAt": "2024-01-15T09:30:00Z",
+                  "status": "ACTIVE"
                 }
                 """.utf8
             )
@@ -226,9 +257,12 @@ import Api
                 referenceId: "x"
             ),
             enabled: true,
-            name: Optional("name"),
-            description: "description",
-            type: .conversationCreated
+            type: .conversationCreated,
+            name: "name",
+            description: Optional("description"),
+            createdAt: try! Date("2024-01-15T09:30:00Z", strategy: .iso8601),
+            updatedAt: try! Date("2024-01-15T09:30:00Z", strategy: .iso8601),
+            status: .active
         )
         let response = try await client.triggers.partialUpdate(
             triggerReferenceId: "triggerReferenceId",

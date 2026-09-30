@@ -117,6 +117,9 @@ public final class KnowledgeClient: Sendable {
     /// Create a new knowledge base version.
     /// 
     /// If an existing version is in progress, then that version will be finalized in an error state.
+    /// 
+    /// If another version create for the same knowledge base is still in progress, this request may
+    /// return 503 with a `Retry-After` header. Nothing is changed in that case, so it is safe to retry.
     ///
     /// - Parameter knowledgeBaseReferenceId: The reference ID of the knowledge base to create a version for. All other entity ID fields are inferred from the request.
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.

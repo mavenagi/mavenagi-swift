@@ -76,20 +76,19 @@ import Api
                 )
             ]),
             definition: "The priority of the conversation based on the urgency and importance; draw from the content / messages in the conversation; must be one of HIGH, MEDIUM, or LOW.",
-            createdAt: Optional(try! Date("2024-01-15T10:30:00Z", strategy: .iso8601)),
-            updatedAt: Optional(try! Date("2024-01-15T10:30:00Z", strategy: .iso8601))
+            createdAt: try! Date("2024-01-15T10:30:00Z", strategy: .iso8601),
+            updatedAt: try! Date("2024-01-15T10:30:00Z", strategy: .iso8601)
         )
         let response = try await client.intelligentFields.createOrUpdate(
             request: IntelligentFieldRequest(
                 entityType: .conversation,
-                name: "Ticket Priority",
-                description: "The priority of the conversation based on urgency",
                 validationType: .string,
                 definition: "The priority of the conversation based on the urgency and importance; draw from the content / messages in the conversation; must be one of HIGH, MEDIUM, or LOW.",
                 enumOptions: [
                     EnumOption(
                         value: "HIGH",
-                        label: "High Priority"
+                        label: "High Priority",
+                        description: "The customer is blocked or reports an outage."
                     ),
                     EnumOption(
                         value: "MEDIUM",
@@ -100,6 +99,8 @@ import Api
                         label: "Low Priority"
                     )
                 ],
+                name: "Ticket Priority",
+                description: "The priority of the conversation based on urgency",
                 fieldId: EntityIdBase(
                     referenceId: "ticket-priority"
                 )
@@ -183,8 +184,8 @@ import Api
                 )
             ]),
             definition: "The priority of the conversation based on the urgency and importance; draw from the content / messages in the conversation; must be one of HIGH, MEDIUM, or LOW.",
-            createdAt: Optional(try! Date("2024-01-15T10:30:00Z", strategy: .iso8601)),
-            updatedAt: Optional(try! Date("2024-01-15T10:30:00Z", strategy: .iso8601)),
+            createdAt: try! Date("2024-01-15T10:30:00Z", strategy: .iso8601),
+            updatedAt: try! Date("2024-01-15T10:30:00Z", strategy: .iso8601),
             referencingCharters: Optional([])
         )
         let response = try await client.intelligentFields.get(
@@ -267,8 +268,8 @@ import Api
                 )
             ]),
             definition: "The priority of the conversation based on the urgency and importance; draw from the content / messages in the conversation; must be one of HIGH, MEDIUM, or LOW.",
-            createdAt: Optional(try! Date("2024-01-15T10:30:00Z", strategy: .iso8601)),
-            updatedAt: Optional(try! Date("2024-01-15T10:30:00Z", strategy: .iso8601))
+            createdAt: try! Date("2024-01-15T10:30:00Z", strategy: .iso8601),
+            updatedAt: try! Date("2024-01-15T10:30:00Z", strategy: .iso8601)
         )
         let response = try await client.intelligentFields.patch(
             fieldReferenceId: "ticket-priority",
@@ -351,8 +352,8 @@ import Api
                 )
             ]),
             definition: "The priority of the conversation based on the urgency and importance; draw from the content / messages in the conversation; must be one of HIGH, MEDIUM, or LOW.",
-            createdAt: Optional(try! Date("2024-01-15T10:30:00Z", strategy: .iso8601)),
-            updatedAt: Optional(try! Date("2024-01-15T10:30:00Z", strategy: .iso8601))
+            createdAt: try! Date("2024-01-15T10:30:00Z", strategy: .iso8601),
+            updatedAt: try! Date("2024-01-15T10:30:00Z", strategy: .iso8601)
         )
         let response = try await client.intelligentFields.patch(
             fieldReferenceId: "ticket-priority",
@@ -435,8 +436,8 @@ import Api
                 )
             ]),
             definition: "The priority of the conversation based on the urgency and importance; draw from the content / messages in the conversation; must be one of HIGH, MEDIUM, or LOW.",
-            createdAt: Optional(try! Date("2024-01-15T10:30:00Z", strategy: .iso8601)),
-            updatedAt: Optional(try! Date("2024-01-15T10:30:00Z", strategy: .iso8601))
+            createdAt: try! Date("2024-01-15T10:30:00Z", strategy: .iso8601),
+            updatedAt: try! Date("2024-01-15T10:30:00Z", strategy: .iso8601)
         )
         let response = try await client.intelligentFields.delete(
             fieldReferenceId: "ticket-priority",

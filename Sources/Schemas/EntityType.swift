@@ -11,7 +11,10 @@ public enum EntityType: String, Codable, Hashable, CaseIterable, Sendable {
     case user = "USER"
     case event = "EVENT"
     case eventTrigger = "EVENT_TRIGGER"
+    /// Deprecated. Use `USER` instead.
     case userProfile = "USER_PROFILE"
+    /// A user merged across apps. `referenceId` is the agent user id (`AgentUser.id`).
+    case agentUser = "AGENT_USER"
     case feedback = "FEEDBACK"
     case inboxItem = "INBOX_ITEM"
     case inboxItemFix = "INBOX_ITEM_FIX"
@@ -21,7 +24,6 @@ public enum EntityType: String, Codable, Hashable, CaseIterable, Sendable {
     case charter = "CHARTER"
     case conversationKickoff = "CONVERSATION_KICKOFF"
     case agentVariant = "AGENT_VARIANT"
-    case configSnapshot = "CONFIG_SNAPSHOT"
     case asset = "ASSET"
     case trafficConfig = "TRAFFIC_CONFIG"
 }

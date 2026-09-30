@@ -1,7 +1,8 @@
 import Foundation
 
-/// Lifecycle state for whether this field is evaluated
-public enum IntelligentFieldStatus: String, Codable, Hashable, CaseIterable, Sendable {
+/// Whether an agent uses a capability, and whether it still exists. Applies to every capability
+/// type.
+public enum CapabilityStatus: String, Codable, Hashable, CaseIterable, Sendable {
     /// The field is evaluated, and values are computed for matching entities.
     case active = "ACTIVE"
     /// The field exists but is not evaluated. This is the state a new field is created in.

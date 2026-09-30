@@ -25,11 +25,15 @@ public final class IntelligentFieldsClient: Sendable {
         )
     }
 
+    /// Deprecated. Use `GET /v1/capabilities/INTELLIGENT_FIELD/{referenceId}`, which reads any
+    /// kind of capability the same way. It does not carry `referencingCharters`; search
+    /// charters to find the ones that reference a capability.
+    /// 
     /// Get an intelligent field by its supplied ID
     ///
     /// - Parameter fieldReferenceId: The reference ID of the intelligent field to get. All other entity ID fields are inferred from the request.
     /// - Parameter appId: The App ID of the intelligent field to get. If not provided the ID of the calling app will be used.
-    /// - Parameter variantReferenceId: The agent variant reference ID to resolve the intelligent field's version through. If not provided, defaults to the agent's production variant.
+    /// - Parameter variantReferenceId: The agent variant reference ID to resolve the intelligent field's version through. Required on an agent with versioned intelligent fields; a request that omits it there is rejected with reason `VARIANT_REQUIRED`. Otherwise, if omitted, the agent's only variant is used.
     /// - Parameter variantAppId: The App ID of the agent variant reference. If not provided, the ID of the calling app will be used.
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
     public func get(fieldReferenceId: String, appId: String? = nil, variantReferenceId: String? = nil, variantAppId: String? = nil, requestOptions: RequestOptions? = nil) async throws -> IntelligentFieldDetailResponse {
@@ -65,6 +69,9 @@ public final class IntelligentFieldsClient: Sendable {
         )
     }
 
+    /// Deprecated. Use `DELETE /v1/capabilities/INTELLIGENT_FIELD/{referenceId}`, which
+    /// deletes any kind of capability the same way. That endpoint returns no body.
+    /// 
     /// Soft delete an intelligent field. Only INACTIVE fields can be deleted.
     /// 
     /// Deleted fields are excluded from search results but can still be retrieved by ID.
@@ -75,7 +82,7 @@ public final class IntelligentFieldsClient: Sendable {
     ///
     /// - Parameter fieldReferenceId: The reference ID of the intelligent field to delete.
     /// - Parameter appId: The App ID of the intelligent field to delete. If not provided, the ID of the calling app will be used.
-    /// - Parameter variantReferenceId: The agent variant reference ID of the intelligent field to delete.
+    /// - Parameter variantReferenceId: The agent variant to stage the delete in, by reference ID. Required on an agent with versioned intelligent fields; a delete that omits it there is rejected with reason `VARIANT_REQUIRED`.
     /// - Parameter variantAppId: The App ID of the agent variant reference for the intelligent field to delete. If not provided, the ID of the calling app will be used.
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
     public func delete(fieldReferenceId: String, appId: String? = nil, variantReferenceId: String? = nil, variantAppId: String? = nil, requestOptions: RequestOptions? = nil) async throws -> IntelligentFieldResponse {

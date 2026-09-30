@@ -12,12 +12,12 @@ extension Requests {
         /// Each agent has a limit on how many fields may be ACTIVE at once; activating a
         /// field beyond that limit is rejected. A field referenced by an active precondition
         /// cannot be deactivated.
-        public let status: IntelligentFieldStatus?
+        public let status: CapabilityStatus?
         /// A plain text description of the intelligent field.
         public let description: String?
         /// Updated enum options for fields that constrain the LLM to a finite set. Omit to leave unchanged. The new list must be a superset of the existing options (add-only; removals are rejected).
         public let enumOptions: [EnumOption]?
-        /// The agent variant to stage this patch in, by reference ID. Its owning app is `variantAppId`.
+        /// The agent variant to stage this patch in, by reference ID. Its owning app is `variantAppId`. Required on an agent with versioned intelligent fields; a patch that omits it there is rejected with reason `VARIANT_REQUIRED`.
         public let variantId: EntityIdBase?
         /// The App ID of the agent variant named by `variantId`. If not provided, the ID of the calling app will be used — name the owning app to patch in a variant the caller does not own, as the platform's own seeded variants are.
         public let variantAppId: String?
@@ -27,7 +27,7 @@ extension Requests {
         public init(
             appId: String? = nil,
             definition: String? = nil,
-            status: IntelligentFieldStatus? = nil,
+            status: CapabilityStatus? = nil,
             description: String? = nil,
             enumOptions: [EnumOption]? = nil,
             variantId: EntityIdBase? = nil,
@@ -48,7 +48,7 @@ extension Requests {
             let container = try decoder.container(keyedBy: CodingKeys.self)
             self.appId = try container.decodeIfPresent(String.self, forKey: .appId)
             self.definition = try container.decodeIfPresent(String.self, forKey: .definition)
-            self.status = try container.decodeIfPresent(IntelligentFieldStatus.self, forKey: .status)
+            self.status = try container.decodeIfPresent(CapabilityStatus.self, forKey: .status)
             self.description = try container.decodeIfPresent(String.self, forKey: .description)
             self.enumOptions = try container.decodeIfPresent([EnumOption].self, forKey: .enumOptions)
             self.variantId = try container.decodeIfPresent(EntityIdBase.self, forKey: .variantId)

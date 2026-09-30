@@ -3,20 +3,10 @@ import Foundation
 public struct IntelligentFieldDetailResponse: Codable, Hashable, Sendable {
     /// ID that uniquely identifies this intelligent field
     public let fieldId: EntityId
-    /// Lifecycle state for whether this field is evaluated by workflows. Defaults to INACTIVE on creation. Use PATCH to activate.
-    public let status: IntelligentFieldStatus
-    /// The date and time the intelligent field was created
-    public let createdAt: Date?
-    /// The date and time the intelligent field was last updated
-    public let updatedAt: Date?
     /// Target entity type for evaluation. Only CONVERSATION is supported at this time. The backend will return an error for other types.
     public let entityType: EntityType
     /// ID of the agent variant this field belongs to, if applicable
     public let variantId: EntityIdWithoutAgent?
-    /// Display name for the intelligent field
-    public let name: String
-    /// A plain text description of the intelligent field.
-    public let description: String?
     /// The type of value this field holds. It constrains the schema the LLM is asked to fill
     /// and the JSON type of the computed `value`.
     /// 
@@ -32,6 +22,18 @@ public struct IntelligentFieldDetailResponse: Codable, Hashable, Sendable {
     /// The finite set of values this field may take. Omit to let the LLM produce any value of
     /// the `validationType`. Options may be added later with the patch endpoint, but not removed.
     public let enumOptions: [EnumOption]?
+    /// The capability's display name, shown to whoever manages the agent. A trigger registered
+    /// without one is named after the app that registered it and the event it fires on.
+    public let name: String
+    /// What the capability does. Shown to whoever manages the agent, and for the types the LLM
+    /// can choose between, used to decide when the capability applies.
+    public let description: String?
+    /// When the capability was created.
+    public let createdAt: Date
+    /// When the capability was last modified.
+    public let updatedAt: Date
+    /// Whether the agent uses this capability, and whether it still exists.
+    public let status: CapabilityStatus
     /// Charters whose precondition references this intelligent field. A field referenced by
     /// an active precondition cannot be deactivated.
     public let referencingCharters: [CharterSummary]?
@@ -40,30 +42,30 @@ public struct IntelligentFieldDetailResponse: Codable, Hashable, Sendable {
 
     public init(
         fieldId: EntityId,
-        status: IntelligentFieldStatus,
-        createdAt: Date? = nil,
-        updatedAt: Date? = nil,
         entityType: EntityType,
         variantId: EntityIdWithoutAgent? = nil,
-        name: String,
-        description: String? = nil,
         validationType: IntelligentFieldType,
         definition: String,
         enumOptions: [EnumOption]? = nil,
+        name: String,
+        description: String? = nil,
+        createdAt: Date,
+        updatedAt: Date,
+        status: CapabilityStatus,
         referencingCharters: [CharterSummary]? = nil,
         additionalProperties: [String: JSONValue] = .init()
     ) {
         self.fieldId = fieldId
-        self.status = status
-        self.createdAt = createdAt
-        self.updatedAt = updatedAt
         self.entityType = entityType
         self.variantId = variantId
-        self.name = name
-        self.description = description
         self.validationType = validationType
         self.definition = definition
         self.enumOptions = enumOptions
+        self.name = name
+        self.description = description
+        self.createdAt = createdAt
+        self.updatedAt = updatedAt
+        self.status = status
         self.referencingCharters = referencingCharters
         self.additionalProperties = additionalProperties
     }
@@ -71,16 +73,16 @@ public struct IntelligentFieldDetailResponse: Codable, Hashable, Sendable {
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.fieldId = try container.decode(EntityId.self, forKey: .fieldId)
-        self.status = try container.decode(IntelligentFieldStatus.self, forKey: .status)
-        self.createdAt = try container.decodeIfPresent(Date.self, forKey: .createdAt)
-        self.updatedAt = try container.decodeIfPresent(Date.self, forKey: .updatedAt)
         self.entityType = try container.decode(EntityType.self, forKey: .entityType)
         self.variantId = try container.decodeIfPresent(EntityIdWithoutAgent.self, forKey: .variantId)
-        self.name = try container.decode(String.self, forKey: .name)
-        self.description = try container.decodeIfPresent(String.self, forKey: .description)
         self.validationType = try container.decode(IntelligentFieldType.self, forKey: .validationType)
         self.definition = try container.decode(String.self, forKey: .definition)
         self.enumOptions = try container.decodeIfPresent([EnumOption].self, forKey: .enumOptions)
+        self.name = try container.decode(String.self, forKey: .name)
+        self.description = try container.decodeIfPresent(String.self, forKey: .description)
+        self.createdAt = try container.decode(Date.self, forKey: .createdAt)
+        self.updatedAt = try container.decode(Date.self, forKey: .updatedAt)
+        self.status = try container.decode(CapabilityStatus.self, forKey: .status)
         self.referencingCharters = try container.decodeIfPresent([CharterSummary].self, forKey: .referencingCharters)
         self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
     }
@@ -89,32 +91,32 @@ public struct IntelligentFieldDetailResponse: Codable, Hashable, Sendable {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try encoder.encodeAdditionalProperties(self.additionalProperties)
         try container.encode(self.fieldId, forKey: .fieldId)
-        try container.encode(self.status, forKey: .status)
-        try container.encodeIfPresent(self.createdAt, forKey: .createdAt)
-        try container.encodeIfPresent(self.updatedAt, forKey: .updatedAt)
         try container.encode(self.entityType, forKey: .entityType)
         try container.encodeIfPresent(self.variantId, forKey: .variantId)
-        try container.encode(self.name, forKey: .name)
-        try container.encodeIfPresent(self.description, forKey: .description)
         try container.encode(self.validationType, forKey: .validationType)
         try container.encode(self.definition, forKey: .definition)
         try container.encodeIfPresent(self.enumOptions, forKey: .enumOptions)
+        try container.encode(self.name, forKey: .name)
+        try container.encodeIfPresent(self.description, forKey: .description)
+        try container.encode(self.createdAt, forKey: .createdAt)
+        try container.encode(self.updatedAt, forKey: .updatedAt)
+        try container.encode(self.status, forKey: .status)
         try container.encodeIfPresent(self.referencingCharters, forKey: .referencingCharters)
     }
 
     /// Keys for encoding/decoding struct properties.
     enum CodingKeys: String, CodingKey, CaseIterable {
         case fieldId
-        case status
-        case createdAt
-        case updatedAt
         case entityType
         case variantId
-        case name
-        case description
         case validationType
         case definition
         case enumOptions
+        case name
+        case description
+        case createdAt
+        case updatedAt
+        case status
         case referencingCharters
     }
 }

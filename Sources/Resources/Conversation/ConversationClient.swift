@@ -66,6 +66,7 @@ public final class ConversationClient: Sendable {
     /// Wipes a conversation of all user data.
     /// The conversation ID will still exist and non-user specific data will still be retained.
     /// Attempts to modify or add messages to the conversation will throw an error.
+    /// The conversation is sealed against further writes as soon as this call returns. A `202 Accepted` response means the wipe is still completing and will finish on its own.
     /// 
     /// Simulation conversations will no longer be visible in search results nor metrics.
     /// Non-simulation conversations will remain visible - they can not be fully removed from the system.

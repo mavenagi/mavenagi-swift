@@ -8,16 +8,21 @@ public struct EnumOption: Codable, Hashable, Sendable {
     public let value: String
     /// Display label for the option
     public let label: String?
+    /// Instructions that tell the LLM when to pick this option. Up to 1200 characters. On a
+    /// patch, an option sent without a description has its description cleared.
+    public let description: String?
     /// Additional properties that are not explicitly defined in the schema
     public let additionalProperties: [String: JSONValue]
 
     public init(
         value: String,
         label: String? = nil,
+        description: String? = nil,
         additionalProperties: [String: JSONValue] = .init()
     ) {
         self.value = value
         self.label = label
+        self.description = description
         self.additionalProperties = additionalProperties
     }
 
@@ -25,6 +30,7 @@ public struct EnumOption: Codable, Hashable, Sendable {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.value = try container.decode(String.self, forKey: .value)
         self.label = try container.decodeIfPresent(String.self, forKey: .label)
+        self.description = try container.decodeIfPresent(String.self, forKey: .description)
         self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
     }
 
@@ -33,11 +39,13 @@ public struct EnumOption: Codable, Hashable, Sendable {
         try encoder.encodeAdditionalProperties(self.additionalProperties)
         try container.encode(self.value, forKey: .value)
         try container.encodeIfPresent(self.label, forKey: .label)
+        try container.encodeIfPresent(self.description, forKey: .description)
     }
 
     /// Keys for encoding/decoding struct properties.
     enum CodingKeys: String, CodingKey, CaseIterable {
         case value
         case label
+        case description
     }
 }

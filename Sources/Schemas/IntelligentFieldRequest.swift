@@ -5,10 +5,6 @@ public struct IntelligentFieldRequest: Codable, Hashable, Sendable {
     public let entityType: EntityType
     /// ID of the agent variant this field belongs to, if applicable
     public let variantId: EntityIdWithoutAgent?
-    /// Display name for the intelligent field
-    public let name: String
-    /// A plain text description of the intelligent field.
-    public let description: String?
     /// The type of value this field holds. It constrains the schema the LLM is asked to fill
     /// and the JSON type of the computed `value`.
     /// 
@@ -24,6 +20,10 @@ public struct IntelligentFieldRequest: Codable, Hashable, Sendable {
     /// The finite set of values this field may take. Omit to let the LLM produce any value of
     /// the `validationType`. Options may be added later with the patch endpoint, but not removed.
     public let enumOptions: [EnumOption]?
+    /// Display name for the intelligent field
+    public let name: String
+    /// A plain text description of the intelligent field.
+    public let description: String?
     /// ID that uniquely identifies this intelligent field. `referenceId` is supplied by the
     /// caller and is how the field is addressed on every other endpoint.
     public let fieldId: EntityIdBase
@@ -33,21 +33,21 @@ public struct IntelligentFieldRequest: Codable, Hashable, Sendable {
     public init(
         entityType: EntityType,
         variantId: EntityIdWithoutAgent? = nil,
-        name: String,
-        description: String? = nil,
         validationType: IntelligentFieldType,
         definition: String,
         enumOptions: [EnumOption]? = nil,
+        name: String,
+        description: String? = nil,
         fieldId: EntityIdBase,
         additionalProperties: [String: JSONValue] = .init()
     ) {
         self.entityType = entityType
         self.variantId = variantId
-        self.name = name
-        self.description = description
         self.validationType = validationType
         self.definition = definition
         self.enumOptions = enumOptions
+        self.name = name
+        self.description = description
         self.fieldId = fieldId
         self.additionalProperties = additionalProperties
     }
@@ -56,11 +56,11 @@ public struct IntelligentFieldRequest: Codable, Hashable, Sendable {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.entityType = try container.decode(EntityType.self, forKey: .entityType)
         self.variantId = try container.decodeIfPresent(EntityIdWithoutAgent.self, forKey: .variantId)
-        self.name = try container.decode(String.self, forKey: .name)
-        self.description = try container.decodeIfPresent(String.self, forKey: .description)
         self.validationType = try container.decode(IntelligentFieldType.self, forKey: .validationType)
         self.definition = try container.decode(String.self, forKey: .definition)
         self.enumOptions = try container.decodeIfPresent([EnumOption].self, forKey: .enumOptions)
+        self.name = try container.decode(String.self, forKey: .name)
+        self.description = try container.decodeIfPresent(String.self, forKey: .description)
         self.fieldId = try container.decode(EntityIdBase.self, forKey: .fieldId)
         self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
     }
@@ -70,11 +70,11 @@ public struct IntelligentFieldRequest: Codable, Hashable, Sendable {
         try encoder.encodeAdditionalProperties(self.additionalProperties)
         try container.encode(self.entityType, forKey: .entityType)
         try container.encodeIfPresent(self.variantId, forKey: .variantId)
-        try container.encode(self.name, forKey: .name)
-        try container.encodeIfPresent(self.description, forKey: .description)
         try container.encode(self.validationType, forKey: .validationType)
         try container.encode(self.definition, forKey: .definition)
         try container.encodeIfPresent(self.enumOptions, forKey: .enumOptions)
+        try container.encode(self.name, forKey: .name)
+        try container.encodeIfPresent(self.description, forKey: .description)
         try container.encode(self.fieldId, forKey: .fieldId)
     }
 
@@ -82,11 +82,11 @@ public struct IntelligentFieldRequest: Codable, Hashable, Sendable {
     enum CodingKeys: String, CodingKey, CaseIterable {
         case entityType
         case variantId
-        case name
-        case description
         case validationType
         case definition
         case enumOptions
+        case name
+        case description
         case fieldId
     }
 }

@@ -1,24 +1,29 @@
 import Foundation
 
+/// Filters combine with AND: a charter must match every filter given. Within one filter, a
+/// charter matches if it references any of the listed IDs. An empty list is the same as
+/// omitting the filter.
 public struct CharterSearchFilter: Codable, Hashable, Sendable {
-    /// Filter to charters that reference any of the specified actions (OR within this field).
-    /// When combined with knowledgeBaseIds, both filters must match (AND across fields).
-    /// An empty list is equivalent to omitting the field. Maximum 50 IDs.
+    /// Only return charters referencing these actions. At most 50.
     public let actionIds: [EntityId]?
-    /// Filter to charters that reference any of the specified knowledge bases (OR within this field).
-    /// When combined with actionIds, both filters must match (AND across fields).
-    /// An empty list is equivalent to omitting the field. Maximum 50 IDs.
+    /// Only return charters referencing these knowledge bases. At most 50.
     public let knowledgeBaseIds: [EntityId]?
+    /// Only return charters whose precondition references these intelligent fields. At most 50.
+    /// A charter reaches an intelligent field through its precondition, not by referencing it
+    /// directly the way it does an action or a knowledge base.
+    public let intelligentFieldIds: [EntityId]?
     /// Additional properties that are not explicitly defined in the schema
     public let additionalProperties: [String: JSONValue]
 
     public init(
         actionIds: [EntityId]? = nil,
         knowledgeBaseIds: [EntityId]? = nil,
+        intelligentFieldIds: [EntityId]? = nil,
         additionalProperties: [String: JSONValue] = .init()
     ) {
         self.actionIds = actionIds
         self.knowledgeBaseIds = knowledgeBaseIds
+        self.intelligentFieldIds = intelligentFieldIds
         self.additionalProperties = additionalProperties
     }
 
@@ -26,6 +31,7 @@ public struct CharterSearchFilter: Codable, Hashable, Sendable {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.actionIds = try container.decodeIfPresent([EntityId].self, forKey: .actionIds)
         self.knowledgeBaseIds = try container.decodeIfPresent([EntityId].self, forKey: .knowledgeBaseIds)
+        self.intelligentFieldIds = try container.decodeIfPresent([EntityId].self, forKey: .intelligentFieldIds)
         self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
     }
 
@@ -34,11 +40,13 @@ public struct CharterSearchFilter: Codable, Hashable, Sendable {
         try encoder.encodeAdditionalProperties(self.additionalProperties)
         try container.encodeIfPresent(self.actionIds, forKey: .actionIds)
         try container.encodeIfPresent(self.knowledgeBaseIds, forKey: .knowledgeBaseIds)
+        try container.encodeIfPresent(self.intelligentFieldIds, forKey: .intelligentFieldIds)
     }
 
     /// Keys for encoding/decoding struct properties.
     enum CodingKeys: String, CodingKey, CaseIterable {
         case actionIds
         case knowledgeBaseIds
+        case intelligentFieldIds
     }
 }

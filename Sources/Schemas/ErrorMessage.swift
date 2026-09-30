@@ -7,6 +7,8 @@ public struct ErrorMessage: Codable, Hashable, Sendable {
     public let error: String?
     /// Human-readable error details.
     public let message: String?
+    /// Machine-readable reason for the failure, when the API defines one. Match on this rather than on `message`, whose wording may change.
+    public let reason: ErrorReason?
     /// Additional properties that are not explicitly defined in the schema
     public let additionalProperties: [String: JSONValue]
 
@@ -14,11 +16,13 @@ public struct ErrorMessage: Codable, Hashable, Sendable {
         status: Int? = nil,
         error: String? = nil,
         message: String? = nil,
+        reason: ErrorReason? = nil,
         additionalProperties: [String: JSONValue] = .init()
     ) {
         self.status = status
         self.error = error
         self.message = message
+        self.reason = reason
         self.additionalProperties = additionalProperties
     }
 
@@ -27,6 +31,7 @@ public struct ErrorMessage: Codable, Hashable, Sendable {
         self.status = try container.decodeIfPresent(Int.self, forKey: .status)
         self.error = try container.decodeIfPresent(String.self, forKey: .error)
         self.message = try container.decodeIfPresent(String.self, forKey: .message)
+        self.reason = try container.decodeIfPresent(ErrorReason.self, forKey: .reason)
         self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
     }
 
@@ -36,6 +41,7 @@ public struct ErrorMessage: Codable, Hashable, Sendable {
         try container.encodeIfPresent(self.status, forKey: .status)
         try container.encodeIfPresent(self.error, forKey: .error)
         try container.encodeIfPresent(self.message, forKey: .message)
+        try container.encodeIfPresent(self.reason, forKey: .reason)
     }
 
     /// Keys for encoding/decoding struct properties.
@@ -43,5 +49,6 @@ public struct ErrorMessage: Codable, Hashable, Sendable {
         case status
         case error
         case message
+        case reason
     }
 }

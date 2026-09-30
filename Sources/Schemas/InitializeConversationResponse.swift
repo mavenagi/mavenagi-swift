@@ -52,6 +52,10 @@ public struct InitializeConversationResponse: Codable, Hashable, Sendable {
     /// Whether the conversation is spoken or written. Set by the platform and read-only —
     /// it cannot be supplied when creating or updating a conversation.
     public let conversationMode: ConversationMode?
+    /// The agent variant this conversation is pinned to. Chosen by the agent's traffic rules when
+    /// the conversation is created and fixed for its lifetime. Absent when the conversation was
+    /// not routed to a variant, for example one created before the agent had variants.
+    public let variantId: EntityId?
     /// Results of the Conversation Kickoffs that ran during conversation initialization, one
     /// entry per kickoff in the order they were recorded. Empty when no kickoff ran. Only
     /// present on this initialize response; other endpoints that return a conversation do not
@@ -80,6 +84,7 @@ public struct InitializeConversationResponse: Codable, Hashable, Sendable {
         simulationContext: SimulationContext? = nil,
         relatedEntities: [RelationshipType: [EntityId]]? = nil,
         conversationMode: ConversationMode? = nil,
+        variantId: EntityId? = nil,
         conversationKickoffResults: [ConversationKickoffExecutionResponse],
         additionalProperties: [String: JSONValue] = .init()
     ) {
@@ -102,6 +107,7 @@ public struct InitializeConversationResponse: Codable, Hashable, Sendable {
         self.simulationContext = simulationContext
         self.relatedEntities = relatedEntities
         self.conversationMode = conversationMode
+        self.variantId = variantId
         self.conversationKickoffResults = conversationKickoffResults
         self.additionalProperties = additionalProperties
     }
@@ -127,6 +133,7 @@ public struct InitializeConversationResponse: Codable, Hashable, Sendable {
         self.simulationContext = try container.decodeIfPresent(SimulationContext.self, forKey: .simulationContext)
         self.relatedEntities = try container.decodeIfPresent([RelationshipType: [EntityId]].self, forKey: .relatedEntities)
         self.conversationMode = try container.decodeIfPresent(ConversationMode.self, forKey: .conversationMode)
+        self.variantId = try container.decodeIfPresent(EntityId.self, forKey: .variantId)
         self.conversationKickoffResults = try container.decode([ConversationKickoffExecutionResponse].self, forKey: .conversationKickoffResults)
         self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
     }
@@ -153,6 +160,7 @@ public struct InitializeConversationResponse: Codable, Hashable, Sendable {
         try container.encodeIfPresent(self.simulationContext, forKey: .simulationContext)
         try container.encodeIfPresent(self.relatedEntities, forKey: .relatedEntities)
         try container.encodeIfPresent(self.conversationMode, forKey: .conversationMode)
+        try container.encodeIfPresent(self.variantId, forKey: .variantId)
         try container.encode(self.conversationKickoffResults, forKey: .conversationKickoffResults)
     }
 
@@ -177,6 +185,7 @@ public struct InitializeConversationResponse: Codable, Hashable, Sendable {
         case simulationContext
         case relatedEntities
         case conversationMode
+        case variantId
         case conversationKickoffResults
     }
 }

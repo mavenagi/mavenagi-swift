@@ -353,7 +353,14 @@ import Api
                       }
                     ]
                   },
-                  "conversationMode": "VOICE"
+                  "conversationMode": "VOICE",
+                  "variantId": {
+                    "organizationId": "organizationId",
+                    "agentId": "agentId",
+                    "type": "AGENT",
+                    "appId": "appId",
+                    "referenceId": "x"
+                  }
                 }
                 """.utf8
             )
@@ -687,7 +694,14 @@ import Api
                     )
                 ]
             ]),
-            conversationMode: Optional(.voice)
+            conversationMode: Optional(.voice),
+            variantId: Optional(EntityId(
+                organizationId: "organizationId",
+                agentId: "agentId",
+                type: .agent,
+                appId: "appId",
+                referenceId: "x"
+            ))
         )
         let response = try await client.conversation.initialize(
             request: ConversationRequest(
@@ -1259,7 +1273,14 @@ import Api
                       }
                     ]
                   },
-                  "conversationMode": "VOICE"
+                  "conversationMode": "VOICE",
+                  "variantId": {
+                    "organizationId": "organizationId",
+                    "agentId": "agentId",
+                    "type": "AGENT",
+                    "appId": "appId",
+                    "referenceId": "x"
+                  }
                 }
                 """.utf8
             )
@@ -1573,7 +1594,14 @@ import Api
                     )
                 ]
             ]),
-            conversationMode: Optional(.voice)
+            conversationMode: Optional(.voice),
+            variantId: Optional(EntityId(
+                organizationId: "organizationId",
+                agentId: "agentId",
+                type: .agent,
+                appId: "appId",
+                referenceId: "x"
+            ))
         )
         let response = try await client.conversation.get(
             conversationId: "conversationId",
@@ -1912,7 +1940,14 @@ import Api
                       }
                     ]
                   },
-                  "conversationMode": "VOICE"
+                  "conversationMode": "VOICE",
+                  "variantId": {
+                    "organizationId": "organizationId",
+                    "agentId": "agentId",
+                    "type": "AGENT",
+                    "appId": "appId",
+                    "referenceId": "x"
+                  }
                 }
                 """.utf8
             )
@@ -2226,7 +2261,14 @@ import Api
                     )
                 ]
             ]),
-            conversationMode: Optional(.voice)
+            conversationMode: Optional(.voice),
+            variantId: Optional(EntityId(
+                organizationId: "organizationId",
+                agentId: "agentId",
+                type: .agent,
+                appId: "appId",
+                referenceId: "x"
+            ))
         )
         let response = try await client.conversation.appendNewMessages(
             conversationId: "conversationId",
@@ -2938,7 +2980,14 @@ import Api
                       }
                     ]
                   },
-                  "conversationMode": "VOICE"
+                  "conversationMode": "VOICE",
+                  "variantId": {
+                    "organizationId": "organizationId",
+                    "agentId": "agentId",
+                    "type": "AGENT",
+                    "appId": "appId",
+                    "referenceId": "x"
+                  }
                 }
                 """.utf8
             )
@@ -3252,7 +3301,14 @@ import Api
                     )
                 ]
             ]),
-            conversationMode: Optional(.voice)
+            conversationMode: Optional(.voice),
+            variantId: Optional(EntityId(
+                organizationId: "organizationId",
+                agentId: "agentId",
+                type: .agent,
+                appId: "appId",
+                referenceId: "x"
+            ))
         )
         let response = try await client.conversation.submitActionForm(
             conversationId: "conversationId",
@@ -3571,7 +3627,14 @@ import Api
                           }
                         ]
                       },
-                      "conversationMode": "VOICE"
+                      "conversationMode": "VOICE",
+                      "variantId": {
+                        "organizationId": "organizationId",
+                        "agentId": "agentId",
+                        "type": "AGENT",
+                        "appId": "appId",
+                        "referenceId": "x"
+                      }
                     },
                     {
                       "responseConfig": {
@@ -3789,7 +3852,14 @@ import Api
                           }
                         ]
                       },
-                      "conversationMode": "VOICE"
+                      "conversationMode": "VOICE",
+                      "variantId": {
+                        "organizationId": "organizationId",
+                        "agentId": "agentId",
+                        "type": "AGENT",
+                        "appId": "appId",
+                        "referenceId": "x"
+                      }
                     }
                   ],
                   "number": 1,
@@ -4007,7 +4077,14 @@ import Api
                             )
                         ]
                     ]),
-                    conversationMode: Optional(.voice)
+                    conversationMode: Optional(.voice),
+                    variantId: Optional(EntityId(
+                        organizationId: "organizationId",
+                        agentId: "agentId",
+                        type: .agent,
+                        appId: "appId",
+                        referenceId: "x"
+                    ))
                 ),
                 ConversationPreview(
                     responseConfig: Optional(ResponseConfig(
@@ -4208,7 +4285,14 @@ import Api
                             )
                         ]
                     ]),
-                    conversationMode: Optional(.voice)
+                    conversationMode: Optional(.voice),
+                    variantId: Optional(EntityId(
+                        organizationId: "organizationId",
+                        agentId: "agentId",
+                        type: .agent,
+                        appId: "appId",
+                        referenceId: "x"
+                    ))
                 )
             ],
             number: 1,
@@ -4448,7 +4532,14 @@ import Api
                           }
                         ]
                       },
-                      "conversationMode": "VOICE"
+                      "conversationMode": "VOICE",
+                      "variantId": {
+                        "organizationId": "organizationId",
+                        "agentId": "agentId",
+                        "type": "AGENT",
+                        "appId": "appId",
+                        "referenceId": "x"
+                      }
                     },
                     {
                       "responseConfig": {
@@ -4666,7 +4757,14 @@ import Api
                           }
                         ]
                       },
-                      "conversationMode": "VOICE"
+                      "conversationMode": "VOICE",
+                      "variantId": {
+                        "organizationId": "organizationId",
+                        "agentId": "agentId",
+                        "type": "AGENT",
+                        "appId": "appId",
+                        "referenceId": "x"
+                      }
                     }
                   ],
                   "totalElements": 1000000,
@@ -4882,7 +4980,14 @@ import Api
                             )
                         ]
                     ]),
-                    conversationMode: Optional(.voice)
+                    conversationMode: Optional(.voice),
+                    variantId: Optional(EntityId(
+                        organizationId: "organizationId",
+                        agentId: "agentId",
+                        type: .agent,
+                        appId: "appId",
+                        referenceId: "x"
+                    ))
                 ),
                 ConversationPreview(
                     responseConfig: Optional(ResponseConfig(
@@ -5083,7 +5188,14 @@ import Api
                             )
                         ]
                     ]),
-                    conversationMode: Optional(.voice)
+                    conversationMode: Optional(.voice),
+                    variantId: Optional(EntityId(
+                        organizationId: "organizationId",
+                        agentId: "agentId",
+                        type: .agent,
+                        appId: "appId",
+                        referenceId: "x"
+                    ))
                 )
             ],
             totalElements: Optional(1000000),

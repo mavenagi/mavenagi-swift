@@ -1,10 +1,6 @@
 import Foundation
 
 public struct EventTriggerRequest: Codable, Hashable, Sendable {
-    /// The name of the trigger, displayed to end users. If not set, a name is derived from the app ID and trigger type.
-    public let name: String?
-    /// The description of what the event trigger does, shown in the Maven Dashboard
-    public let description: String
     /// The type of event trigger this app wishes to handle.
     /// 
     /// Conversation triggers fire when a conversation is created, after each additional message, and upon deletion events.
@@ -14,30 +10,34 @@ public struct EventTriggerRequest: Codable, Hashable, Sendable {
     /// 
     /// Inbox triggers fire when an inbox item is created or updated.
     public let type: EventTriggerType
+    /// The name of the trigger, displayed to end users. If not set, a name is derived from the app ID and trigger type.
+    public let name: String?
+    /// The description of what the event trigger does, shown in the Maven Dashboard
+    public let description: String
     /// ID that uniquely identifies this event trigger
     public let triggerId: EntityIdBase
     /// Additional properties that are not explicitly defined in the schema
     public let additionalProperties: [String: JSONValue]
 
     public init(
+        type: EventTriggerType,
         name: String? = nil,
         description: String,
-        type: EventTriggerType,
         triggerId: EntityIdBase,
         additionalProperties: [String: JSONValue] = .init()
     ) {
+        self.type = type
         self.name = name
         self.description = description
-        self.type = type
         self.triggerId = triggerId
         self.additionalProperties = additionalProperties
     }
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.type = try container.decode(EventTriggerType.self, forKey: .type)
         self.name = try container.decodeIfPresent(String.self, forKey: .name)
         self.description = try container.decode(String.self, forKey: .description)
-        self.type = try container.decode(EventTriggerType.self, forKey: .type)
         self.triggerId = try container.decode(EntityIdBase.self, forKey: .triggerId)
         self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
     }
@@ -45,17 +45,17 @@ public struct EventTriggerRequest: Codable, Hashable, Sendable {
     public func encode(to encoder: Encoder) throws -> Void {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try encoder.encodeAdditionalProperties(self.additionalProperties)
+        try container.encode(self.type, forKey: .type)
         try container.encodeIfPresent(self.name, forKey: .name)
         try container.encode(self.description, forKey: .description)
-        try container.encode(self.type, forKey: .type)
         try container.encode(self.triggerId, forKey: .triggerId)
     }
 
     /// Keys for encoding/decoding struct properties.
     enum CodingKeys: String, CodingKey, CaseIterable {
+        case type
         case name
         case description
-        case type
         case triggerId
     }
 }
