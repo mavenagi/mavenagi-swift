@@ -12,6 +12,8 @@ public struct AgentUserFilter: Codable, Hashable, Sendable {
     /// Filter by anonymous users. When true, only anonymous users are returned.
     /// When false, only non-anonymous users are returned. An anonymous user is one without any identifiers or name data.
     public let isAnonymous: Bool?
+    /// Filter by intelligent field values. All conditions are ANDed together.
+    public let intelligentFields: IntelligentFieldFilter?
     /// Additional properties that are not explicitly defined in the schema
     public let additionalProperties: [String: JSONValue]
 
@@ -20,12 +22,14 @@ public struct AgentUserFilter: Codable, Hashable, Sendable {
         identifiers: [String]? = nil,
         displayName: String? = nil,
         isAnonymous: Bool? = nil,
+        intelligentFields: IntelligentFieldFilter? = nil,
         additionalProperties: [String: JSONValue] = .init()
     ) {
         self.search = search
         self.identifiers = identifiers
         self.displayName = displayName
         self.isAnonymous = isAnonymous
+        self.intelligentFields = intelligentFields
         self.additionalProperties = additionalProperties
     }
 
@@ -35,6 +39,7 @@ public struct AgentUserFilter: Codable, Hashable, Sendable {
         self.identifiers = try container.decodeIfPresent([String].self, forKey: .identifiers)
         self.displayName = try container.decodeIfPresent(String.self, forKey: .displayName)
         self.isAnonymous = try container.decodeIfPresent(Bool.self, forKey: .isAnonymous)
+        self.intelligentFields = try container.decodeIfPresent(IntelligentFieldFilter.self, forKey: .intelligentFields)
         self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
     }
 
@@ -45,6 +50,7 @@ public struct AgentUserFilter: Codable, Hashable, Sendable {
         try container.encodeIfPresent(self.identifiers, forKey: .identifiers)
         try container.encodeIfPresent(self.displayName, forKey: .displayName)
         try container.encodeIfPresent(self.isAnonymous, forKey: .isAnonymous)
+        try container.encodeIfPresent(self.intelligentFields, forKey: .intelligentFields)
     }
 
     /// Keys for encoding/decoding struct properties.
@@ -53,5 +59,6 @@ public struct AgentUserFilter: Codable, Hashable, Sendable {
         case identifiers
         case displayName
         case isAnonymous
+        case intelligentFields
     }
 }

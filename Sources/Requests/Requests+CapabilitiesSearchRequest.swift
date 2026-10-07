@@ -28,8 +28,10 @@ extension Requests {
         /// with versioned intelligent fields unless `capabilityTypes` excludes them; a
         /// request that omits it there is rejected with reason `VARIANT_REQUIRED`. Otherwise,
         /// if omitted, the agent's only variant is used.
+        public let variantId: EntityIdWithoutAgent?
+        /// Deprecated, use `variantId`, which wins when both are set.
         public let variantReferenceId: String?
-        /// The app that owns the agent variant. Defaults to the calling app.
+        /// Deprecated, use `variantId`, which wins when both are set.
         public let variantAppId: String?
         /// Additional properties that are not explicitly defined in the schema
         public let additionalProperties: [String: JSONValue]
@@ -45,6 +47,7 @@ extension Requests {
             description: String? = nil,
             userInteractionRequired: Bool? = nil,
             sortId: CapabilitySortField? = nil,
+            variantId: EntityIdWithoutAgent? = nil,
             variantReferenceId: String? = nil,
             variantAppId: String? = nil,
             additionalProperties: [String: JSONValue] = .init()
@@ -59,6 +62,7 @@ extension Requests {
             self.description = description
             self.userInteractionRequired = userInteractionRequired
             self.sortId = sortId
+            self.variantId = variantId
             self.variantReferenceId = variantReferenceId
             self.variantAppId = variantAppId
             self.additionalProperties = additionalProperties
@@ -76,6 +80,7 @@ extension Requests {
             self.description = try container.decodeIfPresent(String.self, forKey: .description)
             self.userInteractionRequired = try container.decodeIfPresent(Bool.self, forKey: .userInteractionRequired)
             self.sortId = try container.decodeIfPresent(CapabilitySortField.self, forKey: .sortId)
+            self.variantId = try container.decodeIfPresent(EntityIdWithoutAgent.self, forKey: .variantId)
             self.variantReferenceId = try container.decodeIfPresent(String.self, forKey: .variantReferenceId)
             self.variantAppId = try container.decodeIfPresent(String.self, forKey: .variantAppId)
             self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
@@ -94,6 +99,7 @@ extension Requests {
             try container.encodeIfPresent(self.description, forKey: .description)
             try container.encodeIfPresent(self.userInteractionRequired, forKey: .userInteractionRequired)
             try container.encodeIfPresent(self.sortId, forKey: .sortId)
+            try container.encodeIfPresent(self.variantId, forKey: .variantId)
             try container.encodeIfPresent(self.variantReferenceId, forKey: .variantReferenceId)
             try container.encodeIfPresent(self.variantAppId, forKey: .variantAppId)
         }
@@ -110,6 +116,7 @@ extension Requests {
             case description
             case userInteractionRequired
             case sortId
+            case variantId
             case variantReferenceId
             case variantAppId
         }

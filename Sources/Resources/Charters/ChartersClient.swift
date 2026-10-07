@@ -37,13 +37,17 @@ public final class ChartersClient: Sendable {
     ///
     /// - Parameter charterReferenceId: The reference ID of the charter to get. All other entity ID fields are inferred from the request.
     /// - Parameter appId: The App ID of the charter to get. If not provided, the ID of the calling app will be used.
+    /// - Parameter variantReferenceId: The agent variant reference ID to resolve the charter's version through. If not provided, defaults to the agent's production variant. Currently, validated but not applied.
+    /// - Parameter variantAppId: The App ID of the agent variant reference. If not provided, the ID of the calling app will be used.
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
-    public func get(charterReferenceId: String, appId: String? = nil, requestOptions: RequestOptions? = nil) async throws -> CharterResponse {
+    public func get(charterReferenceId: String, appId: String? = nil, variantReferenceId: String? = nil, variantAppId: String? = nil, requestOptions: RequestOptions? = nil) async throws -> CharterResponse {
         return try await httpClient.performRequest(
             method: .get,
             path: "/v1/charters/\(charterReferenceId)",
             queryParams: [
-                "appId": appId.map { .string($0) }
+                "appId": appId.map { .string($0) }, 
+                "variantReferenceId": variantReferenceId.map { .string($0) }, 
+                "variantAppId": variantAppId.map { .string($0) }
             ],
             requestOptions: requestOptions,
             responseType: CharterResponse.self
@@ -96,7 +100,7 @@ public final class ChartersClient: Sendable {
     /// agent's live configuration.
     /// 
     /// Omit this parameter to delete directly from the agent. Variant scoping is not
-    /// active yet: a variant supplied today is accepted and ignored, and the delete applies
+    /// active yet: a variant supplied today is validated but not applied, and the delete applies
     /// to the agent.
     /// - Parameter variantAppId: The App ID of the agent variant named by `variantReferenceId`. If not provided, the ID of the calling app will be used.
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.

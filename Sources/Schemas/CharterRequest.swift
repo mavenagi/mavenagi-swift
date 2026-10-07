@@ -46,6 +46,12 @@ public struct CharterRequest: Codable, Hashable, Sendable {
     public let references: CharterReferences
     /// Display name for this charter or group.
     public let name: String
+    /// ID of the agent variant this charter belongs to, if applicable.
+    /// 
+    /// On a write this is validated -- an unknown variant is rejected, as is any
+    /// variant while variant scoping is off for charters -- but not yet applied: the
+    /// write reaches the agent's live configuration either way.
+    public let variantId: EntityIdWithoutAgent?
     /// A plain text description of this charter. If not set, existing description is preserved if present.
     public let description: String?
     /// Optional additional natural language instruction text when this
@@ -56,12 +62,6 @@ public struct CharterRequest: Codable, Hashable, Sendable {
     public let manual: String?
     /// ID that uniquely identifies this charter.
     public let charterId: EntityIdBase
-    /// The agent variant this write is scoped to. When set, the charter content is staged in
-    /// that variant's working set instead of being applied to the agent's live configuration.
-    /// 
-    /// Omit this field to write directly to the agent. Variant scoping is not active yet: a
-    /// variant supplied today is accepted and ignored, and the write applies to the agent.
-    public let variantId: EntityIdWithoutAgent?
     /// Additional properties that are not explicitly defined in the schema
     public let additionalProperties: [String: JSONValue]
 
@@ -74,10 +74,10 @@ public struct CharterRequest: Codable, Hashable, Sendable {
         userRank: Int? = nil,
         references: CharterReferences,
         name: String,
+        variantId: EntityIdWithoutAgent? = nil,
         description: String? = nil,
         manual: String? = nil,
         charterId: EntityIdBase,
-        variantId: EntityIdWithoutAgent? = nil,
         additionalProperties: [String: JSONValue] = .init()
     ) {
         self.parentCharterId = parentCharterId
@@ -88,10 +88,10 @@ public struct CharterRequest: Codable, Hashable, Sendable {
         self.userRank = userRank
         self.references = references
         self.name = name
+        self.variantId = variantId
         self.description = description
         self.manual = manual
         self.charterId = charterId
-        self.variantId = variantId
         self.additionalProperties = additionalProperties
     }
 
@@ -105,10 +105,10 @@ public struct CharterRequest: Codable, Hashable, Sendable {
         self.userRank = try container.decodeIfPresent(Int.self, forKey: .userRank)
         self.references = try container.decode(CharterReferences.self, forKey: .references)
         self.name = try container.decode(String.self, forKey: .name)
+        self.variantId = try container.decodeIfPresent(EntityIdWithoutAgent.self, forKey: .variantId)
         self.description = try container.decodeIfPresent(String.self, forKey: .description)
         self.manual = try container.decodeIfPresent(String.self, forKey: .manual)
         self.charterId = try container.decode(EntityIdBase.self, forKey: .charterId)
-        self.variantId = try container.decodeIfPresent(EntityIdWithoutAgent.self, forKey: .variantId)
         self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
     }
 
@@ -123,10 +123,10 @@ public struct CharterRequest: Codable, Hashable, Sendable {
         try container.encodeIfPresent(self.userRank, forKey: .userRank)
         try container.encode(self.references, forKey: .references)
         try container.encode(self.name, forKey: .name)
+        try container.encodeIfPresent(self.variantId, forKey: .variantId)
         try container.encodeIfPresent(self.description, forKey: .description)
         try container.encodeIfPresent(self.manual, forKey: .manual)
         try container.encode(self.charterId, forKey: .charterId)
-        try container.encodeIfPresent(self.variantId, forKey: .variantId)
     }
 
     /// Keys for encoding/decoding struct properties.
@@ -139,9 +139,9 @@ public struct CharterRequest: Codable, Hashable, Sendable {
         case userRank
         case references
         case name
+        case variantId
         case description
         case manual
         case charterId
-        case variantId
     }
 }

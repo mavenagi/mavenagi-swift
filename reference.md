@@ -3102,7 +3102,7 @@ try await main()
 </dl>
 </details>
 
-<details><summary><code>client.charters.<a href="/Sources/Resources/Charters/ChartersClient.swift">get</a>(charterReferenceId: String, appId: String?, requestOptions: RequestOptions?) -> CharterResponse</code></summary>
+<details><summary><code>client.charters.<a href="/Sources/Resources/Charters/ChartersClient.swift">get</a>(charterReferenceId: String, appId: String?, variantReferenceId: String?, variantAppId: String?, requestOptions: RequestOptions?) -> CharterResponse</code></summary>
 <dl>
 <dd>
 
@@ -3165,6 +3165,22 @@ try await main()
 <dd>
 
 **appId:** `String?` — The App ID of the charter to get. If not provided, the ID of the calling app will be used.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**variantReferenceId:** `String?` — The agent variant reference ID to resolve the charter's version through. If not provided, defaults to the agent's production variant. Currently, validated but not applied.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**variantAppId:** `String?` — The App ID of the agent variant reference. If not provided, the ID of the calling app will be used.
     
 </dd>
 </dl>
@@ -3376,7 +3392,7 @@ deletion is staged in that variant's working set instead of being applied to the
 agent's live configuration.
 
 Omit this parameter to delete directly from the agent. Variant scoping is not
-active yet: a variant supplied today is accepted and ignored, and the delete applies
+active yet: a variant supplied today is validated but not applied, and the delete applies
 to the agent.
     
 </dd>
@@ -3878,6 +3894,9 @@ Update mutable conversation fields.
 
 The `appId` field can be provided to update a conversation owned by a different app.
 All other fields will overwrite the existing value on the conversation only if provided.
+
+A closed conversation (`open` set to false) cannot be reopened: a patch setting `open` to true
+returns a 400. Its other fields can still be patched.
 </dd>
 </dl>
 </dd>
@@ -4158,6 +4177,8 @@ try await main()
 <dd>
 
 Append messages to an existing conversation. The conversation must be initialized first. If a message with the same ID already exists, it will be ignored. Messages do not allow modification.
+
+A closed conversation (`open` set to false) takes no new messages and returns a 400.
 </dd>
 </dl>
 </dd>
@@ -4265,6 +4286,8 @@ try await main()
 
 Get an answer from Maven for a given user question. If the user question or its answer already exists,
 they will be reused and will not be updated. Messages do not allow modification once generated.
+
+A closed conversation (`open` set to false) takes no new questions and returns a 400.
 
 Concurrency Behavior:
 - If another API call is made for the same user question while a response is mid-stream, partial answers may be returned.
@@ -4381,6 +4404,8 @@ Action and metadata events should overwrite past data and do not need concatenat
 
 If the user question or its answer already exists, they will be reused and will not be updated.
 Messages do not allow modification once generated.
+
+A closed conversation (`open` set to false) takes no new questions and returns a 400.
 
 Concurrency Behavior:
 - If another API call is made for the same user question while a response is mid-stream, partial answers may be returned.
@@ -4663,6 +4688,8 @@ Action forms can not be submitted more than once, attempting to do so will resul
 
 Additionally, form submission is only allowed when the form is the last message in the conversation.
 Forms should be disabled in surface UI if a conversation continues and they remain unsubmitted.
+
+A form cannot be submitted on a closed conversation (`open` set to false): that returns a 400.
 </dd>
 </dl>
 </dd>
@@ -4759,6 +4786,8 @@ try await main()
 Replaced by `updateConversationMetadata`.
 
 Adds metadata to an existing conversation. If a metadata field already exists, it will be overwritten.
+
+A closed conversation (`open` set to false) takes no new metadata and returns a 400.
 </dd>
 </dl>
 </dd>
@@ -4852,6 +4881,8 @@ If a metadata field already exists for the calling app, it will be overwritten.
 If it does not exist, it will be added. Will not remove metadata fields.
 
 Returns all metadata saved by any app on the conversation.
+
+A closed conversation (`open` set to false) takes no new metadata and returns a 400.
 </dd>
 </dl>
 </dd>
@@ -5596,7 +5627,7 @@ try await main()
 <dl>
 <dd>
 
-Create a new event
+Create a new event. Events are immutable, so a create that reuses the `referenceId` of an existing event in the same app is rejected with a 409 and leaves that event unchanged.
 </dd>
 </dl>
 </dd>
@@ -6711,7 +6742,15 @@ Create a new intelligent field, or replace it if one already exists with the sam
 entities such as conversations.
 
 New fields are created with `status: INACTIVE` and are not evaluated until activated
-with the patch endpoint. `definition` is limited to 5,000 characters.
+with the patch endpoint. A new field created in a `variantId` starts `ACTIVE` instead,
+since it is evaluated only once that variant is published and given traffic; it starts
+`INACTIVE` while the agent is at its limit of active fields. `definition` is limited
+to 5,000 characters.
+
+A replace that names a `variantId` must keep the field's `validationType` as that
+variant has it, or it is rejected with reason `INTELLIGENT_FIELD_TYPE_CHANGED`. To use
+a different type, create a new field. A field deleted in the variant may be recreated
+with any type.
 </dd>
 </dl>
 </dd>
@@ -7008,7 +7047,7 @@ Soft delete an intelligent field. Only INACTIVE fields can be deleted.
 
 Deleted fields are excluded from search results but can still be retrieved by ID.
 Creating a new field with the same referenceId as a deleted field will overwrite
-the deleted field and restore it to INACTIVE status.
+the deleted field and restore it with the status a new field gets.
 
 Deleted fields cannot be modified.
 </dd>
@@ -9519,7 +9558,7 @@ try await main()
 </dl>
 </details>
 
-<details><summary><code>client.segments.<a href="/Sources/Resources/Segments/SegmentsClient.swift">delete</a>(segmentReferenceId: String, appId: String?, variantReferenceId: String?, variantAppId: String?, requestOptions: RequestOptions?) -> SegmentResponse</code></summary>
+<details><summary><code>client.segments.<a href="/Sources/Resources/Segments/SegmentsClient.swift">delete</a>(segmentReferenceId: String, appId: String?, requestOptions: RequestOptions?) -> SegmentResponse</code></summary>
 <dl>
 <dd>
 
@@ -9586,30 +9625,6 @@ try await main()
 <dd>
 
 **appId:** `String?` — The App ID of the segment to delete. If not provided, the ID of the calling app will be used.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**variantReferenceId:** `String?` 
-
-The reference ID of the agent variant this delete is scoped to. When set, the
-deletion is staged in that variant's working set instead of being applied to the
-agent's live configuration.
-
-Omit this parameter to delete directly from the agent. Variant scoping is not
-active yet: a variant supplied today is accepted and ignored, and the delete applies
-to the agent.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**variantAppId:** `String?` — The App ID of the agent variant named by `variantReferenceId`. If not provided, the ID of the calling app will be used.
     
 </dd>
 </dl>
@@ -10020,7 +10035,7 @@ try await main()
 </dl>
 </details>
 
-<details><summary><code>client.triggers.<a href="/Sources/Resources/Triggers/TriggersClient.swift">partialUpdate</a>(triggerReferenceId: String, appId: String?, request: TriggerPartialUpdate, requestOptions: RequestOptions?) -> EventTriggerResponse</code></summary>
+<details><summary><code>client.triggers.<a href="/Sources/Resources/Triggers/TriggersClient.swift">partialUpdate</a>(triggerReferenceId: String, appId: String?, request: Requests.PartialUpdateRequest, requestOptions: RequestOptions?) -> EventTriggerResponse</code></summary>
 <dl>
 <dd>
 
@@ -10032,10 +10047,10 @@ try await main()
 <dl>
 <dd>
 
-Deprecated. Use `PATCH /v1/capabilities/TRIGGER/{referenceId}` with a `status`, which
-publishes and unpublishes any kind of capability the same way.
+Updates an event trigger. `enabled` and `condition` are the editable fields.
 
-Updates an event trigger. Only the enabled field is editable.
+`PATCH /v1/capabilities/TRIGGER/{referenceId}` with a `status` also turns a trigger on and
+off, the same way it publishes and unpublishes any kind of capability.
 </dd>
 </dl>
 </dd>
@@ -10061,9 +10076,7 @@ private func main() async throws {
 
     _ = try await client.triggers.partialUpdate(
         triggerReferenceId: "triggerReferenceId",
-        request: .init(body: TriggerPartialUpdate(
-
-        ))
+        request: .init()
     )
 }
 
@@ -10098,7 +10111,7 @@ try await main()
 <dl>
 <dd>
 
-**request:** `TriggerPartialUpdate` 
+**request:** `Requests.PartialUpdateRequest` 
     
 </dd>
 </dl>

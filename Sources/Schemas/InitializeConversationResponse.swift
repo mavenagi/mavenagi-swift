@@ -52,9 +52,10 @@ public struct InitializeConversationResponse: Codable, Hashable, Sendable {
     /// Whether the conversation is spoken or written. Set by the platform and read-only —
     /// it cannot be supplied when creating or updating a conversation.
     public let conversationMode: ConversationMode?
-    /// The agent variant this conversation is pinned to. Chosen by the agent's traffic rules when
-    /// the conversation is created and fixed for its lifetime. Absent when the conversation was
-    /// not routed to a variant, for example one created before the agent had variants.
+    /// The agent variant this conversation is pinned to. Chosen when the conversation is created,
+    /// by the agent's traffic rules or by the simulation's `simulationContext.variantId`, and fixed
+    /// for its lifetime. Absent when the conversation was not routed to a variant, for example one
+    /// created before the agent had variants.
     public let variantId: EntityId?
     /// Results of the Conversation Kickoffs that ran during conversation initialization, one
     /// entry per kickoff in the order they were recorded. Empty when no kickoff ran. Only

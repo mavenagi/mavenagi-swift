@@ -3,7 +3,8 @@ import Foundation
 /// Calculates the number of unique values in the specified field.
 /// Supports fields with list values as well.
 public struct ConversationDistinctCount: Codable, Hashable, Sendable {
-    /// Field to apply the metric to.
+    /// Field to apply the metric to. `IntelligentFields` is a grouping only and is rejected
+    /// here with a 400.
     public let targetField: ConversationField
     /// Fully specified ID of the intelligent field. Required when `targetField` is
     /// `IntelligentField`, and ignored otherwise.

@@ -58,6 +58,54 @@ import Api
                             "visibleData": "visibleData"
                           }
                         }
+                      ],
+                      "intelligentFieldValues": [
+                        {
+                          "fieldId": {
+                            "organizationId": "organizationId",
+                            "agentId": "agentId",
+                            "type": "AGENT",
+                            "appId": "appId",
+                            "referenceId": "x"
+                          },
+                          "name": "name",
+                          "entityId": {
+                            "organizationId": "organizationId",
+                            "agentId": "agentId",
+                            "type": "AGENT",
+                            "appId": "appId",
+                            "referenceId": "x"
+                          },
+                          "value": {
+                            "key": "value"
+                          },
+                          "confidence": 1.1,
+                          "rationale": "rationale",
+                          "createdAt": "2024-01-15T09:30:00Z"
+                        },
+                        {
+                          "fieldId": {
+                            "organizationId": "organizationId",
+                            "agentId": "agentId",
+                            "type": "AGENT",
+                            "appId": "appId",
+                            "referenceId": "x"
+                          },
+                          "name": "name",
+                          "entityId": {
+                            "organizationId": "organizationId",
+                            "agentId": "agentId",
+                            "type": "AGENT",
+                            "appId": "appId",
+                            "referenceId": "x"
+                          },
+                          "value": {
+                            "key": "value"
+                          },
+                          "confidence": 1.1,
+                          "rationale": "rationale",
+                          "createdAt": "2024-01-15T09:30:00Z"
+                        }
                       ]
                     },
                     {
@@ -107,6 +155,54 @@ import Api
                           "visibleData": {
                             "visibleData": "visibleData"
                           }
+                        }
+                      ],
+                      "intelligentFieldValues": [
+                        {
+                          "fieldId": {
+                            "organizationId": "organizationId",
+                            "agentId": "agentId",
+                            "type": "AGENT",
+                            "appId": "appId",
+                            "referenceId": "x"
+                          },
+                          "name": "name",
+                          "entityId": {
+                            "organizationId": "organizationId",
+                            "agentId": "agentId",
+                            "type": "AGENT",
+                            "appId": "appId",
+                            "referenceId": "x"
+                          },
+                          "value": {
+                            "key": "value"
+                          },
+                          "confidence": 1.1,
+                          "rationale": "rationale",
+                          "createdAt": "2024-01-15T09:30:00Z"
+                        },
+                        {
+                          "fieldId": {
+                            "organizationId": "organizationId",
+                            "agentId": "agentId",
+                            "type": "AGENT",
+                            "appId": "appId",
+                            "referenceId": "x"
+                          },
+                          "name": "name",
+                          "entityId": {
+                            "organizationId": "organizationId",
+                            "agentId": "agentId",
+                            "type": "AGENT",
+                            "appId": "appId",
+                            "referenceId": "x"
+                          },
+                          "value": {
+                            "key": "value"
+                          },
+                          "confidence": 1.1,
+                          "rationale": "rationale",
+                          "createdAt": "2024-01-15T09:30:00Z"
                         }
                       ]
                     }
@@ -160,7 +256,59 @@ import Api
                                 "visibleData": "visibleData"
                             ]
                         )
-                    ]
+                    ],
+                    intelligentFieldValues: Optional([
+                        IntelligentFieldValueResponse(
+                            fieldId: EntityId(
+                                organizationId: "organizationId",
+                                agentId: "agentId",
+                                type: .agent,
+                                appId: "appId",
+                                referenceId: "x"
+                            ),
+                            name: "name",
+                            entityId: EntityId(
+                                organizationId: "organizationId",
+                                agentId: "agentId",
+                                type: .agent,
+                                appId: "appId",
+                                referenceId: "x"
+                            ),
+                            value: Optional(JSONValue.object(
+                                [
+                                    "key": JSONValue.string("value")
+                                ]
+                            )),
+                            confidence: Optional(1.1),
+                            rationale: Optional("rationale"),
+                            createdAt: Optional(try! Date("2024-01-15T09:30:00Z", strategy: .iso8601))
+                        ),
+                        IntelligentFieldValueResponse(
+                            fieldId: EntityId(
+                                organizationId: "organizationId",
+                                agentId: "agentId",
+                                type: .agent,
+                                appId: "appId",
+                                referenceId: "x"
+                            ),
+                            name: "name",
+                            entityId: EntityId(
+                                organizationId: "organizationId",
+                                agentId: "agentId",
+                                type: .agent,
+                                appId: "appId",
+                                referenceId: "x"
+                            ),
+                            value: Optional(JSONValue.object(
+                                [
+                                    "key": JSONValue.string("value")
+                                ]
+                            )),
+                            confidence: Optional(1.1),
+                            rationale: Optional("rationale"),
+                            createdAt: Optional(try! Date("2024-01-15T09:30:00Z", strategy: .iso8601))
+                        )
+                    ])
                 ),
                 AgentUser(
                     id: "id",
@@ -195,7 +343,59 @@ import Api
                                 "visibleData": "visibleData"
                             ]
                         )
-                    ]
+                    ],
+                    intelligentFieldValues: Optional([
+                        IntelligentFieldValueResponse(
+                            fieldId: EntityId(
+                                organizationId: "organizationId",
+                                agentId: "agentId",
+                                type: .agent,
+                                appId: "appId",
+                                referenceId: "x"
+                            ),
+                            name: "name",
+                            entityId: EntityId(
+                                organizationId: "organizationId",
+                                agentId: "agentId",
+                                type: .agent,
+                                appId: "appId",
+                                referenceId: "x"
+                            ),
+                            value: Optional(JSONValue.object(
+                                [
+                                    "key": JSONValue.string("value")
+                                ]
+                            )),
+                            confidence: Optional(1.1),
+                            rationale: Optional("rationale"),
+                            createdAt: Optional(try! Date("2024-01-15T09:30:00Z", strategy: .iso8601))
+                        ),
+                        IntelligentFieldValueResponse(
+                            fieldId: EntityId(
+                                organizationId: "organizationId",
+                                agentId: "agentId",
+                                type: .agent,
+                                appId: "appId",
+                                referenceId: "x"
+                            ),
+                            name: "name",
+                            entityId: EntityId(
+                                organizationId: "organizationId",
+                                agentId: "agentId",
+                                type: .agent,
+                                appId: "appId",
+                                referenceId: "x"
+                            ),
+                            value: Optional(JSONValue.object(
+                                [
+                                    "key": JSONValue.string("value")
+                                ]
+                            )),
+                            confidence: Optional(1.1),
+                            rationale: Optional("rationale"),
+                            createdAt: Optional(try! Date("2024-01-15T09:30:00Z", strategy: .iso8601))
+                        )
+                    ])
                 )
             ],
             number: 1,

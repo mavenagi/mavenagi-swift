@@ -1,6 +1,6 @@
 import Foundation
 
-/// Filter conversations by intelligent field values. All conditions are ANDed.
+/// Filter by intelligent field values. All conditions are ANDed.
 public struct IntelligentFieldFilter: Codable, Hashable, Sendable {
     /// List of conditions to filter by. All conditions must match (AND logic).
     public let conditions: [IntelligentFieldSearchCondition]

@@ -1,7 +1,8 @@
 import Foundation
 
 public struct ConversationBasicMetric: Codable, Hashable, Sendable {
-    /// Field to apply the metric to.
+    /// Field to apply the metric to. `IntelligentFields` is a grouping only and is rejected
+    /// here with a 400.
     public let targetField: ConversationField
     /// Fully specified ID of the intelligent field. Required when `targetField` is
     /// `IntelligentField`, and ignored otherwise.

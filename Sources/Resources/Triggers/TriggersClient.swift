@@ -66,15 +66,15 @@ public final class TriggersClient: Sendable {
         )
     }
 
-    /// Deprecated. Use `PATCH /v1/capabilities/TRIGGER/{referenceId}` with a `status`, which
-    /// publishes and unpublishes any kind of capability the same way.
+    /// Updates an event trigger. `enabled` and `condition` are the editable fields.
     /// 
-    /// Updates an event trigger. Only the enabled field is editable.
+    /// `PATCH /v1/capabilities/TRIGGER/{referenceId}` with a `status` also turns a trigger on and
+    /// off, the same way it publishes and unpublishes any kind of capability.
     ///
     /// - Parameter triggerReferenceId: The reference ID of the event trigger to update. All other entity ID fields are inferred from the request.
     /// - Parameter appId: The App ID of the trigger to update. If not provided, the ID of the calling app will be used.
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
-    public func partialUpdate(triggerReferenceId: String, appId: String? = nil, request: TriggerPartialUpdate, requestOptions: RequestOptions? = nil) async throws -> EventTriggerResponse {
+    public func partialUpdate(triggerReferenceId: String, appId: String? = nil, request: Requests.PartialUpdateRequest, requestOptions: RequestOptions? = nil) async throws -> EventTriggerResponse {
         return try await httpClient.performRequest(
             method: .patch,
             path: "/v1/triggers/\(triggerReferenceId)",

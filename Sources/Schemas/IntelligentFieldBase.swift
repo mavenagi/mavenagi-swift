@@ -16,9 +16,9 @@ public struct IntelligentFieldBase: Codable, Hashable, Sendable {
     /// The finite set of values this field may take. Omit to let the LLM produce any value of
     /// the `validationType`. Options may be added later with the patch endpoint, but not removed.
     public let enumOptions: [EnumOption]?
-    /// Target entity type for evaluation. Only CONVERSATION is supported at this time. The backend will return an error for other types.
+    /// Target entity type for evaluation. CONVERSATION is supported, and AGENT_USER is supported for agents with user-level intelligent fields enabled. The backend will return an error for other types.
     public let entityType: EntityType
-    /// ID of the agent variant this field belongs to, if applicable
+    /// On a request, the agent variant to stage the write in. On a response, the variant the request named, if any; absent when it named none.
     public let variantId: EntityIdWithoutAgent?
     /// Additional properties that are not explicitly defined in the schema
     public let additionalProperties: [String: JSONValue]

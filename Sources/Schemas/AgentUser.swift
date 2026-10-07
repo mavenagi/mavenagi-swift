@@ -15,6 +15,8 @@ public struct AgentUser: Codable, Hashable, Sendable {
     /// App created users that are associated with this agent user.
     /// If two apps create users with the same identifying properties, they will be merged into a single agent user.
     public let users: [AppUserSummary]
+    /// Latest successful values of the agent user's intelligent fields.
+    public let intelligentFieldValues: [IntelligentFieldValueResponse]?
     /// Additional properties that are not explicitly defined in the schema
     public let additionalProperties: [String: JSONValue]
 
@@ -25,6 +27,7 @@ public struct AgentUser: Codable, Hashable, Sendable {
         identifiers: JSONValue,
         defaultName: String? = nil,
         users: [AppUserSummary],
+        intelligentFieldValues: [IntelligentFieldValueResponse]? = nil,
         additionalProperties: [String: JSONValue] = .init()
     ) {
         self.id = id
@@ -33,6 +36,7 @@ public struct AgentUser: Codable, Hashable, Sendable {
         self.identifiers = identifiers
         self.defaultName = defaultName
         self.users = users
+        self.intelligentFieldValues = intelligentFieldValues
         self.additionalProperties = additionalProperties
     }
 
@@ -44,6 +48,7 @@ public struct AgentUser: Codable, Hashable, Sendable {
         self.identifiers = try container.decode(JSONValue.self, forKey: .identifiers)
         self.defaultName = try container.decodeIfPresent(String.self, forKey: .defaultName)
         self.users = try container.decode([AppUserSummary].self, forKey: .users)
+        self.intelligentFieldValues = try container.decodeIfPresent([IntelligentFieldValueResponse].self, forKey: .intelligentFieldValues)
         self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
     }
 
@@ -56,6 +61,7 @@ public struct AgentUser: Codable, Hashable, Sendable {
         try container.encode(self.identifiers, forKey: .identifiers)
         try container.encodeIfPresent(self.defaultName, forKey: .defaultName)
         try container.encode(self.users, forKey: .users)
+        try container.encodeIfPresent(self.intelligentFieldValues, forKey: .intelligentFieldValues)
     }
 
     /// Keys for encoding/decoding struct properties.
@@ -66,5 +72,6 @@ public struct AgentUser: Codable, Hashable, Sendable {
         case identifiers
         case defaultName
         case users
+        case intelligentFieldValues
     }
 }

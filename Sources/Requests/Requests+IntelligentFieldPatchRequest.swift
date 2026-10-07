@@ -17,9 +17,9 @@ extension Requests {
         public let description: String?
         /// Updated enum options for fields that constrain the LLM to a finite set. Omit to leave unchanged. The new list must be a superset of the existing options (add-only; removals are rejected).
         public let enumOptions: [EnumOption]?
-        /// The agent variant to stage this patch in, by reference ID. Its owning app is `variantAppId`. Required on an agent with versioned intelligent fields; a patch that omits it there is rejected with reason `VARIANT_REQUIRED`.
-        public let variantId: EntityIdBase?
-        /// The App ID of the agent variant named by `variantId`. If not provided, the ID of the calling app will be used — name the owning app to patch in a variant the caller does not own, as the platform's own seeded variants are.
+        /// The agent variant to stage this patch in. Required on an agent with versioned intelligent fields; a patch that omits it there is rejected with reason `VARIANT_REQUIRED`.
+        public let variantId: EntityIdWithoutAgent?
+        /// Deprecated, use `variantId.appId`, which wins when both are set.
         public let variantAppId: String?
         /// Additional properties that are not explicitly defined in the schema
         public let additionalProperties: [String: JSONValue]
@@ -30,7 +30,7 @@ extension Requests {
             status: CapabilityStatus? = nil,
             description: String? = nil,
             enumOptions: [EnumOption]? = nil,
-            variantId: EntityIdBase? = nil,
+            variantId: EntityIdWithoutAgent? = nil,
             variantAppId: String? = nil,
             additionalProperties: [String: JSONValue] = .init()
         ) {
@@ -51,7 +51,7 @@ extension Requests {
             self.status = try container.decodeIfPresent(CapabilityStatus.self, forKey: .status)
             self.description = try container.decodeIfPresent(String.self, forKey: .description)
             self.enumOptions = try container.decodeIfPresent([EnumOption].self, forKey: .enumOptions)
-            self.variantId = try container.decodeIfPresent(EntityIdBase.self, forKey: .variantId)
+            self.variantId = try container.decodeIfPresent(EntityIdWithoutAgent.self, forKey: .variantId)
             self.variantAppId = try container.decodeIfPresent(String.self, forKey: .variantAppId)
             self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
         }

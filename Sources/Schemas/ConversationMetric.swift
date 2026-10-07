@@ -357,7 +357,8 @@ public enum ConversationMetric: Codable, Hashable, Sendable {
 
     public struct DistinctCount: Codable, Hashable, Sendable {
         public let type: String = "distinctCount"
-        /// Field to apply the metric to.
+        /// Field to apply the metric to. `IntelligentFields` is a grouping only and is rejected
+        /// here with a 400.
         public let targetField: ConversationField
         /// Fully specified ID of the intelligent field. Required when `targetField` is
         /// `IntelligentField`, and ignored otherwise.

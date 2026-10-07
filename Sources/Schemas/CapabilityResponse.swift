@@ -222,6 +222,12 @@ public enum CapabilityResponse: Codable, Hashable, Sendable {
         /// 
         /// Inbox triggers fire when an inbox item is created or updated.
         public let type: EventTriggerType
+        /// Narrows which events fire this trigger. Without one the trigger fires for every event on
+        /// the agent. Re-registering writes whatever condition the request carries, so omitting it
+        /// removes one; PATCH changes or removes a condition without re-registering.
+        /// 
+        /// Only allowed on `EVENT_CREATED`; the other trigger types reject it.
+        public let condition: EventCondition?
         /// The capability's display name, shown to whoever manages the agent. A trigger registered
         /// without one is named after the app that registered it and the event it fires on.
         public let name: String
@@ -245,6 +251,7 @@ public enum CapabilityResponse: Codable, Hashable, Sendable {
 
         public init(
             type: EventTriggerType,
+            condition: EventCondition? = nil,
             name: String,
             description: String? = nil,
             createdAt: Date,
@@ -255,6 +262,7 @@ public enum CapabilityResponse: Codable, Hashable, Sendable {
             additionalProperties: [String: JSONValue] = .init()
         ) {
             self.type = type
+            self.condition = condition
             self.name = name
             self.description = description
             self.createdAt = createdAt
@@ -268,6 +276,7 @@ public enum CapabilityResponse: Codable, Hashable, Sendable {
         public init(from decoder: Decoder) throws {
             let container = try decoder.container(keyedBy: CodingKeys.self)
             self.type = try container.decode(EventTriggerType.self, forKey: .type)
+            self.condition = try container.decodeIfPresent(EventCondition.self, forKey: .condition)
             self.name = try container.decode(String.self, forKey: .name)
             self.description = try container.decodeIfPresent(String.self, forKey: .description)
             self.createdAt = try container.decode(Date.self, forKey: .createdAt)
@@ -283,6 +292,7 @@ public enum CapabilityResponse: Codable, Hashable, Sendable {
             try encoder.encodeAdditionalProperties(self.additionalProperties)
             try container.encode(self.capabilityType, forKey: .capabilityType)
             try container.encode(self.type, forKey: .type)
+            try container.encodeIfPresent(self.condition, forKey: .condition)
             try container.encode(self.name, forKey: .name)
             try container.encodeIfPresent(self.description, forKey: .description)
             try container.encode(self.createdAt, forKey: .createdAt)
@@ -296,6 +306,7 @@ public enum CapabilityResponse: Codable, Hashable, Sendable {
         enum CodingKeys: String, CodingKey, CaseIterable {
             case capabilityType
             case type
+            case condition
             case name
             case description
             case createdAt
@@ -308,9 +319,9 @@ public enum CapabilityResponse: Codable, Hashable, Sendable {
 
     public struct IntelligentField: Codable, Hashable, Sendable {
         public let capabilityType: String = "INTELLIGENT_FIELD"
-        /// Target entity type for evaluation. Only CONVERSATION is supported at this time. The backend will return an error for other types.
+        /// Target entity type for evaluation. CONVERSATION is supported, and AGENT_USER is supported for agents with user-level intelligent fields enabled. The backend will return an error for other types.
         public let entityType: EntityType
-        /// ID of the agent variant this field belongs to, if applicable
+        /// On a request, the agent variant to stage the write in. On a response, the variant the request named, if any; absent when it named none.
         public let variantId: EntityIdWithoutAgent?
         /// The type of value this field holds. It constrains the schema the LLM is asked to fill
         /// and the JSON type of the computed `value`.

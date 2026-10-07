@@ -17,6 +17,8 @@ public struct ConversationBarChartRequest: Codable, Hashable, Sendable {
     /// - `ErroredActions`: "Action Name - App Name" (e.g., "Get Balance - Core Banking")
     /// - `Users`: User identifier value (e.g., "user@example.com")
     /// - `InboxItems`: Inbox item title
+    /// - `Variant`: Variant title, or its reference ID when it has none; `BEFORE_VERSIONING` for conversations with no variant
+    /// - `IntelligentFields`: Intelligent field name
     /// - `HumanAgents`: Human agent display name
     /// - `HumanAgentsWithInserts`: Human agent display name (for agents who made inserts)
     /// - Other fields: Field value as stored (e.g., "GOOD", "NEEDS_IMPROVEMENT" for Quality)
@@ -33,6 +35,8 @@ public struct ConversationBarChartRequest: Codable, Hashable, Sendable {
     /// - `ErroredActions`: "Action Name - App Name" (e.g., "Get Balance - Core Banking")
     /// - `Users`: User identifier value (e.g., "user@example.com")
     /// - `InboxItems`: Inbox item title
+    /// - `Variant`: Variant title, or its reference ID when it has none; `BEFORE_VERSIONING` for conversations with no variant
+    /// - `IntelligentFields`: Intelligent field name
     /// - `HumanAgents`: Human agent display name
     /// - `HumanAgentsWithInserts`: Human agent display name (for agents who made inserts)
     /// - Other fields: Field value as stored (e.g., "GOOD", "NEEDS_IMPROVEMENT" for Quality)

@@ -333,7 +333,12 @@ import Api
                         "appId": "appId",
                         "referenceId": "x"
                       }
-                    ]
+                    ],
+                    "variantId": {
+                      "type": "AGENT",
+                      "appId": "appId",
+                      "referenceId": "x"
+                    }
                   },
                   "relatedEntities": {
                     "SPAWN_FROM": [
@@ -674,7 +679,12 @@ import Api
             simulationContext: Optional(SimulationContext(
                 additionalPromptText: Optional("additionalPromptText"),
                 persona: Optional(.casualBuddy),
-                availableKnowledgeBases: Optional([])
+                availableKnowledgeBases: Optional([]),
+                variantId: Optional(EntityIdWithoutAgent(
+                    type: .agent,
+                    appId: "appId",
+                    referenceId: "x"
+                ))
             )),
             relatedEntities: Optional([
                 .spawnFrom: [
@@ -1253,7 +1263,12 @@ import Api
                         "appId": "appId",
                         "referenceId": "x"
                       }
-                    ]
+                    ],
+                    "variantId": {
+                      "type": "AGENT",
+                      "appId": "appId",
+                      "referenceId": "x"
+                    }
                   },
                   "relatedEntities": {
                     "SPAWN_FROM": [
@@ -1574,7 +1589,12 @@ import Api
             simulationContext: Optional(SimulationContext(
                 additionalPromptText: Optional("additionalPromptText"),
                 persona: Optional(.casualBuddy),
-                availableKnowledgeBases: Optional([])
+                availableKnowledgeBases: Optional([]),
+                variantId: Optional(EntityIdWithoutAgent(
+                    type: .agent,
+                    appId: "appId",
+                    referenceId: "x"
+                ))
             )),
             relatedEntities: Optional([
                 .spawnFrom: [
@@ -1920,7 +1940,12 @@ import Api
                         "appId": "appId",
                         "referenceId": "x"
                       }
-                    ]
+                    ],
+                    "variantId": {
+                      "type": "AGENT",
+                      "appId": "appId",
+                      "referenceId": "x"
+                    }
                   },
                   "relatedEntities": {
                     "SPAWN_FROM": [
@@ -2241,7 +2266,12 @@ import Api
             simulationContext: Optional(SimulationContext(
                 additionalPromptText: Optional("additionalPromptText"),
                 persona: Optional(.casualBuddy),
-                availableKnowledgeBases: Optional([])
+                availableKnowledgeBases: Optional([]),
+                variantId: Optional(EntityIdWithoutAgent(
+                    type: .agent,
+                    appId: "appId",
+                    referenceId: "x"
+                ))
             )),
             relatedEntities: Optional([
                 .spawnFrom: [
@@ -2960,7 +2990,12 @@ import Api
                         "appId": "appId",
                         "referenceId": "x"
                       }
-                    ]
+                    ],
+                    "variantId": {
+                      "type": "AGENT",
+                      "appId": "appId",
+                      "referenceId": "x"
+                    }
                   },
                   "relatedEntities": {
                     "SPAWN_FROM": [
@@ -3281,7 +3316,12 @@ import Api
             simulationContext: Optional(SimulationContext(
                 additionalPromptText: Optional("additionalPromptText"),
                 persona: Optional(.casualBuddy),
-                availableKnowledgeBases: Optional([])
+                availableKnowledgeBases: Optional([]),
+                variantId: Optional(EntityIdWithoutAgent(
+                    type: .agent,
+                    appId: "appId",
+                    referenceId: "x"
+                ))
             )),
             relatedEntities: Optional([
                 .spawnFrom: [
@@ -3607,7 +3647,12 @@ import Api
                             "appId": "appId",
                             "referenceId": "x"
                           }
-                        ]
+                        ],
+                        "variantId": {
+                          "type": "AGENT",
+                          "appId": "appId",
+                          "referenceId": "x"
+                        }
                       },
                       "relatedEntities": {
                         "SPAWN_FROM": [
@@ -3832,7 +3877,12 @@ import Api
                             "appId": "appId",
                             "referenceId": "x"
                           }
-                        ]
+                        ],
+                        "variantId": {
+                          "type": "AGENT",
+                          "appId": "appId",
+                          "referenceId": "x"
+                        }
                       },
                       "relatedEntities": {
                         "SPAWN_FROM": [
@@ -4057,7 +4107,12 @@ import Api
                     simulationContext: Optional(SimulationContext(
                         additionalPromptText: Optional("additionalPromptText"),
                         persona: Optional(.casualBuddy),
-                        availableKnowledgeBases: Optional([])
+                        availableKnowledgeBases: Optional([]),
+                        variantId: Optional(EntityIdWithoutAgent(
+                            type: .agent,
+                            appId: "appId",
+                            referenceId: "x"
+                        ))
                     )),
                     relatedEntities: Optional([
                         .spawnFrom: [
@@ -4265,7 +4320,12 @@ import Api
                     simulationContext: Optional(SimulationContext(
                         additionalPromptText: Optional("additionalPromptText"),
                         persona: Optional(.casualBuddy),
-                        availableKnowledgeBases: Optional([])
+                        availableKnowledgeBases: Optional([]),
+                        variantId: Optional(EntityIdWithoutAgent(
+                            type: .agent,
+                            appId: "appId",
+                            referenceId: "x"
+                        ))
                     )),
                     relatedEntities: Optional([
                         .spawnFrom: [
@@ -4512,7 +4572,12 @@ import Api
                             "appId": "appId",
                             "referenceId": "x"
                           }
-                        ]
+                        ],
+                        "variantId": {
+                          "type": "AGENT",
+                          "appId": "appId",
+                          "referenceId": "x"
+                        }
                       },
                       "relatedEntities": {
                         "SPAWN_FROM": [
@@ -4737,7 +4802,12 @@ import Api
                             "appId": "appId",
                             "referenceId": "x"
                           }
-                        ]
+                        ],
+                        "variantId": {
+                          "type": "AGENT",
+                          "appId": "appId",
+                          "referenceId": "x"
+                        }
                       },
                       "relatedEntities": {
                         "SPAWN_FROM": [
@@ -4960,7 +5030,12 @@ import Api
                     simulationContext: Optional(SimulationContext(
                         additionalPromptText: Optional("additionalPromptText"),
                         persona: Optional(.casualBuddy),
-                        availableKnowledgeBases: Optional([])
+                        availableKnowledgeBases: Optional([]),
+                        variantId: Optional(EntityIdWithoutAgent(
+                            type: .agent,
+                            appId: "appId",
+                            referenceId: "x"
+                        ))
                     )),
                     relatedEntities: Optional([
                         .spawnFrom: [
@@ -5168,7 +5243,12 @@ import Api
                     simulationContext: Optional(SimulationContext(
                         additionalPromptText: Optional("additionalPromptText"),
                         persona: Optional(.casualBuddy),
-                        availableKnowledgeBases: Optional([])
+                        availableKnowledgeBases: Optional([]),
+                        variantId: Optional(EntityIdWithoutAgent(
+                            type: .agent,
+                            appId: "appId",
+                            referenceId: "x"
+                        ))
                     )),
                     relatedEntities: Optional([
                         .spawnFrom: [

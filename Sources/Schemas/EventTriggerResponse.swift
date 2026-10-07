@@ -10,6 +10,12 @@ public struct EventTriggerResponse: Codable, Hashable, Sendable {
     /// 
     /// Inbox triggers fire when an inbox item is created or updated.
     public let type: EventTriggerType
+    /// Narrows which events fire this trigger. Without one the trigger fires for every event on
+    /// the agent. Re-registering writes whatever condition the request carries, so omitting it
+    /// removes one; PATCH changes or removes a condition without re-registering.
+    /// 
+    /// Only allowed on `EVENT_CREATED`; the other trigger types reject it.
+    public let condition: EventCondition?
     /// The capability's display name, shown to whoever manages the agent. A trigger registered
     /// without one is named after the app that registered it and the event it fires on.
     public let name: String
@@ -33,6 +39,7 @@ public struct EventTriggerResponse: Codable, Hashable, Sendable {
 
     public init(
         type: EventTriggerType,
+        condition: EventCondition? = nil,
         name: String,
         description: String? = nil,
         createdAt: Date,
@@ -43,6 +50,7 @@ public struct EventTriggerResponse: Codable, Hashable, Sendable {
         additionalProperties: [String: JSONValue] = .init()
     ) {
         self.type = type
+        self.condition = condition
         self.name = name
         self.description = description
         self.createdAt = createdAt
@@ -56,6 +64,7 @@ public struct EventTriggerResponse: Codable, Hashable, Sendable {
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.type = try container.decode(EventTriggerType.self, forKey: .type)
+        self.condition = try container.decodeIfPresent(EventCondition.self, forKey: .condition)
         self.name = try container.decode(String.self, forKey: .name)
         self.description = try container.decodeIfPresent(String.self, forKey: .description)
         self.createdAt = try container.decode(Date.self, forKey: .createdAt)
@@ -70,6 +79,7 @@ public struct EventTriggerResponse: Codable, Hashable, Sendable {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try encoder.encodeAdditionalProperties(self.additionalProperties)
         try container.encode(self.type, forKey: .type)
+        try container.encodeIfPresent(self.condition, forKey: .condition)
         try container.encode(self.name, forKey: .name)
         try container.encodeIfPresent(self.description, forKey: .description)
         try container.encode(self.createdAt, forKey: .createdAt)
@@ -82,6 +92,7 @@ public struct EventTriggerResponse: Codable, Hashable, Sendable {
     /// Keys for encoding/decoding struct properties.
     enum CodingKeys: String, CodingKey, CaseIterable {
         case type
+        case condition
         case name
         case description
         case createdAt

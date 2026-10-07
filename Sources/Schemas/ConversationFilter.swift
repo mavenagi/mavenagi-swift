@@ -57,6 +57,12 @@ public struct ConversationFilter: Codable, Hashable, Sendable {
     /// Filter by whether the conversation is spoken or written. Platform-assigned, never
     /// customer-writable.
     public let conversationMode: [ConversationMode]?
+    /// Filter by whether the conversation has been deleted with `deleteConversation`. `true`
+    /// returns only deleted conversations, `false` excludes them. When unset, both are returned.
+    /// 
+    /// The filter reads the search index, which is updated shortly after a deletion. Use the
+    /// `deleted` field on each result to confirm.
+    public let deleted: Bool?
     /// Filter by tags applied to the conversation
     public let tags: [String]?
     /// Filter by agent user IDs associated with the conversation
@@ -91,6 +97,14 @@ public struct ConversationFilter: Codable, Hashable, Sendable {
     public let anyMsgCharterMode: Bool?
     /// Filter by inbox item IDs associated with the conversation
     public let inboxItemIds: [EntityIdFilter]?
+    /// Filter by the agent variant each conversation is pinned to (its `variantId`), by
+    /// reference ID and owning app, resolved against the calling agent. Matches conversations
+    /// pinned to any of them.
+    /// 
+    /// Omit it to match every conversation in the window, whichever variant it ran on. A
+    /// conversation from before the agent's conversations were pinned has no variant, so it
+    /// matches no list; grouping by `Variant` reports those as `BEFORE_VERSIONING`.
+    public let variantIds: [EntityIdFilter]?
     /// Whether to include simulation conversations in search results. Defaults to only non-simulation conversations.
     public let simulationFilter: SimulationFilter?
     /// Filter by intelligent field values. All conditions are ANDed together.
@@ -126,6 +140,7 @@ public struct ConversationFilter: Codable, Hashable, Sendable {
         responseLength: [ResponseLength]? = nil,
         sentiment: [Sentiment]? = nil,
         conversationMode: [ConversationMode]? = nil,
+        deleted: Bool? = nil,
         tags: [String]? = nil,
         agentUserIds: [String]? = nil,
         resolutionStatus: [ResolutionStatus]? = nil,
@@ -136,6 +151,7 @@ public struct ConversationFilter: Codable, Hashable, Sendable {
         matchedCharterIds: [EntityIdFilter]? = nil,
         anyMsgCharterMode: Bool? = nil,
         inboxItemIds: [EntityIdFilter]? = nil,
+        variantIds: [EntityIdFilter]? = nil,
         simulationFilter: SimulationFilter? = nil,
         intelligentFields: IntelligentFieldFilter? = nil,
         billable: [BillableFilterField]? = nil,
@@ -158,6 +174,7 @@ public struct ConversationFilter: Codable, Hashable, Sendable {
         self.responseLength = responseLength
         self.sentiment = sentiment
         self.conversationMode = conversationMode
+        self.deleted = deleted
         self.tags = tags
         self.agentUserIds = agentUserIds
         self.resolutionStatus = resolutionStatus
@@ -168,6 +185,7 @@ public struct ConversationFilter: Codable, Hashable, Sendable {
         self.matchedCharterIds = matchedCharterIds
         self.anyMsgCharterMode = anyMsgCharterMode
         self.inboxItemIds = inboxItemIds
+        self.variantIds = variantIds
         self.simulationFilter = simulationFilter
         self.intelligentFields = intelligentFields
         self.billable = billable
@@ -193,6 +211,7 @@ public struct ConversationFilter: Codable, Hashable, Sendable {
         self.responseLength = try container.decodeIfPresent([ResponseLength].self, forKey: .responseLength)
         self.sentiment = try container.decodeIfPresent([Sentiment].self, forKey: .sentiment)
         self.conversationMode = try container.decodeIfPresent([ConversationMode].self, forKey: .conversationMode)
+        self.deleted = try container.decodeIfPresent(Bool.self, forKey: .deleted)
         self.tags = try container.decodeIfPresent([String].self, forKey: .tags)
         self.agentUserIds = try container.decodeIfPresent([String].self, forKey: .agentUserIds)
         self.resolutionStatus = try container.decodeIfPresent([ResolutionStatus].self, forKey: .resolutionStatus)
@@ -203,6 +222,7 @@ public struct ConversationFilter: Codable, Hashable, Sendable {
         self.matchedCharterIds = try container.decodeIfPresent([EntityIdFilter].self, forKey: .matchedCharterIds)
         self.anyMsgCharterMode = try container.decodeIfPresent(Bool.self, forKey: .anyMsgCharterMode)
         self.inboxItemIds = try container.decodeIfPresent([EntityIdFilter].self, forKey: .inboxItemIds)
+        self.variantIds = try container.decodeIfPresent([EntityIdFilter].self, forKey: .variantIds)
         self.simulationFilter = try container.decodeIfPresent(SimulationFilter.self, forKey: .simulationFilter)
         self.intelligentFields = try container.decodeIfPresent(IntelligentFieldFilter.self, forKey: .intelligentFields)
         self.billable = try container.decodeIfPresent([BillableFilterField].self, forKey: .billable)
@@ -229,6 +249,7 @@ public struct ConversationFilter: Codable, Hashable, Sendable {
         try container.encodeIfPresent(self.responseLength, forKey: .responseLength)
         try container.encodeIfPresent(self.sentiment, forKey: .sentiment)
         try container.encodeIfPresent(self.conversationMode, forKey: .conversationMode)
+        try container.encodeIfPresent(self.deleted, forKey: .deleted)
         try container.encodeIfPresent(self.tags, forKey: .tags)
         try container.encodeIfPresent(self.agentUserIds, forKey: .agentUserIds)
         try container.encodeIfPresent(self.resolutionStatus, forKey: .resolutionStatus)
@@ -239,6 +260,7 @@ public struct ConversationFilter: Codable, Hashable, Sendable {
         try container.encodeIfPresent(self.matchedCharterIds, forKey: .matchedCharterIds)
         try container.encodeIfPresent(self.anyMsgCharterMode, forKey: .anyMsgCharterMode)
         try container.encodeIfPresent(self.inboxItemIds, forKey: .inboxItemIds)
+        try container.encodeIfPresent(self.variantIds, forKey: .variantIds)
         try container.encodeIfPresent(self.simulationFilter, forKey: .simulationFilter)
         try container.encodeIfPresent(self.intelligentFields, forKey: .intelligentFields)
         try container.encodeIfPresent(self.billable, forKey: .billable)
@@ -263,6 +285,7 @@ public struct ConversationFilter: Codable, Hashable, Sendable {
         case responseLength
         case sentiment
         case conversationMode
+        case deleted
         case tags
         case agentUserIds
         case resolutionStatus
@@ -273,6 +296,7 @@ public struct ConversationFilter: Codable, Hashable, Sendable {
         case matchedCharterIds
         case anyMsgCharterMode
         case inboxItemIds
+        case variantIds
         case simulationFilter
         case intelligentFields
         case billable

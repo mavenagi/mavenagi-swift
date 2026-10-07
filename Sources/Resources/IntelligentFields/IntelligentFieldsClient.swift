@@ -12,7 +12,15 @@ public final class IntelligentFieldsClient: Sendable {
     /// entities such as conversations.
     /// 
     /// New fields are created with `status: INACTIVE` and are not evaluated until activated
-    /// with the patch endpoint. `definition` is limited to 5,000 characters.
+    /// with the patch endpoint. A new field created in a `variantId` starts `ACTIVE` instead,
+    /// since it is evaluated only once that variant is published and given traffic; it starts
+    /// `INACTIVE` while the agent is at its limit of active fields. `definition` is limited
+    /// to 5,000 characters.
+    /// 
+    /// A replace that names a `variantId` must keep the field's `validationType` as that
+    /// variant has it, or it is rejected with reason `INTELLIGENT_FIELD_TYPE_CHANGED`. To use
+    /// a different type, create a new field. A field deleted in the variant may be recreated
+    /// with any type.
     ///
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
     public func createOrUpdate(request: IntelligentFieldRequest, requestOptions: RequestOptions? = nil) async throws -> IntelligentFieldResponse {
@@ -76,7 +84,7 @@ public final class IntelligentFieldsClient: Sendable {
     /// 
     /// Deleted fields are excluded from search results but can still be retrieved by ID.
     /// Creating a new field with the same referenceId as a deleted field will overwrite
-    /// the deleted field and restore it to INACTIVE status.
+    /// the deleted field and restore it with the status a new field gets.
     /// 
     /// Deleted fields cannot be modified.
     ///

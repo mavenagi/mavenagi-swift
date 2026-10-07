@@ -20,6 +20,14 @@ import Api
                       },
                       "enabled": true,
                       "type": "CONVERSATION_CREATED",
+                      "condition": {
+                        "eventConditionType": "userEventName",
+                        "operator": "IN",
+                        "names": [
+                          "BUTTON_CLICKED",
+                          "BUTTON_CLICKED"
+                        ]
+                      },
                       "name": "name",
                       "description": "description",
                       "createdAt": "2024-01-15T09:30:00Z",
@@ -36,6 +44,14 @@ import Api
                       },
                       "enabled": true,
                       "type": "CONVERSATION_CREATED",
+                      "condition": {
+                        "eventConditionType": "userEventName",
+                        "operator": "IN",
+                        "names": [
+                          "BUTTON_CLICKED",
+                          "BUTTON_CLICKED"
+                        ]
+                      },
                       "name": "name",
                       "description": "description",
                       "createdAt": "2024-01-15T09:30:00Z",
@@ -69,6 +85,15 @@ import Api
                     ),
                     enabled: true,
                     type: .conversationCreated,
+                    condition: Optional(.userEventName(
+                        .init(
+                            operator: .in,
+                            names: [
+                                .buttonClicked,
+                                .buttonClicked
+                            ]
+                        )
+                    )),
                     name: "name",
                     description: Optional("description"),
                     createdAt: try! Date("2024-01-15T09:30:00Z", strategy: .iso8601),
@@ -85,6 +110,15 @@ import Api
                     ),
                     enabled: true,
                     type: .conversationCreated,
+                    condition: Optional(.userEventName(
+                        .init(
+                            operator: .in,
+                            names: [
+                                .buttonClicked,
+                                .buttonClicked
+                            ]
+                        )
+                    )),
                     name: "name",
                     description: Optional("description"),
                     createdAt: try! Date("2024-01-15T09:30:00Z", strategy: .iso8601),
@@ -233,6 +267,14 @@ import Api
                   },
                   "enabled": true,
                   "type": "CONVERSATION_CREATED",
+                  "condition": {
+                    "eventConditionType": "userEventName",
+                    "operator": "IN",
+                    "names": [
+                      "BUTTON_CLICKED",
+                      "BUTTON_CLICKED"
+                    ]
+                  },
                   "name": "name",
                   "description": "description",
                   "createdAt": "2024-01-15T09:30:00Z",
@@ -258,6 +300,15 @@ import Api
             ),
             enabled: true,
             type: .conversationCreated,
+            condition: Optional(.userEventName(
+                .init(
+                    operator: .in,
+                    names: [
+                        .buttonClicked,
+                        .buttonClicked
+                    ]
+                )
+            )),
             name: "name",
             description: Optional("description"),
             createdAt: try! Date("2024-01-15T09:30:00Z", strategy: .iso8601),
@@ -266,9 +317,7 @@ import Api
         )
         let response = try await client.triggers.partialUpdate(
             triggerReferenceId: "triggerReferenceId",
-            request: .init(body: TriggerPartialUpdate(
-
-            )),
+            request: .init(),
             requestOptions: RequestOptions(additionalHeaders: stub.headers)
         )
         try #require(response == expectedResponse)

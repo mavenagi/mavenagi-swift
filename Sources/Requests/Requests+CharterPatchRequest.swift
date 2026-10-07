@@ -38,7 +38,7 @@ extension Requests {
         /// variant's working set instead of being applied to the agent's live configuration.
         /// 
         /// Omit this field to patch the agent directly. Variant scoping is not active yet:
-        /// a variant supplied today is accepted and ignored, and the patch applies to the
+        /// a variant supplied today is validated but not applied, and the patch applies to the
         /// agent.
         public let variantId: EntityIdWithoutAgent?
         /// Additional properties that are not explicitly defined in the schema
