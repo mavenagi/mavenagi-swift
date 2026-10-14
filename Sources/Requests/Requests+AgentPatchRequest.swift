@@ -16,8 +16,16 @@ extension Requests {
         public let persona: LlmPersona?
         /// Deprecated. Superseded by charters, which determine agent behavior per round. Has no effect for agents using charters.
         public let additionalPromptText: Nullable<String>?
+        /// Deprecated. Use `categoryIntelligentFieldId` instead. Not supported on new agents, and ignored while `categoryIntelligentFieldId` is set.
+        /// 
         /// LLM prompt for category generation.
         public let categoryGenerationPromptText: Nullable<String>?
+        /// The intelligent field whose value becomes each conversation's category. Send null to clear it.
+        /// 
+        /// Must be a `STRING` conversation field on this agent. Giving the field `enumOptions` is highly recommended, so the category comes from a fixed list.
+        /// 
+        /// The field must be `ACTIVE` to produce values. While it is inactive, conversations get no category. With agent variants, a conversation gets a category only if the field is active in its variant. Categories are capped at 280 characters.
+        public let categoryIntelligentFieldId: Nullable<EntityIdWithoutAgent>?
         /// LLM prompt for generating a response when the user's question has been detected as unsafe.
         public let contentSafetyViolationResponsePromptText: Nullable<String>?
         /// Deprecated. Superseded by charters, which determine agent behavior per round. Has no effect for agents using charters.
@@ -36,6 +44,7 @@ extension Requests {
             persona: LlmPersona? = nil,
             additionalPromptText: Nullable<String>? = nil,
             categoryGenerationPromptText: Nullable<String>? = nil,
+            categoryIntelligentFieldId: Nullable<EntityIdWithoutAgent>? = nil,
             contentSafetyViolationResponsePromptText: Nullable<String>? = nil,
             rejectQuestionsWithoutKnowledge: Bool? = nil,
             additionalProperties: [String: JSONValue] = .init()
@@ -48,6 +57,7 @@ extension Requests {
             self.persona = persona
             self.additionalPromptText = additionalPromptText
             self.categoryGenerationPromptText = categoryGenerationPromptText
+            self.categoryIntelligentFieldId = categoryIntelligentFieldId
             self.contentSafetyViolationResponsePromptText = contentSafetyViolationResponsePromptText
             self.rejectQuestionsWithoutKnowledge = rejectQuestionsWithoutKnowledge
             self.additionalProperties = additionalProperties
@@ -63,6 +73,7 @@ extension Requests {
             self.persona = try container.decodeIfPresent(LlmPersona.self, forKey: .persona)
             self.additionalPromptText = try container.decodeNullableIfPresent(String.self, forKey: .additionalPromptText)
             self.categoryGenerationPromptText = try container.decodeNullableIfPresent(String.self, forKey: .categoryGenerationPromptText)
+            self.categoryIntelligentFieldId = try container.decodeNullableIfPresent(EntityIdWithoutAgent.self, forKey: .categoryIntelligentFieldId)
             self.contentSafetyViolationResponsePromptText = try container.decodeNullableIfPresent(String.self, forKey: .contentSafetyViolationResponsePromptText)
             self.rejectQuestionsWithoutKnowledge = try container.decodeIfPresent(Bool.self, forKey: .rejectQuestionsWithoutKnowledge)
             self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
@@ -79,6 +90,7 @@ extension Requests {
             try container.encodeIfPresent(self.persona, forKey: .persona)
             try container.encodeNullableIfPresent(self.additionalPromptText, forKey: .additionalPromptText)
             try container.encodeNullableIfPresent(self.categoryGenerationPromptText, forKey: .categoryGenerationPromptText)
+            try container.encodeNullableIfPresent(self.categoryIntelligentFieldId, forKey: .categoryIntelligentFieldId)
             try container.encodeNullableIfPresent(self.contentSafetyViolationResponsePromptText, forKey: .contentSafetyViolationResponsePromptText)
             try container.encodeIfPresent(self.rejectQuestionsWithoutKnowledge, forKey: .rejectQuestionsWithoutKnowledge)
         }
@@ -93,6 +105,7 @@ extension Requests {
             case persona
             case additionalPromptText
             case categoryGenerationPromptText
+            case categoryIntelligentFieldId
             case contentSafetyViolationResponsePromptText
             case rejectQuestionsWithoutKnowledge
         }

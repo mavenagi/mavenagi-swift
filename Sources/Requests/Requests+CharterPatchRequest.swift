@@ -34,12 +34,11 @@ extension Requests {
         /// Context items (knowledge bases and actions) this charter makes available.
         /// Each sub-field is independently optional — omit to leave unchanged.
         public let references: CharterPatchReferences?
-        /// The agent variant this patch is scoped to. When set, the patch is staged in that
-        /// variant's working set instead of being applied to the agent's live configuration.
-        /// 
-        /// Omit this field to patch the agent directly. Variant scoping is not active yet:
-        /// a variant supplied today is validated but not applied, and the patch applies to the
-        /// agent.
+        /// The agent variant this patch is scoped to. While charters are versioned for the
+        /// agent, the patch is applied to the charter as this variant sees it and staged in
+        /// its working set rather than applied to the agent's live configuration, and a patch
+        /// that names no variant is rejected with `VARIANT_REQUIRED`. While they aren't, a
+        /// patch that names a variant is rejected. An unknown variant is a 404.
         public let variantId: EntityIdWithoutAgent?
         /// Additional properties that are not explicitly defined in the schema
         public let additionalProperties: [String: JSONValue]

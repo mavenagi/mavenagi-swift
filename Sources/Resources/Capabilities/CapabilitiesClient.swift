@@ -21,7 +21,10 @@ public final class CapabilitiesClient: Sendable {
     /// - Parameter variantReferenceId: The agent variant to read an intelligent field through, by reference ID.
     /// Required for an intelligent field on an agent with versioned intelligent fields; a
     /// request that omits it there is rejected with reason `VARIANT_REQUIRED`. Otherwise,
-    /// if omitted, the agent's only variant is used.
+    /// if omitted, the agent's only variant is used, as its snapshot has it. When a variant
+    /// is named, its staged edits are included: a field with a staged edit is returned at
+    /// that edit, a field created in the variant is returned, and a field deleted in the
+    /// variant, whether the delete is staged or already in its snapshot, returns 404.
     /// The other capability types aren't versioned and are the same in every variant,
     /// though a named variant must still exist.
     /// - Parameter variantAppId: The app that owns the agent variant. Defaults to the calling app.
@@ -120,6 +123,27 @@ public final class CapabilitiesClient: Sendable {
             body: request,
             requestOptions: requestOptions,
             responseType: CapabilitiesSearchResponse.self
+        )
+    }
+
+    /// Search the recorded runs of an agent's capabilities, newest first by default. An execution
+    /// is one run of one capability for one subject, with its outcome and timing: an Event
+    /// Trigger notifying its app, or a Conversation Kickoff running when a conversation started.
+    /// 
+    /// Pass a conversation in `subjectIds` to get the executions recorded against it. An
+    /// `EVENT_CREATED` trigger records the event as its subject, so pass the event's ID to find
+    /// those.
+    /// 
+    /// Results can trail a run by a few seconds. Executions are searchable for 90 days.
+    ///
+    /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
+    public func searchCapabilityExecutions(request: Requests.CapabilityExecutionsSearchRequest, requestOptions: RequestOptions? = nil) async throws -> CapabilityExecutionsSearchResponse {
+        return try await httpClient.performRequest(
+            method: .post,
+            path: "/v1/capabilities/executions/search",
+            body: request,
+            requestOptions: requestOptions,
+            responseType: CapabilityExecutionsSearchResponse.self
         )
     }
 }

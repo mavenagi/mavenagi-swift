@@ -25,6 +25,10 @@ public struct Agent: Codable, Hashable, Sendable {
     public let systemFallbackMessage: String?
     /// Agent prompting settings.
     public let prompting: AgentPrompting
+    /// The intelligent field whose value becomes each conversation's category.
+    /// When set, its value replaces the category generated from `prompting.categoryGenerationPromptText`.
+    /// An inactive field produces no values, so conversations get no category until it is activated.
+    public let categoryIntelligentFieldId: EntityIdWithoutAgent?
     /// Additional properties that are not explicitly defined in the schema
     public let additionalProperties: [String: JSONValue]
 
@@ -37,6 +41,7 @@ public struct Agent: Codable, Hashable, Sendable {
         enabledPiiCategories: JSONValue,
         systemFallbackMessage: String? = nil,
         prompting: AgentPrompting,
+        categoryIntelligentFieldId: EntityIdWithoutAgent? = nil,
         additionalProperties: [String: JSONValue] = .init()
     ) {
         self.agentId = agentId
@@ -47,6 +52,7 @@ public struct Agent: Codable, Hashable, Sendable {
         self.enabledPiiCategories = enabledPiiCategories
         self.systemFallbackMessage = systemFallbackMessage
         self.prompting = prompting
+        self.categoryIntelligentFieldId = categoryIntelligentFieldId
         self.additionalProperties = additionalProperties
     }
 
@@ -60,6 +66,7 @@ public struct Agent: Codable, Hashable, Sendable {
         self.enabledPiiCategories = try container.decode(JSONValue.self, forKey: .enabledPiiCategories)
         self.systemFallbackMessage = try container.decodeIfPresent(String.self, forKey: .systemFallbackMessage)
         self.prompting = try container.decode(AgentPrompting.self, forKey: .prompting)
+        self.categoryIntelligentFieldId = try container.decodeIfPresent(EntityIdWithoutAgent.self, forKey: .categoryIntelligentFieldId)
         self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
     }
 
@@ -74,6 +81,7 @@ public struct Agent: Codable, Hashable, Sendable {
         try container.encode(self.enabledPiiCategories, forKey: .enabledPiiCategories)
         try container.encodeIfPresent(self.systemFallbackMessage, forKey: .systemFallbackMessage)
         try container.encode(self.prompting, forKey: .prompting)
+        try container.encodeIfPresent(self.categoryIntelligentFieldId, forKey: .categoryIntelligentFieldId)
     }
 
     /// Keys for encoding/decoding struct properties.
@@ -86,5 +94,6 @@ public struct Agent: Codable, Hashable, Sendable {
         case enabledPiiCategories
         case systemFallbackMessage
         case prompting
+        case categoryIntelligentFieldId
     }
 }

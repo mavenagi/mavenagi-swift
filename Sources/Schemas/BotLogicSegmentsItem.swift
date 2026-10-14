@@ -1,5 +1,6 @@
 import Foundation
 
+/// Segments that matched this bot response. Omitted when the agent is in charter mode.
 public struct BotLogicSegmentsItem: Codable, Hashable, Sendable {
     public let matchingSegmentIds: [EntityId]
     /// Additional properties that are not explicitly defined in the schema

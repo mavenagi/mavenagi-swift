@@ -7,7 +7,7 @@ public struct ConversationAnalysis: Codable, Hashable, Sendable {
     public let agentResponse: String?
     /// Generated resolution status of the conversation
     public let resolutionStatus: ResolutionStatus?
-    /// Generated category of the conversation
+    /// Generated category of the conversation. For agents with a `categoryIntelligentFieldId`, this is that intelligent field's value. New agents without one have no category.
     public let category: String?
     /// Generated sentiment of the conversation
     public let sentiment: Sentiment?

@@ -6,7 +6,7 @@ public struct BotLogicCharterDetail: Codable, Hashable, Sendable {
     public let charterId: EntityIdWithoutAgent
     /// Human-readable charter name at the time of evaluation.
     public let name: String
-    /// The segment that gates this charter, if any. Absent for wildcard charters.
+    /// Deprecated, read the charter's `precondition` from the charters API instead.
     public let segmentId: EntityIdWithoutAgent?
     /// The parent charter in the hierarchy, if any. Absent for root-level charters.
     public let parentId: EntityIdWithoutAgent?

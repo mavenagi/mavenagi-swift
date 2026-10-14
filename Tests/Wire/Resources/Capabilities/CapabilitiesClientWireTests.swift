@@ -644,4 +644,149 @@ import Api
         )
         try #require(response == expectedResponse)
     }
+
+    @Test func searchCapabilityExecutions1() async throws -> Void {
+        let stub = HTTPStub()
+        stub.setResponse(
+            body: Data(
+                """
+                {
+                  "number": 0,
+                  "size": 2,
+                  "totalElements": 2,
+                  "totalPages": 1,
+                  "executions": [
+                    {
+                      "capabilityType": "TRIGGER",
+                      "capabilityId": {
+                        "referenceId": "store-in-snowflake",
+                        "appId": "snowflake",
+                        "organizationId": "acme",
+                        "agentId": "support",
+                        "type": "EVENT_TRIGGER"
+                      },
+                      "subjectId": {
+                        "referenceId": "conversation-123",
+                        "appId": "zendesk",
+                        "organizationId": "acme",
+                        "agentId": "support",
+                        "type": "CONVERSATION"
+                      },
+                      "status": "SUCCESS",
+                      "completionReason": "SUCCESS",
+                      "startedAt": "2026-08-31T10:30:05Z",
+                      "completedAt": "2026-08-31T10:30:06Z",
+                      "durationMs": 1120,
+                      "createdAt": "2026-08-31T10:30:05Z",
+                      "eventType": "CONVERSATION_CREATED",
+                      "attempt": 1
+                    },
+                    {
+                      "capabilityType": "CONVERSATION_KICKOFF",
+                      "capabilityId": {
+                        "referenceId": "greet-returning-customer",
+                        "appId": "my-billing-system",
+                        "organizationId": "acme",
+                        "agentId": "support",
+                        "type": "CONVERSATION_KICKOFF"
+                      },
+                      "subjectId": {
+                        "referenceId": "conversation-123",
+                        "appId": "zendesk",
+                        "organizationId": "acme",
+                        "agentId": "support",
+                        "type": "CONVERSATION"
+                      },
+                      "status": "FAILED",
+                      "completionReason": "TIMEOUT",
+                      "message": "Conversation Kickoff timed out",
+                      "startedAt": "2026-08-31T10:30:00Z",
+                      "completedAt": "2026-08-31T10:30:04Z",
+                      "durationMs": 4000,
+                      "createdAt": "2026-08-31T10:30:00Z"
+                    }
+                  ]
+                }
+                """.utf8
+            )
+        )
+        let client = MavenAGI(
+            baseURL: "https://api.fern.com",
+            appId: "<username>",
+            appSecret: "<password>",
+            urlSession: stub.urlSession
+        )
+        let expectedResponse = CapabilityExecutionsSearchResponse(
+            number: 0,
+            size: 2,
+            totalElements: 2,
+            totalPages: 1,
+            executions: [
+                .trigger(
+                    .init(
+                        capabilityId: EntityId(
+                            referenceId: "store-in-snowflake",
+                            appId: "snowflake",
+                            organizationId: "acme",
+                            agentId: "support",
+                            type: .eventTrigger
+                        ),
+                        subjectId: EntityId(
+                            referenceId: "conversation-123",
+                            appId: "zendesk",
+                            organizationId: "acme",
+                            agentId: "support",
+                            type: .conversation
+                        ),
+                        status: .success,
+                        completionReason: Optional(.success),
+                        startedAt: try! Date("2026-08-31T10:30:05Z", strategy: .iso8601),
+                        completedAt: Optional(try! Date("2026-08-31T10:30:06Z", strategy: .iso8601)),
+                        durationMs: Optional(1120),
+                        createdAt: try! Date("2026-08-31T10:30:05Z", strategy: .iso8601),
+                        eventType: .conversationCreated,
+                        attempt: 1
+                    )
+                ),
+                .conversationKickoff(
+                    .init(
+                        capabilityId: EntityId(
+                            referenceId: "greet-returning-customer",
+                            appId: "my-billing-system",
+                            organizationId: "acme",
+                            agentId: "support",
+                            type: .conversationKickoff
+                        ),
+                        subjectId: EntityId(
+                            referenceId: "conversation-123",
+                            appId: "zendesk",
+                            organizationId: "acme",
+                            agentId: "support",
+                            type: .conversation
+                        ),
+                        status: .failed,
+                        completionReason: Optional(.timeout),
+                        message: Optional("Conversation Kickoff timed out"),
+                        startedAt: try! Date("2026-08-31T10:30:00Z", strategy: .iso8601),
+                        completedAt: Optional(try! Date("2026-08-31T10:30:04Z", strategy: .iso8601)),
+                        durationMs: Optional(4000),
+                        createdAt: try! Date("2026-08-31T10:30:00Z", strategy: .iso8601)
+                    )
+                )
+            ]
+        )
+        let response = try await client.capabilities.searchCapabilityExecutions(
+            request: .init(subjectIds: [
+                EntityId(
+                    type: .conversation,
+                    appId: "zendesk",
+                    referenceId: "conversation-123",
+                    organizationId: "acme",
+                    agentId: "support"
+                )
+            ]),
+            requestOptions: RequestOptions(additionalHeaders: stub.headers)
+        )
+        try #require(response == expectedResponse)
+    }
 }

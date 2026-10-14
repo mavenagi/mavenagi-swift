@@ -2635,7 +2635,10 @@ managing its own capabilities wants.
 The agent variant to read an intelligent field through, by reference ID.
 Required for an intelligent field on an agent with versioned intelligent fields; a
 request that omits it there is rejected with reason `VARIANT_REQUIRED`. Otherwise,
-if omitted, the agent's only variant is used.
+if omitted, the agent's only variant is used, as its snapshot has it. When a variant
+is named, its staged edits are included: a field with a staged edit is returned at
+that edit, a field created in the variant is returned, and a field deleted in the
+variant, whether the delete is staged or already in its snapshot, returns 404.
 The other capability types aren't versioned and are the same in every variant,
 though a named variant must still exist.
     
@@ -2996,6 +2999,96 @@ try await main()
 </dl>
 </details>
 
+<details><summary><code>client.capabilities.<a href="/Sources/Resources/Capabilities/CapabilitiesClient.swift">searchCapabilityExecutions</a>(request: Requests.CapabilityExecutionsSearchRequest, requestOptions: RequestOptions?) -> CapabilityExecutionsSearchResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Search the recorded runs of an agent's capabilities, newest first by default. An execution
+is one run of one capability for one subject, with its outcome and timing: an Event
+Trigger notifying its app, or a Conversation Kickoff running when a conversation started.
+
+Pass a conversation in `subjectIds` to get the executions recorded against it. An
+`EVENT_CREATED` trigger records the event as its subject, so pass the event's ID to find
+those.
+
+Results can trail a run by a few seconds. Executions are searchable for 90 days.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```swift
+import Foundation
+import Api
+
+private func main() async throws {
+    let client = MavenAGI(
+        appId: "<username>",
+        appSecret: "<password>"
+    )
+
+    _ = try await client.capabilities.searchCapabilityExecutions(request: .init(subjectIds: [
+        EntityId(
+            type: .conversation,
+            appId: "zendesk",
+            referenceId: "conversation-123",
+            organizationId: "acme",
+            agentId: "support"
+        )
+    ]))
+}
+
+try await main()
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Requests.CapabilityExecutionsSearchRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `RequestOptions?` — Additional options for configuring the request, such as custom headers or timeout settings.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Charters
 <details><summary><code>client.charters.<a href="/Sources/Resources/Charters/ChartersClient.swift">createOrUpdate</a>(request: CharterRequest, requestOptions: RequestOptions?) -> CharterResponse</code></summary>
 <dl>
@@ -3172,7 +3265,15 @@ try await main()
 <dl>
 <dd>
 
-**variantReferenceId:** `String?` — The agent variant reference ID to resolve the charter's version through. If not provided, defaults to the agent's production variant. Currently, validated but not applied.
+**variantReferenceId:** `String?` 
+
+The agent variant reference ID to read the charter through. Its staged edits are
+included: a charter with a staged edit is read at that edit, a charter created in the
+variant is included, and a charter deleted in the variant, whether the delete is
+staged or already in its snapshot, is a 404, as is one the variant doesn't carry. If
+not provided, the request is rejected with `VARIANT_REQUIRED` while charters are
+versioned for the agent, and otherwise reads through the agent's single variant, as
+its snapshot has it, or the published charters while variant reads are off.
     
 </dd>
 </dl>
@@ -3387,13 +3488,13 @@ try await main()
 
 **variantReferenceId:** `String?` 
 
-The reference ID of the agent variant this delete is scoped to. When set, the
-deletion is staged in that variant's working set instead of being applied to the
-agent's live configuration.
+The reference ID of the agent variant this delete is scoped to. While charters are
+versioned for the agent, the deletion is staged in that variant's working set
+instead of being applied to the agent's live configuration, and a delete that names
+no variant is rejected with `VARIANT_REQUIRED`.
 
-Omit this parameter to delete directly from the agent. Variant scoping is not
-active yet: a variant supplied today is validated but not applied, and the delete applies
-to the agent.
+While they aren't, omit this parameter to delete directly from the agent; naming a
+variant then is rejected.
     
 </dd>
 </dl>
@@ -3506,7 +3607,7 @@ try await main()
 </dl>
 </details>
 
-<details><summary><code>client.charters.<a href="/Sources/Resources/Charters/ChartersClient.swift">getAncestors</a>(charterReferenceId: String, appId: String?, requestOptions: RequestOptions?) -> CharterAncestorsResponse</code></summary>
+<details><summary><code>client.charters.<a href="/Sources/Resources/Charters/ChartersClient.swift">getAncestors</a>(charterReferenceId: String, appId: String?, variantReferenceId: String?, variantAppId: String?, requestOptions: RequestOptions?) -> CharterAncestorsResponse</code></summary>
 <dl>
 <dd>
 
@@ -3578,6 +3679,30 @@ try await main()
 <dd>
 
 **appId:** `String?` — The App ID of the charter. If not provided, the ID of the calling app will be used.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**variantReferenceId:** `String?` 
+
+The agent variant reference ID to read the ancestors through. Its staged edits are
+included: a charter with a staged edit is read at that edit, a charter created in the
+variant is included, and a charter deleted in the variant, whether the delete is
+staged or already in its snapshot, is a 404, as is one the variant doesn't carry. If
+not provided, the request is rejected with `VARIANT_REQUIRED` while charters are
+versioned for the agent, and otherwise reads through the agent's single variant, as
+its snapshot has it, or the published charters while variant reads are off.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**variantAppId:** `String?` — The App ID of the agent variant reference. If not provided, the ID of the calling app will be used.
     
 </dd>
 </dl>
@@ -4516,7 +4641,11 @@ try await main()
 <dl>
 <dd>
 
-Uses an LLM flow to categorize the conversation. Experimental.
+Deprecated. Set the agent's `categoryIntelligentFieldId` and read that intelligent field's value instead.
+
+Uses an LLM flow to categorize the conversation.
+
+Returns a 400 for new agents and for any agent with a `categoryIntelligentFieldId`. Their conversation categories come only from that intelligent field: read the field's value, or react to it changing with an `EVENT_CREATED` trigger on the `INTELLIGENT_FIELD_VALUE_CHANGED` system event.
 </dd>
 </dl>
 </dd>
@@ -6910,7 +7039,15 @@ try await main()
 <dl>
 <dd>
 
-**variantReferenceId:** `String?` — The agent variant reference ID to resolve the intelligent field's version through. Required on an agent with versioned intelligent fields; a request that omits it there is rejected with reason `VARIANT_REQUIRED`. Otherwise, if omitted, the agent's only variant is used.
+**variantReferenceId:** `String?` 
+
+The agent variant reference ID to resolve the intelligent field's version through.
+Required on an agent with versioned intelligent fields; a request that omits it there
+is rejected with reason `VARIANT_REQUIRED`. Otherwise, if omitted, the agent's only
+variant is used, as its snapshot has it. When a variant is named, its staged edits
+are included: a field with a staged edit is returned at that edit, a field created in
+the variant is returned, and a field deleted in the variant, whether the delete is
+staged or already in its snapshot, returns 404.
     
 </dd>
 </dl>
@@ -7045,7 +7182,7 @@ deletes any kind of capability the same way. That endpoint returns no body.
 
 Soft delete an intelligent field. Only INACTIVE fields can be deleted.
 
-Deleted fields are excluded from search results but can still be retrieved by ID.
+Deleted fields are excluded from search results, and getting one by ID returns 404.
 Creating a new field with the same referenceId as a deleted field will overwrite
 the deleted field and restore it with the status a new field gets.
 

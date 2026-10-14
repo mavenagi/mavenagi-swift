@@ -37,7 +37,13 @@ public final class ChartersClient: Sendable {
     ///
     /// - Parameter charterReferenceId: The reference ID of the charter to get. All other entity ID fields are inferred from the request.
     /// - Parameter appId: The App ID of the charter to get. If not provided, the ID of the calling app will be used.
-    /// - Parameter variantReferenceId: The agent variant reference ID to resolve the charter's version through. If not provided, defaults to the agent's production variant. Currently, validated but not applied.
+    /// - Parameter variantReferenceId: The agent variant reference ID to read the charter through. Its staged edits are
+    /// included: a charter with a staged edit is read at that edit, a charter created in the
+    /// variant is included, and a charter deleted in the variant, whether the delete is
+    /// staged or already in its snapshot, is a 404, as is one the variant doesn't carry. If
+    /// not provided, the request is rejected with `VARIANT_REQUIRED` while charters are
+    /// versioned for the agent, and otherwise reads through the agent's single variant, as
+    /// its snapshot has it, or the published charters while variant reads are off.
     /// - Parameter variantAppId: The App ID of the agent variant reference. If not provided, the ID of the calling app will be used.
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
     public func get(charterReferenceId: String, appId: String? = nil, variantReferenceId: String? = nil, variantAppId: String? = nil, requestOptions: RequestOptions? = nil) async throws -> CharterResponse {
@@ -95,13 +101,13 @@ public final class ChartersClient: Sendable {
     ///
     /// - Parameter charterReferenceId: The reference ID of the charter to delete.
     /// - Parameter appId: The App ID of the charter to delete. If not provided, the ID of the calling app will be used.
-    /// - Parameter variantReferenceId: The reference ID of the agent variant this delete is scoped to. When set, the
-    /// deletion is staged in that variant's working set instead of being applied to the
-    /// agent's live configuration.
+    /// - Parameter variantReferenceId: The reference ID of the agent variant this delete is scoped to. While charters are
+    /// versioned for the agent, the deletion is staged in that variant's working set
+    /// instead of being applied to the agent's live configuration, and a delete that names
+    /// no variant is rejected with `VARIANT_REQUIRED`.
     /// 
-    /// Omit this parameter to delete directly from the agent. Variant scoping is not
-    /// active yet: a variant supplied today is validated but not applied, and the delete applies
-    /// to the agent.
+    /// While they aren't, omit this parameter to delete directly from the agent; naming a
+    /// variant then is rejected.
     /// - Parameter variantAppId: The App ID of the agent variant named by `variantReferenceId`. If not provided, the ID of the calling app will be used.
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
     public func delete(charterReferenceId: String, appId: String? = nil, variantReferenceId: String? = nil, variantAppId: String? = nil, requestOptions: RequestOptions? = nil) async throws -> CharterResponse {
@@ -152,13 +158,23 @@ public final class ChartersClient: Sendable {
     ///
     /// - Parameter charterReferenceId: The reference ID of the charter. All other entity ID fields are inferred from the request.
     /// - Parameter appId: The App ID of the charter. If not provided, the ID of the calling app will be used.
+    /// - Parameter variantReferenceId: The agent variant reference ID to read the ancestors through. Its staged edits are
+    /// included: a charter with a staged edit is read at that edit, a charter created in the
+    /// variant is included, and a charter deleted in the variant, whether the delete is
+    /// staged or already in its snapshot, is a 404, as is one the variant doesn't carry. If
+    /// not provided, the request is rejected with `VARIANT_REQUIRED` while charters are
+    /// versioned for the agent, and otherwise reads through the agent's single variant, as
+    /// its snapshot has it, or the published charters while variant reads are off.
+    /// - Parameter variantAppId: The App ID of the agent variant reference. If not provided, the ID of the calling app will be used.
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
-    public func getAncestors(charterReferenceId: String, appId: String? = nil, requestOptions: RequestOptions? = nil) async throws -> CharterAncestorsResponse {
+    public func getAncestors(charterReferenceId: String, appId: String? = nil, variantReferenceId: String? = nil, variantAppId: String? = nil, requestOptions: RequestOptions? = nil) async throws -> CharterAncestorsResponse {
         return try await httpClient.performRequest(
             method: .get,
             path: "/v1/charters/\(charterReferenceId)/ancestors",
             queryParams: [
-                "appId": appId.map { .string($0) }
+                "appId": appId.map { .string($0) }, 
+                "variantReferenceId": variantReferenceId.map { .string($0) }, 
+                "variantAppId": variantAppId.map { .string($0) }
             ],
             requestOptions: requestOptions,
             responseType: CharterAncestorsResponse.self

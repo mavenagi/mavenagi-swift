@@ -32,6 +32,11 @@ import Api
                         "categoryGenerationPromptText": "categoryGenerationPromptText",
                         "contentSafetyViolationResponsePromptText": "contentSafetyViolationResponsePromptText",
                         "rejectQuestionsWithoutKnowledge": true
+                      },
+                      "categoryIntelligentFieldId": {
+                        "type": "AGENT",
+                        "appId": "appId",
+                        "referenceId": "x"
                       }
                     },
                     {
@@ -56,6 +61,11 @@ import Api
                         "categoryGenerationPromptText": "categoryGenerationPromptText",
                         "contentSafetyViolationResponsePromptText": "contentSafetyViolationResponsePromptText",
                         "rejectQuestionsWithoutKnowledge": true
+                      },
+                      "categoryIntelligentFieldId": {
+                        "type": "AGENT",
+                        "appId": "appId",
+                        "referenceId": "x"
                       }
                     }
                   ],
@@ -95,7 +105,12 @@ import Api
                         categoryGenerationPromptText: Optional("categoryGenerationPromptText"),
                         contentSafetyViolationResponsePromptText: Optional("contentSafetyViolationResponsePromptText"),
                         rejectQuestionsWithoutKnowledge: true
-                    )
+                    ),
+                    categoryIntelligentFieldId: Optional(EntityIdWithoutAgent(
+                        type: .agent,
+                        appId: "appId",
+                        referenceId: "x"
+                    ))
                 ),
                 Agent(
                     agentId: EntityId(
@@ -117,7 +132,12 @@ import Api
                         categoryGenerationPromptText: Optional("categoryGenerationPromptText"),
                         contentSafetyViolationResponsePromptText: Optional("contentSafetyViolationResponsePromptText"),
                         rejectQuestionsWithoutKnowledge: true
-                    )
+                    ),
+                    categoryIntelligentFieldId: Optional(EntityIdWithoutAgent(
+                        type: .agent,
+                        appId: "appId",
+                        referenceId: "x"
+                    ))
                 )
             ],
             number: 1,
@@ -162,6 +182,11 @@ import Api
                       "categoryGenerationPromptText": "categoryGenerationPromptText",
                       "contentSafetyViolationResponsePromptText": "contentSafetyViolationResponsePromptText",
                       "rejectQuestionsWithoutKnowledge": true
+                    },
+                    "categoryIntelligentFieldId": {
+                      "type": "AGENT",
+                      "appId": "appId",
+                      "referenceId": "x"
                     }
                   },
                   {
@@ -186,6 +211,11 @@ import Api
                       "categoryGenerationPromptText": "categoryGenerationPromptText",
                       "contentSafetyViolationResponsePromptText": "contentSafetyViolationResponsePromptText",
                       "rejectQuestionsWithoutKnowledge": true
+                    },
+                    "categoryIntelligentFieldId": {
+                      "type": "AGENT",
+                      "appId": "appId",
+                      "referenceId": "x"
                     }
                   }
                 ]
@@ -219,7 +249,12 @@ import Api
                     categoryGenerationPromptText: Optional("categoryGenerationPromptText"),
                     contentSafetyViolationResponsePromptText: Optional("contentSafetyViolationResponsePromptText"),
                     rejectQuestionsWithoutKnowledge: true
-                )
+                ),
+                categoryIntelligentFieldId: Optional(EntityIdWithoutAgent(
+                    type: .agent,
+                    appId: "appId",
+                    referenceId: "x"
+                ))
             ),
             Agent(
                 agentId: EntityId(
@@ -241,7 +276,12 @@ import Api
                     categoryGenerationPromptText: Optional("categoryGenerationPromptText"),
                     contentSafetyViolationResponsePromptText: Optional("contentSafetyViolationResponsePromptText"),
                     rejectQuestionsWithoutKnowledge: true
-                )
+                ),
+                categoryIntelligentFieldId: Optional(EntityIdWithoutAgent(
+                    type: .agent,
+                    appId: "appId",
+                    referenceId: "x"
+                ))
             )
         ]
         let response = try await client.agents.list(
@@ -278,6 +318,11 @@ import Api
                     "categoryGenerationPromptText": "categoryGenerationPromptText",
                     "contentSafetyViolationResponsePromptText": "contentSafetyViolationResponsePromptText",
                     "rejectQuestionsWithoutKnowledge": true
+                  },
+                  "categoryIntelligentFieldId": {
+                    "type": "AGENT",
+                    "appId": "appId",
+                    "referenceId": "x"
                   }
                 }
                 """.utf8
@@ -309,7 +354,12 @@ import Api
                 categoryGenerationPromptText: Optional("categoryGenerationPromptText"),
                 contentSafetyViolationResponsePromptText: Optional("contentSafetyViolationResponsePromptText"),
                 rejectQuestionsWithoutKnowledge: true
-            )
+            ),
+            categoryIntelligentFieldId: Optional(EntityIdWithoutAgent(
+                type: .agent,
+                appId: "appId",
+                referenceId: "x"
+            ))
         )
         let response = try await client.agents.create(
             organizationReferenceId: "organizationReferenceId",
@@ -350,6 +400,11 @@ import Api
                     "categoryGenerationPromptText": "categoryGenerationPromptText",
                     "contentSafetyViolationResponsePromptText": "contentSafetyViolationResponsePromptText",
                     "rejectQuestionsWithoutKnowledge": true
+                  },
+                  "categoryIntelligentFieldId": {
+                    "type": "AGENT",
+                    "appId": "appId",
+                    "referenceId": "x"
                   }
                 }
                 """.utf8
@@ -381,7 +436,12 @@ import Api
                 categoryGenerationPromptText: Optional("categoryGenerationPromptText"),
                 contentSafetyViolationResponsePromptText: Optional("contentSafetyViolationResponsePromptText"),
                 rejectQuestionsWithoutKnowledge: true
-            )
+            ),
+            categoryIntelligentFieldId: Optional(EntityIdWithoutAgent(
+                type: .agent,
+                appId: "appId",
+                referenceId: "x"
+            ))
         )
         let response = try await client.agents.get(
             organizationReferenceId: "organizationReferenceId",
@@ -418,6 +478,11 @@ import Api
                     "categoryGenerationPromptText": "categoryGenerationPromptText",
                     "contentSafetyViolationResponsePromptText": "contentSafetyViolationResponsePromptText",
                     "rejectQuestionsWithoutKnowledge": true
+                  },
+                  "categoryIntelligentFieldId": {
+                    "type": "AGENT",
+                    "appId": "appId",
+                    "referenceId": "x"
                   }
                 }
                 """.utf8
@@ -449,7 +514,12 @@ import Api
                 categoryGenerationPromptText: Optional("categoryGenerationPromptText"),
                 contentSafetyViolationResponsePromptText: Optional("contentSafetyViolationResponsePromptText"),
                 rejectQuestionsWithoutKnowledge: true
-            )
+            ),
+            categoryIntelligentFieldId: Optional(EntityIdWithoutAgent(
+                type: .agent,
+                appId: "appId",
+                referenceId: "x"
+            ))
         )
         let response = try await client.agents.patch(
             organizationReferenceId: "organizationReferenceId",
