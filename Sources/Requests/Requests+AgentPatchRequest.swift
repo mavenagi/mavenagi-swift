@@ -11,6 +11,8 @@ extension Requests {
         /// The PII categories that are enabled for the agent.
         public let enabledPiiCategories: JSONValue?
         /// The system fallback message.
+        /// 
+        /// Rejected with reason `VARIANT_REQUIRED` while `SYSTEM_FALLBACK_MESSAGE` is in `getVersionedEntityTypes`; set it through `patchVersionedSettings`.
         public let systemFallbackMessage: Nullable<String>?
         /// Deprecated. Superseded by charters, which determine agent behavior per round. Has no effect for agents using charters.
         public let persona: LlmPersona?
@@ -27,6 +29,8 @@ extension Requests {
         /// The field must be `ACTIVE` to produce values. While it is inactive, conversations get no category. With agent variants, a conversation gets a category only if the field is active in its variant. Categories are capped at 280 characters.
         public let categoryIntelligentFieldId: Nullable<EntityIdWithoutAgent>?
         /// LLM prompt for generating a response when the user's question has been detected as unsafe.
+        /// 
+        /// Rejected with reason `VARIANT_REQUIRED` while `CONTENT_SAFETY_VIOLATION_RESPONSE_PROMPT_TEXT` is in `getVersionedEntityTypes`; set it through `patchVersionedSettings`.
         public let contentSafetyViolationResponsePromptText: Nullable<String>?
         /// Deprecated. Superseded by charters, which determine agent behavior per round. Has no effect for agents using charters.
         /// 

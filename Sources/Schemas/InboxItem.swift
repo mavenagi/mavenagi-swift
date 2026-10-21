@@ -54,7 +54,7 @@ public enum InboxItem: Codable, Hashable, Sendable {
         public let recommendedFixes: [InboxItemFixDeactivateDocument]
         /// List of fixes associated with the inbox item.
         public let otherFixes: [InboxItemFixDeactivateDocument]
-        /// Information about the source document associated with the inbox item.
+        /// Information about the source document associated with the inbox item. Shown in Agent Designer as "Reference Document".
         public let sourceDocument: DocumentInformation
         /// List of Document information objects related to the inbox item.
         public let documents: [DocumentInformation]

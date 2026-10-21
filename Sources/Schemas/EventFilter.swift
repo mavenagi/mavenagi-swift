@@ -6,6 +6,7 @@ public struct EventFilter: Codable, Hashable, Sendable {
     public let createdBefore: Date?
     public let references: [ScopedEntity]?
     public let eventTypes: [EventType]?
+    /// Shown in Agent Designer as "Event type".
     public let userEventNames: [UserEventName]?
     public let systemEventNames: [SystemEventName]?
     public let agentUserIds: [String]?

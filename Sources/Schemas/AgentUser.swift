@@ -17,6 +17,8 @@ public struct AgentUser: Codable, Hashable, Sendable {
     public let users: [AppUserSummary]
     /// Latest successful values of the agent user's intelligent fields.
     public let intelligentFieldValues: [IntelligentFieldValueResponse]?
+    /// The execution mode the agent user lives in. Its app users all share it.
+    public let executionMode: ExecutionMode
     /// Additional properties that are not explicitly defined in the schema
     public let additionalProperties: [String: JSONValue]
 
@@ -28,6 +30,7 @@ public struct AgentUser: Codable, Hashable, Sendable {
         defaultName: String? = nil,
         users: [AppUserSummary],
         intelligentFieldValues: [IntelligentFieldValueResponse]? = nil,
+        executionMode: ExecutionMode,
         additionalProperties: [String: JSONValue] = .init()
     ) {
         self.id = id
@@ -37,6 +40,7 @@ public struct AgentUser: Codable, Hashable, Sendable {
         self.defaultName = defaultName
         self.users = users
         self.intelligentFieldValues = intelligentFieldValues
+        self.executionMode = executionMode
         self.additionalProperties = additionalProperties
     }
 
@@ -49,6 +53,7 @@ public struct AgentUser: Codable, Hashable, Sendable {
         self.defaultName = try container.decodeIfPresent(String.self, forKey: .defaultName)
         self.users = try container.decode([AppUserSummary].self, forKey: .users)
         self.intelligentFieldValues = try container.decodeIfPresent([IntelligentFieldValueResponse].self, forKey: .intelligentFieldValues)
+        self.executionMode = try container.decode(ExecutionMode.self, forKey: .executionMode)
         self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
     }
 
@@ -62,6 +67,7 @@ public struct AgentUser: Codable, Hashable, Sendable {
         try container.encodeIfPresent(self.defaultName, forKey: .defaultName)
         try container.encode(self.users, forKey: .users)
         try container.encodeIfPresent(self.intelligentFieldValues, forKey: .intelligentFieldValues)
+        try container.encode(self.executionMode, forKey: .executionMode)
     }
 
     /// Keys for encoding/decoding struct properties.
@@ -73,5 +79,6 @@ public struct AgentUser: Codable, Hashable, Sendable {
         case defaultName
         case users
         case intelligentFieldValues
+        case executionMode
     }
 }

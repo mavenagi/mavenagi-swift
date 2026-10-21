@@ -195,6 +195,9 @@ public enum ConversationMessageResponse: Codable, Hashable, Sendable {
         public let status: MessageStatus
         /// The logic that was used to generate the response. Response size may be large; only present on the getConversation request.
         public let logic: BotLogic?
+        /// Why the agent could not answer. Present only when `status` is `REJECTED` or `FAILED`, and absent for every other status.
+        /// A `FAILED` message without a reason failed for some other cause, such as the model returning no answer.
+        public let statusReason: BotMessageStatusReason?
         /// Additional properties that are not explicitly defined in the schema
         public let additionalProperties: [String: JSONValue]
 
@@ -208,6 +211,7 @@ public enum ConversationMessageResponse: Codable, Hashable, Sendable {
             metadata: BotResponseMetadata,
             status: MessageStatus,
             logic: BotLogic? = nil,
+            statusReason: BotMessageStatusReason? = nil,
             additionalProperties: [String: JSONValue] = .init()
         ) {
             self.createdAt = createdAt
@@ -219,6 +223,7 @@ public enum ConversationMessageResponse: Codable, Hashable, Sendable {
             self.metadata = metadata
             self.status = status
             self.logic = logic
+            self.statusReason = statusReason
             self.additionalProperties = additionalProperties
         }
 
@@ -233,6 +238,7 @@ public enum ConversationMessageResponse: Codable, Hashable, Sendable {
             self.metadata = try container.decode(BotResponseMetadata.self, forKey: .metadata)
             self.status = try container.decode(MessageStatus.self, forKey: .status)
             self.logic = try container.decodeIfPresent(BotLogic.self, forKey: .logic)
+            self.statusReason = try container.decodeIfPresent(BotMessageStatusReason.self, forKey: .statusReason)
             self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
         }
 
@@ -249,6 +255,7 @@ public enum ConversationMessageResponse: Codable, Hashable, Sendable {
             try container.encode(self.metadata, forKey: .metadata)
             try container.encode(self.status, forKey: .status)
             try container.encodeIfPresent(self.logic, forKey: .logic)
+            try container.encodeIfPresent(self.statusReason, forKey: .statusReason)
         }
 
         /// Keys for encoding/decoding struct properties.
@@ -263,6 +270,7 @@ public enum ConversationMessageResponse: Codable, Hashable, Sendable {
             case metadata
             case status
             case logic
+            case statusReason
         }
     }
 

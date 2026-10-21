@@ -1,12 +1,15 @@
 import Foundation
 
-/// A predicate over a string-to-string metadata map: either a condition on the value
-/// under one key, or a group of predicates combined with a logical operator.
+/// A predicate over a string-to-string metadata map: a condition on the value under one
+/// key, a match against a value read from the conversation, or a group of predicates
+/// combined with a logical operator.
 /// 
-/// Kept small on purpose: at most 3 levels of nesting and 10 nodes in total, counting
-/// groups as well as entries. A filter is meant to narrow a knowledge base to a
-/// recognisable slice, not to encode a query language. Exceeding either is a 400.
+/// Kept small on purpose: by default at most 3 levels of nesting and 10 nodes in total,
+/// counting every group, entry and conversation value. A filter is meant to narrow a
+/// knowledge base to a recognisable slice, not to encode a query language. Exceeding
+/// either is a 400.
 public indirect enum MetadataFilter: Codable, Hashable, Sendable {
+    case conversationValue(ConversationValue)
     case entry(Entry)
     case group(Group)
 
@@ -14,6 +17,8 @@ public indirect enum MetadataFilter: Codable, Hashable, Sendable {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         let discriminant = try container.decode(String.self, forKey: .metadataFilterType)
         switch discriminant {
+        case "conversationValue":
+            self = .conversationValue(try ConversationValue(from: decoder))
         case "entry":
             self = .entry(try Entry(from: decoder))
         case "group":
@@ -30,6 +35,8 @@ public indirect enum MetadataFilter: Codable, Hashable, Sendable {
 
     public func encode(to encoder: Encoder) throws -> Void {
         switch self {
+        case .conversationValue(let data):
+            try data.encode(to: encoder)
         case .entry(let data):
             try data.encode(to: encoder)
         case .group(let data):
@@ -76,6 +83,48 @@ public indirect enum MetadataFilter: Codable, Hashable, Sendable {
             case metadataFilterType
             case key
             case condition
+        }
+    }
+
+    public struct ConversationValue: Codable, Hashable, Sendable {
+        public let metadataFilterType: String = "conversationValue"
+        /// The document metadata key to test, as in `MetadataEntryCondition`.
+        public let key: String
+        /// Where on the conversation to read the value that documents must equal.
+        public let source: ConversationValueSource
+        /// Additional properties that are not explicitly defined in the schema
+        public let additionalProperties: [String: JSONValue]
+
+        public init(
+            key: String,
+            source: ConversationValueSource,
+            additionalProperties: [String: JSONValue] = .init()
+        ) {
+            self.key = key
+            self.source = source
+            self.additionalProperties = additionalProperties
+        }
+
+        public init(from decoder: Decoder) throws {
+            let container = try decoder.container(keyedBy: CodingKeys.self)
+            self.key = try container.decode(String.self, forKey: .key)
+            self.source = try container.decode(ConversationValueSource.self, forKey: .source)
+            self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
+        }
+
+        public func encode(to encoder: Encoder) throws -> Void {
+            var container = encoder.container(keyedBy: CodingKeys.self)
+            try encoder.encodeAdditionalProperties(self.additionalProperties)
+            try container.encode(self.metadataFilterType, forKey: .metadataFilterType)
+            try container.encode(self.key, forKey: .key)
+            try container.encode(self.source, forKey: .source)
+        }
+
+        /// Keys for encoding/decoding struct properties.
+        enum CodingKeys: String, CodingKey, CaseIterable {
+            case metadataFilterType
+            case key
+            case source
         }
     }
 

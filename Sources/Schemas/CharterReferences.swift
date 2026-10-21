@@ -12,6 +12,8 @@ public struct CharterReferences: Codable, Hashable, Sendable {
     public let knowledgeBases: [CharterKnowledgeBaseReference]?
     /// The IDs of actions this charter makes available.
     /// Maximum 50 actions per charter.
+    /// 
+    /// Shown in Agent Designer as "Capabilities".
     public let actionIds: JSONValue
     /// Additional properties that are not explicitly defined in the schema
     public let additionalProperties: [String: JSONValue]

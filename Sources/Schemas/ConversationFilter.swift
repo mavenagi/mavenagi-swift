@@ -20,6 +20,8 @@ public struct ConversationFilter: Codable, Hashable, Sendable {
     /// - `tags:myvalue OR anothervalue` - matches conversations with a tag of `myvalue` or `anothervalue`
     /// - `-tags:myvalue` - matches conversations that do not have the tag `myvalue`
     /// - `_exists_:tags` - matches conversations that have any tags field set
+    /// 
+    /// Shown in Agent Designer as "Content includes".
     public let search: String?
     /// Filter conversations created on or after this timestamp
     public let createdAfter: Date?
@@ -39,6 +41,8 @@ public struct ConversationFilter: Codable, Hashable, Sendable {
     /// `BUTTON_CLICKED` events by their `feedbackInfo.thumbUp` value, and `Insert` matches
     /// `TEXT_INSERTED` events. `Handoff` matches bot responses that returned the system fallback
     /// message.
+    /// 
+    /// Shown in Agent Designer as "Event".
     public let feedback: [FeedbackType]?
     /// Filter by human agents who participated in the conversation
     public let humanAgents: [String]?
@@ -65,7 +69,7 @@ public struct ConversationFilter: Codable, Hashable, Sendable {
     public let deleted: Bool?
     /// Filter by tags applied to the conversation
     public let tags: [String]?
-    /// Filter by agent user IDs associated with the conversation
+    /// Filter by agent user IDs associated with the conversation. Shown in Agent Designer as "Users", where the user enters identifiers such as an email.
     public let agentUserIds: [String]?
     /// Filter by conversation resolution status which is determined by AI based on the conversation content.
     /// 
@@ -118,6 +122,8 @@ public struct ConversationFilter: Codable, Hashable, Sendable {
     /// 
     /// If billable is `null` or `[]` then defaults to all eligible conversations,
     /// which means ELIGIBLE_AND_BILLABLE and ELIGIBLE_AND_NOT_BILLABLE.
+    /// 
+    /// Shown in Agent Designer as "Billing status".
     public let billable: [BillableFilterField]?
     /// Additional properties that are not explicitly defined in the schema
     public let additionalProperties: [String: JSONValue]

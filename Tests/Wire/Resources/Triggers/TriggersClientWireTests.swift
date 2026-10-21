@@ -19,6 +19,18 @@ import Api
                         "referenceId": "x"
                       },
                       "enabled": true,
+                      "functionBinding": {
+                        "functionId": {
+                          "type": "AGENT",
+                          "appId": "appId",
+                          "referenceId": "x"
+                        },
+                        "versionId": {
+                          "type": "AGENT",
+                          "appId": "appId",
+                          "referenceId": "x"
+                        }
+                      },
                       "type": "CONVERSATION_CREATED",
                       "condition": {
                         "eventConditionType": "userEventName",
@@ -43,6 +55,18 @@ import Api
                         "referenceId": "x"
                       },
                       "enabled": true,
+                      "functionBinding": {
+                        "functionId": {
+                          "type": "AGENT",
+                          "appId": "appId",
+                          "referenceId": "x"
+                        },
+                        "versionId": {
+                          "type": "AGENT",
+                          "appId": "appId",
+                          "referenceId": "x"
+                        }
+                      },
                       "type": "CONVERSATION_CREATED",
                       "condition": {
                         "eventConditionType": "userEventName",

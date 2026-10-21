@@ -10,6 +10,8 @@ public struct BotLogicCharterDetail: Codable, Hashable, Sendable {
     public let segmentId: EntityIdWithoutAgent?
     /// The parent charter in the hierarchy, if any. Absent for root-level charters.
     public let parentId: EntityIdWithoutAgent?
+    /// The charter's type when the response was generated. A matched `STRICT_RETURN` charter's manual is the whole response.
+    public let type: CharterType?
     /// Additional properties that are not explicitly defined in the schema
     public let additionalProperties: [String: JSONValue]
 
@@ -18,12 +20,14 @@ public struct BotLogicCharterDetail: Codable, Hashable, Sendable {
         name: String,
         segmentId: EntityIdWithoutAgent? = nil,
         parentId: EntityIdWithoutAgent? = nil,
+        type: CharterType? = nil,
         additionalProperties: [String: JSONValue] = .init()
     ) {
         self.charterId = charterId
         self.name = name
         self.segmentId = segmentId
         self.parentId = parentId
+        self.type = type
         self.additionalProperties = additionalProperties
     }
 
@@ -33,6 +37,7 @@ public struct BotLogicCharterDetail: Codable, Hashable, Sendable {
         self.name = try container.decode(String.self, forKey: .name)
         self.segmentId = try container.decodeIfPresent(EntityIdWithoutAgent.self, forKey: .segmentId)
         self.parentId = try container.decodeIfPresent(EntityIdWithoutAgent.self, forKey: .parentId)
+        self.type = try container.decodeIfPresent(CharterType.self, forKey: .type)
         self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
     }
 
@@ -43,6 +48,7 @@ public struct BotLogicCharterDetail: Codable, Hashable, Sendable {
         try container.encode(self.name, forKey: .name)
         try container.encodeIfPresent(self.segmentId, forKey: .segmentId)
         try container.encodeIfPresent(self.parentId, forKey: .parentId)
+        try container.encodeIfPresent(self.type, forKey: .type)
     }
 
     /// Keys for encoding/decoding struct properties.
@@ -51,5 +57,6 @@ public struct BotLogicCharterDetail: Codable, Hashable, Sendable {
         case name
         case segmentId
         case parentId
+        case type
     }
 }

@@ -1,7 +1,7 @@
 import Foundation
 
 public struct ConversationAnalysis: Codable, Hashable, Sendable {
-    /// Generated user request summary of the conversation
+    /// Generated user request summary of the conversation. Shown in Agent Designer as "Subject" in the conversations table and "Customer request" on a conversation.
     public let userRequest: String?
     /// Generated agent response summary of the conversation
     public let agentResponse: String?

@@ -4,6 +4,7 @@ public enum ResolutionStatus: String, Codable, Hashable, CaseIterable, Sendable 
     case unknown = "UNKNOWN"
     case error = "ERROR"
     case inProgress = "IN_PROGRESS"
+    /// Shown in Agent Designer as "Resolved by Maven".
     case resolved = "RESOLVED"
     case escalated = "ESCALATED"
     case incomplete = "INCOMPLETE"

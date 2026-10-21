@@ -4,6 +4,7 @@ public enum ConversationField: String, Codable, Hashable, CaseIterable, Sendable
     case category = "Category"
     case firstResponseTime = "FirstResponseTime"
     case handleTime = "HandleTime"
+    /// Shown in Agent Designer Insights as the "Top agents" table.
     case humanAgents = "HumanAgents"
     case humanAgentsWithInserts = "HumanAgentsWithInserts"
     case app = "App"
@@ -12,12 +13,14 @@ public enum ConversationField: String, Codable, Hashable, CaseIterable, Sendable
     case resolutionStatus = "ResolutionStatus"
     case resolvedByMaven = "ResolvedByMaven"
     case quality = "Quality"
+    /// Shown in Agent Designer as "Active users" when counted distinctly.
     case users = "Users"
     case responseLength = "ResponseLength"
     case thumbsUpCount = "ThumbsUpCount"
     case thumbsDownCount = "ThumbsDownCount"
     case insertCount = "InsertCount"
     case tags = "Tags"
+    /// Shown in Agent Designer as "Customer interactions".
     case userMessageCount = "UserMessageCount"
     case botMessageCount = "BotMessageCount"
     case languages = "Languages"
@@ -27,6 +30,7 @@ public enum ConversationField: String, Codable, Hashable, CaseIterable, Sendable
     case actionExecutionCount = "ActionExecutionCount"
     case actionErrorCount = "ActionErrorCount"
     case charters = "Charters"
+    /// Shown in Agent Designer Insights as the "Top knowledge documents" table.
     case sources = "Sources"
     case createdAt = "CreatedAt"
     case predictedNps = "PredictedNPS"

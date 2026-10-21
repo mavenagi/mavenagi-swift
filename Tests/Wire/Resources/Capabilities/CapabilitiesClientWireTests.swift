@@ -17,6 +17,18 @@ import Api
                     "appId": "appId",
                     "referenceId": "x"
                   },
+                  "functionBinding": {
+                    "functionId": {
+                      "type": "AGENT",
+                      "appId": "appId",
+                      "referenceId": "x"
+                    },
+                    "versionId": {
+                      "type": "AGENT",
+                      "appId": "appId",
+                      "referenceId": "x"
+                    }
+                  },
                   "instructions": "instructions",
                   "llmInclusionStatus": "ALWAYS",
                   "segmentId": {
@@ -289,6 +301,18 @@ import Api
                     "appId": "appId",
                     "referenceId": "x"
                   },
+                  "functionBinding": {
+                    "functionId": {
+                      "type": "AGENT",
+                      "appId": "appId",
+                      "referenceId": "x"
+                    },
+                    "versionId": {
+                      "type": "AGENT",
+                      "appId": "appId",
+                      "referenceId": "x"
+                    }
+                  },
                   "instructions": "instructions",
                   "llmInclusionStatus": "ALWAYS",
                   "segmentId": {
@@ -543,6 +567,58 @@ import Api
             capabilityType: .action,
             referenceId: "referenceId",
             request: .init(),
+            requestOptions: RequestOptions(additionalHeaders: stub.headers)
+        )
+        try #require(response == expectedResponse)
+    }
+
+    @Test func simulateCapability1() async throws -> Void {
+        let stub = HTTPStub()
+        stub.setResponse(
+            body: Data(
+                """
+                {
+                  "capabilityType": "ACTION",
+                  "response": "response",
+                  "data": {
+                    "data": {
+                      "key": "value"
+                    }
+                  },
+                  "status": "SUCCESS",
+                  "errorMessage": "errorMessage"
+                }
+                """.utf8
+            )
+        )
+        let client = MavenAGI(
+            baseURL: "https://api.fern.com",
+            appId: "<username>",
+            appSecret: "<password>",
+            urlSession: stub.urlSession
+        )
+        let expectedResponse = .action(
+            .init(
+                response: "response",
+                data: Optional([
+                    "data": JSONValue.object(
+                        [
+                            "key": JSONValue.string("value")
+                        ]
+                    )
+                ]),
+                status: Optional(.success),
+                errorMessage: Optional("errorMessage")
+            )
+        )
+        let response = try await client.capabilities.simulateCapability(
+            capabilityType: .action,
+            referenceId: "referenceId",
+            request: .init(body: CapabilitySimulationInput.action(
+                .init(
+
+                )
+            )),
             requestOptions: RequestOptions(additionalHeaders: stub.headers)
         )
         try #require(response == expectedResponse)

@@ -106,7 +106,8 @@ import Api
                           "rationale": "rationale",
                           "createdAt": "2024-01-15T09:30:00Z"
                         }
-                      ]
+                      ],
+                      "executionMode": "LIVE"
                     },
                     {
                       "id": "id",
@@ -204,7 +205,8 @@ import Api
                           "rationale": "rationale",
                           "createdAt": "2024-01-15T09:30:00Z"
                         }
-                      ]
+                      ],
+                      "executionMode": "LIVE"
                     }
                   ],
                   "number": 1,
@@ -308,7 +310,8 @@ import Api
                             rationale: Optional("rationale"),
                             createdAt: Optional(try! Date("2024-01-15T09:30:00Z", strategy: .iso8601))
                         )
-                    ])
+                    ]),
+                    executionMode: .live
                 ),
                 AgentUser(
                     id: "id",
@@ -395,7 +398,8 @@ import Api
                             rationale: Optional("rationale"),
                             createdAt: Optional(try! Date("2024-01-15T09:30:00Z", strategy: .iso8601))
                         )
-                    ])
+                    ]),
+                    executionMode: .live
                 )
             ],
             number: 1,
@@ -428,6 +432,7 @@ import Api
                     }
                   ],
                   "defaultName": "Joe",
+                  "executionMode": "LIVE",
                   "users": [
                     {
                       "userId": {
@@ -477,6 +482,7 @@ import Api
             updatedAt: try! Date("2021-01-01T00:00:00Z", strategy: .iso8601),
             identifiers: [],
             defaultName: Optional("Joe"),
+            executionMode: .live,
             users: [
                 AppUserSummary(
                     userId: EntityId(

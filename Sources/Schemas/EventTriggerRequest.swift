@@ -15,6 +15,8 @@ public struct EventTriggerRequest: Codable, Hashable, Sendable {
     /// removes one; PATCH changes or removes a condition without re-registering.
     /// 
     /// Only allowed on `EVENT_CREATED`; the other trigger types reject it.
+    /// 
+    /// Shown in Agent Designer as "When".
     public let condition: EventCondition?
     /// The name of the trigger, displayed to end users. If not set, a name is derived from the app ID and trigger type.
     public let name: String?

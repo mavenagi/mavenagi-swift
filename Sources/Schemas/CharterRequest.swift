@@ -16,6 +16,8 @@ public struct CharterRequest: Codable, Hashable, Sendable {
     /// precondition to determine whether there is a match. When null, the
     /// charter is a wildcard and always matches (subject to ancestor
     /// preconditions still combining with AND logic).
+    /// 
+    /// Shown in Agent Designer as the charter's "Segment". A null precondition shows as "All conversations".
     public let precondition: Nullable<Precondition>?
     /// Desired lifecycle status.
     public let status: CharterStatus
@@ -46,7 +48,9 @@ public struct CharterRequest: Codable, Hashable, Sendable {
     public let references: CharterReferences
     /// Display name for this charter or group.
     public let name: String
-    /// ID of the agent variant this charter belongs to, if applicable.
+    /// On a write request, the agent variant to stage the write in. On a response, it is set
+    /// only on each side of a working-set diff, naming the variant that side comes from; every
+    /// other charter response, and every staged-edit payload, leaves it unset.
     /// 
     /// While charters are versioned for the agent, a write is staged in this variant's
     /// working set rather than applied to the agent's live configuration, and a write that
@@ -60,6 +64,8 @@ public struct CharterRequest: Codable, Hashable, Sendable {
     /// before delivery.
     /// 
     /// If not set, existing manual is preserved if present.
+    /// 
+    /// Shown in Agent Designer as "Manual", or "Return text" when `type` is `STRICT_RETURN`.
     public let manual: String?
     /// ID that uniquely identifies this charter.
     public let charterId: EntityIdBase

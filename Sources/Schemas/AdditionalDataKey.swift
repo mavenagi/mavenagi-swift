@@ -28,6 +28,8 @@ public enum AdditionalDataKey: String, Codable, Hashable, CaseIterable, Sendable
     case query
     /// The 1-based position of the chosen item in a list, such as a search result or a suggestion.
     case position
+    /// The `botMessageType` of the bot message. Maven sets it on `BOT_REPLY_CREATED`.
+    case botMessageType
     /// A monetary amount, as a decimal number in `currency`.
     case amount
     /// The ISO 4217 code of `amount`'s currency, such as `USD`.

@@ -1,7 +1,7 @@
 import Foundation
 
 public enum InboxItemStatus: String, Codable, Hashable, CaseIterable, Sendable {
-    /// The inbox item is open.
+    /// The inbox item is open. Shown in Agent Designer as "Unresolved".
     case open = "OPEN"
     /// The inbox item was resolved by the user.
     case userResolved = "USER_RESOLVED"

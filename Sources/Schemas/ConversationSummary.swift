@@ -19,7 +19,7 @@ public struct ConversationSummary: Codable, Hashable, Sendable {
     public let thumbsDownCount: Int
     /// The number of bot response messages that failed and returned the Agent's system fallback message.
     public let handoffCount: Int
-    /// The number of messages of type `USER` in the conversation.
+    /// The number of messages of type `USER` in the conversation. Shown in Agent Designer as "Customer interactions".
     public let userMessageCount: Int
     /// The number of bot answer messages in the conversation.
     public let botMessageCount: Int
@@ -33,10 +33,12 @@ public struct ConversationSummary: Codable, Hashable, Sendable {
     /// minus the timestamp of the first message in the conversation.
     /// 
     /// Will not be provided if the conversation does not have a message of type `HUMAN_AGENT`.
+    /// 
+    /// Shown in Agent Designer as "First response time".
     public let humanAgentResponseDelay: Int64?
-    /// The names of all users that have a message of type `HUMAN_AGENT` on the conversation.
+    /// The names of all users that have a message of type `HUMAN_AGENT` on the conversation. Shown in Agent Designer as "Agents involved".
     public let humanAgents: [String]
-    /// The names of all users that have an associated insert event on the conversation.
+    /// The names of all users that have an associated insert event on the conversation. Shown in Agent Designer as "Inserted by".
     public let humanAgentsWithInserts: [String]
     /// The names of all users that have a message of type `USER` on the conversation.
     public let users: [String]

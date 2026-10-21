@@ -10,13 +10,17 @@ public struct IntelligentFieldBase: Codable, Hashable, Sendable {
     /// - NUMBER: a number
     /// 
     /// For a single select, use STRING or NUMBER together with `enumOptions`.
+    /// 
+    /// Shown in Agent Designer as "Value format" or "Field type".
     public let validationType: IntelligentFieldType
-    /// Definition used by the LLM when generating this field's value
+    /// Definition used by the LLM when generating this field's value. Shown in Agent Designer as "Define this field" (the evaluation instructions).
     public let definition: String
     /// The finite set of values this field may take. Omit to let the LLM produce any value of
     /// the `validationType`. Options may be added later with the patch endpoint, but not removed.
+    /// 
+    /// Shown in Agent Designer as "Select Options".
     public let enumOptions: [EnumOption]?
-    /// Target entity type for evaluation. CONVERSATION is supported, and AGENT_USER is supported for agents with user-level intelligent fields enabled. The backend will return an error for other types.
+    /// Target entity type for evaluation. CONVERSATION is supported, and AGENT_USER is supported for agents with user-level intelligent fields enabled. The backend will return an error for other types. Shown in Agent Designer as "Target", with `CONVERSATION` as "On conversations" and `AGENT_USER` as "On users".
     public let entityType: EntityType
     /// On a request, the agent variant to stage the write in. On a response, the variant the request named, if any; absent when it named none.
     public let variantId: EntityIdWithoutAgent?

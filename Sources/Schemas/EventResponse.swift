@@ -42,7 +42,7 @@ public enum EventResponse: Codable, Hashable, Sendable {
         public let id: EntityId
         /// The date and time the event was created
         public let createdAt: Date?
-        /// The name of the event
+        /// The name of the event. Shown in Agent Designer as "Event type".
         public let eventName: UserEventName
         /// Information about the user who triggered the event
         public let userInfo: EventUserInfo

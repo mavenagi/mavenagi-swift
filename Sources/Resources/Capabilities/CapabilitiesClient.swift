@@ -105,6 +105,33 @@ public final class CapabilitiesClient: Sendable {
         )
     }
 
+    /// Run one of an agent's capabilities once, as a simulation, and return what it produced.
+    /// 
+    /// The caller supplies everything the capability reads, so it runs in isolation: no
+    /// conversation or agent user has to exist first. The capability is told its mode is
+    /// `SIMULATION`, the same as in a test suite run, so an app that honours it can avoid side
+    /// effects in real systems. Nothing here runs a capability live.
+    /// 
+    /// Only actions can be simulated today. Triggers and conversation kickoffs are rejected with a
+    /// 400 until they can run as simulations. Intelligent fields cannot be simulated.
+    ///
+    /// - Parameter capabilityType: Which kind of capability to simulate. Must match the body's `capabilityType`.
+    /// - Parameter referenceId: The capability's reference ID, unique within its type and app.
+    /// - Parameter appId: The app that owns the capability. Defaults to the calling app.
+    /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
+    public func simulateCapability(capabilityType: String, referenceId: String, appId: String? = nil, request: CapabilitySimulationInput, requestOptions: RequestOptions? = nil) async throws -> CapabilitySimulationResult {
+        return try await httpClient.performRequest(
+            method: .post,
+            path: "/v1/capabilities/\(capabilityType)/\(referenceId)/simulate",
+            queryParams: [
+                "appId": appId.map { .string($0) }
+            ],
+            body: request,
+            requestOptions: requestOptions,
+            responseType: CapabilitySimulationResult.self
+        )
+    }
+
     /// Search an agent's capabilities of every kind at once, newest first by default.
     /// 
     /// Returns the fields every capability shares. Fetch one by its type and reference ID for the

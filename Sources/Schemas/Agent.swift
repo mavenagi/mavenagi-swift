@@ -18,10 +18,12 @@ public struct Agent: Codable, Hashable, Sendable {
     /// Defaults to `AbaRoutingNumber`, `CreditCardNumber`, `IpAddress`, `PhoneNumber`, `SwiftCode`, 
     /// `UsBankAccountNumber`, `UsDriversLicenseNumber`, `UsIndividualTaxpayerIdentification`,
     /// `UsUkPassportNumber`, `UsSocialSecurityNumber`.
+    /// 
+    /// Shown in Agent Designer as "PII Redaction".
     public let enabledPiiCategories: JSONValue
     /// Text shown to end users when the system encounters an error while generating a bot response message.
     /// 
-    /// This text is also used when a content safety violation is detected, unless `contentSafetyViolationPromptText` is set.
+    /// Omitted while `SYSTEM_FALLBACK_MESSAGE` is in `getVersionedEntityTypes`; read it through `getVersionedSettings`.
     public let systemFallbackMessage: String?
     /// Agent prompting settings.
     public let prompting: AgentPrompting

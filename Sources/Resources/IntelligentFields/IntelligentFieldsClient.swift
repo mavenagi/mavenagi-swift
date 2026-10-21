@@ -89,8 +89,9 @@ public final class IntelligentFieldsClient: Sendable {
     /// Soft delete an intelligent field. Only INACTIVE fields can be deleted.
     /// 
     /// Deleted fields are excluded from search results, and getting one by ID returns 404.
-    /// Creating a new field with the same referenceId as a deleted field will overwrite
-    /// the deleted field and restore it with the status a new field gets.
+    /// Creating a field with the same referenceId as a deleted field reclaims it: the field keeps
+    /// its identity and entityType, every other setting comes from the request, and it gets the
+    /// status a new field gets.
     /// 
     /// Deleted fields cannot be modified.
     ///

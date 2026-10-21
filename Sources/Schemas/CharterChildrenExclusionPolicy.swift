@@ -12,5 +12,6 @@ import Foundation
 ///                  matches is kept.
 public enum CharterChildrenExclusionPolicy: String, Codable, Hashable, CaseIterable, Sendable {
     case `default` = "DEFAULT"
+    /// Shown in Agent Designer as "Turn overlapping children on".
     case allowOverlap = "ALLOW_OVERLAP"
 }

@@ -16,9 +16,9 @@ public struct CustomerResponse: Codable, Hashable, Sendable {
     public let status: CustomerStatus
     /// ID that uniquely identifies this customer
     public let customerId: EntityId
-    /// Set of agent user IDs assigned to this customer
+    /// Set of agent user IDs assigned to this customer. Shown in Agent Designer under "People", together with `members`.
     public let assignees: JSONValue
-    /// Set of agent user IDs who are members of this customer
+    /// Set of agent user IDs who are members of this customer. Shown in Agent Designer under "People", together with `assignees`.
     public let members: JSONValue
     /// Additional properties that are not explicitly defined in the schema
     public let additionalProperties: [String: JSONValue]

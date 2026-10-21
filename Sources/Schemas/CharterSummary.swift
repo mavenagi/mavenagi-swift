@@ -8,6 +8,8 @@ public struct CharterSummary: Codable, Hashable, Sendable {
     /// The display name of the charter.
     public let name: String
     /// The rule controlling when this charter applies. Null means wildcard (always matches).
+    /// 
+    /// Shown in Agent Designer as the charter's "Segment". A null precondition shows as "All conversations".
     public let precondition: Nullable<PreconditionResponse>
     /// The ID of the parent charter. Null for root-level charters.
     public let parentCharterId: Nullable<EntityId>

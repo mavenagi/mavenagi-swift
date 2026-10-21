@@ -13,6 +13,8 @@ public struct CharterPatchReferences: Codable, Hashable, Sendable {
     /// Replaces the entire set when provided. Omit to leave unchanged.
     /// An empty set removes all action associations.
     /// Maximum 50 actions per charter.
+    /// 
+    /// Shown in Agent Designer as "Capabilities".
     public let actionIds: JSONValue?
     /// Additional properties that are not explicitly defined in the schema
     public let additionalProperties: [String: JSONValue]

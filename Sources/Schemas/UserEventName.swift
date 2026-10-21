@@ -9,7 +9,7 @@ public enum UserEventName: String, Codable, Hashable, CaseIterable, Sendable {
     case chatOpened = "CHAT_OPENED"
     /// The chat window was closed
     case chatClosed = "CHAT_CLOSED"
-    /// A text was inserted into a field
+    /// A text was inserted into a field. Shown in Agent Designer as "Inserted".
     case textInserted = "TEXT_INSERTED"
     /// A CSAT rating was submitted
     case csatSubmitted = "CSAT_SUBMITTED"

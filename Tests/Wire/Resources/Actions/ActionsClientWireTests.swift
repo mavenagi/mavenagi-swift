@@ -18,6 +18,18 @@ import Api
                         "appId": "appId",
                         "referenceId": "x"
                       },
+                      "functionBinding": {
+                        "functionId": {
+                          "type": "AGENT",
+                          "appId": "appId",
+                          "referenceId": "x"
+                        },
+                        "versionId": {
+                          "type": "AGENT",
+                          "appId": "appId",
+                          "referenceId": "x"
+                        }
+                      },
                       "instructions": "instructions",
                       "llmInclusionStatus": "ALWAYS",
                       "segmentId": {
@@ -136,6 +148,18 @@ import Api
                         "type": "AGENT",
                         "appId": "appId",
                         "referenceId": "x"
+                      },
+                      "functionBinding": {
+                        "functionId": {
+                          "type": "AGENT",
+                          "appId": "appId",
+                          "referenceId": "x"
+                        },
+                        "versionId": {
+                          "type": "AGENT",
+                          "appId": "appId",
+                          "referenceId": "x"
+                        }
                       },
                       "instructions": "instructions",
                       "llmInclusionStatus": "ALWAYS",

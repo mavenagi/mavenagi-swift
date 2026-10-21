@@ -9,7 +9,9 @@ import Foundation
 /// - DELETED: The charter has been soft deleted. Excluded from searches and cannot be modified.
 ///            Deleting a charter cascades to all descendants (they are also soft-deleted).
 public enum CharterStatus: String, Codable, Hashable, CaseIterable, Sendable {
+    /// Shown in Agent Designer as "Live".
     case active = "ACTIVE"
+    /// Shown in Agent Designer as "Draft".
     case inactive = "INACTIVE"
     case deleted = "DELETED"
 }

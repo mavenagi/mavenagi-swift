@@ -26,4 +26,9 @@ public enum EntityType: String, Codable, Hashable, CaseIterable, Sendable {
     case agentVariant = "AGENT_VARIANT"
     case asset = "ASSET"
     case trafficConfig = "TRAFFIC_CONFIG"
+    case scenario = "SCENARIO"
+    case scenarioSuite = "SCENARIO_SUITE"
+    case scenarioRun = "SCENARIO_RUN"
+    case function = "FUNCTION"
+    case functionVersion = "FUNCTION_VERSION"
 }

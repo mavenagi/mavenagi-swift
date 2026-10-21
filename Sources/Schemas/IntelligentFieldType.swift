@@ -1,6 +1,6 @@
 import Foundation
 
-/// Result type hint used for schema generation, UI, and validation
+/// Result type hint used for schema generation, UI, and validation. In Agent Designer, "Text" saves as `MULTILINE`, "Select" is `STRING` (or `NUMBER` when every option is numeric) with `enumOptions`, and "Multi-Select" is `MULTI_SELECT`.
 public enum IntelligentFieldType: String, Codable, Hashable, CaseIterable, Sendable {
     /// A single short string value.
     case string = "STRING"

@@ -6,7 +6,7 @@ import Foundation
 public struct EnumOption: Codable, Hashable, Sendable {
     /// The value of the option
     public let value: String
-    /// Display label for the option
+    /// Display label for the option. Shown in Agent Designer as "Option Name".
     public let label: String?
     /// Instructions that tell the LLM when to pick this option. Up to 1200 characters. On a
     /// patch, an option sent without a description has its description cleared.

@@ -13,6 +13,8 @@ public struct CustomerFilter: Codable, Hashable, Sendable {
     /// - `metadata.mykey:*` - matches customers with a metadata field `mykey`
     /// - `-metadata:myvalue` - matches customers that do not have any metadata field set to `myvalue`
     /// - `_exists_:metadata` - matches customers that have any metadata field set
+    /// 
+    /// Shown in Agent Designer as "Name or description".
     public let search: String?
     /// The statuses to filter the customers by.
     public let statuses: [CustomerStatus]?
