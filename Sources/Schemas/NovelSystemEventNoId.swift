@@ -6,6 +6,10 @@ public struct NovelSystemEventNoId: Codable, Hashable, Sendable {
     public let sourceInfo: SourceInfo?
     public let sessionInfo: SessionInfo?
     public let contextInfo: ContextInfo?
+    /// Whether the event happened on live data or in a simulation. Defaults to `LIVE` when
+    /// creating an event, and is always set on a returned event. Creating a `SIMULATION` event
+    /// requires the `create:simulations` permission.
+    public let executionMode: ExecutionMode?
     /// The name of the event
     public let eventName: SystemEventName
     /// Additional properties that are not explicitly defined in the schema
@@ -17,6 +21,7 @@ public struct NovelSystemEventNoId: Codable, Hashable, Sendable {
         sourceInfo: SourceInfo? = nil,
         sessionInfo: SessionInfo? = nil,
         contextInfo: ContextInfo? = nil,
+        executionMode: ExecutionMode? = nil,
         eventName: SystemEventName,
         additionalProperties: [String: JSONValue] = .init()
     ) {
@@ -25,6 +30,7 @@ public struct NovelSystemEventNoId: Codable, Hashable, Sendable {
         self.sourceInfo = sourceInfo
         self.sessionInfo = sessionInfo
         self.contextInfo = contextInfo
+        self.executionMode = executionMode
         self.eventName = eventName
         self.additionalProperties = additionalProperties
     }
@@ -36,6 +42,7 @@ public struct NovelSystemEventNoId: Codable, Hashable, Sendable {
         self.sourceInfo = try container.decodeIfPresent(SourceInfo.self, forKey: .sourceInfo)
         self.sessionInfo = try container.decodeIfPresent(SessionInfo.self, forKey: .sessionInfo)
         self.contextInfo = try container.decodeIfPresent(ContextInfo.self, forKey: .contextInfo)
+        self.executionMode = try container.decodeIfPresent(ExecutionMode.self, forKey: .executionMode)
         self.eventName = try container.decode(SystemEventName.self, forKey: .eventName)
         self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
     }
@@ -48,6 +55,7 @@ public struct NovelSystemEventNoId: Codable, Hashable, Sendable {
         try container.encodeIfPresent(self.sourceInfo, forKey: .sourceInfo)
         try container.encodeIfPresent(self.sessionInfo, forKey: .sessionInfo)
         try container.encodeIfPresent(self.contextInfo, forKey: .contextInfo)
+        try container.encodeIfPresent(self.executionMode, forKey: .executionMode)
         try container.encode(self.eventName, forKey: .eventName)
     }
 
@@ -58,6 +66,7 @@ public struct NovelSystemEventNoId: Codable, Hashable, Sendable {
         case sourceInfo
         case sessionInfo
         case contextInfo
+        case executionMode
         case eventName
     }
 }

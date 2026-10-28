@@ -10,6 +10,11 @@ public struct AgentUserTableRequest: Codable, Hashable, Sendable {
     /// Defines the time interval for grouping data. If specified, data is grouped accordingly based on the time they were created.
     ///  Example: If set to "DAY," data will be aggregated by day.
     public let timeGrouping: TimeInterval?
+    /// Specifies the fields by which data should be grouped. Each unique combination forms a row.
+    /// If multiple fields are provided, the result is grouped by their unique value combinations.
+    /// If omitted or empty, all data is aggregated into a single row.
+    /// `CreatedAt` and `UpdatedAt` are rejected here; group by time with `timeGrouping`.
+    public let fieldGroupings: [AgentUserGroupBy]?
     /// Specifies the metrics to be displayed as columns.
     /// Only the `count` metric is supported for agent user tables, so each table will have a single column definition using `count`.
     public let columnDefinitions: [AgentUserColumnDefinition]
@@ -20,12 +25,14 @@ public struct AgentUserTableRequest: Codable, Hashable, Sendable {
         agentUserFilter: AgentUserFilter? = nil,
         timezone: String? = nil,
         timeGrouping: TimeInterval? = nil,
+        fieldGroupings: [AgentUserGroupBy]? = nil,
         columnDefinitions: [AgentUserColumnDefinition],
         additionalProperties: [String: JSONValue] = .init()
     ) {
         self.agentUserFilter = agentUserFilter
         self.timezone = timezone
         self.timeGrouping = timeGrouping
+        self.fieldGroupings = fieldGroupings
         self.columnDefinitions = columnDefinitions
         self.additionalProperties = additionalProperties
     }
@@ -35,6 +42,7 @@ public struct AgentUserTableRequest: Codable, Hashable, Sendable {
         self.agentUserFilter = try container.decodeIfPresent(AgentUserFilter.self, forKey: .agentUserFilter)
         self.timezone = try container.decodeIfPresent(String.self, forKey: .timezone)
         self.timeGrouping = try container.decodeIfPresent(TimeInterval.self, forKey: .timeGrouping)
+        self.fieldGroupings = try container.decodeIfPresent([AgentUserGroupBy].self, forKey: .fieldGroupings)
         self.columnDefinitions = try container.decode([AgentUserColumnDefinition].self, forKey: .columnDefinitions)
         self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
     }
@@ -45,6 +53,7 @@ public struct AgentUserTableRequest: Codable, Hashable, Sendable {
         try container.encodeIfPresent(self.agentUserFilter, forKey: .agentUserFilter)
         try container.encodeIfPresent(self.timezone, forKey: .timezone)
         try container.encodeIfPresent(self.timeGrouping, forKey: .timeGrouping)
+        try container.encodeIfPresent(self.fieldGroupings, forKey: .fieldGroupings)
         try container.encode(self.columnDefinitions, forKey: .columnDefinitions)
     }
 
@@ -53,6 +62,7 @@ public struct AgentUserTableRequest: Codable, Hashable, Sendable {
         case agentUserFilter
         case timezone
         case timeGrouping
+        case fieldGroupings
         case columnDefinitions
     }
 }

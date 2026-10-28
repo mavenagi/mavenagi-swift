@@ -20,8 +20,7 @@ import Api
         )
         let client = MavenAGI(
             baseURL: "https://api.fern.com",
-            appId: "<username>",
-            appSecret: "<password>",
+            token: "<token>",
             urlSession: stub.urlSession
         )
         let expectedResponse = Organization(
@@ -59,8 +58,7 @@ import Api
         )
         let client = MavenAGI(
             baseURL: "https://api.fern.com",
-            appId: "<username>",
-            appSecret: "<password>",
+            token: "<token>",
             urlSession: stub.urlSession
         )
         let expectedResponse = Organization(
@@ -94,8 +92,7 @@ import Api
         )
         let client = MavenAGI(
             baseURL: "https://api.fern.com",
-            appId: "<username>",
-            appSecret: "<password>",
+            token: "<token>",
             urlSession: stub.urlSession
         )
         let expectedResponse = Organization(
@@ -302,8 +299,7 @@ import Api
         )
         let client = MavenAGI(
             baseURL: "https://api.fern.com",
-            appId: "<username>",
-            appSecret: "<password>",
+            token: "<token>",
             urlSession: stub.urlSession
         )
         let expectedResponse = ConversationTableResponse(
@@ -472,8 +468,7 @@ import Api
         )
         let client = MavenAGI(
             baseURL: "https://api.fern.com",
-            appId: "<username>",
-            appSecret: "<password>",
+            token: "<token>",
             urlSession: stub.urlSession
         )
         let expectedResponse = .pieChart(
@@ -558,8 +553,7 @@ import Api
         )
         let client = MavenAGI(
             baseURL: "https://api.fern.com",
-            appId: "<username>",
-            appSecret: "<password>",
+            token: "<token>",
             urlSession: stub.urlSession
         )
         let expectedResponse = .dateHistogram(
@@ -660,8 +654,7 @@ import Api
         )
         let client = MavenAGI(
             baseURL: "https://api.fern.com",
-            appId: "<username>",
-            appSecret: "<password>",
+            token: "<token>",
             urlSession: stub.urlSession
         )
         let expectedResponse = .barChart(

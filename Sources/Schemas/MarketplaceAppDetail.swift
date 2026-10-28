@@ -1,15 +1,19 @@
 import Foundation
 
 /// A detailed app definition used when rendering an app detail page within the app directory.
-/// The instructions, installationInstructions, previewUrl have their templated values substituted with appropriate values.
+/// The installationInstructions and links have their placeholders filled in for the agent, and, once the
+/// app is installed, so do the instructions and previewUrl. See [Placeholders](https://developers.mavenagi.com/docs/documentation/configuration-and-integration/placeholders).
 public struct MarketplaceAppDetail: Codable, Hashable, Sendable {
     /// Guidance shown while installing the app, for example how to obtain the credentials it asks for.
+    /// May use [placeholders](https://developers.mavenagi.com/docs/documentation/configuration-and-integration/placeholders) such as `${agentId}`.
     public let installationInstructions: String?
-    /// Guidance shown once the app is installed.
+    /// Guidance shown once the app is installed. May use [placeholders](https://developers.mavenagi.com/docs/documentation/configuration-and-integration/placeholders), settings included.
     public let instructions: String?
-    /// URL of a preview image or demo for the app's detail page.
+    /// URL of a preview image or demo for the app's detail page. May use [placeholders](https://developers.mavenagi.com/docs/documentation/configuration-and-integration/placeholders) such as
+    /// `${appHost}` and `${settings.region}`.
     public let previewUrl: String?
-    /// Supporting links published by the author, such as documentation or a privacy policy.
+    /// Supporting links published by the author, such as documentation or a privacy policy. Their URLs
+    /// may use [placeholders](https://developers.mavenagi.com/docs/documentation/configuration-and-integration/placeholders) such as `${appHost}`, but never settings: links are public.
     public let links: [Link]
     /// The settings the app accepts. Drives the install form, and describes which values are files
     /// rather than plain values.

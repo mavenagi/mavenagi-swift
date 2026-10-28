@@ -26,6 +26,9 @@ public struct ConversationKickoffCapabilityExecution: Codable, Hashable, Sendabl
     public let durationMs: Int64?
     /// When the execution was recorded. Results are ordered by this field.
     public let createdAt: Date
+    /// Whether the execution ran on live data or in a simulation. A Conversation Kickoff takes
+    /// its conversation's mode, and an Event Trigger its event's.
+    public let executionMode: ExecutionMode
     /// Additional properties that are not explicitly defined in the schema
     public let additionalProperties: [String: JSONValue]
 
@@ -39,6 +42,7 @@ public struct ConversationKickoffCapabilityExecution: Codable, Hashable, Sendabl
         completedAt: Date? = nil,
         durationMs: Int64? = nil,
         createdAt: Date,
+        executionMode: ExecutionMode,
         additionalProperties: [String: JSONValue] = .init()
     ) {
         self.capabilityId = capabilityId
@@ -50,6 +54,7 @@ public struct ConversationKickoffCapabilityExecution: Codable, Hashable, Sendabl
         self.completedAt = completedAt
         self.durationMs = durationMs
         self.createdAt = createdAt
+        self.executionMode = executionMode
         self.additionalProperties = additionalProperties
     }
 
@@ -64,6 +69,7 @@ public struct ConversationKickoffCapabilityExecution: Codable, Hashable, Sendabl
         self.completedAt = try container.decodeIfPresent(Date.self, forKey: .completedAt)
         self.durationMs = try container.decodeIfPresent(Int64.self, forKey: .durationMs)
         self.createdAt = try container.decode(Date.self, forKey: .createdAt)
+        self.executionMode = try container.decode(ExecutionMode.self, forKey: .executionMode)
         self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
     }
 
@@ -79,6 +85,7 @@ public struct ConversationKickoffCapabilityExecution: Codable, Hashable, Sendabl
         try container.encodeIfPresent(self.completedAt, forKey: .completedAt)
         try container.encodeIfPresent(self.durationMs, forKey: .durationMs)
         try container.encode(self.createdAt, forKey: .createdAt)
+        try container.encode(self.executionMode, forKey: .executionMode)
     }
 
     /// Keys for encoding/decoding struct properties.
@@ -92,5 +99,6 @@ public struct ConversationKickoffCapabilityExecution: Codable, Hashable, Sendabl
         case completedAt
         case durationMs
         case createdAt
+        case executionMode
     }
 }

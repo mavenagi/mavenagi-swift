@@ -26,6 +26,9 @@ public struct TriggerCapabilityExecution: Codable, Hashable, Sendable {
     public let durationMs: Int64?
     /// When the execution was recorded. Results are ordered by this field.
     public let createdAt: Date
+    /// Whether the execution ran on live data or in a simulation. A Conversation Kickoff takes
+    /// its conversation's mode, and an Event Trigger its event's.
+    public let executionMode: ExecutionMode
     /// The kind of event that caused this run.
     public let eventType: EventTriggerType
     /// Which delivery attempt this is, starting at 1. Retries are recorded as further
@@ -49,6 +52,7 @@ public struct TriggerCapabilityExecution: Codable, Hashable, Sendable {
         completedAt: Date? = nil,
         durationMs: Int64? = nil,
         createdAt: Date,
+        executionMode: ExecutionMode,
         eventType: EventTriggerType,
         attempt: Int,
         retryability: CapabilityExecutionRetryability? = nil,
@@ -64,6 +68,7 @@ public struct TriggerCapabilityExecution: Codable, Hashable, Sendable {
         self.completedAt = completedAt
         self.durationMs = durationMs
         self.createdAt = createdAt
+        self.executionMode = executionMode
         self.eventType = eventType
         self.attempt = attempt
         self.retryability = retryability
@@ -82,6 +87,7 @@ public struct TriggerCapabilityExecution: Codable, Hashable, Sendable {
         self.completedAt = try container.decodeIfPresent(Date.self, forKey: .completedAt)
         self.durationMs = try container.decodeIfPresent(Int64.self, forKey: .durationMs)
         self.createdAt = try container.decode(Date.self, forKey: .createdAt)
+        self.executionMode = try container.decode(ExecutionMode.self, forKey: .executionMode)
         self.eventType = try container.decode(EventTriggerType.self, forKey: .eventType)
         self.attempt = try container.decode(Int.self, forKey: .attempt)
         self.retryability = try container.decodeIfPresent(CapabilityExecutionRetryability.self, forKey: .retryability)
@@ -101,6 +107,7 @@ public struct TriggerCapabilityExecution: Codable, Hashable, Sendable {
         try container.encodeIfPresent(self.completedAt, forKey: .completedAt)
         try container.encodeIfPresent(self.durationMs, forKey: .durationMs)
         try container.encode(self.createdAt, forKey: .createdAt)
+        try container.encode(self.executionMode, forKey: .executionMode)
         try container.encode(self.eventType, forKey: .eventType)
         try container.encode(self.attempt, forKey: .attempt)
         try container.encodeIfPresent(self.retryability, forKey: .retryability)
@@ -118,6 +125,7 @@ public struct TriggerCapabilityExecution: Codable, Hashable, Sendable {
         case completedAt
         case durationMs
         case createdAt
+        case executionMode
         case eventType
         case attempt
         case retryability

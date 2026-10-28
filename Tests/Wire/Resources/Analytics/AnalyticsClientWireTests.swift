@@ -190,8 +190,7 @@ import Api
         )
         let client = MavenAGI(
             baseURL: "https://api.fern.com",
-            appId: "<username>",
-            appSecret: "<password>",
+            token: "<token>",
             urlSession: stub.urlSession
         )
         let expectedResponse = ConversationTableResponse(
@@ -360,8 +359,7 @@ import Api
         )
         let client = MavenAGI(
             baseURL: "https://api.fern.com",
-            appId: "<username>",
-            appSecret: "<password>",
+            token: "<token>",
             urlSession: stub.urlSession
         )
         let expectedResponse = .pieChart(
@@ -446,8 +444,7 @@ import Api
         )
         let client = MavenAGI(
             baseURL: "https://api.fern.com",
-            appId: "<username>",
-            appSecret: "<password>",
+            token: "<token>",
             urlSession: stub.urlSession
         )
         let expectedResponse = .dateHistogram(
@@ -548,8 +545,7 @@ import Api
         )
         let client = MavenAGI(
             baseURL: "https://api.fern.com",
-            appId: "<username>",
-            appSecret: "<password>",
+            token: "<token>",
             urlSession: stub.urlSession
         )
         let expectedResponse = .barChart(
@@ -611,139 +607,6 @@ import Api
         try #require(response == expectedResponse)
     }
 
-    @Test func getFeedbackTable1() async throws -> Void {
-        let stub = HTTPStub()
-        stub.setResponse(
-            body: Data(
-                """
-                {
-                  "headers": [
-                    "feedback_count",
-                    "unique_users"
-                  ],
-                  "rows": [
-                    {
-                      "identifier": {
-                        "CreatedBy": {
-                          "type": "string",
-                          "value": "John Doe"
-                        }
-                      },
-                      "identifiers": [
-                        {
-                          "field": "CreatedBy",
-                          "value": {
-                            "type": "string",
-                            "value": "John Doe"
-                          }
-                        }
-                      ],
-                      "data": {
-                        "feedback_count": {
-                          "type": "double",
-                          "value": 5
-                        }
-                      }
-                    },
-                    {
-                      "identifier": {
-                        "CreatedBy": {
-                          "type": "string",
-                          "value": "Jane Smith"
-                        }
-                      },
-                      "identifiers": [
-                        {
-                          "field": "CreatedBy",
-                          "value": {
-                            "type": "string",
-                            "value": "Jane Smith"
-                          }
-                        }
-                      ],
-                      "data": {
-                        "feedback_count": {
-                          "type": "double",
-                          "value": 3
-                        }
-                      }
-                    }
-                  ]
-                }
-                """.utf8
-            )
-        )
-        let client = MavenAGI(
-            baseURL: "https://api.fern.com",
-            appId: "<username>",
-            appSecret: "<password>",
-            urlSession: stub.urlSession
-        )
-        let expectedResponse = FeedbackTableResponse(
-            headers: [
-                "feedback_count",
-                "unique_users"
-            ],
-            rows: [
-                FeedbackRow(
-                    identifier: [
-                        .createdBy: "John Doe"
-                    ],
-                    identifiers: [
-                        FeedbackRowIdentifier(
-                            field: .createdBy,
-                            value: "John Doe"
-                        )
-                    ],
-                    data: [
-                        "feedback_count": 5
-                    ]
-                ),
-                FeedbackRow(
-                    identifier: [
-                        .createdBy: "Jane Smith"
-                    ],
-                    identifiers: [
-                        FeedbackRowIdentifier(
-                            field: .createdBy,
-                            value: "Jane Smith"
-                        )
-                    ],
-                    data: [
-                        "feedback_count": 3
-                    ]
-                )
-            ]
-        )
-        let response = try await client.analytics.getFeedbackTable(
-            request: FeedbackTableRequest(
-                feedbackFilter: FeedbackFilter(
-                    types: [
-                        .thumbsUp,
-                        .insert
-                    ]
-                ),
-                fieldGroupings: [
-                    FeedbackGroupBy(
-                        field: .createdBy
-                    )
-                ],
-                columnDefinitions: [
-                    FeedbackColumnDefinition(
-                        header: "feedback_count",
-                        metric: FeedbackMetric.count(
-                            .init(
-
-                            )
-                        )
-                    )
-                ]
-            ),
-            requestOptions: RequestOptions(additionalHeaders: stub.headers)
-        )
-        try #require(response == expectedResponse)
-    }
-
     @Test func getAgentUserTable1() async throws -> Void {
         let stub = HTTPStub()
         stub.setResponse(
@@ -784,8 +647,7 @@ import Api
         )
         let client = MavenAGI(
             baseURL: "https://api.fern.com",
-            appId: "<username>",
-            appSecret: "<password>",
+            token: "<token>",
             urlSession: stub.urlSession
         )
         let expectedResponse = AgentUserTableResponse(
@@ -893,8 +755,7 @@ import Api
         )
         let client = MavenAGI(
             baseURL: "https://api.fern.com",
-            appId: "<username>",
-            appSecret: "<password>",
+            token: "<token>",
             urlSession: stub.urlSession
         )
         let expectedResponse = EventTableResponse(
@@ -986,8 +847,7 @@ import Api
         )
         let client = MavenAGI(
             baseURL: "https://api.fern.com",
-            appId: "<username>",
-            appSecret: "<password>",
+            token: "<token>",
             urlSession: stub.urlSession
         )
         let expectedResponse = .pieChart(
@@ -1071,8 +931,7 @@ import Api
         )
         let client = MavenAGI(
             baseURL: "https://api.fern.com",
-            appId: "<username>",
-            appSecret: "<password>",
+            token: "<token>",
             urlSession: stub.urlSession
         )
         let expectedResponse = .dateHistogram(
@@ -1172,8 +1031,7 @@ import Api
         )
         let client = MavenAGI(
             baseURL: "https://api.fern.com",
-            appId: "<username>",
-            appSecret: "<password>",
+            token: "<token>",
             urlSession: stub.urlSession
         )
         let expectedResponse = .barChart(

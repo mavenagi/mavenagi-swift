@@ -9,844 +9,239 @@ import Api
             body: Data(
                 """
                 {
-                  "conversationKickoffResults": [
-                    {
-                      "referenceId": "referenceId",
-                      "appId": "appId",
-                      "status": "SUCCESS",
-                      "message": "message",
-                      "startedAt": "2024-01-15T09:30:00Z",
-                      "completedAt": "2024-01-15T09:30:00Z",
-                      "durationMs": 1000000
-                    },
-                    {
-                      "referenceId": "referenceId",
-                      "appId": "appId",
-                      "status": "SUCCESS",
-                      "message": "message",
-                      "startedAt": "2024-01-15T09:30:00Z",
-                      "completedAt": "2024-01-15T09:30:00Z",
-                      "durationMs": 1000000
-                    }
-                  ],
-                  "messages": [
-                    {
-                      "type": "user",
-                      "conversationMessageId": {
-                        "organizationId": "organizationId",
-                        "agentId": "agentId",
-                        "type": "AGENT",
-                        "appId": "appId",
-                        "referenceId": "x"
-                      },
-                      "language": "language",
-                      "attachments": [
-                        {
-                          "url": "url",
-                          "sizeBytes": 1000000,
-                          "status": "PENDING",
-                          "type": "type",
-                          "name": "name"
-                        },
-                        {
-                          "url": "url",
-                          "sizeBytes": 1000000,
-                          "status": "PENDING",
-                          "type": "type",
-                          "name": "name"
-                        }
-                      ],
-                      "agentUserId": "agentUserId",
-                      "userDisplayName": "userDisplayName",
-                      "status": "SENDING",
-                      "responseState": "NOT_ASKED",
-                      "timezone": "timezone",
-                      "userId": {
-                        "referenceId": "x"
-                      },
-                      "text": "text",
-                      "userMessageType": "USER",
-                      "createdAt": "2024-01-15T09:30:00Z",
-                      "updatedAt": "2024-01-15T09:30:00Z",
-                      "appMetadata": {
-                        "appMetadata": "appMetadata"
-                      }
-                    },
-                    {
-                      "type": "user",
-                      "conversationMessageId": {
-                        "organizationId": "organizationId",
-                        "agentId": "agentId",
-                        "type": "AGENT",
-                        "appId": "appId",
-                        "referenceId": "x"
-                      },
-                      "language": "language",
-                      "attachments": [
-                        {
-                          "url": "url",
-                          "sizeBytes": 1000000,
-                          "status": "PENDING",
-                          "type": "type",
-                          "name": "name"
-                        },
-                        {
-                          "url": "url",
-                          "sizeBytes": 1000000,
-                          "status": "PENDING",
-                          "type": "type",
-                          "name": "name"
-                        }
-                      ],
-                      "agentUserId": "agentUserId",
-                      "userDisplayName": "userDisplayName",
-                      "status": "SENDING",
-                      "responseState": "NOT_ASKED",
-                      "timezone": "timezone",
-                      "userId": {
-                        "referenceId": "x"
-                      },
-                      "text": "text",
-                      "userMessageType": "USER",
-                      "createdAt": "2024-01-15T09:30:00Z",
-                      "updatedAt": "2024-01-15T09:30:00Z",
-                      "appMetadata": {
-                        "appMetadata": "appMetadata"
-                      }
-                    }
-                  ],
-                  "attachments": [
-                    {
-                      "url": "url",
-                      "sizeBytes": 1000000,
-                      "status": "PENDING",
-                      "type": "type",
-                      "name": "name"
-                    },
-                    {
-                      "url": "url",
-                      "sizeBytes": 1000000,
-                      "status": "PENDING",
-                      "type": "type",
-                      "name": "name"
-                    }
-                  ],
-                  "responseConfig": {
-                    "capabilities": [
-                      "MARKDOWN",
-                      "MARKDOWN"
-                    ],
-                    "isCopilot": true,
-                    "responseLength": "SHORT",
-                    "contextFilter": {
-                      "scopeType": "byEntities",
-                      "entities": [
-                        {
-                          "entityId": {
-                            "organizationId": "organizationId",
-                            "agentId": "agentId",
-                            "type": "AGENT",
-                            "appId": "appId",
-                            "referenceId": "x"
-                          },
-                          "scopeEntityId": {
-                            "organizationId": "organizationId",
-                            "agentId": "agentId",
-                            "type": "AGENT",
-                            "appId": "appId",
-                            "referenceId": "x"
-                          }
-                        }
-                      ]
-                    }
-                  },
-                  "subject": "subject",
-                  "url": "url",
-                  "createdAt": "2024-01-15T09:30:00Z",
-                  "updatedAt": "2024-01-15T09:30:00Z",
-                  "tags": [
-                    "tags"
-                  ],
-                  "metadata": {
-                    "metadata": "metadata"
-                  },
-                  "allMetadata": {
-                    "allMetadata": {
-                      "allMetadata": "allMetadata"
-                    }
-                  },
                   "conversationId": {
-                    "organizationId": "organizationId",
-                    "agentId": "agentId",
-                    "type": "AGENT",
-                    "appId": "appId",
-                    "referenceId": "x"
+                    "referenceId": "conversation-0",
+                    "appId": "myapp",
+                    "organizationId": "acme",
+                    "agentId": "support",
+                    "type": "CONVERSATION"
                   },
-                  "analysis": {
-                    "userRequest": "userRequest",
-                    "agentResponse": "agentResponse",
-                    "resolutionStatus": "UNKNOWN",
-                    "category": "category",
-                    "sentiment": "POSITIVE",
-                    "quality": "GOOD",
-                    "qualityReason": "MISSING_KNOWLEDGE",
-                    "resolvedByMaven": true,
-                    "primaryLanguage": "primaryLanguage",
-                    "predictedNps": 1.1,
-                    "csat": 1.1,
-                    "intelligentFieldValues": [
-                      {
-                        "fieldId": {
-                          "organizationId": "organizationId",
-                          "agentId": "agentId",
-                          "type": "AGENT",
-                          "appId": "appId",
-                          "referenceId": "x"
-                        },
-                        "name": "name",
-                        "entityId": {
-                          "organizationId": "organizationId",
-                          "agentId": "agentId",
-                          "type": "AGENT",
-                          "appId": "appId",
-                          "referenceId": "x"
-                        },
-                        "value": {
-                          "key": "value"
-                        },
-                        "confidence": 1.1,
-                        "rationale": "rationale",
-                        "createdAt": "2024-01-15T09:30:00Z"
-                      },
-                      {
-                        "fieldId": {
-                          "organizationId": "organizationId",
-                          "agentId": "agentId",
-                          "type": "AGENT",
-                          "appId": "appId",
-                          "referenceId": "x"
-                        },
-                        "name": "name",
-                        "entityId": {
-                          "organizationId": "organizationId",
-                          "agentId": "agentId",
-                          "type": "AGENT",
-                          "appId": "appId",
-                          "referenceId": "x"
-                        },
-                        "value": {
-                          "key": "value"
-                        },
-                        "confidence": 1.1,
-                        "rationale": "rationale",
-                        "createdAt": "2024-01-15T09:30:00Z"
-                      }
-                    ]
-                  },
-                  "summary": {
-                    "actionIds": [
-                      {
-                        "type": "AGENT",
-                        "appId": "appId",
-                        "referenceId": "x"
-                      },
-                      {
-                        "type": "AGENT",
-                        "appId": "appId",
-                        "referenceId": "x"
-                      }
-                    ],
-                    "incompleteActionIds": [
-                      {
-                        "type": "AGENT",
-                        "appId": "appId",
-                        "referenceId": "x"
-                      },
-                      {
-                        "type": "AGENT",
-                        "appId": "appId",
-                        "referenceId": "x"
-                      }
-                    ],
-                    "matchedCharterIds": [
-                      {
-                        "type": "AGENT",
-                        "appId": "appId",
-                        "referenceId": "x"
-                      },
-                      {
-                        "type": "AGENT",
-                        "appId": "appId",
-                        "referenceId": "x"
-                      }
-                    ],
-                    "matchedCharterNames": [
-                      "matchedCharterNames",
-                      "matchedCharterNames"
-                    ],
-                    "matchedSegmentedCharterNames": [
-                      "matchedSegmentedCharterNames",
-                      "matchedSegmentedCharterNames"
-                    ],
-                    "insertCount": 1,
-                    "thumbsUpCount": 1,
-                    "thumbsDownCount": 1,
-                    "handoffCount": 1,
-                    "userMessageCount": 1,
-                    "botMessageCount": 1,
-                    "csat": 1.1,
-                    "handleTime": 1000000,
-                    "humanAgentResponseDelay": 1000000,
-                    "humanAgents": [
-                      "humanAgents",
-                      "humanAgents"
-                    ],
-                    "humanAgentsWithInserts": [
-                      "humanAgentsWithInserts",
-                      "humanAgentsWithInserts"
-                    ],
-                    "users": [
-                      "users",
-                      "users"
-                    ],
-                    "userIdentifiers": [
-                      "userIdentifiers",
-                      "userIdentifiers"
-                    ],
-                    "lastUserMessage": "lastUserMessage",
-                    "lastBotMessage": "lastBotMessage",
-                    "involvedAppIds": [
-                      "involvedAppIds"
-                    ]
-                  },
-                  "deleted": true,
+                  "deleted": false,
                   "open": true,
                   "llmEnabled": true,
-                  "simulationContext": {
-                    "additionalPromptText": "additionalPromptText",
-                    "persona": "CASUAL_BUDDY",
-                    "availableKnowledgeBases": [
-                      {
-                        "organizationId": "organizationId",
-                        "agentId": "agentId",
-                        "type": "AGENT",
-                        "appId": "appId",
-                        "referenceId": "x"
-                      }
-                    ],
-                    "variantId": {
-                      "type": "AGENT",
-                      "appId": "appId",
-                      "referenceId": "x"
-                    },
-                    "actionMocks": [
-                      {
-                        "actionId": {
-                          "type": "AGENT",
-                          "appId": "appId",
-                          "referenceId": "x"
-                        },
-                        "behavior": {
-                          "type": "fixedResponse",
-                          "response": "response",
-                          "data": {
-                            "data": {
-                              "key": "value"
-                            }
-                          },
-                          "status": "SUCCESS",
-                          "errorMessage": "errorMessage"
-                        }
-                      },
-                      {
-                        "actionId": {
-                          "type": "AGENT",
-                          "appId": "appId",
-                          "referenceId": "x"
-                        },
-                        "behavior": {
-                          "type": "fixedResponse",
-                          "response": "response",
-                          "data": {
-                            "data": {
-                              "key": "value"
-                            }
-                          },
-                          "status": "SUCCESS",
-                          "errorMessage": "errorMessage"
-                        }
-                      }
-                    ],
-                    "defaultActionBehavior": {
-                      "type": "fixedResponse",
-                      "response": "response",
-                      "data": {
-                        "data": {
-                          "key": "value"
-                        }
-                      },
-                      "status": "SUCCESS",
-                      "errorMessage": "errorMessage"
-                    }
-                  },
-                  "relatedEntities": {
-                    "SPAWN_FROM": [
-                      {
-                        "organizationId": "organizationId",
-                        "agentId": "agentId",
-                        "type": "AGENT",
-                        "appId": "appId",
-                        "referenceId": "x"
-                      },
-                      {
-                        "organizationId": "organizationId",
-                        "agentId": "agentId",
-                        "type": "AGENT",
-                        "appId": "appId",
-                        "referenceId": "x"
-                      }
+                  "conversationMode": "TEXT",
+                  "analysis": {},
+                  "summary": {
+                    "actionIds": [],
+                    "incompleteActionIds": [],
+                    "matchedCharterIds": [],
+                    "matchedCharterNames": [],
+                    "matchedSegmentedCharterNames": [],
+                    "insertCount": 0,
+                    "thumbsUpCount": 0,
+                    "thumbsDownCount": 0,
+                    "handoffCount": 0,
+                    "userMessageCount": 0,
+                    "botMessageCount": 0,
+                    "humanAgents": [],
+                    "humanAgentsWithInserts": [],
+                    "users": [],
+                    "userIdentifiers": [],
+                    "involvedAppIds": [
+                      "myapp"
                     ]
                   },
-                  "conversationMode": "VOICE",
-                  "variantId": {
-                    "organizationId": "organizationId",
-                    "agentId": "agentId",
-                    "type": "AGENT",
-                    "appId": "appId",
-                    "referenceId": "x"
-                  }
+                  "metadata": {},
+                  "allMetadata": {},
+                  "attachments": [],
+                  "messages": [],
+                  "executionMode": "LIVE",
+                  "conversationKickoffResults": []
                 }
                 """.utf8
             )
         )
         let client = MavenAGI(
             baseURL: "https://api.fern.com",
-            appId: "<username>",
-            appSecret: "<password>",
+            token: "<token>",
             urlSession: stub.urlSession
         )
         let expectedResponse = InitializeConversationResponse(
-            conversationKickoffResults: [
-                ConversationKickoffExecutionResponse(
-                    referenceId: Optional("referenceId"),
-                    appId: Optional("appId"),
-                    status: .success,
-                    message: Optional("message"),
-                    startedAt: Optional(try! Date("2024-01-15T09:30:00Z", strategy: .iso8601)),
-                    completedAt: Optional(try! Date("2024-01-15T09:30:00Z", strategy: .iso8601)),
-                    durationMs: Optional(1000000)
-                ),
-                ConversationKickoffExecutionResponse(
-                    referenceId: Optional("referenceId"),
-                    appId: Optional("appId"),
-                    status: .success,
-                    message: Optional("message"),
-                    startedAt: Optional(try! Date("2024-01-15T09:30:00Z", strategy: .iso8601)),
-                    completedAt: Optional(try! Date("2024-01-15T09:30:00Z", strategy: .iso8601)),
-                    durationMs: Optional(1000000)
-                )
-            ],
-            messages: [
-                .user(
-                    .init(
-                        conversationMessageId: EntityId(
-                            organizationId: "organizationId",
-                            agentId: "agentId",
-                            type: .agent,
-                            appId: "appId",
-                            referenceId: "x"
-                        ),
-                        language: Optional("language"),
-                        attachments: [
-                            AttachmentResponse(
-                                url: Optional("url"),
-                                sizeBytes: Optional(1000000),
-                                status: .pending,
-                                type: "type",
-                                name: Optional("name")
-                            ),
-                            AttachmentResponse(
-                                url: Optional("url"),
-                                sizeBytes: Optional(1000000),
-                                status: .pending,
-                                type: "type",
-                                name: Optional("name")
-                            )
-                        ],
-                        agentUserId: Optional("agentUserId"),
-                        userDisplayName: Optional("userDisplayName"),
-                        status: .sending,
-                        responseState: Optional(.notAsked),
-                        timezone: Optional("timezone"),
-                        userId: EntityIdBase(
-                            referenceId: "x"
-                        ),
-                        text: "text",
-                        userMessageType: .user,
-                        createdAt: Optional(try! Date("2024-01-15T09:30:00Z", strategy: .iso8601)),
-                        updatedAt: Optional(try! Date("2024-01-15T09:30:00Z", strategy: .iso8601)),
-                        appMetadata: Optional([
-                            "appMetadata": "appMetadata"
-                        ])
-                    )
-                ),
-                .user(
-                    .init(
-                        conversationMessageId: EntityId(
-                            organizationId: "organizationId",
-                            agentId: "agentId",
-                            type: .agent,
-                            appId: "appId",
-                            referenceId: "x"
-                        ),
-                        language: Optional("language"),
-                        attachments: [
-                            AttachmentResponse(
-                                url: Optional("url"),
-                                sizeBytes: Optional(1000000),
-                                status: .pending,
-                                type: "type",
-                                name: Optional("name")
-                            ),
-                            AttachmentResponse(
-                                url: Optional("url"),
-                                sizeBytes: Optional(1000000),
-                                status: .pending,
-                                type: "type",
-                                name: Optional("name")
-                            )
-                        ],
-                        agentUserId: Optional("agentUserId"),
-                        userDisplayName: Optional("userDisplayName"),
-                        status: .sending,
-                        responseState: Optional(.notAsked),
-                        timezone: Optional("timezone"),
-                        userId: EntityIdBase(
-                            referenceId: "x"
-                        ),
-                        text: "text",
-                        userMessageType: .user,
-                        createdAt: Optional(try! Date("2024-01-15T09:30:00Z", strategy: .iso8601)),
-                        updatedAt: Optional(try! Date("2024-01-15T09:30:00Z", strategy: .iso8601)),
-                        appMetadata: Optional([
-                            "appMetadata": "appMetadata"
-                        ])
-                    )
-                )
-            ],
-            attachments: [
-                AttachmentResponse(
-                    url: Optional("url"),
-                    sizeBytes: Optional(1000000),
-                    status: .pending,
-                    type: "type",
-                    name: Optional("name")
-                ),
-                AttachmentResponse(
-                    url: Optional("url"),
-                    sizeBytes: Optional(1000000),
-                    status: .pending,
-                    type: "type",
-                    name: Optional("name")
-                )
-            ],
-            responseConfig: Optional(ResponseConfig(
-                capabilities: [
-                    .markdown,
-                    .markdown
-                ],
-                isCopilot: true,
-                responseLength: .short,
-                contextFilter: Optional(.byEntities(
-                    .init(
-                        entities: []
-                    )
-                ))
-            )),
-            subject: Optional("subject"),
-            url: Optional("url"),
-            createdAt: Optional(try! Date("2024-01-15T09:30:00Z", strategy: .iso8601)),
-            updatedAt: Optional(try! Date("2024-01-15T09:30:00Z", strategy: .iso8601)),
-            tags: Optional([]),
-            metadata: Optional([
-                "metadata": "metadata"
-            ]),
-            allMetadata: [
-                "allMetadata": [
-                    "allMetadata": "allMetadata"
-                ]
-            ],
             conversationId: EntityId(
-                organizationId: "organizationId",
-                agentId: "agentId",
-                type: .agent,
-                appId: "appId",
-                referenceId: "x"
+                referenceId: "conversation-0",
+                appId: "myapp",
+                organizationId: "acme",
+                agentId: "support",
+                type: .conversation
             ),
-            analysis: ConversationAnalysis(
-                userRequest: Optional("userRequest"),
-                agentResponse: Optional("agentResponse"),
-                resolutionStatus: Optional(.unknown),
-                category: Optional("category"),
-                sentiment: Optional(.positive),
-                quality: Optional(.good),
-                qualityReason: Optional(.missingKnowledge),
-                resolvedByMaven: Optional(true),
-                primaryLanguage: Optional("primaryLanguage"),
-                predictedNps: Optional(1.1),
-                csat: Optional(1.1),
-                intelligentFieldValues: Optional([
-                    IntelligentFieldValueResponse(
-                        fieldId: EntityId(
-                            organizationId: "organizationId",
-                            agentId: "agentId",
-                            type: .agent,
-                            appId: "appId",
-                            referenceId: "x"
-                        ),
-                        name: "name",
-                        entityId: EntityId(
-                            organizationId: "organizationId",
-                            agentId: "agentId",
-                            type: .agent,
-                            appId: "appId",
-                            referenceId: "x"
-                        ),
-                        value: Optional(JSONValue.object(
-                            [
-                                "key": JSONValue.string("value")
-                            ]
-                        )),
-                        confidence: Optional(1.1),
-                        rationale: Optional("rationale"),
-                        createdAt: Optional(try! Date("2024-01-15T09:30:00Z", strategy: .iso8601))
-                    ),
-                    IntelligentFieldValueResponse(
-                        fieldId: EntityId(
-                            organizationId: "organizationId",
-                            agentId: "agentId",
-                            type: .agent,
-                            appId: "appId",
-                            referenceId: "x"
-                        ),
-                        name: "name",
-                        entityId: EntityId(
-                            organizationId: "organizationId",
-                            agentId: "agentId",
-                            type: .agent,
-                            appId: "appId",
-                            referenceId: "x"
-                        ),
-                        value: Optional(JSONValue.object(
-                            [
-                                "key": JSONValue.string("value")
-                            ]
-                        )),
-                        confidence: Optional(1.1),
-                        rationale: Optional("rationale"),
-                        createdAt: Optional(try! Date("2024-01-15T09:30:00Z", strategy: .iso8601))
-                    )
-                ])
-            ),
-            summary: ConversationSummary(
-                actionIds: [
-                    EntityIdWithoutAgent(
-                        type: .agent,
-                        appId: "appId",
-                        referenceId: "x"
-                    ),
-                    EntityIdWithoutAgent(
-                        type: .agent,
-                        appId: "appId",
-                        referenceId: "x"
-                    )
-                ],
-                incompleteActionIds: [
-                    EntityIdWithoutAgent(
-                        type: .agent,
-                        appId: "appId",
-                        referenceId: "x"
-                    ),
-                    EntityIdWithoutAgent(
-                        type: .agent,
-                        appId: "appId",
-                        referenceId: "x"
-                    )
-                ],
-                matchedCharterIds: [
-                    EntityIdWithoutAgent(
-                        type: .agent,
-                        appId: "appId",
-                        referenceId: "x"
-                    ),
-                    EntityIdWithoutAgent(
-                        type: .agent,
-                        appId: "appId",
-                        referenceId: "x"
-                    )
-                ],
-                matchedCharterNames: [
-                    "matchedCharterNames",
-                    "matchedCharterNames"
-                ],
-                matchedSegmentedCharterNames: [
-                    "matchedSegmentedCharterNames",
-                    "matchedSegmentedCharterNames"
-                ],
-                insertCount: 1,
-                thumbsUpCount: 1,
-                thumbsDownCount: 1,
-                handoffCount: 1,
-                userMessageCount: 1,
-                botMessageCount: 1,
-                csat: Optional(1.1),
-                handleTime: Optional(1000000),
-                humanAgentResponseDelay: Optional(1000000),
-                humanAgents: [
-                    "humanAgents",
-                    "humanAgents"
-                ],
-                humanAgentsWithInserts: [
-                    "humanAgentsWithInserts",
-                    "humanAgentsWithInserts"
-                ],
-                users: [
-                    "users",
-                    "users"
-                ],
-                userIdentifiers: [
-                    "userIdentifiers",
-                    "userIdentifiers"
-                ],
-                lastUserMessage: Optional("lastUserMessage"),
-                lastBotMessage: Optional("lastBotMessage"),
-                involvedAppIds: []
-            ),
-            deleted: true,
+            deleted: false,
             open: true,
             llmEnabled: true,
-            simulationContext: Optional(SimulationContext(
-                additionalPromptText: Optional("additionalPromptText"),
-                persona: Optional(.casualBuddy),
-                availableKnowledgeBases: Optional([]),
-                variantId: Optional(EntityIdWithoutAgent(
-                    type: .agent,
-                    appId: "appId",
-                    referenceId: "x"
-                )),
-                actionMocks: Optional([
-                    SimulationActionMock(
-                        actionId: EntityIdWithoutAgent(
-                            type: .agent,
-                            appId: "appId",
-                            referenceId: "x"
-                        ),
-                        behavior: .fixedResponse(
-                            .init(
-                                response: "response",
-                                data: Optional([
-                                    "data": JSONValue.object(
-                                        [
-                                            "key": JSONValue.string("value")
-                                        ]
-                                    )
-                                ]),
-                                status: Optional(.success),
-                                errorMessage: Optional("errorMessage")
-                            )
-                        )
-                    ),
-                    SimulationActionMock(
-                        actionId: EntityIdWithoutAgent(
-                            type: .agent,
-                            appId: "appId",
-                            referenceId: "x"
-                        ),
-                        behavior: .fixedResponse(
-                            .init(
-                                response: "response",
-                                data: Optional([
-                                    "data": JSONValue.object(
-                                        [
-                                            "key": JSONValue.string("value")
-                                        ]
-                                    )
-                                ]),
-                                status: Optional(.success),
-                                errorMessage: Optional("errorMessage")
-                            )
-                        )
-                    )
-                ]),
-                defaultActionBehavior: Optional(.fixedResponse(
-                    .init(
-                        response: "response",
-                        data: Optional([
-                            "data": JSONValue.object(
-                                [
-                                    "key": JSONValue.string("value")
-                                ]
-                            )
-                        ]),
-                        status: Optional(.success),
-                        errorMessage: Optional("errorMessage")
-                    )
-                ))
-            )),
-            relatedEntities: Optional([
-                .spawnFrom: [
-                    EntityId(
-                        organizationId: "organizationId",
-                        agentId: "agentId",
-                        type: .agent,
-                        appId: "appId",
-                        referenceId: "x"
-                    ),
-                    EntityId(
-                        organizationId: "organizationId",
-                        agentId: "agentId",
-                        type: .agent,
-                        appId: "appId",
-                        referenceId: "x"
-                    )
-                ]
-            ]),
-            conversationMode: Optional(.voice),
-            variantId: Optional(EntityId(
-                organizationId: "organizationId",
-                agentId: "agentId",
-                type: .agent,
-                appId: "appId",
-                referenceId: "x"
-            ))
+            conversationMode: Optional(.text),
+            analysis: ConversationAnalysis(
+
+            ),
+            summary: ConversationSummary(
+                actionIds: [],
+                incompleteActionIds: [],
+                matchedCharterIds: [],
+                matchedCharterNames: [],
+                matchedSegmentedCharterNames: [],
+                insertCount: 0,
+                thumbsUpCount: 0,
+                thumbsDownCount: 0,
+                handoffCount: 0,
+                userMessageCount: 0,
+                botMessageCount: 0,
+                humanAgents: [],
+                humanAgentsWithInserts: [],
+                users: [],
+                userIdentifiers: [],
+                involvedAppIds: []
+            ),
+            metadata: Optional([:]),
+            allMetadata: [:],
+            attachments: [],
+            messages: [],
+            executionMode: .live,
+            conversationKickoffResults: []
         )
         let response = try await client.conversation.initialize(
             request: ConversationRequest(
                 conversationId: EntityIdBase(
-                    referenceId: "x"
+                    referenceId: "conversation-0"
                 ),
-                messages: [
-                    ConversationMessageRequest(
-                        userId: EntityIdBase(
-                            referenceId: "x"
+                messages: []
+            ),
+            requestOptions: RequestOptions(additionalHeaders: stub.headers)
+        )
+        try #require(response == expectedResponse)
+    }
+
+    @Test func initialize2() async throws -> Void {
+        let stub = HTTPStub()
+        stub.setResponse(
+            body: Data(
+                """
+                {
+                  "conversationId": {
+                    "referenceId": "conversation-0",
+                    "appId": "myapp",
+                    "organizationId": "acme",
+                    "agentId": "support",
+                    "type": "CONVERSATION"
+                  },
+                  "deleted": false,
+                  "open": true,
+                  "llmEnabled": true,
+                  "conversationMode": "TEXT",
+                  "analysis": {},
+                  "summary": {
+                    "actionIds": [],
+                    "incompleteActionIds": [],
+                    "matchedCharterIds": [],
+                    "matchedCharterNames": [],
+                    "matchedSegmentedCharterNames": [],
+                    "insertCount": 0,
+                    "thumbsUpCount": 0,
+                    "thumbsDownCount": 0,
+                    "handoffCount": 0,
+                    "userMessageCount": 0,
+                    "botMessageCount": 0,
+                    "humanAgents": [],
+                    "humanAgentsWithInserts": [],
+                    "users": [],
+                    "userIdentifiers": [],
+                    "involvedAppIds": [
+                      "myapp"
+                    ]
+                  },
+                  "metadata": {},
+                  "allMetadata": {},
+                  "attachments": [],
+                  "messages": [],
+                  "executionMode": "LIVE",
+                  "conversationKickoffResults": []
+                }
+                """.utf8
+            )
+        )
+        let client = MavenAGI(
+            baseURL: "https://api.fern.com",
+            token: "<token>",
+            urlSession: stub.urlSession
+        )
+        let expectedResponse = InitializeConversationResponse(
+            conversationId: EntityId(
+                referenceId: "conversation-0",
+                appId: "myapp",
+                organizationId: "acme",
+                agentId: "support",
+                type: .conversation
+            ),
+            deleted: false,
+            open: true,
+            llmEnabled: true,
+            conversationMode: Optional(.text),
+            analysis: ConversationAnalysis(
+
+            ),
+            summary: ConversationSummary(
+                actionIds: [],
+                incompleteActionIds: [],
+                matchedCharterIds: [],
+                matchedCharterNames: [],
+                matchedSegmentedCharterNames: [],
+                insertCount: 0,
+                thumbsUpCount: 0,
+                thumbsDownCount: 0,
+                handoffCount: 0,
+                userMessageCount: 0,
+                botMessageCount: 0,
+                humanAgents: [],
+                humanAgentsWithInserts: [],
+                users: [],
+                userIdentifiers: [],
+                involvedAppIds: []
+            ),
+            metadata: Optional([:]),
+            allMetadata: [:],
+            attachments: [],
+            messages: [],
+            executionMode: .live,
+            conversationKickoffResults: []
+        )
+        let response = try await client.conversation.initialize(
+            request: ConversationRequest(
+                conversationId: EntityIdBase(
+                    referenceId: "simulation-0"
+                ),
+                simulationContext: SimulationContext(
+                    actionMocks: [
+                        SimulationActionMock(
+                            actionId: EntityIdWithoutAgent(
+                                type: .action,
+                                appId: "my-app",
+                                referenceId: "refund-order"
+                            ),
+                            behavior: SimulationActionBehavior.fixedResponse(
+                                .init(
+                                    response: "Refunded order {{orderId}}"
+                                )
+                            )
                         ),
-                        text: "text",
-                        userMessageType: .user,
-                        conversationMessageId: EntityIdBase(
-                            referenceId: "x"
+                        SimulationActionMock(
+                            actionId: EntityIdWithoutAgent(
+                                type: .action,
+                                appId: "my-app",
+                                referenceId: "get-order-status"
+                            ),
+                            behavior: SimulationActionBehavior.fixedResponse(
+                                .init(
+                                    response: "Order {{orderId}} was not found",
+                                    status: .error,
+                                    errorMessage: "No order with ID {{orderId}}"
+                                )
+                            )
                         )
-                    ),
-                    ConversationMessageRequest(
-                        userId: EntityIdBase(
-                            referenceId: "x"
-                        ),
-                        text: "text",
-                        userMessageType: .user,
-                        conversationMessageId: EntityIdBase(
-                            referenceId: "x"
+                    ],
+                    defaultActionBehavior: SimulationActionBehavior.callApp(
+                        .init(
+
                         )
                     )
-                ]
+                ),
+                messages: []
             ),
             requestOptions: RequestOptions(additionalHeaders: stub.headers)
         )
@@ -869,6 +264,7 @@ import Api
                   "deleted": false,
                   "open": false,
                   "llmEnabled": true,
+                  "executionMode": "LIVE",
                   "conversationMode": "TEXT",
                   "analysis": {
                     "resolutionStatus": "RESOLVED",
@@ -954,8 +350,7 @@ import Api
         )
         let client = MavenAGI(
             baseURL: "https://api.fern.com",
-            appId: "<username>",
-            appSecret: "<password>",
+            token: "<token>",
             urlSession: stub.urlSession
         )
         let expectedResponse = ConversationResponse(
@@ -969,6 +364,7 @@ import Api
             deleted: false,
             open: false,
             llmEnabled: true,
+            executionMode: .live,
             conversationMode: Optional(.text),
             analysis: ConversationAnalysis(
                 resolutionStatus: Optional(.resolved),
@@ -1426,6 +822,7 @@ import Api
                       "errorMessage": "errorMessage"
                     }
                   },
+                  "executionMode": "LIVE",
                   "relatedEntities": {
                     "SPAWN_FROM": [
                       {
@@ -1458,8 +855,7 @@ import Api
         )
         let client = MavenAGI(
             baseURL: "https://api.fern.com",
-            appId: "<username>",
-            appSecret: "<password>",
+            token: "<token>",
             urlSession: stub.urlSession
         )
         let expectedResponse = ConversationResponse(
@@ -1810,6 +1206,7 @@ import Api
                     )
                 ))
             )),
+            executionMode: .live,
             relatedEntities: Optional([
                 .spawnFrom: [
                     EntityId(
@@ -2210,6 +1607,7 @@ import Api
                       "errorMessage": "errorMessage"
                     }
                   },
+                  "executionMode": "LIVE",
                   "relatedEntities": {
                     "SPAWN_FROM": [
                       {
@@ -2242,8 +1640,7 @@ import Api
         )
         let client = MavenAGI(
             baseURL: "https://api.fern.com",
-            appId: "<username>",
-            appSecret: "<password>",
+            token: "<token>",
             urlSession: stub.urlSession
         )
         let expectedResponse = ConversationResponse(
@@ -2594,6 +1991,7 @@ import Api
                     )
                 ))
             )),
+            executionMode: .live,
             relatedEntities: Optional([
                 .spawnFrom: [
                     EntityId(
@@ -2666,6 +2064,7 @@ import Api
                   "deleted": false,
                   "open": false,
                   "llmEnabled": true,
+                  "executionMode": "LIVE",
                   "conversationMode": "TEXT",
                   "analysis": {
                     "resolutionStatus": "RESOLVED",
@@ -2751,8 +2150,7 @@ import Api
         )
         let client = MavenAGI(
             baseURL: "https://api.fern.com",
-            appId: "<username>",
-            appSecret: "<password>",
+            token: "<token>",
             urlSession: stub.urlSession
         )
         let expectedResponse = ConversationResponse(
@@ -2766,6 +2164,7 @@ import Api
             deleted: false,
             open: false,
             llmEnabled: true,
+            executionMode: .live,
             conversationMode: Optional(.text),
             analysis: ConversationAnalysis(
                 resolutionStatus: Optional(.resolved),
@@ -2887,8 +2286,7 @@ import Api
         )
         let client = MavenAGI(
             baseURL: "https://api.fern.com",
-            appId: "<username>",
-            appSecret: "<password>",
+            token: "<token>",
             urlSession: stub.urlSession
         )
         let expectedResponse = CategorizationResponse(
@@ -2943,8 +2341,7 @@ import Api
         )
         let client = MavenAGI(
             baseURL: "https://api.fern.com",
-            appId: "<username>",
-            appSecret: "<password>",
+            token: "<token>",
             urlSession: stub.urlSession
         )
         let expectedResponse = Feedback(
@@ -3367,6 +2764,7 @@ import Api
                       "errorMessage": "errorMessage"
                     }
                   },
+                  "executionMode": "LIVE",
                   "relatedEntities": {
                     "SPAWN_FROM": [
                       {
@@ -3399,8 +2797,7 @@ import Api
         )
         let client = MavenAGI(
             baseURL: "https://api.fern.com",
-            appId: "<username>",
-            appSecret: "<password>",
+            token: "<token>",
             urlSession: stub.urlSession
         )
         let expectedResponse = ConversationResponse(
@@ -3751,6 +3148,7 @@ import Api
                     )
                 ))
             )),
+            executionMode: .live,
             relatedEntities: Optional([
                 .spawnFrom: [
                     EntityId(
@@ -3808,8 +3206,7 @@ import Api
         )
         let client = MavenAGI(
             baseURL: "https://api.fern.com",
-            appId: "<username>",
-            appSecret: "<password>",
+            token: "<token>",
             urlSession: stub.urlSession
         )
         let expectedResponse = [
@@ -3845,8 +3242,7 @@ import Api
         )
         let client = MavenAGI(
             baseURL: "https://api.fern.com",
-            appId: "<username>",
-            appSecret: "<password>",
+            token: "<token>",
             urlSession: stub.urlSession
         )
         let expectedResponse = ConversationMetadata(
@@ -4123,6 +3519,7 @@ import Api
                           "errorMessage": "errorMessage"
                         }
                       },
+                      "executionMode": "LIVE",
                       "relatedEntities": {
                         "SPAWN_FROM": [
                           {
@@ -4394,6 +3791,7 @@ import Api
                           "errorMessage": "errorMessage"
                         }
                       },
+                      "executionMode": "LIVE",
                       "relatedEntities": {
                         "SPAWN_FROM": [
                           {
@@ -4432,8 +3830,7 @@ import Api
         )
         let client = MavenAGI(
             baseURL: "https://api.fern.com",
-            appId: "<username>",
-            appSecret: "<password>",
+            token: "<token>",
             urlSession: stub.urlSession
         )
         let expectedResponse = ConversationsResponse(
@@ -4670,6 +4067,7 @@ import Api
                             )
                         ))
                     )),
+                    executionMode: .live,
                     relatedEntities: Optional([
                         .spawnFrom: [
                             EntityId(
@@ -4929,6 +4327,7 @@ import Api
                             )
                         ))
                     )),
+                    executionMode: .live,
                     relatedEntities: Optional([
                         .spawnFrom: [
                             EntityId(
@@ -5222,6 +4621,7 @@ import Api
                           "errorMessage": "errorMessage"
                         }
                       },
+                      "executionMode": "LIVE",
                       "relatedEntities": {
                         "SPAWN_FROM": [
                           {
@@ -5493,6 +4893,7 @@ import Api
                           "errorMessage": "errorMessage"
                         }
                       },
+                      "executionMode": "LIVE",
                       "relatedEntities": {
                         "SPAWN_FROM": [
                           {
@@ -5529,8 +4930,7 @@ import Api
         )
         let client = MavenAGI(
             baseURL: "https://api.fern.com",
-            appId: "<username>",
-            appSecret: "<password>",
+            token: "<token>",
             urlSession: stub.urlSession
         )
         let expectedResponse = ConversationsCursorSearchResponse(
@@ -5767,6 +5167,7 @@ import Api
                             )
                         ))
                     )),
+                    executionMode: .live,
                     relatedEntities: Optional([
                         .spawnFrom: [
                             EntityId(
@@ -6026,6 +5427,7 @@ import Api
                             )
                         ))
                     )),
+                    executionMode: .live,
                     relatedEntities: Optional([
                         .spawnFrom: [
                             EntityId(
@@ -6079,8 +5481,7 @@ import Api
         )
         let client = MavenAGI(
             baseURL: "https://api.fern.com",
-            appId: "<username>",
-            appSecret: "<password>",
+            token: "<token>",
             urlSession: stub.urlSession
         )
         let expectedResponse = DeliverMessageResponse(

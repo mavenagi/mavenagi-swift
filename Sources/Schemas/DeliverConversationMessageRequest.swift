@@ -1,7 +1,7 @@
 import Foundation
 
 public struct DeliverConversationMessageRequest: Codable, Hashable, Sendable {
-    /// The ID of the conversation to deliver the message to. Message delivery will fail if the conversation does not have the `ASYNC` capability or if it is not `open`.
+    /// The ID of the conversation to deliver the message to. Message delivery will fail if the conversation does not have the `ASYNC` capability, and a closed conversation (`open` set to false) returns a 400.
     public let conversationId: EntityIdWithoutAgent
     /// The message to deliver.
     public let message: ConversationMessageRequest

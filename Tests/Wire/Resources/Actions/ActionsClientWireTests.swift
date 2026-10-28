@@ -283,8 +283,7 @@ import Api
         )
         let client = MavenAGI(
             baseURL: "https://api.fern.com",
-            appId: "<username>",
-            appSecret: "<password>",
+            token: "<token>",
             urlSession: stub.urlSession
         )
         let expectedResponse = ActionsResponse(
@@ -611,8 +610,7 @@ import Api
         )
         let client = MavenAGI(
             baseURL: "https://api.fern.com",
-            appId: "<username>",
-            appSecret: "<password>",
+            token: "<token>",
             urlSession: stub.urlSession
         )
         let expectedResponse = ActionResponse(
@@ -745,8 +743,7 @@ import Api
         )
         let client = MavenAGI(
             baseURL: "https://api.fern.com",
-            appId: "<username>",
-            appSecret: "<password>",
+            token: "<token>",
             urlSession: stub.urlSession
         )
         let expectedResponse = ActionResponse(
@@ -853,8 +850,7 @@ import Api
         )
         let client = MavenAGI(
             baseURL: "https://api.fern.com",
-            appId: "<username>",
-            appSecret: "<password>",
+            token: "<token>",
             urlSession: stub.urlSession
         )
         let expectedResponse = ActionResponse(

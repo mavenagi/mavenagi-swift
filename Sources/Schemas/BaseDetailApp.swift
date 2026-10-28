@@ -27,12 +27,15 @@ public struct BaseDetailApp: Codable, Hashable, Sendable {
     /// Whether this app is an auto-provisioned agent app created for a specific agent.
     public let isAgentApp: Bool?
     /// Guidance shown while installing the app, for example how to obtain the credentials it asks for.
+    /// May use [placeholders](https://developers.mavenagi.com/docs/documentation/configuration-and-integration/placeholders) such as `${agentId}`.
     public let installationInstructions: String?
-    /// Guidance shown once the app is installed.
+    /// Guidance shown once the app is installed. May use [placeholders](https://developers.mavenagi.com/docs/documentation/configuration-and-integration/placeholders), settings included.
     public let instructions: String?
-    /// URL of a preview image or demo for the app's detail page.
+    /// URL of a preview image or demo for the app's detail page. May use [placeholders](https://developers.mavenagi.com/docs/documentation/configuration-and-integration/placeholders) such as
+    /// `${appHost}` and `${settings.region}`.
     public let previewUrl: String?
-    /// Supporting links published by the author, such as documentation or a privacy policy.
+    /// Supporting links published by the author, such as documentation or a privacy policy. Their URLs
+    /// may use [placeholders](https://developers.mavenagi.com/docs/documentation/configuration-and-integration/placeholders) such as `${appHost}`, but never settings: links are public.
     public let links: [Link]
     /// The settings the app accepts. Drives the install form, and describes which values are files
     /// rather than plain values.

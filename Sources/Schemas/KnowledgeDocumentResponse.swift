@@ -29,7 +29,7 @@ public struct KnowledgeDocumentResponse: Codable, Hashable, Sendable {
     public let author: String?
     /// The current processing status of the knowledge document
     public let processingStatus: KnowledgeDocumentStatus?
-    /// The content of the document in markdown format. Not shown directly to users. May be absent for asset-backed documents that have not yet been processed.
+    /// The content of the document in markdown format. Not shown directly to users. May be absent for asset-backed documents that have not yet been processed, or on a document GET when the document's processed form is larger than 20,000,000 bytes. When content is absent, asset.url (if present) links to the original uploaded file.
     public let content: String?
     /// If the document is associated with an asset, this will contain the asset metadata
     public let asset: AttachmentResponse?

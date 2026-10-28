@@ -2,6 +2,8 @@ import Foundation
 
 public struct EventFilter: Codable, Hashable, Sendable {
     public let search: String?
+    /// Whether to include simulation events in search results. Defaults to only non-simulation events.
+    public let simulationFilter: SimulationFilter?
     public let createdAfter: Date?
     public let createdBefore: Date?
     public let references: [ScopedEntity]?
@@ -20,6 +22,7 @@ public struct EventFilter: Codable, Hashable, Sendable {
 
     public init(
         search: String? = nil,
+        simulationFilter: SimulationFilter? = nil,
         createdAfter: Date? = nil,
         createdBefore: Date? = nil,
         references: [ScopedEntity]? = nil,
@@ -32,6 +35,7 @@ public struct EventFilter: Codable, Hashable, Sendable {
         additionalProperties: [String: JSONValue] = .init()
     ) {
         self.search = search
+        self.simulationFilter = simulationFilter
         self.createdAfter = createdAfter
         self.createdBefore = createdBefore
         self.references = references
@@ -47,6 +51,7 @@ public struct EventFilter: Codable, Hashable, Sendable {
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.search = try container.decodeIfPresent(String.self, forKey: .search)
+        self.simulationFilter = try container.decodeIfPresent(SimulationFilter.self, forKey: .simulationFilter)
         self.createdAfter = try container.decodeIfPresent(Date.self, forKey: .createdAfter)
         self.createdBefore = try container.decodeIfPresent(Date.self, forKey: .createdBefore)
         self.references = try container.decodeIfPresent([ScopedEntity].self, forKey: .references)
@@ -63,6 +68,7 @@ public struct EventFilter: Codable, Hashable, Sendable {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try encoder.encodeAdditionalProperties(self.additionalProperties)
         try container.encodeIfPresent(self.search, forKey: .search)
+        try container.encodeIfPresent(self.simulationFilter, forKey: .simulationFilter)
         try container.encodeIfPresent(self.createdAfter, forKey: .createdAfter)
         try container.encodeIfPresent(self.createdBefore, forKey: .createdBefore)
         try container.encodeIfPresent(self.references, forKey: .references)
@@ -77,6 +83,7 @@ public struct EventFilter: Codable, Hashable, Sendable {
     /// Keys for encoding/decoding struct properties.
     enum CodingKeys: String, CodingKey, CaseIterable {
         case search
+        case simulationFilter
         case createdAfter
         case createdBefore
         case references

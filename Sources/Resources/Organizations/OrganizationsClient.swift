@@ -9,9 +9,9 @@ public final class OrganizationsClient: Sendable {
 
     /// Create a new organization.
     /// 
-    /// <Tip>
-    /// This endpoint requires additional permissions. Contact support to request access.
-    /// </Tip>
+    /// Only Maven staff hold this permission.
+    /// 
+    /// <Note>**Required permission:** `create:organization`</Note>
     ///
     /// - Parameter organizationReferenceId: The reference ID of the organization.
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
@@ -26,6 +26,8 @@ public final class OrganizationsClient: Sendable {
     }
 
     /// Get an organization by ID
+    /// 
+    /// <Note>**Required permission:** `read:organization`</Note>
     ///
     /// - Parameter organizationReferenceId: The reference ID of the organization.
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
@@ -41,9 +43,7 @@ public final class OrganizationsClient: Sendable {
     /// Update mutable organization fields.
     /// All fields will overwrite the existing value on the organization only if provided.
     /// 
-    /// <Tip>
-    /// This endpoint requires additional permissions. Contact support to request access.
-    /// </Tip>
+    /// <Note>**Required permission:** `edit:organization`</Note>
     ///
     /// - Parameter organizationReferenceId: The reference ID of the organization.
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
@@ -59,9 +59,7 @@ public final class OrganizationsClient: Sendable {
 
     /// Delete an organization.
     /// 
-    /// <Tip>
-    /// This endpoint requires additional permissions. Contact support to request access.
-    /// </Tip>
+    /// <Note>**Required permission:** `delete:organization`</Note>
     ///
     /// - Parameter organizationReferenceId: The reference ID of the organization.
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
@@ -76,9 +74,9 @@ public final class OrganizationsClient: Sendable {
     /// Retrieves structured conversation data across all organizations, formatted as a table, 
     /// allowing users to group, filter, and define specific metrics to display as columns.
     /// 
-    /// <Tip>
-    /// This endpoint requires additional permissions. Contact support to request access.
-    /// </Tip>
+    /// Only Maven staff hold this permission.
+    /// 
+    /// <Note>**Required permission:** `read:all-organizations`</Note>
     ///
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
     public func getConversationTable(request: ConversationTableRequest, requestOptions: RequestOptions? = nil) async throws -> ConversationTableResponse {
@@ -94,9 +92,9 @@ public final class OrganizationsClient: Sendable {
     /// Fetches conversation data across all organizations, visualized in a chart format. 
     /// Supported chart types include pie chart, date histogram, and stacked bar charts.
     /// 
-    /// <Tip>
-    /// This endpoint requires additional permissions. Contact support to request access.
-    /// </Tip>
+    /// Only Maven staff hold this permission.
+    /// 
+    /// <Note>**Required permission:** `read:all-organizations`</Note>
     ///
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
     public func getConversationChart(request: ConversationChartRequest, requestOptions: RequestOptions? = nil) async throws -> ChartResponse {

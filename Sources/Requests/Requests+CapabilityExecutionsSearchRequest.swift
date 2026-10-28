@@ -23,6 +23,9 @@ extension Requests {
         public let capabilityIds: [EntityId]?
         /// Only return executions in these states.
         public let statuses: [CapabilityExecutionStatus]?
+        /// Whether to include executions from simulations. Defaults to `ALL`, so a
+        /// simulation conversation's executions are found by its ID like any other.
+        public let simulationFilter: SimulationFilter?
         /// Additional properties that are not explicitly defined in the schema
         public let additionalProperties: [String: JSONValue]
 
@@ -34,6 +37,7 @@ extension Requests {
             capabilityTypes: [CapabilityType]? = nil,
             capabilityIds: [EntityId]? = nil,
             statuses: [CapabilityExecutionStatus]? = nil,
+            simulationFilter: SimulationFilter? = nil,
             additionalProperties: [String: JSONValue] = .init()
         ) {
             self.page = page
@@ -43,6 +47,7 @@ extension Requests {
             self.capabilityTypes = capabilityTypes
             self.capabilityIds = capabilityIds
             self.statuses = statuses
+            self.simulationFilter = simulationFilter
             self.additionalProperties = additionalProperties
         }
 
@@ -55,6 +60,7 @@ extension Requests {
             self.capabilityTypes = try container.decodeIfPresent([CapabilityType].self, forKey: .capabilityTypes)
             self.capabilityIds = try container.decodeIfPresent([EntityId].self, forKey: .capabilityIds)
             self.statuses = try container.decodeIfPresent([CapabilityExecutionStatus].self, forKey: .statuses)
+            self.simulationFilter = try container.decodeIfPresent(SimulationFilter.self, forKey: .simulationFilter)
             self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
         }
 
@@ -68,6 +74,7 @@ extension Requests {
             try container.encodeIfPresent(self.capabilityTypes, forKey: .capabilityTypes)
             try container.encodeIfPresent(self.capabilityIds, forKey: .capabilityIds)
             try container.encodeIfPresent(self.statuses, forKey: .statuses)
+            try container.encodeIfPresent(self.simulationFilter, forKey: .simulationFilter)
         }
 
         /// Keys for encoding/decoding struct properties.
@@ -79,6 +86,7 @@ extension Requests {
             case capabilityTypes
             case capabilityIds
             case statuses
+            case simulationFilter
         }
     }
 }

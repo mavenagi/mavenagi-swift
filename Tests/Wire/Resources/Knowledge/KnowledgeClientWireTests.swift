@@ -72,6 +72,44 @@ import Api
                         "completedCount": 1000000,
                         "totalCount": 1000000
                       },
+                      "functionBindings": {
+                        "fetchMetadata": {
+                          "functionId": {
+                            "type": "AGENT",
+                            "appId": "appId",
+                            "referenceId": "x"
+                          },
+                          "versionId": {
+                            "type": "AGENT",
+                            "appId": "appId",
+                            "referenceId": "x"
+                          }
+                        },
+                        "fetchDocuments": {
+                          "functionId": {
+                            "type": "AGENT",
+                            "appId": "appId",
+                            "referenceId": "x"
+                          },
+                          "versionId": {
+                            "type": "AGENT",
+                            "appId": "appId",
+                            "referenceId": "x"
+                          }
+                        },
+                        "convertDocuments": {
+                          "functionId": {
+                            "type": "AGENT",
+                            "appId": "appId",
+                            "referenceId": "x"
+                          },
+                          "versionId": {
+                            "type": "AGENT",
+                            "appId": "appId",
+                            "referenceId": "x"
+                          }
+                        }
+                      },
                       "name": "name",
                       "precondition": {
                         "preconditionType": "user",
@@ -146,6 +184,44 @@ import Api
                         "completedCount": 1000000,
                         "totalCount": 1000000
                       },
+                      "functionBindings": {
+                        "fetchMetadata": {
+                          "functionId": {
+                            "type": "AGENT",
+                            "appId": "appId",
+                            "referenceId": "x"
+                          },
+                          "versionId": {
+                            "type": "AGENT",
+                            "appId": "appId",
+                            "referenceId": "x"
+                          }
+                        },
+                        "fetchDocuments": {
+                          "functionId": {
+                            "type": "AGENT",
+                            "appId": "appId",
+                            "referenceId": "x"
+                          },
+                          "versionId": {
+                            "type": "AGENT",
+                            "appId": "appId",
+                            "referenceId": "x"
+                          }
+                        },
+                        "convertDocuments": {
+                          "functionId": {
+                            "type": "AGENT",
+                            "appId": "appId",
+                            "referenceId": "x"
+                          },
+                          "versionId": {
+                            "type": "AGENT",
+                            "appId": "appId",
+                            "referenceId": "x"
+                          }
+                        }
+                      },
                       "name": "name",
                       "precondition": {
                         "preconditionType": "user",
@@ -169,8 +245,7 @@ import Api
         )
         let client = MavenAGI(
             baseURL: "https://api.fern.com",
-            appId: "<username>",
-            appSecret: "<password>",
+            token: "<token>",
             urlSession: stub.urlSession
         )
         let expectedResponse = KnowledgeBasesResponse(
@@ -376,8 +451,7 @@ import Api
         )
         let client = MavenAGI(
             baseURL: "https://api.fern.com",
-            appId: "<username>",
-            appSecret: "<password>",
+            token: "<token>",
             urlSession: stub.urlSession
         )
         let expectedResponse = KnowledgeBaseResponse(
@@ -476,8 +550,7 @@ import Api
         )
         let client = MavenAGI(
             baseURL: "https://api.fern.com",
-            appId: "<username>",
-            appSecret: "<password>",
+            token: "<token>",
             urlSession: stub.urlSession
         )
         let expectedResponse = KnowledgeBaseResponse(
@@ -571,8 +644,7 @@ import Api
         )
         let client = MavenAGI(
             baseURL: "https://api.fern.com",
-            appId: "<username>",
-            appSecret: "<password>",
+            token: "<token>",
             urlSession: stub.urlSession
         )
         let expectedResponse = KnowledgeBaseResponse(
@@ -643,8 +715,7 @@ import Api
         )
         let client = MavenAGI(
             baseURL: "https://api.fern.com",
-            appId: "<username>",
-            appSecret: "<password>",
+            token: "<token>",
             urlSession: stub.urlSession
         )
         let expectedResponse = KnowledgeBaseVersion(
@@ -693,8 +764,7 @@ import Api
         )
         let client = MavenAGI(
             baseURL: "https://api.fern.com",
-            appId: "<username>",
-            appSecret: "<password>",
+            token: "<token>",
             urlSession: stub.urlSession
         )
         let expectedResponse = KnowledgeBaseVersion(
@@ -753,8 +823,7 @@ import Api
         )
         let client = MavenAGI(
             baseURL: "https://api.fern.com",
-            appId: "<username>",
-            appSecret: "<password>",
+            token: "<token>",
             urlSession: stub.urlSession
         )
         let expectedResponse = KnowledgeBaseVersion(
@@ -882,8 +951,7 @@ import Api
         )
         let client = MavenAGI(
             baseURL: "https://api.fern.com",
-            appId: "<username>",
-            appSecret: "<password>",
+            token: "<token>",
             urlSession: stub.urlSession
         )
         let expectedResponse = KnowledgeBaseVersionsListResponse(
@@ -1087,8 +1155,7 @@ import Api
         )
         let client = MavenAGI(
             baseURL: "https://api.fern.com",
-            appId: "<username>",
-            appSecret: "<password>",
+            token: "<token>",
             urlSession: stub.urlSession
         )
         let expectedResponse = KnowledgeDocumentsResponse(
@@ -1215,8 +1282,7 @@ import Api
         )
         let client = MavenAGI(
             baseURL: "https://api.fern.com",
-            appId: "<username>",
-            appSecret: "<password>",
+            token: "<token>",
             urlSession: stub.urlSession
         )
         let expectedResponse = KnowledgeDocumentResponse(
@@ -1346,8 +1412,7 @@ import Api
         )
         let client = MavenAGI(
             baseURL: "https://api.fern.com",
-            appId: "<username>",
-            appSecret: "<password>",
+            token: "<token>",
             urlSession: stub.urlSession
         )
         let expectedResponse = KnowledgeDocumentResponse(
@@ -1446,8 +1511,7 @@ import Api
         )
         let client = MavenAGI(
             baseURL: "https://api.fern.com",
-            appId: "<username>",
-            appSecret: "<password>",
+            token: "<token>",
             urlSession: stub.urlSession
         )
         let expectedResponse = KnowledgeDocumentResponse(

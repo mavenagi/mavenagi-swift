@@ -120,15 +120,15 @@ import Api
                     "additionalData": {
                       "additionalData": "additionalData"
                     }
-                  }
+                  },
+                  "executionMode": "LIVE"
                 }
                 """.utf8
             )
         )
         let client = MavenAGI(
             baseURL: "https://api.fern.com",
-            appId: "<username>",
-            appSecret: "<password>",
+            token: "<token>",
             urlSession: stub.urlSession
         )
         let expectedResponse = .userEvent(
@@ -226,7 +226,8 @@ import Api
                     additionalData: [
                         "additionalData": "additionalData"
                     ]
-                ))
+                )),
+                executionMode: Optional(.live)
             )
         )
         let response = try await client.events.create(
@@ -367,7 +368,8 @@ import Api
                         "additionalData": {
                           "additionalData": "additionalData"
                         }
-                      }
+                      },
+                      "executionMode": "LIVE"
                     },
                     {
                       "eventType": "userEvent",
@@ -481,7 +483,8 @@ import Api
                         "additionalData": {
                           "additionalData": "additionalData"
                         }
-                      }
+                      },
+                      "executionMode": "LIVE"
                     }
                   ],
                   "number": 1,
@@ -494,8 +497,7 @@ import Api
         )
         let client = MavenAGI(
             baseURL: "https://api.fern.com",
-            appId: "<username>",
-            appSecret: "<password>",
+            token: "<token>",
             urlSession: stub.urlSession
         )
         let expectedResponse = EventsSearchResponse(
@@ -595,7 +597,8 @@ import Api
                             additionalData: [
                                 "additionalData": "additionalData"
                             ]
-                        ))
+                        )),
+                        executionMode: Optional(.live)
                     )
                 ),
                 .userEvent(
@@ -693,7 +696,8 @@ import Api
                             additionalData: [
                                 "additionalData": "additionalData"
                             ]
-                        ))
+                        )),
+                        executionMode: Optional(.live)
                     )
                 )
             ],
@@ -828,15 +832,15 @@ import Api
                     "additionalData": {
                       "additionalData": "additionalData"
                     }
-                  }
+                  },
+                  "executionMode": "LIVE"
                 }
                 """.utf8
             )
         )
         let client = MavenAGI(
             baseURL: "https://api.fern.com",
-            appId: "<username>",
-            appSecret: "<password>",
+            token: "<token>",
             urlSession: stub.urlSession
         )
         let expectedResponse = .userEvent(
@@ -934,7 +938,8 @@ import Api
                     additionalData: [
                         "additionalData": "additionalData"
                     ]
-                ))
+                )),
+                executionMode: Optional(.live)
             )
         )
         let response = try await client.events.get(

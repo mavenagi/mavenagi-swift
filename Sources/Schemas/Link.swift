@@ -6,7 +6,7 @@ public struct Link: Codable, Hashable, Sendable {
     public let title: String
     /// Optional longer explanation of where the link goes.
     public let description: String?
-    /// Destination URL.
+    /// Destination URL. May use [placeholders](https://developers.mavenagi.com/docs/documentation/configuration-and-integration/placeholders) such as `${appHost}`.
     public let url: String
     /// Additional properties that are not explicitly defined in the schema
     public let additionalProperties: [String: JSONValue]

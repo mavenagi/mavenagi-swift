@@ -35,6 +35,10 @@ public struct ConversationResponse: Codable, Hashable, Sendable {
     /// Additional context used for simulation runs. When present, this conversation is treated as a simulation.
     /// Simulation conversations are excluded from normal search results unless explicitly included via the `simulationFilter` field.
     public let simulationContext: SimulationContext?
+    /// Whether the conversation runs on live data or is a simulation. A conversation created
+    /// with a `simulationContext` is a `SIMULATION`, and so are the conversations Maven runs
+    /// itself, such as evaluations, which have no `simulationContext`.
+    public let executionMode: ExecutionMode
     /// Related entity ids grouped by relationship type.
     /// 
     /// - `SPAWN_FROM`: the conversation this one was spawned from (set via `ConversationCreateRequest.spawnedFromConversationId`).
@@ -73,6 +77,7 @@ public struct ConversationResponse: Codable, Hashable, Sendable {
         open: Bool,
         llmEnabled: Bool,
         simulationContext: SimulationContext? = nil,
+        executionMode: ExecutionMode,
         relatedEntities: [RelationshipType: [EntityId]]? = nil,
         conversationMode: ConversationMode? = nil,
         variantId: EntityId? = nil,
@@ -95,6 +100,7 @@ public struct ConversationResponse: Codable, Hashable, Sendable {
         self.open = open
         self.llmEnabled = llmEnabled
         self.simulationContext = simulationContext
+        self.executionMode = executionMode
         self.relatedEntities = relatedEntities
         self.conversationMode = conversationMode
         self.variantId = variantId
@@ -120,6 +126,7 @@ public struct ConversationResponse: Codable, Hashable, Sendable {
         self.open = try container.decode(Bool.self, forKey: .open)
         self.llmEnabled = try container.decode(Bool.self, forKey: .llmEnabled)
         self.simulationContext = try container.decodeIfPresent(SimulationContext.self, forKey: .simulationContext)
+        self.executionMode = try container.decode(ExecutionMode.self, forKey: .executionMode)
         self.relatedEntities = try container.decodeIfPresent([RelationshipType: [EntityId]].self, forKey: .relatedEntities)
         self.conversationMode = try container.decodeIfPresent(ConversationMode.self, forKey: .conversationMode)
         self.variantId = try container.decodeIfPresent(EntityId.self, forKey: .variantId)
@@ -146,6 +153,7 @@ public struct ConversationResponse: Codable, Hashable, Sendable {
         try container.encode(self.open, forKey: .open)
         try container.encode(self.llmEnabled, forKey: .llmEnabled)
         try container.encodeIfPresent(self.simulationContext, forKey: .simulationContext)
+        try container.encode(self.executionMode, forKey: .executionMode)
         try container.encodeIfPresent(self.relatedEntities, forKey: .relatedEntities)
         try container.encodeIfPresent(self.conversationMode, forKey: .conversationMode)
         try container.encodeIfPresent(self.variantId, forKey: .variantId)
@@ -170,6 +178,7 @@ public struct ConversationResponse: Codable, Hashable, Sendable {
         case open
         case llmEnabled
         case simulationContext
+        case executionMode
         case relatedEntities
         case conversationMode
         case variantId

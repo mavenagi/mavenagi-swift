@@ -52,14 +52,16 @@ public final class ConversationClient: Sendable {
     /// - Parameter conversationId: The ID of the conversation to get
     /// - Parameter appId: The App ID of the conversation to get. If not provided the ID of the calling app will be used.
     /// - Parameter translationLanguage: The language to translate the conversation analysis into
+    /// - Parameter includeLogic: Whether to return `logic` on each bot message. Defaults to `true`. Pass `false` to leave it out, which makes the response much smaller.
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
-    public func get(conversationId: String, appId: String? = nil, translationLanguage: String? = nil, requestOptions: RequestOptions? = nil) async throws -> ConversationResponse {
+    public func get(conversationId: String, appId: String? = nil, translationLanguage: String? = nil, includeLogic: Bool? = nil, requestOptions: RequestOptions? = nil) async throws -> ConversationResponse {
         return try await httpClient.performRequest(
             method: .get,
             path: "/v1/conversations/\(conversationId)",
             queryParams: [
                 "appId": appId.map { .string($0) }, 
-                "translationLanguage": translationLanguage.map { .string($0) }
+                "translationLanguage": translationLanguage.map { .string($0) }, 
+                "includeLogic": includeLogic.map { .bool($0) }
             ],
             requestOptions: requestOptions,
             responseType: ConversationResponse.self
@@ -335,9 +337,11 @@ public final class ConversationClient: Sendable {
 
     /// Deliver a message to a user or conversation.
     /// 
+    /// A closed conversation (`open` set to false) takes no new messages and returns a 400.
+    /// 
     /// <Warning>
-    /// Currently, messages can only be successfully delivered to conversations with the `ASYNC` capability that are `open`.
-    /// User message delivery is not yet supported.
+    /// Currently, messages can only be successfully delivered to conversations with the `ASYNC` capability.
+    /// User message delivery is not yet supported and returns a 400.
     /// </Warning>
     ///
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.

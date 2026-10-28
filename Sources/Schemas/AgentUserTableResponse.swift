@@ -3,7 +3,8 @@ import Foundation
 public struct AgentUserTableResponse: Codable, Hashable, Sendable {
     /// Column headers in the table, aligning with the column definitions specified in the request.
     public let headers: [String]
-    /// Each row contains the user count for the given search query and corresponding time grouping.
+    /// One row per combination of time bucket and field grouping values, each holding the user
+    /// count for the given filter.
     public let rows: [AgentUserRow]
     /// Additional properties that are not explicitly defined in the schema
     public let additionalProperties: [String: JSONValue]

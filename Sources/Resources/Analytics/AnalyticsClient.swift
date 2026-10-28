@@ -48,23 +48,6 @@ public final class AnalyticsClient: Sendable {
         )
     }
 
-    /// Deprecated. Use `getEventTable` instead, which reports the same thumbs up/down and insert
-    /// activity as user events.
-    /// 
-    /// Retrieves structured feedback data formatted as a table, allowing users to group, filter,
-    /// and define specific metrics to display as columns.
-    ///
-    /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
-    public func getFeedbackTable(request: FeedbackTableRequest, requestOptions: RequestOptions? = nil) async throws -> FeedbackTableResponse {
-        return try await httpClient.performRequest(
-            method: .post,
-            path: "/v1/tables/feedback",
-            body: request,
-            requestOptions: requestOptions,
-            responseType: FeedbackTableResponse.self
-        )
-    }
-
     /// Retrieves structured agent user data formatted as a table, allowing users to group, filter,  and define specific metrics to display as columns.
     ///
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.

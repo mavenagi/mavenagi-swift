@@ -19,8 +19,6 @@ extension Requests {
         public let enumOptions: [EnumOption]?
         /// The agent variant to stage this patch in. Required on an agent with versioned intelligent fields; a patch that omits it there is rejected with reason `VARIANT_REQUIRED`.
         public let variantId: EntityIdWithoutAgent?
-        /// Deprecated, use `variantId.appId`, which wins when both are set.
-        public let variantAppId: String?
         /// Additional properties that are not explicitly defined in the schema
         public let additionalProperties: [String: JSONValue]
 
@@ -31,7 +29,6 @@ extension Requests {
             description: String? = nil,
             enumOptions: [EnumOption]? = nil,
             variantId: EntityIdWithoutAgent? = nil,
-            variantAppId: String? = nil,
             additionalProperties: [String: JSONValue] = .init()
         ) {
             self.appId = appId
@@ -40,7 +37,6 @@ extension Requests {
             self.description = description
             self.enumOptions = enumOptions
             self.variantId = variantId
-            self.variantAppId = variantAppId
             self.additionalProperties = additionalProperties
         }
 
@@ -52,7 +48,6 @@ extension Requests {
             self.description = try container.decodeIfPresent(String.self, forKey: .description)
             self.enumOptions = try container.decodeIfPresent([EnumOption].self, forKey: .enumOptions)
             self.variantId = try container.decodeIfPresent(EntityIdWithoutAgent.self, forKey: .variantId)
-            self.variantAppId = try container.decodeIfPresent(String.self, forKey: .variantAppId)
             self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
         }
 
@@ -65,7 +60,6 @@ extension Requests {
             try container.encodeIfPresent(self.description, forKey: .description)
             try container.encodeIfPresent(self.enumOptions, forKey: .enumOptions)
             try container.encodeIfPresent(self.variantId, forKey: .variantId)
-            try container.encodeIfPresent(self.variantAppId, forKey: .variantAppId)
         }
 
         /// Keys for encoding/decoding struct properties.
@@ -76,7 +70,6 @@ extension Requests {
             case description
             case enumOptions
             case variantId
-            case variantAppId
         }
     }
 }

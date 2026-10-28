@@ -1,8 +1,9 @@
 import Foundation
 
 public struct SimulationActionMock: Codable, Hashable, Sendable {
-    /// The action this entry applies to.
+    /// The action this entry applies to. Its `type` must be `ACTION`.
     public let actionId: EntityIdWithoutAgent
+    /// What the platform does when the agent executes this action.
     public let behavior: SimulationActionBehavior
     /// Additional properties that are not explicitly defined in the schema
     public let additionalProperties: [String: JSONValue]

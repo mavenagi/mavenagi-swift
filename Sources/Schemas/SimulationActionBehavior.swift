@@ -4,8 +4,9 @@ public enum SimulationActionBehavior: Codable, Hashable, Sendable {
     /// The platform calls the action's app instead of returning a mocked result.
     case callApp(CallApp)
     /// The platform does not call the action's app and uses this result as the action's
-    /// result. `response` and `errorMessage` are Handlebars templates over the action's input
-    /// parameters, such as `{{parameterId}}`, rendered without HTML escaping.
+    /// result. `response` is required. `response` and `errorMessage` are Handlebars templates
+    /// over the action's input parameters, such as `{{parameterId}}`, rendered without HTML
+    /// escaping. Set `status` to `ERROR` to mock a failed action.
     case fixedResponse(FixedResponse)
 
     public init(from decoder: Decoder) throws {
@@ -36,8 +37,9 @@ public enum SimulationActionBehavior: Codable, Hashable, Sendable {
     }
 
     /// The platform does not call the action's app and uses this result as the action's
-    /// result. `response` and `errorMessage` are Handlebars templates over the action's input
-    /// parameters, such as `{{parameterId}}`, rendered without HTML escaping.
+    /// result. `response` is required. `response` and `errorMessage` are Handlebars templates
+    /// over the action's input parameters, such as `{{parameterId}}`, rendered without HTML
+    /// escaping. Set `status` to `ERROR` to mock a failed action.
     public struct FixedResponse: Codable, Hashable, Sendable {
         public let type: String = "fixedResponse"
         /// The action's result. This is what the agent is given, whether it succeeded or failed.

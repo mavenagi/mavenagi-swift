@@ -38,6 +38,10 @@ public enum EventResponse: Codable, Hashable, Sendable {
         public let sourceInfo: SourceInfo?
         public let sessionInfo: SessionInfo?
         public let contextInfo: ContextInfo?
+        /// Whether the event happened on live data or in a simulation. Defaults to `LIVE` when
+        /// creating an event, and is always set on a returned event. Creating a `SIMULATION` event
+        /// requires the `create:simulations` permission.
+        public let executionMode: ExecutionMode?
         /// The unique ID of the event
         public let id: EntityId
         /// The date and time the event was created
@@ -62,6 +66,7 @@ public enum EventResponse: Codable, Hashable, Sendable {
             sourceInfo: SourceInfo? = nil,
             sessionInfo: SessionInfo? = nil,
             contextInfo: ContextInfo? = nil,
+            executionMode: ExecutionMode? = nil,
             id: EntityId,
             createdAt: Date? = nil,
             eventName: UserEventName,
@@ -76,6 +81,7 @@ public enum EventResponse: Codable, Hashable, Sendable {
             self.sourceInfo = sourceInfo
             self.sessionInfo = sessionInfo
             self.contextInfo = contextInfo
+            self.executionMode = executionMode
             self.id = id
             self.createdAt = createdAt
             self.eventName = eventName
@@ -93,6 +99,7 @@ public enum EventResponse: Codable, Hashable, Sendable {
             self.sourceInfo = try container.decodeIfPresent(SourceInfo.self, forKey: .sourceInfo)
             self.sessionInfo = try container.decodeIfPresent(SessionInfo.self, forKey: .sessionInfo)
             self.contextInfo = try container.decodeIfPresent(ContextInfo.self, forKey: .contextInfo)
+            self.executionMode = try container.decodeIfPresent(ExecutionMode.self, forKey: .executionMode)
             self.id = try container.decode(EntityId.self, forKey: .id)
             self.createdAt = try container.decodeIfPresent(Date.self, forKey: .createdAt)
             self.eventName = try container.decode(UserEventName.self, forKey: .eventName)
@@ -112,6 +119,7 @@ public enum EventResponse: Codable, Hashable, Sendable {
             try container.encodeIfPresent(self.sourceInfo, forKey: .sourceInfo)
             try container.encodeIfPresent(self.sessionInfo, forKey: .sessionInfo)
             try container.encodeIfPresent(self.contextInfo, forKey: .contextInfo)
+            try container.encodeIfPresent(self.executionMode, forKey: .executionMode)
             try container.encode(self.id, forKey: .id)
             try container.encodeIfPresent(self.createdAt, forKey: .createdAt)
             try container.encode(self.eventName, forKey: .eventName)
@@ -129,6 +137,7 @@ public enum EventResponse: Codable, Hashable, Sendable {
             case sourceInfo
             case sessionInfo
             case contextInfo
+            case executionMode
             case id
             case createdAt
             case eventName
@@ -148,6 +157,10 @@ public enum EventResponse: Codable, Hashable, Sendable {
         public let sourceInfo: SourceInfo?
         public let sessionInfo: SessionInfo?
         public let contextInfo: ContextInfo?
+        /// Whether the event happened on live data or in a simulation. Defaults to `LIVE` when
+        /// creating an event, and is always set on a returned event. Creating a `SIMULATION` event
+        /// requires the `create:simulations` permission.
+        public let executionMode: ExecutionMode?
         /// The unique ID of the event
         public let id: EntityId
         /// Additional properties that are not explicitly defined in the schema
@@ -160,6 +173,7 @@ public enum EventResponse: Codable, Hashable, Sendable {
             sourceInfo: SourceInfo? = nil,
             sessionInfo: SessionInfo? = nil,
             contextInfo: ContextInfo? = nil,
+            executionMode: ExecutionMode? = nil,
             id: EntityId,
             additionalProperties: [String: JSONValue] = .init()
         ) {
@@ -169,6 +183,7 @@ public enum EventResponse: Codable, Hashable, Sendable {
             self.sourceInfo = sourceInfo
             self.sessionInfo = sessionInfo
             self.contextInfo = contextInfo
+            self.executionMode = executionMode
             self.id = id
             self.additionalProperties = additionalProperties
         }
@@ -181,6 +196,7 @@ public enum EventResponse: Codable, Hashable, Sendable {
             self.sourceInfo = try container.decodeIfPresent(SourceInfo.self, forKey: .sourceInfo)
             self.sessionInfo = try container.decodeIfPresent(SessionInfo.self, forKey: .sessionInfo)
             self.contextInfo = try container.decodeIfPresent(ContextInfo.self, forKey: .contextInfo)
+            self.executionMode = try container.decodeIfPresent(ExecutionMode.self, forKey: .executionMode)
             self.id = try container.decode(EntityId.self, forKey: .id)
             self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
         }
@@ -195,6 +211,7 @@ public enum EventResponse: Codable, Hashable, Sendable {
             try container.encodeIfPresent(self.sourceInfo, forKey: .sourceInfo)
             try container.encodeIfPresent(self.sessionInfo, forKey: .sessionInfo)
             try container.encodeIfPresent(self.contextInfo, forKey: .contextInfo)
+            try container.encodeIfPresent(self.executionMode, forKey: .executionMode)
             try container.encode(self.id, forKey: .id)
         }
 
@@ -207,6 +224,7 @@ public enum EventResponse: Codable, Hashable, Sendable {
             case sourceInfo
             case sessionInfo
             case contextInfo
+            case executionMode
             case id
         }
     }

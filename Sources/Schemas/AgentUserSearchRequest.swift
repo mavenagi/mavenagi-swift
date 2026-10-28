@@ -7,6 +7,8 @@ public struct AgentUserSearchRequest: Codable, Hashable, Sendable {
     public let size: Int?
     /// Whether to sort descending, defaults to true
     public let sortDesc: Bool?
+    /// Field to sort results by. `IntelligentField` is not supported here; intelligent fields
+    /// can be filtered on via `filter.intelligentFields` and grouped through the analytics APIs.
     public let sort: AgentUserField?
     public let filter: AgentUserFilter?
     /// Additional properties that are not explicitly defined in the schema

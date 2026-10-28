@@ -145,8 +145,7 @@ import Api
         )
         let client = MavenAGI(
             baseURL: "https://api.fern.com",
-            appId: "<username>",
-            appSecret: "<password>",
+            token: "<token>",
             urlSession: stub.urlSession
         )
         let expectedResponse = .action(
@@ -429,8 +428,7 @@ import Api
         )
         let client = MavenAGI(
             baseURL: "https://api.fern.com",
-            appId: "<username>",
-            appSecret: "<password>",
+            token: "<token>",
             urlSession: stub.urlSession
         )
         let expectedResponse = .action(
@@ -593,8 +591,7 @@ import Api
         )
         let client = MavenAGI(
             baseURL: "https://api.fern.com",
-            appId: "<username>",
-            appSecret: "<password>",
+            token: "<token>",
             urlSession: stub.urlSession
         )
         let expectedResponse = .action(
@@ -672,8 +669,7 @@ import Api
         )
         let client = MavenAGI(
             baseURL: "https://api.fern.com",
-            appId: "<username>",
-            appSecret: "<password>",
+            token: "<token>",
             urlSession: stub.urlSession
         )
         let expectedResponse = CapabilitiesSearchResponse(
@@ -754,6 +750,7 @@ import Api
                       "completedAt": "2026-08-31T10:30:06Z",
                       "durationMs": 1120,
                       "createdAt": "2026-08-31T10:30:05Z",
+                      "executionMode": "LIVE",
                       "eventType": "CONVERSATION_CREATED",
                       "attempt": 1
                     },
@@ -779,7 +776,8 @@ import Api
                       "startedAt": "2026-08-31T10:30:00Z",
                       "completedAt": "2026-08-31T10:30:04Z",
                       "durationMs": 4000,
-                      "createdAt": "2026-08-31T10:30:00Z"
+                      "createdAt": "2026-08-31T10:30:00Z",
+                      "executionMode": "LIVE"
                     }
                   ]
                 }
@@ -788,8 +786,7 @@ import Api
         )
         let client = MavenAGI(
             baseURL: "https://api.fern.com",
-            appId: "<username>",
-            appSecret: "<password>",
+            token: "<token>",
             urlSession: stub.urlSession
         )
         let expectedResponse = CapabilityExecutionsSearchResponse(
@@ -820,6 +817,7 @@ import Api
                         completedAt: Optional(try! Date("2026-08-31T10:30:06Z", strategy: .iso8601)),
                         durationMs: Optional(1120),
                         createdAt: try! Date("2026-08-31T10:30:05Z", strategy: .iso8601),
+                        executionMode: .live,
                         eventType: .conversationCreated,
                         attempt: 1
                     )
@@ -846,7 +844,8 @@ import Api
                         startedAt: try! Date("2026-08-31T10:30:00Z", strategy: .iso8601),
                         completedAt: Optional(try! Date("2026-08-31T10:30:04Z", strategy: .iso8601)),
                         durationMs: Optional(4000),
-                        createdAt: try! Date("2026-08-31T10:30:00Z", strategy: .iso8601)
+                        createdAt: try! Date("2026-08-31T10:30:00Z", strategy: .iso8601),
+                        executionMode: .live
                     )
                 )
             ]

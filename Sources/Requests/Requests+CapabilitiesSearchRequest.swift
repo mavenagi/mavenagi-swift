@@ -32,10 +32,6 @@ extension Requests {
         /// staged edit if it has one, and a field deleted in the variant, whether the delete is
         /// staged or already in its snapshot, is left out.
         public let variantId: EntityIdWithoutAgent?
-        /// Deprecated, use `variantId`, which wins when both are set.
-        public let variantReferenceId: String?
-        /// Deprecated, use `variantId`, which wins when both are set.
-        public let variantAppId: String?
         /// Additional properties that are not explicitly defined in the schema
         public let additionalProperties: [String: JSONValue]
 
@@ -51,8 +47,6 @@ extension Requests {
             userInteractionRequired: Bool? = nil,
             sortId: CapabilitySortField? = nil,
             variantId: EntityIdWithoutAgent? = nil,
-            variantReferenceId: String? = nil,
-            variantAppId: String? = nil,
             additionalProperties: [String: JSONValue] = .init()
         ) {
             self.page = page
@@ -66,8 +60,6 @@ extension Requests {
             self.userInteractionRequired = userInteractionRequired
             self.sortId = sortId
             self.variantId = variantId
-            self.variantReferenceId = variantReferenceId
-            self.variantAppId = variantAppId
             self.additionalProperties = additionalProperties
         }
 
@@ -84,8 +76,6 @@ extension Requests {
             self.userInteractionRequired = try container.decodeIfPresent(Bool.self, forKey: .userInteractionRequired)
             self.sortId = try container.decodeIfPresent(CapabilitySortField.self, forKey: .sortId)
             self.variantId = try container.decodeIfPresent(EntityIdWithoutAgent.self, forKey: .variantId)
-            self.variantReferenceId = try container.decodeIfPresent(String.self, forKey: .variantReferenceId)
-            self.variantAppId = try container.decodeIfPresent(String.self, forKey: .variantAppId)
             self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
         }
 
@@ -103,8 +93,6 @@ extension Requests {
             try container.encodeIfPresent(self.userInteractionRequired, forKey: .userInteractionRequired)
             try container.encodeIfPresent(self.sortId, forKey: .sortId)
             try container.encodeIfPresent(self.variantId, forKey: .variantId)
-            try container.encodeIfPresent(self.variantReferenceId, forKey: .variantReferenceId)
-            try container.encodeIfPresent(self.variantAppId, forKey: .variantAppId)
         }
 
         /// Keys for encoding/decoding struct properties.
@@ -120,8 +108,6 @@ extension Requests {
             case userInteractionRequired
             case sortId
             case variantId
-            case variantReferenceId
-            case variantAppId
         }
     }
 }

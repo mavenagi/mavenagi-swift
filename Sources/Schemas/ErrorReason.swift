@@ -14,9 +14,9 @@ public enum ErrorReason: String, Codable, Hashable, CaseIterable, Sendable {
     case nothingToCommit = "NOTHING_TO_COMMIT"
     /// The ID requested for a new variant is already taken.
     case variantAlreadyExists = "VARIANT_ALREADY_EXISTS"
-    /// The agent is at its limit of ACTIVE variants, so no variant can be created, forked, committed or set back to ACTIVE. Archive or delete one first.
+    /// The agent is at its limit of ACTIVE variants, so no variant can be created, forked, committed or set back to ACTIVE. Archive or delete one first. A commit that archives its source doesn't add one, so it isn't refused at the limit.
     case variantLimitReached = "VARIANT_LIMIT_REACHED"
-    /// The variant is receiving live traffic, so it can't be archived or deleted. Move its traffic elsewhere first.
+    /// The variant is receiving live traffic, so it can't be archived or deleted, including by a commit that archives its source. Move its traffic elsewhere first.
     case cannotArchiveLiveVariant = "CANNOT_ARCHIVE_LIVE_VARIANT"
     /// A traffic rule, a simulation or an eval run names a variant with staged edits. Publish or discard them first.
     case variantHasStagedEdits = "VARIANT_HAS_STAGED_EDITS"

@@ -193,7 +193,7 @@ public enum ConversationMessageResponse: Codable, Hashable, Sendable {
         public let responses: [BotResponse]
         public let metadata: BotResponseMetadata
         public let status: MessageStatus
-        /// The logic that was used to generate the response. Response size may be large; only present on the getConversation request.
+        /// The logic that was used to generate the response. Response size may be large; only present on the getConversation request, unless it passes `includeLogic=false`.
         public let logic: BotLogic?
         /// Why the agent could not answer. Present only when `status` is `REJECTED` or `FAILED`, and absent for every other status.
         /// A `FAILED` message without a reason failed for some other cause, such as the model returning no answer.

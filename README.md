@@ -20,7 +20,7 @@ With Swift Package Manager (SPM), add the following to the top-level `dependenci
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/mavenagi/mavenagi-swift", from: "1.2.65"),
+    .package(url: "https://github.com/mavenagi/mavenagi-swift", from: "1.2.66"),
 ]
 ```
 
@@ -37,10 +37,7 @@ import Foundation
 import Api
 
 private func main() async throws {
-    let client = MavenAGI(
-        appId: "<username>",
-        appSecret: "<password>"
-    )
+    let client = MavenAGI(token: "<token>")
 
     _ = try await client.actions.search(request: ActionsSearchRequest(
 

@@ -33,10 +33,7 @@ import Foundation
 import Api
 
 private func main() async throws {
-    let client = MavenAGI(
-        appId: "<username>",
-        appSecret: "<password>"
-    )
+    let client = MavenAGI(token: "<token>")
 
     _ = try await client.actions.search(request: ActionsSearchRequest(
 
@@ -109,10 +106,7 @@ import Foundation
 import Api
 
 private func main() async throws {
-    let client = MavenAGI(
-        appId: "<username>",
-        appSecret: "<password>"
-    )
+    let client = MavenAGI(token: "<token>")
 
     _ = try await client.actions.createOrUpdate(request: ActionRequest(
         name: "Get the user's balance",
@@ -212,10 +206,7 @@ import Foundation
 import Api
 
 private func main() async throws {
-    let client = MavenAGI(
-        appId: "<username>",
-        appSecret: "<password>"
-    )
+    let client = MavenAGI(token: "<token>")
 
     _ = try await client.actions.get(actionReferenceId: "get-balance")
 }
@@ -297,10 +288,7 @@ import Foundation
 import Api
 
 private func main() async throws {
-    let client = MavenAGI(
-        appId: "<username>",
-        appSecret: "<password>"
-    )
+    let client = MavenAGI(token: "<token>")
 
     _ = try await client.actions.patch(
         actionReferenceId: "get-balance",
@@ -395,10 +383,7 @@ import Foundation
 import Api
 
 private func main() async throws {
-    let client = MavenAGI(
-        appId: "<username>",
-        appSecret: "<password>"
-    )
+    let client = MavenAGI(token: "<token>")
 
     _ = try await client.actions.delete(actionReferenceId: "get-balance")
 }
@@ -474,10 +459,7 @@ import Foundation
 import Api
 
 private func main() async throws {
-    let client = MavenAGI(
-        appId: "<username>",
-        appSecret: "<password>"
-    )
+    let client = MavenAGI(token: "<token>")
 
     _ = try await client.agents.search(request: AgentsSearchRequest(
 
@@ -550,10 +532,7 @@ import Foundation
 import Api
 
 private func main() async throws {
-    let client = MavenAGI(
-        appId: "<username>",
-        appSecret: "<password>"
-    )
+    let client = MavenAGI(token: "<token>")
 
     _ = try await client.agents.list(organizationReferenceId: "organizationReferenceId")
 }
@@ -628,10 +607,7 @@ import Foundation
 import Api
 
 private func main() async throws {
-    let client = MavenAGI(
-        appId: "<username>",
-        appSecret: "<password>"
-    )
+    let client = MavenAGI(token: "<token>")
 
     _ = try await client.agents.create(
         organizationReferenceId: "organizationReferenceId",
@@ -725,10 +701,7 @@ import Foundation
 import Api
 
 private func main() async throws {
-    let client = MavenAGI(
-        appId: "<username>",
-        appSecret: "<password>"
-    )
+    let client = MavenAGI(token: "<token>")
 
     _ = try await client.agents.get(
         organizationReferenceId: "organizationReferenceId",
@@ -815,10 +788,7 @@ import Foundation
 import Api
 
 private func main() async throws {
-    let client = MavenAGI(
-        appId: "<username>",
-        appSecret: "<password>"
-    )
+    let client = MavenAGI(token: "<token>")
 
     _ = try await client.agents.patch(
         organizationReferenceId: "organizationReferenceId",
@@ -913,10 +883,7 @@ import Foundation
 import Api
 
 private func main() async throws {
-    let client = MavenAGI(
-        appId: "<username>",
-        appSecret: "<password>"
-    )
+    let client = MavenAGI(token: "<token>")
 
     _ = try await client.agents.delete(
         organizationReferenceId: "organizationReferenceId",
@@ -999,10 +966,7 @@ import Foundation
 import Api
 
 private func main() async throws {
-    let client = MavenAGI(
-        appId: "<username>",
-        appSecret: "<password>"
-    )
+    let client = MavenAGI(token: "<token>")
 
     _ = try await client.analytics.getConversationTable(request: ConversationTableRequest(
         conversationFilter: ConversationFilter(
@@ -1113,10 +1077,7 @@ import Foundation
 import Api
 
 private func main() async throws {
-    let client = MavenAGI(
-        appId: "<username>",
-        appSecret: "<password>"
-    )
+    let client = MavenAGI(token: "<token>")
 
     _ = try await client.analytics.getConversationChart(request: ConversationChartRequest.pieChart(
         .init(
@@ -1206,10 +1167,7 @@ import Foundation
 import Api
 
 private func main() async throws {
-    let client = MavenAGI(
-        appId: "<username>",
-        appSecret: "<password>"
-    )
+    let client = MavenAGI(token: "<token>")
 
     _ = try await client.analytics.exportConversationTable(request: ConversationTableRequest(
         fieldGroupings: [
@@ -1276,106 +1234,6 @@ try await main()
 </dl>
 </details>
 
-<details><summary><code>client.analytics.<a href="/Sources/Resources/Analytics/AnalyticsClient.swift">getFeedbackTable</a>(request: FeedbackTableRequest, requestOptions: RequestOptions?) -> FeedbackTableResponse</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Deprecated. Use `getEventTable` instead, which reports the same thumbs up/down and insert
-activity as user events.
-
-Retrieves structured feedback data formatted as a table, allowing users to group, filter,
-and define specific metrics to display as columns.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```swift
-import Foundation
-import Api
-
-private func main() async throws {
-    let client = MavenAGI(
-        appId: "<username>",
-        appSecret: "<password>"
-    )
-
-    _ = try await client.analytics.getFeedbackTable(request: FeedbackTableRequest(
-        feedbackFilter: FeedbackFilter(
-            types: [
-                .thumbsUp,
-                .insert
-            ]
-        ),
-        fieldGroupings: [
-            FeedbackGroupBy(
-                field: .createdBy
-            )
-        ],
-        columnDefinitions: [
-            FeedbackColumnDefinition(
-                header: "feedback_count",
-                metric: FeedbackMetric.count(
-                    .init(
-
-                    )
-                )
-            )
-        ]
-    ))
-}
-
-try await main()
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request:** `FeedbackTableRequest` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `RequestOptions?` — Additional options for configuring the request, such as custom headers or timeout settings.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
 <details><summary><code>client.analytics.<a href="/Sources/Resources/Analytics/AnalyticsClient.swift">getAgentUserTable</a>(request: AgentUserTableRequest, requestOptions: RequestOptions?) -> AgentUserTableResponse</code></summary>
 <dl>
 <dd>
@@ -1407,10 +1265,7 @@ import Foundation
 import Api
 
 private func main() async throws {
-    let client = MavenAGI(
-        appId: "<username>",
-        appSecret: "<password>"
-    )
+    let client = MavenAGI(token: "<token>")
 
     _ = try await client.analytics.getAgentUserTable(request: AgentUserTableRequest(
         agentUserFilter: AgentUserFilter(
@@ -1495,10 +1350,7 @@ import Foundation
 import Api
 
 private func main() async throws {
-    let client = MavenAGI(
-        appId: "<username>",
-        appSecret: "<password>"
-    )
+    let client = MavenAGI(token: "<token>")
 
     _ = try await client.analytics.getEventTable(request: EventTableRequest(
         eventFilter: EventFilter(
@@ -1590,10 +1442,7 @@ import Foundation
 import Api
 
 private func main() async throws {
-    let client = MavenAGI(
-        appId: "<username>",
-        appSecret: "<password>"
-    )
+    let client = MavenAGI(token: "<token>")
 
     _ = try await client.analytics.getEventChart(request: EventChartRequest.pieChart(
         .init(
@@ -1681,10 +1530,7 @@ import Foundation
 import Api
 
 private func main() async throws {
-    let client = MavenAGI(
-        appId: "<username>",
-        appSecret: "<password>"
-    )
+    let client = MavenAGI(token: "<token>")
 
     _ = try await client.appDirectory.search(request: DirectoryAppsSearchRequest(
 
@@ -1757,10 +1603,7 @@ import Foundation
 import Api
 
 private func main() async throws {
-    let client = MavenAGI(
-        appId: "<username>",
-        appSecret: "<password>"
-    )
+    let client = MavenAGI(token: "<token>")
 
     _ = try await client.appDirectory.get(appId: "appId")
 }
@@ -1831,10 +1674,7 @@ import Foundation
 import Api
 
 private func main() async throws {
-    let client = MavenAGI(
-        appId: "<username>",
-        appSecret: "<password>"
-    )
+    let client = MavenAGI(token: "<token>")
 
     _ = try await client.appDirectory.install(
         appId: "appId",
@@ -1920,10 +1760,7 @@ import Foundation
 import Api
 
 private func main() async throws {
-    let client = MavenAGI(
-        appId: "<username>",
-        appSecret: "<password>"
-    )
+    let client = MavenAGI(token: "<token>")
 
     _ = try await client.appDirectory.uninstall(appId: "appId")
 }
@@ -1994,10 +1831,7 @@ import Foundation
 import Api
 
 private func main() async throws {
-    let client = MavenAGI(
-        appId: "<username>",
-        appSecret: "<password>"
-    )
+    let client = MavenAGI(token: "<token>")
 
     _ = try await client.appDirectory.getSettingDownloadUrl(
         appId: "appId",
@@ -2079,10 +1913,7 @@ import Foundation
 import Api
 
 private func main() async throws {
-    let client = MavenAGI(
-        appId: "<username>",
-        appSecret: "<password>"
-    )
+    let client = MavenAGI(token: "<token>")
 
     _ = try await client.appDirectory.getSettingUploadUrl(
         appId: "appId",
@@ -2181,10 +2012,7 @@ import Foundation
 import Api
 
 private func main() async throws {
-    let client = MavenAGI(
-        appId: "<username>",
-        appSecret: "<password>"
-    )
+    let client = MavenAGI(token: "<token>")
 
     _ = try await client.appSettings.search(index: "index")
 }
@@ -2255,10 +2083,7 @@ import Foundation
 import Api
 
 private func main() async throws {
-    let client = MavenAGI(
-        appId: "<username>",
-        appSecret: "<password>"
-    )
+    let client = MavenAGI(token: "<token>")
 
     _ = try await client.appSettings.get()
 }
@@ -2327,10 +2152,7 @@ import Foundation
 import Api
 
 private func main() async throws {
-    let client = MavenAGI(
-        appId: "<username>",
-        appSecret: "<password>"
-    )
+    let client = MavenAGI(token: "<token>")
 
     _ = try await client.appSettings.update(request: [
         "string": .object([
@@ -2407,10 +2229,7 @@ import Foundation
 import Api
 
 private func main() async throws {
-    let client = MavenAGI(
-        appId: "<username>",
-        appSecret: "<password>"
-    )
+    let client = MavenAGI(token: "<token>")
 
     _ = try await client.assets.initiateUpload(request: InitiateAssetUploadRequest(
         type: "type"
@@ -2484,10 +2303,7 @@ import Foundation
 import Api
 
 private func main() async throws {
-    let client = MavenAGI(
-        appId: "<username>",
-        appSecret: "<password>"
-    )
+    let client = MavenAGI(token: "<token>")
 
     _ = try await client.assets.commitUpload(
         assetReferenceId: "assetReferenceId",
@@ -2577,10 +2393,7 @@ import Foundation
 import Api
 
 private func main() async throws {
-    let client = MavenAGI(
-        appId: "<username>",
-        appSecret: "<password>"
-    )
+    let client = MavenAGI(token: "<token>")
 
     _ = try await client.capabilities.getCapability(
         capabilityType: .action,
@@ -2703,10 +2516,7 @@ import Foundation
 import Api
 
 private func main() async throws {
-    let client = MavenAGI(
-        appId: "<username>",
-        appSecret: "<password>"
-    )
+    let client = MavenAGI(token: "<token>")
 
     _ = try await client.capabilities.patchCapability(
         capabilityType: .action,
@@ -2833,10 +2643,7 @@ import Foundation
 import Api
 
 private func main() async throws {
-    let client = MavenAGI(
-        appId: "<username>",
-        appSecret: "<password>"
-    )
+    let client = MavenAGI(token: "<token>")
 
     _ = try await client.capabilities.deleteCapability(
         capabilityType: .action,
@@ -2956,10 +2763,7 @@ import Foundation
 import Api
 
 private func main() async throws {
-    let client = MavenAGI(
-        appId: "<username>",
-        appSecret: "<password>"
-    )
+    let client = MavenAGI(token: "<token>")
 
     _ = try await client.capabilities.simulateCapability(
         capabilityType: .action,
@@ -3070,10 +2874,7 @@ import Foundation
 import Api
 
 private func main() async throws {
-    let client = MavenAGI(
-        appId: "<username>",
-        appSecret: "<password>"
-    )
+    let client = MavenAGI(token: "<token>")
 
     _ = try await client.capabilities.searchCapabilities(request: .init())
 }
@@ -3152,10 +2953,7 @@ import Foundation
 import Api
 
 private func main() async throws {
-    let client = MavenAGI(
-        appId: "<username>",
-        appSecret: "<password>"
-    )
+    let client = MavenAGI(token: "<token>")
 
     _ = try await client.capabilities.searchCapabilityExecutions(request: .init(subjectIds: [
         EntityId(
@@ -3248,10 +3046,7 @@ import Foundation
 import Api
 
 private func main() async throws {
-    let client = MavenAGI(
-        appId: "<username>",
-        appSecret: "<password>"
-    )
+    let client = MavenAGI(token: "<token>")
 
     _ = try await client.charters.createOrUpdate(request: CharterRequest(
         parentCharterId: .null,
@@ -3340,10 +3135,7 @@ import Foundation
 import Api
 
 private func main() async throws {
-    let client = MavenAGI(
-        appId: "<username>",
-        appSecret: "<password>"
-    )
+    let client = MavenAGI(token: "<token>")
 
     _ = try await client.charters.get(charterReferenceId: "cancellation-flow")
 }
@@ -3461,10 +3253,7 @@ import Foundation
 import Api
 
 private func main() async throws {
-    let client = MavenAGI(
-        appId: "<username>",
-        appSecret: "<password>"
-    )
+    let client = MavenAGI(token: "<token>")
 
     _ = try await client.charters.patch(
         charterReferenceId: "cancellation-flow",
@@ -3561,10 +3350,7 @@ import Foundation
 import Api
 
 private func main() async throws {
-    let client = MavenAGI(
-        appId: "<username>",
-        appSecret: "<password>"
-    )
+    let client = MavenAGI(token: "<token>")
 
     _ = try await client.charters.delete(charterReferenceId: "cancellation-flow")
 }
@@ -3675,10 +3461,7 @@ import Foundation
 import Api
 
 private func main() async throws {
-    let client = MavenAGI(
-        appId: "<username>",
-        appSecret: "<password>"
-    )
+    let client = MavenAGI(token: "<token>")
 
     _ = try await client.charters.search(request: CharterSearchRequest(
         page: 0,
@@ -3761,10 +3544,7 @@ import Foundation
 import Api
 
 private func main() async throws {
-    let client = MavenAGI(
-        appId: "<username>",
-        appSecret: "<password>"
-    )
+    let client = MavenAGI(token: "<token>")
 
     _ = try await client.charters.getAncestors(charterReferenceId: "cancellation-step-1")
 }
@@ -3876,10 +3656,7 @@ import Foundation
 import Api
 
 private func main() async throws {
-    let client = MavenAGI(
-        appId: "<username>",
-        appSecret: "<password>"
-    )
+    let client = MavenAGI(token: "<token>")
 
     _ = try await client.charters.listChildren(request: CharterListChildrenRequest(
         parentIds: []
@@ -3960,10 +3737,7 @@ import Foundation
 import Api
 
 private func main() async throws {
-    let client = MavenAGI(
-        appId: "<username>",
-        appSecret: "<password>"
-    )
+    let client = MavenAGI(token: "<token>")
 
     _ = try await client.conversationKickoffs.createOrUpdate(request: .init(
         kickoffId: EntityIdBase(
@@ -4048,37 +3822,13 @@ import Foundation
 import Api
 
 private func main() async throws {
-    let client = MavenAGI(
-        appId: "<username>",
-        appSecret: "<password>"
-    )
+    let client = MavenAGI(token: "<token>")
 
     _ = try await client.conversation.initialize(request: ConversationRequest(
         conversationId: EntityIdBase(
-            referenceId: "x"
+            referenceId: "conversation-0"
         ),
-        messages: [
-            ConversationMessageRequest(
-                userId: EntityIdBase(
-                    referenceId: "x"
-                ),
-                text: "text",
-                userMessageType: .user,
-                conversationMessageId: EntityIdBase(
-                    referenceId: "x"
-                )
-            ),
-            ConversationMessageRequest(
-                userId: EntityIdBase(
-                    referenceId: "x"
-                ),
-                text: "text",
-                userMessageType: .user,
-                conversationMessageId: EntityIdBase(
-                    referenceId: "x"
-                )
-            )
-        ]
+        messages: []
     ))
 }
 
@@ -4154,10 +3904,7 @@ import Foundation
 import Api
 
 private func main() async throws {
-    let client = MavenAGI(
-        appId: "<username>",
-        appSecret: "<password>"
-    )
+    let client = MavenAGI(token: "<token>")
 
     _ = try await client.conversation.patch(
         conversationId: "conversation-0",
@@ -4210,7 +3957,7 @@ try await main()
 </dl>
 </details>
 
-<details><summary><code>client.conversation.<a href="/Sources/Resources/Conversation/ConversationClient.swift">get</a>(conversationId: String, appId: String?, translationLanguage: String?, requestOptions: RequestOptions?) -> ConversationResponse</code></summary>
+<details><summary><code>client.conversation.<a href="/Sources/Resources/Conversation/ConversationClient.swift">get</a>(conversationId: String, appId: String?, translationLanguage: String?, includeLogic: Bool?, requestOptions: RequestOptions?) -> ConversationResponse</code></summary>
 <dl>
 <dd>
 
@@ -4241,10 +3988,7 @@ import Foundation
 import Api
 
 private func main() async throws {
-    let client = MavenAGI(
-        appId: "<username>",
-        appSecret: "<password>"
-    )
+    let client = MavenAGI(token: "<token>")
 
     _ = try await client.conversation.get(conversationId: "conversationId")
 }
@@ -4281,6 +4025,14 @@ try await main()
 <dd>
 
 **translationLanguage:** `String?` — The language to translate the conversation analysis into
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**includeLogic:** `Bool?` — Whether to return `logic` on each bot message. Defaults to `true`. Pass `false` to leave it out, which makes the response much smaller.
     
 </dd>
 </dl>
@@ -4343,10 +4095,7 @@ import Foundation
 import Api
 
 private func main() async throws {
-    let client = MavenAGI(
-        appId: "<username>",
-        appSecret: "<password>"
-    )
+    let client = MavenAGI(token: "<token>")
 
     _ = try await client.conversation.delete(
         conversationId: "conversation-0",
@@ -4438,10 +4187,7 @@ import Foundation
 import Api
 
 private func main() async throws {
-    let client = MavenAGI(
-        appId: "<username>",
-        appSecret: "<password>"
-    )
+    let client = MavenAGI(token: "<token>")
 
     _ = try await client.conversation.appendNewMessages(
         conversationId: "conversationId",
@@ -4554,10 +4300,7 @@ import Foundation
 import Api
 
 private func main() async throws {
-    let client = MavenAGI(
-        appId: "<username>",
-        appSecret: "<password>"
-    )
+    let client = MavenAGI(token: "<token>")
 
     _ = try await client.conversation.ask(
         conversationId: "conversation-0",
@@ -4672,10 +4415,7 @@ import Foundation
 import Api
 
 private func main() async throws {
-    let client = MavenAGI(
-        appId: "<username>",
-        appSecret: "<password>"
-    )
+    let client = MavenAGI(token: "<token>")
 
     _ = try await client.conversation.askStream(
         conversationId: "conversation-0",
@@ -4780,10 +4520,7 @@ import Foundation
 import Api
 
 private func main() async throws {
-    let client = MavenAGI(
-        appId: "<username>",
-        appSecret: "<password>"
-    )
+    let client = MavenAGI(token: "<token>")
 
     _ = try await client.conversation.categorize(conversationId: "conversationId")
 }
@@ -4858,10 +4595,7 @@ import Foundation
 import Api
 
 private func main() async throws {
-    let client = MavenAGI(
-        appId: "<username>",
-        appSecret: "<password>"
-    )
+    let client = MavenAGI(token: "<token>")
 
     _ = try await client.conversation.createFeedback(request: FeedbackRequest(
         type: .thumbsUp,
@@ -4953,10 +4687,7 @@ import Foundation
 import Api
 
 private func main() async throws {
-    let client = MavenAGI(
-        appId: "<username>",
-        appSecret: "<password>"
-    )
+    let client = MavenAGI(token: "<token>")
 
     _ = try await client.conversation.submitActionForm(
         conversationId: "conversationId",
@@ -5051,10 +4782,7 @@ import Foundation
 import Api
 
 private func main() async throws {
-    let client = MavenAGI(
-        appId: "<username>",
-        appSecret: "<password>"
-    )
+    let client = MavenAGI(token: "<token>")
 
     _ = try await client.conversation.addConversationMetadata(
         conversationId: "conversationId",
@@ -5146,10 +4874,7 @@ import Foundation
 import Api
 
 private func main() async throws {
-    let client = MavenAGI(
-        appId: "<username>",
-        appSecret: "<password>"
-    )
+    let client = MavenAGI(token: "<token>")
 
     _ = try await client.conversation.updateConversationMetadata(
         conversationId: "conversation-0",
@@ -5236,10 +4961,7 @@ import Foundation
 import Api
 
 private func main() async throws {
-    let client = MavenAGI(
-        appId: "<username>",
-        appSecret: "<password>"
-    )
+    let client = MavenAGI(token: "<token>")
 
     _ = try await client.conversation.search(request: ConversationsSearchRequest(
 
@@ -5322,10 +5044,7 @@ import Foundation
 import Api
 
 private func main() async throws {
-    let client = MavenAGI(
-        appId: "<username>",
-        appSecret: "<password>"
-    )
+    let client = MavenAGI(token: "<token>")
 
     _ = try await client.conversation.searchCursor(request: ConversationsCursorSearchRequest(
 
@@ -5403,10 +5122,7 @@ import Foundation
 import Api
 
 private func main() async throws {
-    let client = MavenAGI(
-        appId: "<username>",
-        appSecret: "<password>"
-    )
+    let client = MavenAGI(token: "<token>")
 
     _ = try await client.conversation.export(request: ConversationsSearchRequest(
 
@@ -5462,9 +5178,11 @@ try await main()
 
 Deliver a message to a user or conversation.
 
+A closed conversation (`open` set to false) takes no new messages and returns a 400.
+
 <Warning>
-Currently, messages can only be successfully delivered to conversations with the `ASYNC` capability that are `open`.
-User message delivery is not yet supported.
+Currently, messages can only be successfully delivered to conversations with the `ASYNC` capability.
+User message delivery is not yet supported and returns a 400.
 </Warning>
 </dd>
 </dl>
@@ -5484,10 +5202,7 @@ import Foundation
 import Api
 
 private func main() async throws {
-    let client = MavenAGI(
-        appId: "<username>",
-        appSecret: "<password>"
-    )
+    let client = MavenAGI(token: "<token>")
 
     _ = try await client.conversation.deliverMessage(request: DeliverMessageRequest.user(
         .init(
@@ -5563,10 +5278,7 @@ import Foundation
 import Api
 
 private func main() async throws {
-    let client = MavenAGI(
-        appId: "<username>",
-        appSecret: "<password>"
-    )
+    let client = MavenAGI(token: "<token>")
 
     _ = try await client.customers.search(request: CustomersSearchRequest(
 
@@ -5639,10 +5351,7 @@ import Foundation
 import Api
 
 private func main() async throws {
-    let client = MavenAGI(
-        appId: "<username>",
-        appSecret: "<password>"
-    )
+    let client = MavenAGI(token: "<token>")
 
     _ = try await client.customers.createOrUpdate(request: CustomerRequest(
         customerId: EntityIdBase(
@@ -5718,10 +5427,7 @@ import Foundation
 import Api
 
 private func main() async throws {
-    let client = MavenAGI(
-        appId: "<username>",
-        appSecret: "<password>"
-    )
+    let client = MavenAGI(token: "<token>")
 
     _ = try await client.customers.get(customerReferenceId: "acme")
 }
@@ -5803,10 +5509,7 @@ import Foundation
 import Api
 
 private func main() async throws {
-    let client = MavenAGI(
-        appId: "<username>",
-        appSecret: "<password>"
-    )
+    let client = MavenAGI(token: "<token>")
 
     _ = try await client.customers.patch(
         customerReferenceId: "customerReferenceId",
@@ -5891,10 +5594,7 @@ import Foundation
 import Api
 
 private func main() async throws {
-    let client = MavenAGI(
-        appId: "<username>",
-        appSecret: "<password>"
-    )
+    let client = MavenAGI(token: "<token>")
 
     _ = try await client.events.create(request: EventRequest.userEvent(
         .init(
@@ -5977,10 +5677,7 @@ import Foundation
 import Api
 
 private func main() async throws {
-    let client = MavenAGI(
-        appId: "<username>",
-        appSecret: "<password>"
-    )
+    let client = MavenAGI(token: "<token>")
 
     _ = try await client.events.search(request: EventsSearchRequest(
 
@@ -6053,10 +5750,7 @@ import Foundation
 import Api
 
 private func main() async throws {
-    let client = MavenAGI(
-        appId: "<username>",
-        appSecret: "<password>"
-    )
+    let client = MavenAGI(token: "<token>")
 
     _ = try await client.events.get(
         eventId: "eventId",
@@ -6140,10 +5834,7 @@ import Foundation
 import Api
 
 private func main() async throws {
-    let client = MavenAGI(
-        appId: "<username>",
-        appSecret: "<password>"
-    )
+    let client = MavenAGI(token: "<token>")
 
     _ = try await client.events.export(request: EventsSearchRequest(
 
@@ -6217,10 +5908,7 @@ import Foundation
 import Api
 
 private func main() async throws {
-    let client = MavenAGI(
-        appId: "<username>",
-        appSecret: "<password>"
-    )
+    let client = MavenAGI(token: "<token>")
 
     _ = try await client.inbox.search(request: InboxSearchRequest(
 
@@ -6293,10 +5981,7 @@ import Foundation
 import Api
 
 private func main() async throws {
-    let client = MavenAGI(
-        appId: "<username>",
-        appSecret: "<password>"
-    )
+    let client = MavenAGI(token: "<token>")
 
     _ = try await client.inbox.createOrUpdate(request: InboxItemCreateRequest(
         inboxItemId: EntityIdBase(
@@ -6382,10 +6067,7 @@ import Foundation
 import Api
 
 private func main() async throws {
-    let client = MavenAGI(
-        appId: "<username>",
-        appSecret: "<password>"
-    )
+    let client = MavenAGI(token: "<token>")
 
     _ = try await client.inbox.patch(
         inboxItemId: "custom-item-1",
@@ -6472,10 +6154,7 @@ import Foundation
 import Api
 
 private func main() async throws {
-    let client = MavenAGI(
-        appId: "<username>",
-        appSecret: "<password>"
-    )
+    let client = MavenAGI(token: "<token>")
 
     _ = try await client.inbox.applyTags(
         inboxItemId: "custom-item-1",
@@ -6557,10 +6236,7 @@ import Foundation
 import Api
 
 private func main() async throws {
-    let client = MavenAGI(
-        appId: "<username>",
-        appSecret: "<password>"
-    )
+    let client = MavenAGI(token: "<token>")
 
     _ = try await client.inbox.get(
         inboxItemId: "inboxItemId",
@@ -6642,10 +6318,7 @@ import Foundation
 import Api
 
 private func main() async throws {
-    let client = MavenAGI(
-        appId: "<username>",
-        appSecret: "<password>"
-    )
+    let client = MavenAGI(token: "<token>")
 
     _ = try await client.inbox.getFix(
         inboxItemFixId: "inboxItemFixId",
@@ -6727,10 +6400,7 @@ import Foundation
 import Api
 
 private func main() async throws {
-    let client = MavenAGI(
-        appId: "<username>",
-        appSecret: "<password>"
-    )
+    let client = MavenAGI(token: "<token>")
 
     _ = try await client.inbox.applyFixes(
         inboxItemId: "inboxItemId",
@@ -6818,10 +6488,7 @@ import Foundation
 import Api
 
 private func main() async throws {
-    let client = MavenAGI(
-        appId: "<username>",
-        appSecret: "<password>"
-    )
+    let client = MavenAGI(token: "<token>")
 
     _ = try await client.inbox.ignore(
         inboxItemId: "inboxItemId",
@@ -6904,10 +6571,7 @@ import Foundation
 import Api
 
 private func main() async throws {
-    let client = MavenAGI(
-        appId: "<username>",
-        appSecret: "<password>"
-    )
+    let client = MavenAGI(token: "<token>")
 
     _ = try await client.integrations.update(
         organizationId: "organizationId",
@@ -7014,10 +6678,7 @@ import Foundation
 import Api
 
 private func main() async throws {
-    let client = MavenAGI(
-        appId: "<username>",
-        appSecret: "<password>"
-    )
+    let client = MavenAGI(token: "<token>")
 
     _ = try await client.intelligentFields.createOrUpdate(request: IntelligentFieldRequest(
         entityType: .conversation,
@@ -7116,10 +6777,7 @@ import Foundation
 import Api
 
 private func main() async throws {
-    let client = MavenAGI(
-        appId: "<username>",
-        appSecret: "<password>"
-    )
+    let client = MavenAGI(token: "<token>")
 
     _ = try await client.intelligentFields.get(fieldReferenceId: "ticket-priority")
 }
@@ -7227,10 +6885,7 @@ import Foundation
 import Api
 
 private func main() async throws {
-    let client = MavenAGI(
-        appId: "<username>",
-        appSecret: "<password>"
-    )
+    let client = MavenAGI(token: "<token>")
 
     _ = try await client.intelligentFields.patch(
         fieldReferenceId: "ticket-priority",
@@ -7322,10 +6977,7 @@ import Foundation
 import Api
 
 private func main() async throws {
-    let client = MavenAGI(
-        appId: "<username>",
-        appSecret: "<password>"
-    )
+    let client = MavenAGI(token: "<token>")
 
     _ = try await client.intelligentFields.delete(fieldReferenceId: "ticket-priority")
 }
@@ -7425,10 +7077,7 @@ import Foundation
 import Api
 
 private func main() async throws {
-    let client = MavenAGI(
-        appId: "<username>",
-        appSecret: "<password>"
-    )
+    let client = MavenAGI(token: "<token>")
 
     _ = try await client.intelligentFields.searchValues(request: IntelligentFieldValueSearchRequest(
         page: 0,
@@ -7527,10 +7176,7 @@ import Foundation
 import Api
 
 private func main() async throws {
-    let client = MavenAGI(
-        appId: "<username>",
-        appSecret: "<password>"
-    )
+    let client = MavenAGI(token: "<token>")
 
     _ = try await client.knowledge.searchKnowledgeBases(request: KnowledgeBaseSearchRequest(
 
@@ -7603,10 +7249,7 @@ import Foundation
 import Api
 
 private func main() async throws {
-    let client = MavenAGI(
-        appId: "<username>",
-        appSecret: "<password>"
-    )
+    let client = MavenAGI(token: "<token>")
 
     _ = try await client.knowledge.createOrUpdateKnowledgeBase(request: KnowledgeBaseRequest(
         name: "Help center",
@@ -7682,10 +7325,7 @@ import Foundation
 import Api
 
 private func main() async throws {
-    let client = MavenAGI(
-        appId: "<username>",
-        appSecret: "<password>"
-    )
+    let client = MavenAGI(token: "<token>")
 
     _ = try await client.knowledge.getKnowledgeBase(knowledgeBaseReferenceId: "help-center")
 }
@@ -7767,10 +7407,7 @@ import Foundation
 import Api
 
 private func main() async throws {
-    let client = MavenAGI(
-        appId: "<username>",
-        appSecret: "<password>"
-    )
+    let client = MavenAGI(token: "<token>")
 
     _ = try await client.knowledge.refreshKnowledgeBase(
         knowledgeBaseReferenceId: "help-center",
@@ -7860,10 +7497,7 @@ import Foundation
 import Api
 
 private func main() async throws {
-    let client = MavenAGI(
-        appId: "<username>",
-        appSecret: "<password>"
-    )
+    let client = MavenAGI(token: "<token>")
 
     _ = try await client.knowledge.cancelKnowledgeBaseVersion(
         knowledgeBaseReferenceId: "knowledgeBaseReferenceId",
@@ -7947,10 +7581,7 @@ import Foundation
 import Api
 
 private func main() async throws {
-    let client = MavenAGI(
-        appId: "<username>",
-        appSecret: "<password>"
-    )
+    let client = MavenAGI(token: "<token>")
 
     _ = try await client.knowledge.rollbackKnowledgeBaseVersion(knowledgeBaseReferenceId: "knowledgeBaseReferenceId")
 }
@@ -8024,10 +7655,7 @@ import Foundation
 import Api
 
 private func main() async throws {
-    let client = MavenAGI(
-        appId: "<username>",
-        appSecret: "<password>"
-    )
+    let client = MavenAGI(token: "<token>")
 
     _ = try await client.knowledge.patchKnowledgeBase(
         knowledgeBaseReferenceId: "help-center",
@@ -8123,10 +7751,7 @@ import Foundation
 import Api
 
 private func main() async throws {
-    let client = MavenAGI(
-        appId: "<username>",
-        appSecret: "<password>"
-    )
+    let client = MavenAGI(token: "<token>")
 
     _ = try await client.knowledge.createKnowledgeBaseVersion(
         knowledgeBaseReferenceId: "help-center",
@@ -8210,10 +7835,7 @@ import Foundation
 import Api
 
 private func main() async throws {
-    let client = MavenAGI(
-        appId: "<username>",
-        appSecret: "<password>"
-    )
+    let client = MavenAGI(token: "<token>")
 
     _ = try await client.knowledge.finalizeKnowledgeBaseVersion(
         knowledgeBaseReferenceId: "help-center",
@@ -8306,10 +7928,7 @@ import Foundation
 import Api
 
 private func main() async throws {
-    let client = MavenAGI(
-        appId: "<username>",
-        appSecret: "<password>"
-    )
+    let client = MavenAGI(token: "<token>")
 
     _ = try await client.knowledge.updateKnowledgeBaseVersionProgress(
         knowledgeBaseReferenceId: "help-center",
@@ -8402,10 +8021,7 @@ import Foundation
 import Api
 
 private func main() async throws {
-    let client = MavenAGI(
-        appId: "<username>",
-        appSecret: "<password>"
-    )
+    let client = MavenAGI(token: "<token>")
 
     _ = try await client.knowledge.listKnowledgeBaseVersions(knowledgeBaseReferenceId: "knowledgeBaseReferenceId")
 }
@@ -8484,10 +8100,7 @@ import Foundation
 import Api
 
 private func main() async throws {
-    let client = MavenAGI(
-        appId: "<username>",
-        appSecret: "<password>"
-    )
+    let client = MavenAGI(token: "<token>")
 
     _ = try await client.knowledge.searchKnowledgeDocuments(request: KnowledgeDocumentSearchRequest(
 
@@ -8566,10 +8179,7 @@ import Foundation
 import Api
 
 private func main() async throws {
-    let client = MavenAGI(
-        appId: "<username>",
-        appSecret: "<password>"
-    )
+    let client = MavenAGI(token: "<token>")
 
     _ = try await client.knowledge.createKnowledgeDocument(
         knowledgeBaseReferenceId: "help-center",
@@ -8667,10 +8277,7 @@ import Foundation
 import Api
 
 private func main() async throws {
-    let client = MavenAGI(
-        appId: "<username>",
-        appSecret: "<password>"
-    )
+    let client = MavenAGI(token: "<token>")
 
     _ = try await client.knowledge.deleteKnowledgeDocument(
         knowledgeBaseReferenceId: "help-center",
@@ -8767,10 +8374,7 @@ import Foundation
 import Api
 
 private func main() async throws {
-    let client = MavenAGI(
-        appId: "<username>",
-        appSecret: "<password>"
-    )
+    let client = MavenAGI(token: "<token>")
 
     _ = try await client.knowledge.getKnowledgeDocument(
         knowledgeBaseVersionReferenceId: "knowledgeBaseVersionReferenceId",
@@ -8866,10 +8470,7 @@ import Foundation
 import Api
 
 private func main() async throws {
-    let client = MavenAGI(
-        appId: "<username>",
-        appSecret: "<password>"
-    )
+    let client = MavenAGI(token: "<token>")
 
     _ = try await client.knowledge.patchKnowledgeDocument(
         knowledgeBaseReferenceId: "help-center",
@@ -8944,9 +8545,9 @@ try await main()
 
 Create a new organization.
 
-<Tip>
-This endpoint requires additional permissions. Contact support to request access.
-</Tip>
+Only Maven staff hold this permission.
+
+<Note>**Required permission:** `create:organization`</Note>
 </dd>
 </dl>
 </dd>
@@ -8965,10 +8566,7 @@ import Foundation
 import Api
 
 private func main() async throws {
-    let client = MavenAGI(
-        appId: "<username>",
-        appSecret: "<password>"
-    )
+    let client = MavenAGI(token: "<token>")
 
     _ = try await client.organizations.create(
         organizationReferenceId: "organizationReferenceId",
@@ -9035,6 +8633,8 @@ try await main()
 <dd>
 
 Get an organization by ID
+
+<Note>**Required permission:** `read:organization`</Note>
 </dd>
 </dl>
 </dd>
@@ -9053,10 +8653,7 @@ import Foundation
 import Api
 
 private func main() async throws {
-    let client = MavenAGI(
-        appId: "<username>",
-        appSecret: "<password>"
-    )
+    let client = MavenAGI(token: "<token>")
 
     _ = try await client.organizations.get(organizationReferenceId: "organizationReferenceId")
 }
@@ -9111,9 +8708,7 @@ try await main()
 Update mutable organization fields.
 All fields will overwrite the existing value on the organization only if provided.
 
-<Tip>
-This endpoint requires additional permissions. Contact support to request access.
-</Tip>
+<Note>**Required permission:** `edit:organization`</Note>
 </dd>
 </dl>
 </dd>
@@ -9132,10 +8727,7 @@ import Foundation
 import Api
 
 private func main() async throws {
-    let client = MavenAGI(
-        appId: "<username>",
-        appSecret: "<password>"
-    )
+    let client = MavenAGI(token: "<token>")
 
     _ = try await client.organizations.patch(
         organizationReferenceId: "organizationReferenceId",
@@ -9202,9 +8794,7 @@ try await main()
 
 Delete an organization.
 
-<Tip>
-This endpoint requires additional permissions. Contact support to request access.
-</Tip>
+<Note>**Required permission:** `delete:organization`</Note>
 </dd>
 </dl>
 </dd>
@@ -9223,10 +8813,7 @@ import Foundation
 import Api
 
 private func main() async throws {
-    let client = MavenAGI(
-        appId: "<username>",
-        appSecret: "<password>"
-    )
+    let client = MavenAGI(token: "<token>")
 
     _ = try await client.organizations.delete(organizationReferenceId: "organizationReferenceId")
 }
@@ -9281,9 +8868,9 @@ try await main()
 Retrieves structured conversation data across all organizations, formatted as a table, 
 allowing users to group, filter, and define specific metrics to display as columns.
 
-<Tip>
-This endpoint requires additional permissions. Contact support to request access.
-</Tip>
+Only Maven staff hold this permission.
+
+<Note>**Required permission:** `read:all-organizations`</Note>
 </dd>
 </dl>
 </dd>
@@ -9302,10 +8889,7 @@ import Foundation
 import Api
 
 private func main() async throws {
-    let client = MavenAGI(
-        appId: "<username>",
-        appSecret: "<password>"
-    )
+    let client = MavenAGI(token: "<token>")
 
     _ = try await client.organizations.getConversationTable(request: ConversationTableRequest(
         conversationFilter: ConversationFilter(
@@ -9400,9 +8984,9 @@ try await main()
 Fetches conversation data across all organizations, visualized in a chart format. 
 Supported chart types include pie chart, date histogram, and stacked bar charts.
 
-<Tip>
-This endpoint requires additional permissions. Contact support to request access.
-</Tip>
+Only Maven staff hold this permission.
+
+<Note>**Required permission:** `read:all-organizations`</Note>
 </dd>
 </dl>
 </dd>
@@ -9421,10 +9005,7 @@ import Foundation
 import Api
 
 private func main() async throws {
-    let client = MavenAGI(
-        appId: "<username>",
-        appSecret: "<password>"
-    )
+    let client = MavenAGI(token: "<token>")
 
     _ = try await client.organizations.getConversationChart(request: ConversationChartRequest.pieChart(
         .init(
@@ -9499,10 +9080,7 @@ import Foundation
 import Api
 
 private func main() async throws {
-    let client = MavenAGI(
-        appId: "<username>",
-        appSecret: "<password>"
-    )
+    let client = MavenAGI(token: "<token>")
 
     _ = try await client.segments.search(request: SegmentsSearchRequest(
 
@@ -9575,10 +9153,7 @@ import Foundation
 import Api
 
 private func main() async throws {
-    let client = MavenAGI(
-        appId: "<username>",
-        appSecret: "<password>"
-    )
+    let client = MavenAGI(token: "<token>")
 
     _ = try await client.segments.createOrUpdate(request: SegmentRequest(
         name: "Admin users",
@@ -9671,10 +9246,7 @@ import Foundation
 import Api
 
 private func main() async throws {
-    let client = MavenAGI(
-        appId: "<username>",
-        appSecret: "<password>"
-    )
+    let client = MavenAGI(token: "<token>")
 
     _ = try await client.segments.get(segmentReferenceId: "admin-users")
 }
@@ -9756,10 +9328,7 @@ import Foundation
 import Api
 
 private func main() async throws {
-    let client = MavenAGI(
-        appId: "<username>",
-        appSecret: "<password>"
-    )
+    let client = MavenAGI(token: "<token>")
 
     _ = try await client.segments.patch(
         segmentReferenceId: "segmentReferenceId",
@@ -9847,10 +9416,7 @@ import Foundation
 import Api
 
 private func main() async throws {
-    let client = MavenAGI(
-        appId: "<username>",
-        appSecret: "<password>"
-    )
+    let client = MavenAGI(token: "<token>")
 
     _ = try await client.segments.delete(segmentReferenceId: "segmentReferenceId")
 }
@@ -9930,10 +9496,7 @@ import Foundation
 import Api
 
 private func main() async throws {
-    let client = MavenAGI(
-        appId: "<username>",
-        appSecret: "<password>"
-    )
+    let client = MavenAGI(token: "<token>")
 
     _ = try await client.translations.translate(request: TranslationRequest(
         text: "Hello world",
@@ -10010,10 +9573,7 @@ import Foundation
 import Api
 
 private func main() async throws {
-    let client = MavenAGI(
-        appId: "<username>",
-        appSecret: "<password>"
-    )
+    let client = MavenAGI(token: "<token>")
 
     _ = try await client.triggers.search(request: EventTriggersSearchRequest(
 
@@ -10086,10 +9646,7 @@ import Foundation
 import Api
 
 private func main() async throws {
-    let client = MavenAGI(
-        appId: "<username>",
-        appSecret: "<password>"
-    )
+    let client = MavenAGI(token: "<token>")
 
     _ = try await client.triggers.createOrUpdate(request: EventTriggerRequest(
         type: .conversationCreated,
@@ -10169,10 +9726,7 @@ import Foundation
 import Api
 
 private func main() async throws {
-    let client = MavenAGI(
-        appId: "<username>",
-        appSecret: "<password>"
-    )
+    let client = MavenAGI(token: "<token>")
 
     _ = try await client.triggers.get(triggerReferenceId: "store-in-snowflake")
 }
@@ -10246,10 +9800,7 @@ import Foundation
 import Api
 
 private func main() async throws {
-    let client = MavenAGI(
-        appId: "<username>",
-        appSecret: "<password>"
-    )
+    let client = MavenAGI(token: "<token>")
 
     _ = try await client.triggers.delete(triggerReferenceId: "store-in-snowflake")
 }
@@ -10323,10 +9874,7 @@ import Foundation
 import Api
 
 private func main() async throws {
-    let client = MavenAGI(
-        appId: "<username>",
-        appSecret: "<password>"
-    )
+    let client = MavenAGI(token: "<token>")
 
     _ = try await client.triggers.partialUpdate(
         triggerReferenceId: "triggerReferenceId",
@@ -10419,10 +9967,7 @@ import Foundation
 import Api
 
 private func main() async throws {
-    let client = MavenAGI(
-        appId: "<username>",
-        appSecret: "<password>"
-    )
+    let client = MavenAGI(token: "<token>")
 
     _ = try await client.users.search(request: AgentUserSearchRequest(
 
@@ -10497,10 +10042,7 @@ import Foundation
 import Api
 
 private func main() async throws {
-    let client = MavenAGI(
-        appId: "<username>",
-        appSecret: "<password>"
-    )
+    let client = MavenAGI(token: "<token>")
 
     _ = try await client.users.getAgentUser(agentUserId: "aus_1234567890")
 }
@@ -10586,10 +10128,7 @@ import Foundation
 import Api
 
 private func main() async throws {
-    let client = MavenAGI(
-        appId: "<username>",
-        appSecret: "<password>"
-    )
+    let client = MavenAGI(token: "<token>")
 
     _ = try await client.users.deleteAgentUser(agentUserId: "aus_1234567890")
 }
@@ -10660,10 +10199,7 @@ import Foundation
 import Api
 
 private func main() async throws {
-    let client = MavenAGI(
-        appId: "<username>",
-        appSecret: "<password>"
-    )
+    let client = MavenAGI(token: "<token>")
 
     _ = try await client.users.createOrUpdate(request: AppUserRequest(
         data: [
@@ -10744,10 +10280,7 @@ import Foundation
 import Api
 
 private func main() async throws {
-    let client = MavenAGI(
-        appId: "<username>",
-        appSecret: "<password>"
-    )
+    let client = MavenAGI(token: "<token>")
 
     _ = try await client.users.get(userId: "user-0")
 }
@@ -10836,10 +10369,7 @@ import Foundation
 import Api
 
 private func main() async throws {
-    let client = MavenAGI(
-        appId: "<username>",
-        appSecret: "<password>"
-    )
+    let client = MavenAGI(token: "<token>")
 
     _ = try await client.users.delete(userId: "user-0")
 }
@@ -10925,10 +10455,7 @@ import Foundation
 import Api
 
 private func main() async throws {
-    let client = MavenAGI(
-        appId: "<username>",
-        appSecret: "<password>"
-    )
+    let client = MavenAGI(token: "<token>")
 
     _ = try await client.voice.sessionToken(request: VoiceSessionTokenRequest(
         appUserId: "x",
