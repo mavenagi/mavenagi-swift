@@ -15,6 +15,8 @@ public final class ConversationKickoffsClient: Sendable {
     /// its status alone, so re-registering on every install refresh never deactivates a kickoff
     /// that is already live. Use the capability APIs to activate it, and to read, search or delete
     /// it afterwards.
+    /// 
+    /// <Note>**Required permission:** `edit:agents`</Note>
     ///
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
     public func createOrUpdate(request: Requests.CreateConversationKickoffRequest, requestOptions: RequestOptions? = nil) async throws -> ConversationKickoff {

@@ -772,6 +772,7 @@ import Api
                       "appId": "appId",
                       "referenceId": "x"
                     },
+                    "evaluateWithCharters": true,
                     "actionMocks": [
                       {
                         "actionId": {
@@ -1147,6 +1148,7 @@ import Api
                     appId: "appId",
                     referenceId: "x"
                 )),
+                evaluateWithCharters: Optional(true),
                 actionMocks: Optional([
                     SimulationActionMock(
                         actionId: EntityIdWithoutAgent(
@@ -1557,6 +1559,7 @@ import Api
                       "appId": "appId",
                       "referenceId": "x"
                     },
+                    "evaluateWithCharters": true,
                     "actionMocks": [
                       {
                         "actionId": {
@@ -1932,6 +1935,7 @@ import Api
                     appId: "appId",
                     referenceId: "x"
                 )),
+                evaluateWithCharters: Optional(true),
                 actionMocks: Optional([
                     SimulationActionMock(
                         actionId: EntityIdWithoutAgent(
@@ -2252,9 +2256,6 @@ import Api
                 conversationMessageId: EntityIdBase(
                     referenceId: "message-0"
                 ),
-                userId: EntityIdBase(
-                    referenceId: "user-0"
-                ),
                 text: "How do I reset my password?",
                 attachments: [
                     AttachmentRequest(
@@ -2266,7 +2267,10 @@ import Api
                     "userToken": "abcdef123", 
                     "queryApiKey": "foobar456"
                 ],
-                timezone: "America/New_York"
+                timezone: "America/New_York",
+                userId: EntityIdBase(
+                    referenceId: "user-0"
+                )
             ),
             requestOptions: RequestOptions(additionalHeaders: stub.headers)
         )
@@ -2714,6 +2718,7 @@ import Api
                       "appId": "appId",
                       "referenceId": "x"
                     },
+                    "evaluateWithCharters": true,
                     "actionMocks": [
                       {
                         "actionId": {
@@ -3089,6 +3094,7 @@ import Api
                     appId: "appId",
                     referenceId: "x"
                 )),
+                evaluateWithCharters: Optional(true),
                 actionMocks: Optional([
                     SimulationActionMock(
                         actionId: EntityIdWithoutAgent(
@@ -3477,6 +3483,7 @@ import Api
                           "appId": "appId",
                           "referenceId": "x"
                         },
+                        "evaluateWithCharters": true,
                         "actionMocks": [
                           {
                             "actionId": {
@@ -3749,6 +3756,7 @@ import Api
                           "appId": "appId",
                           "referenceId": "x"
                         },
+                        "evaluateWithCharters": true,
                         "actionMocks": [
                           {
                             "actionId": {
@@ -4020,6 +4028,7 @@ import Api
                             appId: "appId",
                             referenceId: "x"
                         )),
+                        evaluateWithCharters: Optional(true),
                         actionMocks: Optional([
                             SimulationActionMock(
                                 actionId: EntityIdWithoutAgent(
@@ -4280,6 +4289,7 @@ import Api
                             appId: "appId",
                             referenceId: "x"
                         )),
+                        evaluateWithCharters: Optional(true),
                         actionMocks: Optional([
                             SimulationActionMock(
                                 actionId: EntityIdWithoutAgent(
@@ -4579,6 +4589,7 @@ import Api
                           "appId": "appId",
                           "referenceId": "x"
                         },
+                        "evaluateWithCharters": true,
                         "actionMocks": [
                           {
                             "actionId": {
@@ -4851,6 +4862,7 @@ import Api
                           "appId": "appId",
                           "referenceId": "x"
                         },
+                        "evaluateWithCharters": true,
                         "actionMocks": [
                           {
                             "actionId": {
@@ -5120,6 +5132,7 @@ import Api
                             appId: "appId",
                             referenceId: "x"
                         )),
+                        evaluateWithCharters: Optional(true),
                         actionMocks: Optional([
                             SimulationActionMock(
                                 actionId: EntityIdWithoutAgent(
@@ -5380,6 +5393,7 @@ import Api
                             appId: "appId",
                             referenceId: "x"
                         )),
+                        evaluateWithCharters: Optional(true),
                         actionMocks: Optional([
                             SimulationActionMock(
                                 actionId: EntityIdWithoutAgent(

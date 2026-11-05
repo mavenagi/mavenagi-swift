@@ -22,7 +22,8 @@ public struct IntelligentFieldDetailResponse: Codable, Hashable, Sendable {
     /// Definition used by the LLM when generating this field's value. Shown in Agent Designer as "Define this field" (the evaluation instructions).
     public let definition: String
     /// The finite set of values this field may take. Omit to let the LLM produce any value of
-    /// the `validationType`. Options may be added later with the patch endpoint, but not removed.
+    /// the `validationType`. Options may be added or removed later with the patch endpoint, as long
+    /// as at least one remains.
     /// 
     /// Shown in Agent Designer as "Select Options".
     public let enumOptions: [EnumOption]?

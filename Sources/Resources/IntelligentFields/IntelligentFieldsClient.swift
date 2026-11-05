@@ -21,6 +21,8 @@ public final class IntelligentFieldsClient: Sendable {
     /// variant has it, or it is rejected with reason `INTELLIGENT_FIELD_TYPE_CHANGED`. To use
     /// a different type, create a new field. A field deleted in the variant may be recreated
     /// with any type.
+    /// 
+    /// <Note>**Required permission:** `edit:agents`</Note>
     ///
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
     public func createOrUpdate(request: IntelligentFieldRequest, requestOptions: RequestOptions? = nil) async throws -> IntelligentFieldResponse {
@@ -38,6 +40,8 @@ public final class IntelligentFieldsClient: Sendable {
     /// charters to find the ones that reference a capability.
     /// 
     /// Get an intelligent field by its supplied ID
+    /// 
+    /// <Note>**Required permission:** `read:agents`</Note>
     ///
     /// - Parameter fieldReferenceId: The reference ID of the intelligent field to get. All other entity ID fields are inferred from the request.
     /// - Parameter appId: The App ID of the intelligent field to get. If not provided the ID of the calling app will be used.
@@ -70,6 +74,8 @@ public final class IntelligentFieldsClient: Sendable {
     /// This is also how a field is activated and deactivated: set `status` to `ACTIVE` to
     /// start evaluating it, or `INACTIVE` to stop. `name`, `entityType`, and `validationType`
     /// cannot be changed after creation.
+    /// 
+    /// <Note>**Required permission:** `edit:agents`</Note>
     ///
     /// - Parameter fieldReferenceId: The reference ID of the intelligent field to patch.
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
@@ -94,6 +100,8 @@ public final class IntelligentFieldsClient: Sendable {
     /// status a new field gets.
     /// 
     /// Deleted fields cannot be modified.
+    /// 
+    /// <Note>**Required permission:** `edit:agents`</Note>
     ///
     /// - Parameter fieldReferenceId: The reference ID of the intelligent field to delete.
     /// - Parameter appId: The App ID of the intelligent field to delete. If not provided, the ID of the calling app will be used.
@@ -120,6 +128,8 @@ public final class IntelligentFieldsClient: Sendable {
     /// 
     /// Values only exist for fields that were ACTIVE when the entity was evaluated, so a
     /// newly activated field returns nothing until evaluation has run.
+    /// 
+    /// <Note>**Required permission:** `read:agents`</Note>
     ///
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
     public func searchValues(request: IntelligentFieldValueSearchRequest, requestOptions: RequestOptions? = nil) async throws -> IntelligentFieldValueSearchResponse {

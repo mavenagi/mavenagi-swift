@@ -3,8 +3,6 @@ import Foundation
 public struct AskRequest: Codable, Hashable, Sendable {
     /// Externally supplied ID to uniquely identify this message within the conversation. If a message with this ID already exists it will be reused and will not be updated.
     public let conversationMessageId: EntityIdBase
-    /// Externally supplied ID to uniquely identify the user that created this message
-    public let userId: EntityIdBase
     /// What prompts this assistant response. Omit (or send USER_MESSAGE) for a normal user
     /// question — this is the backwards-compatible default. Use WELCOME for an agent-authored
     /// opener, or PROACTIVE for a message the user did not prompt.
@@ -54,12 +52,13 @@ public struct AskRequest: Codable, Hashable, Sendable {
     /// exists the message is reused and its metadata is not updated. Keys and values are strings
     /// with a maximum length of 500 characters each.
     public let appMetadata: [String: String]?
+    /// Externally supplied ID to uniquely identify the user that created this message
+    public let userId: EntityIdBase
     /// Additional properties that are not explicitly defined in the schema
     public let additionalProperties: [String: JSONValue]
 
     public init(
         conversationMessageId: EntityIdBase,
-        userId: EntityIdBase,
         type: AskType? = nil,
         text: String? = nil,
         textFormat: TextFormat? = nil,
@@ -67,10 +66,10 @@ public struct AskRequest: Codable, Hashable, Sendable {
         transientData: [String: String]? = nil,
         timezone: String? = nil,
         appMetadata: [String: String]? = nil,
+        userId: EntityIdBase,
         additionalProperties: [String: JSONValue] = .init()
     ) {
         self.conversationMessageId = conversationMessageId
-        self.userId = userId
         self.type = type
         self.text = text
         self.textFormat = textFormat
@@ -78,13 +77,13 @@ public struct AskRequest: Codable, Hashable, Sendable {
         self.transientData = transientData
         self.timezone = timezone
         self.appMetadata = appMetadata
+        self.userId = userId
         self.additionalProperties = additionalProperties
     }
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.conversationMessageId = try container.decode(EntityIdBase.self, forKey: .conversationMessageId)
-        self.userId = try container.decode(EntityIdBase.self, forKey: .userId)
         self.type = try container.decodeIfPresent(AskType.self, forKey: .type)
         self.text = try container.decodeIfPresent(String.self, forKey: .text)
         self.textFormat = try container.decodeIfPresent(TextFormat.self, forKey: .textFormat)
@@ -92,6 +91,7 @@ public struct AskRequest: Codable, Hashable, Sendable {
         self.transientData = try container.decodeIfPresent([String: String].self, forKey: .transientData)
         self.timezone = try container.decodeIfPresent(String.self, forKey: .timezone)
         self.appMetadata = try container.decodeIfPresent([String: String].self, forKey: .appMetadata)
+        self.userId = try container.decode(EntityIdBase.self, forKey: .userId)
         self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
     }
 
@@ -99,7 +99,6 @@ public struct AskRequest: Codable, Hashable, Sendable {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try encoder.encodeAdditionalProperties(self.additionalProperties)
         try container.encode(self.conversationMessageId, forKey: .conversationMessageId)
-        try container.encode(self.userId, forKey: .userId)
         try container.encodeIfPresent(self.type, forKey: .type)
         try container.encodeIfPresent(self.text, forKey: .text)
         try container.encodeIfPresent(self.textFormat, forKey: .textFormat)
@@ -107,12 +106,12 @@ public struct AskRequest: Codable, Hashable, Sendable {
         try container.encodeIfPresent(self.transientData, forKey: .transientData)
         try container.encodeIfPresent(self.timezone, forKey: .timezone)
         try container.encodeIfPresent(self.appMetadata, forKey: .appMetadata)
+        try container.encode(self.userId, forKey: .userId)
     }
 
     /// Keys for encoding/decoding struct properties.
     enum CodingKeys: String, CodingKey, CaseIterable {
         case conversationMessageId
-        case userId
         case type
         case text
         case textFormat
@@ -120,5 +119,6 @@ public struct AskRequest: Codable, Hashable, Sendable {
         case transientData
         case timezone
         case appMetadata
+        case userId
     }
 }

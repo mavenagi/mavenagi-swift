@@ -10,6 +10,8 @@ public final class TriggersClient: Sendable {
     /// Deprecated. Use `POST /v1/capabilities/search`, which searches every kind of capability
     /// at once. It returns the fields every capability shares rather than the whole Event
     /// Trigger; fetch one by its kind and reference ID for the rest.
+    /// 
+    /// <Note>**Required permission:** `read:agents`</Note>
     ///
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
     public func search(request: EventTriggersSearchRequest, requestOptions: RequestOptions? = nil) async throws -> EventTriggersSearchResponse {
@@ -23,6 +25,8 @@ public final class TriggersClient: Sendable {
     }
 
     /// Update an event trigger or create it if it doesn't exist.
+    /// 
+    /// <Note>**Required permission:** `edit:agents`</Note>
     ///
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
     public func createOrUpdate(request: EventTriggerRequest, requestOptions: RequestOptions? = nil) async throws -> EventTriggerResponse {
@@ -39,6 +43,8 @@ public final class TriggersClient: Sendable {
     /// object for a trigger and the equivalent for every other kind of capability.
     /// 
     /// Get an event trigger by its supplied ID
+    /// 
+    /// <Note>**Required permission:** `read:agents`</Note>
     ///
     /// - Parameter triggerReferenceId: The reference ID of the event trigger to get. All other entity ID fields are inferred from the request.
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
@@ -55,6 +61,8 @@ public final class TriggersClient: Sendable {
     /// of capability the same way.
     /// 
     /// Delete an event trigger
+    /// 
+    /// <Note>**Required permission:** `edit:agents`</Note>
     ///
     /// - Parameter triggerReferenceId: The reference ID of the event trigger to delete. All other entity ID fields are inferred from the request.
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
@@ -70,6 +78,8 @@ public final class TriggersClient: Sendable {
     /// 
     /// `PATCH /v1/capabilities/TRIGGER/{referenceId}` with a `status` also turns a trigger on and
     /// off, the same way it publishes and unpublishes any kind of capability.
+    /// 
+    /// <Note>**Required permission:** `edit:agents`</Note>
     ///
     /// - Parameter triggerReferenceId: The reference ID of the event trigger to update. All other entity ID fields are inferred from the request.
     /// - Parameter appId: The App ID of the trigger to update. If not provided, the ID of the calling app will be used.

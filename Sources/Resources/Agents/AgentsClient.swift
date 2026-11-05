@@ -9,9 +9,9 @@ public final class AgentsClient: Sendable {
 
     /// Search for agents across all organizations.
     /// 
-    /// <Tip>
-    /// This endpoint requires additional permissions. Contact support to request access.
-    /// </Tip>
+    /// Only Maven staff hold this permission.
+    /// 
+    /// <Note>**Required permission:** `read:all-organizations`</Note>
     ///
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
     public func search(request: AgentsSearchRequest, requestOptions: RequestOptions? = nil) async throws -> AgentsSearchResponse {
@@ -25,6 +25,8 @@ public final class AgentsClient: Sendable {
     }
 
     /// Lists all agents for an organization
+    /// 
+    /// <Note>**Required permission:** `read:agents`</Note>
     ///
     /// - Parameter organizationReferenceId: The ID of the organization.
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
@@ -39,9 +41,7 @@ public final class AgentsClient: Sendable {
 
     /// Create a new agent
     /// 
-    /// <Tip>
-    /// This endpoint requires additional permissions. Contact support to request access.
-    /// </Tip>
+    /// <Note>**Required permission:** `create:agents`</Note>
     ///
     /// - Parameter organizationReferenceId: The ID of the organization.
     /// - Parameter agentReferenceId: The ID of the agent.
@@ -57,6 +57,8 @@ public final class AgentsClient: Sendable {
     }
 
     /// Get an agent
+    /// 
+    /// <Note>**Required permission:** `read:agents`</Note>
     ///
     /// - Parameter organizationReferenceId: The ID of the organization.
     /// - Parameter agentReferenceId: The ID of the agent.
@@ -73,9 +75,7 @@ public final class AgentsClient: Sendable {
     /// Update mutable agent fields 
     /// All fields will overwrite the existing value on the agent only if provided.
     /// 
-    /// <Tip>
-    /// This endpoint requires additional permissions. Contact support to request access.
-    /// </Tip>
+    /// <Note>**Required permission:** `edit:agents`</Note>
     ///
     /// - Parameter organizationReferenceId: The ID of the organization.
     /// - Parameter agentReferenceId: The ID of the agent.
@@ -92,9 +92,7 @@ public final class AgentsClient: Sendable {
 
     /// Delete an agent.
     /// 
-    /// <Tip>
-    /// This endpoint requires additional permissions. Contact support to request access.
-    /// </Tip>
+    /// <Note>**Required permission:** `delete:agents`</Note>
     ///
     /// - Parameter organizationReferenceId: The ID of the organization.
     /// - Parameter agentReferenceId: The ID of the agent.

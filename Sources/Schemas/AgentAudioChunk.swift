@@ -2,20 +2,21 @@ import Foundation
 
 /// Audio chunk from the agent.
 public struct AgentAudioChunk: Codable, Hashable, Sendable {
-    public let eventId: String
+    /// When the server sent the event.
+    public let timestamp: Date
     public let type: AgentAudioChunk
-    /// Base64-encoded AI audio data
+    /// Base64-encoded agent audio, in the `outputFormat` from the `Config` message.
     public let data: String
     /// Additional properties that are not explicitly defined in the schema
     public let additionalProperties: [String: JSONValue]
 
     public init(
-        eventId: String,
+        timestamp: Date,
         type: AgentAudioChunk,
         data: String,
         additionalProperties: [String: JSONValue] = .init()
     ) {
-        self.eventId = eventId
+        self.timestamp = timestamp
         self.type = type
         self.data = data
         self.additionalProperties = additionalProperties
@@ -23,7 +24,7 @@ public struct AgentAudioChunk: Codable, Hashable, Sendable {
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.eventId = try container.decode(String.self, forKey: .eventId)
+        self.timestamp = try container.decode(Date.self, forKey: .timestamp)
         self.type = try container.decode(AgentAudioChunk.self, forKey: .type)
         self.data = try container.decode(String.self, forKey: .data)
         self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
@@ -32,7 +33,7 @@ public struct AgentAudioChunk: Codable, Hashable, Sendable {
     public func encode(to encoder: Encoder) throws -> Void {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try encoder.encodeAdditionalProperties(self.additionalProperties)
-        try container.encode(self.eventId, forKey: .eventId)
+        try container.encode(self.timestamp, forKey: .timestamp)
         try container.encode(self.type, forKey: .type)
         try container.encode(self.data, forKey: .data)
     }
@@ -43,7 +44,7 @@ public struct AgentAudioChunk: Codable, Hashable, Sendable {
 
     /// Keys for encoding/decoding struct properties.
     enum CodingKeys: String, CodingKey, CaseIterable {
-        case eventId
+        case timestamp
         case type
         case data
     }

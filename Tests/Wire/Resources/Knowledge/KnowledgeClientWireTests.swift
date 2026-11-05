@@ -1310,7 +1310,9 @@ import Api
             content: Optional("## Getting started This is a getting started guide for the help center."),
             title: Optional("Getting started"),
             metadata: [
-                "category": "getting-started"
+                "category": KnowledgeDocumentMetadataValue.string(
+                    "getting-started"
+                )
             ],
             createdAt: try! Date("2024-01-01T00:00:00Z", strategy: .iso8601),
             updatedAt: try! Date("2024-02-02T00:00:00Z", strategy: .iso8601),
@@ -1333,7 +1335,9 @@ import Api
                 title: "Getting started",
                 content: "## Getting started\nThis is a getting started guide for the help center.",
                 metadata: [
-                    "category": "getting-started"
+                    "category": KnowledgeDocumentMetadataValue.string(
+                        "getting-started"
+                    )
                 ]
             ),
             requestOptions: RequestOptions(additionalHeaders: stub.headers)
@@ -1426,7 +1430,9 @@ import Api
                 name: Optional("name")
             )),
             metadata: [
-                "metadata": "metadata"
+                "metadata": KnowledgeDocumentMetadataValue.string(
+                    "metadata"
+                )
             ],
             knowledgeDocumentId: EntityId(
                 organizationId: "organizationId",
@@ -1539,7 +1545,9 @@ import Api
             content: Optional("## Getting started This is a getting started guide for the help center."),
             title: Optional("Getting started"),
             metadata: [
-                "category": "getting-started"
+                "category": KnowledgeDocumentMetadataValue.string(
+                    "getting-started"
+                )
             ],
             createdAt: try! Date("2024-01-01T00:00:00Z", strategy: .iso8601),
             updatedAt: try! Date("2024-02-02T00:00:00Z", strategy: .iso8601),

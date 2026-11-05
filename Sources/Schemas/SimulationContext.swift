@@ -22,6 +22,13 @@ public struct SimulationContext: Codable, Hashable, Sendable {
     /// while agent variants aren't enabled for the agent. A conversation that already exists
     /// keeps the variant it was created with.
     public let variantId: EntityIdWithoutAgent?
+    /// When true, the simulation evaluates the agent's charters even if charter evaluation is
+    /// turned off for the agent. When absent or false, the simulation follows the agent's own
+    /// charter evaluation setting, like any other conversation. While charters are evaluated,
+    /// `additionalPromptText` has no effect. Not yet enabled for every agent: until it is, the
+    /// value is stored and returned, and the agent's own setting applies. A conversation that
+    /// already exists keeps the value it was created with.
+    public let evaluateWithCharters: Bool?
     /// What the platform does when the agent executes each action during this simulation. At
     /// most one entry per action; a request that names an action twice is rejected. An action
     /// with no entry follows `defaultActionBehavior`. A conversation that already exists keeps
@@ -40,6 +47,7 @@ public struct SimulationContext: Codable, Hashable, Sendable {
         persona: LlmPersona? = nil,
         availableKnowledgeBases: JSONValue? = nil,
         variantId: EntityIdWithoutAgent? = nil,
+        evaluateWithCharters: Bool? = nil,
         actionMocks: [SimulationActionMock]? = nil,
         defaultActionBehavior: SimulationActionBehavior? = nil,
         additionalProperties: [String: JSONValue] = .init()
@@ -48,6 +56,7 @@ public struct SimulationContext: Codable, Hashable, Sendable {
         self.persona = persona
         self.availableKnowledgeBases = availableKnowledgeBases
         self.variantId = variantId
+        self.evaluateWithCharters = evaluateWithCharters
         self.actionMocks = actionMocks
         self.defaultActionBehavior = defaultActionBehavior
         self.additionalProperties = additionalProperties
@@ -59,6 +68,7 @@ public struct SimulationContext: Codable, Hashable, Sendable {
         self.persona = try container.decodeIfPresent(LlmPersona.self, forKey: .persona)
         self.availableKnowledgeBases = try container.decodeIfPresent(JSONValue.self, forKey: .availableKnowledgeBases)
         self.variantId = try container.decodeIfPresent(EntityIdWithoutAgent.self, forKey: .variantId)
+        self.evaluateWithCharters = try container.decodeIfPresent(Bool.self, forKey: .evaluateWithCharters)
         self.actionMocks = try container.decodeIfPresent([SimulationActionMock].self, forKey: .actionMocks)
         self.defaultActionBehavior = try container.decodeIfPresent(SimulationActionBehavior.self, forKey: .defaultActionBehavior)
         self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
@@ -71,6 +81,7 @@ public struct SimulationContext: Codable, Hashable, Sendable {
         try container.encodeIfPresent(self.persona, forKey: .persona)
         try container.encodeIfPresent(self.availableKnowledgeBases, forKey: .availableKnowledgeBases)
         try container.encodeIfPresent(self.variantId, forKey: .variantId)
+        try container.encodeIfPresent(self.evaluateWithCharters, forKey: .evaluateWithCharters)
         try container.encodeIfPresent(self.actionMocks, forKey: .actionMocks)
         try container.encodeIfPresent(self.defaultActionBehavior, forKey: .defaultActionBehavior)
     }
@@ -81,6 +92,7 @@ public struct SimulationContext: Codable, Hashable, Sendable {
         case persona
         case availableKnowledgeBases
         case variantId
+        case evaluateWithCharters
         case actionMocks
         case defaultActionBehavior
     }

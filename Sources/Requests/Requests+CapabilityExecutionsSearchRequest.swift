@@ -26,6 +26,10 @@ extension Requests {
         /// Whether to include executions from simulations. Defaults to `ALL`, so a
         /// simulation conversation's executions are found by its ID like any other.
         public let simulationFilter: SimulationFilter?
+        /// Only return executions whose `createdAt` is on or after this timestamp.
+        public let createdAfter: Date?
+        /// Only return executions whose `createdAt` is on or before this timestamp.
+        public let createdBefore: Date?
         /// Additional properties that are not explicitly defined in the schema
         public let additionalProperties: [String: JSONValue]
 
@@ -38,6 +42,8 @@ extension Requests {
             capabilityIds: [EntityId]? = nil,
             statuses: [CapabilityExecutionStatus]? = nil,
             simulationFilter: SimulationFilter? = nil,
+            createdAfter: Date? = nil,
+            createdBefore: Date? = nil,
             additionalProperties: [String: JSONValue] = .init()
         ) {
             self.page = page
@@ -48,6 +54,8 @@ extension Requests {
             self.capabilityIds = capabilityIds
             self.statuses = statuses
             self.simulationFilter = simulationFilter
+            self.createdAfter = createdAfter
+            self.createdBefore = createdBefore
             self.additionalProperties = additionalProperties
         }
 
@@ -61,6 +69,8 @@ extension Requests {
             self.capabilityIds = try container.decodeIfPresent([EntityId].self, forKey: .capabilityIds)
             self.statuses = try container.decodeIfPresent([CapabilityExecutionStatus].self, forKey: .statuses)
             self.simulationFilter = try container.decodeIfPresent(SimulationFilter.self, forKey: .simulationFilter)
+            self.createdAfter = try container.decodeIfPresent(Date.self, forKey: .createdAfter)
+            self.createdBefore = try container.decodeIfPresent(Date.self, forKey: .createdBefore)
             self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
         }
 
@@ -75,6 +85,8 @@ extension Requests {
             try container.encodeIfPresent(self.capabilityIds, forKey: .capabilityIds)
             try container.encodeIfPresent(self.statuses, forKey: .statuses)
             try container.encodeIfPresent(self.simulationFilter, forKey: .simulationFilter)
+            try container.encodeIfPresent(self.createdAfter, forKey: .createdAfter)
+            try container.encodeIfPresent(self.createdBefore, forKey: .createdBefore)
         }
 
         /// Keys for encoding/decoding struct properties.
@@ -87,6 +99,8 @@ extension Requests {
             case capabilityIds
             case statuses
             case simulationFilter
+            case createdAfter
+            case createdBefore
         }
     }
 }

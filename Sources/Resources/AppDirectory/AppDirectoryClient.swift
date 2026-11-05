@@ -44,7 +44,9 @@ public final class AppDirectoryClient: Sendable {
         )
     }
 
-    /// Uninstalls the app from the agent.
+    /// Uninstalls the app from the agent, and deletes the actions and triggers it created.
+    /// 
+    /// <Note>**Required permission:** `install:apps`</Note>
     ///
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
     public func uninstall(appId: String, requestOptions: RequestOptions? = nil) async throws -> Void {

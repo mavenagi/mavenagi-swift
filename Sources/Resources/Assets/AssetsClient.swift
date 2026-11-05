@@ -9,6 +9,8 @@ public final class AssetsClient: Sendable {
 
     /// Initiate an upload. 
     /// Returns a pre-signed URL for direct file upload and an asset ID for subsequent operations.
+    /// 
+    /// <Note>**Required permission:** `ask:agent`</Note>
     ///
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
     public func initiateUpload(request: InitiateAssetUploadRequest, requestOptions: RequestOptions? = nil) async throws -> InitiateAssetUploadResponse {
@@ -23,6 +25,8 @@ public final class AssetsClient: Sendable {
 
     /// Commit an upload after successful file transfer.
     /// Updates the asset status and makes it available for use.
+    /// 
+    /// <Note>**Required permission:** `ask:agent`</Note>
     ///
     /// - Parameter assetReferenceId: The reference ID of the asset to commit (provided by the initiate call). All other entity ID fields are inferred from the API request.
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.

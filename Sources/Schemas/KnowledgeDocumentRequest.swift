@@ -31,13 +31,19 @@ public struct KnowledgeDocumentRequest: Codable, Hashable, Sendable {
     public let assetId: EntityIdWithoutAgent?
     /// The content of the document. Not shown directly to users. May be provided in HTML or markdown. HTML will be converted to markdown automatically. Images are not currently supported and will be ignored. Either this or assetId is required, but not both
     public let content: String?
-    /// Set of 16 key-value pairs that can be attached to the knowledge document. This can be useful 
-    /// for storing additional information about the object in a structured format, and querying for 
+    /// Set of 16 key-value pairs that can be attached to the knowledge document. This can be useful
+    /// for storing additional information about the object in a structured format, and querying for
     /// objects via API or the dashboard.
     /// 
-    /// Keys are strings with a maximum length of 64 characters. Values are strings with a maximum
-    /// length of 512 characters.
-    public let metadata: [String: String]?
+    /// Keys are strings with a maximum length of 64 characters. A value is a string, or a list of up
+    /// to 100 strings for a document with several values under one key (for example the states it
+    /// applies to). A list is a set: it is stored sorted and without duplicates, so reordering it
+    /// doesn't change the document. Each string has a maximum length of 512 characters.
+    /// 
+    /// A charter document filter treats a list as "contains": `EQ` and `IN` match when any value in
+    /// the list matches, and `NEQ` and `NOT_IN` match when none does. An empty list is the same as
+    /// no value.
+    public let metadata: [String: KnowledgeDocumentMetadataValue]?
     /// The time at which this document was created.
     public let createdAt: Date?
     /// The time at which this document was last modified.
@@ -70,7 +76,7 @@ public struct KnowledgeDocumentRequest: Codable, Hashable, Sendable {
         title: String,
         assetId: EntityIdWithoutAgent? = nil,
         content: String? = nil,
-        metadata: [String: String]? = nil,
+        metadata: [String: KnowledgeDocumentMetadataValue]? = nil,
         createdAt: Date? = nil,
         updatedAt: Date? = nil,
         relevantEntities: JSONValue? = nil,
@@ -103,7 +109,7 @@ public struct KnowledgeDocumentRequest: Codable, Hashable, Sendable {
         self.title = try container.decode(String.self, forKey: .title)
         self.assetId = try container.decodeIfPresent(EntityIdWithoutAgent.self, forKey: .assetId)
         self.content = try container.decodeIfPresent(String.self, forKey: .content)
-        self.metadata = try container.decodeIfPresent([String: String].self, forKey: .metadata)
+        self.metadata = try container.decodeIfPresent([String: KnowledgeDocumentMetadataValue].self, forKey: .metadata)
         self.createdAt = try container.decodeIfPresent(Date.self, forKey: .createdAt)
         self.updatedAt = try container.decodeIfPresent(Date.self, forKey: .updatedAt)
         self.relevantEntities = try container.decodeIfPresent(JSONValue.self, forKey: .relevantEntities)

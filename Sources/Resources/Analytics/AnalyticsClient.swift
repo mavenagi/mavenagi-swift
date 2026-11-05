@@ -8,6 +8,8 @@ public final class AnalyticsClient: Sendable {
     }
 
     /// Retrieves structured conversation data formatted as a table, allowing users to group, filter, and define specific metrics to display as columns.
+    /// 
+    /// <Note>**Required permission:** `read:conversations`</Note>
     ///
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
     public func getConversationTable(request: ConversationTableRequest, requestOptions: RequestOptions? = nil) async throws -> ConversationTableResponse {
@@ -21,6 +23,8 @@ public final class AnalyticsClient: Sendable {
     }
 
     /// Fetches conversation data visualized in a chart format. Supported chart types include pie chart, date histogram, and stacked bar charts.
+    /// 
+    /// <Note>**Required permission:** `read:conversations`</Note>
     ///
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
     public func getConversationChart(request: ConversationChartRequest, requestOptions: RequestOptions? = nil) async throws -> ChartResponse {
@@ -36,6 +40,8 @@ public final class AnalyticsClient: Sendable {
     /// Export the conversation analytics table to a CSV file.
     /// 
     /// This outputs the current table view defined by the request. For most programmatic use cases, prefer `getConversationTable` and format client-side. The CSV format may change and should not be relied upon by code consumers. A maximum of 10,000 rows can be exported at a time.
+    /// 
+    /// <Note>**Required permission:** `read:conversations`</Note>
     ///
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
     public func exportConversationTable(request: ConversationTableRequest, requestOptions: RequestOptions? = nil) async throws -> Data {
@@ -49,6 +55,7 @@ public final class AnalyticsClient: Sendable {
     }
 
     /// Retrieves structured agent user data formatted as a table, allowing users to group, filter,  and define specific metrics to display as columns.
+    /// <Note>**Required permission:** `read:agents`</Note>
     ///
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
     public func getAgentUserTable(request: AgentUserTableRequest, requestOptions: RequestOptions? = nil) async throws -> AgentUserTableResponse {
@@ -62,6 +69,7 @@ public final class AnalyticsClient: Sendable {
     }
 
     /// Retrieves structured event data formatted as a table, allowing users to group, filter,  and define specific metrics to display as columns.
+    /// <Note>**Required permission:** `read:events`</Note>
     ///
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
     public func getEventTable(request: EventTableRequest, requestOptions: RequestOptions? = nil) async throws -> EventTableResponse {
@@ -75,6 +83,8 @@ public final class AnalyticsClient: Sendable {
     }
 
     /// Fetches event data visualized in a chart format. Supported chart types include pie chart, date histogram, and stacked bar charts.
+    /// 
+    /// <Note>**Required permission:** `read:events`</Note>
     ///
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
     public func getEventChart(request: EventChartRequest, requestOptions: RequestOptions? = nil) async throws -> ChartResponse {

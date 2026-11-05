@@ -13,6 +13,8 @@ public final class CapabilitiesClient: Sendable {
     /// here and an Action read from the Actions API are the same object. Intelligent Fields are the
     /// one exception: their own API also returns the charters referencing the field, which this
     /// endpoint leaves out.
+    /// 
+    /// <Note>**Required permission:** `read:agents`</Note>
     ///
     /// - Parameter capabilityType: Which kind of capability to fetch.
     /// - Parameter referenceId: The capability's reference ID, unique within its type and app.
@@ -48,6 +50,8 @@ public final class CapabilitiesClient: Sendable {
     /// 
     /// Everything else about a capability -- its name, its description, and any settings
     /// particular to its kind -- is changed through that capability's own API.
+    /// 
+    /// <Note>**Required permission:** `edit:agents`</Note>
     ///
     /// - Parameter capabilityType: Which kind of capability to update.
     /// - Parameter referenceId: The capability's reference ID, unique within its type and app.
@@ -81,6 +85,8 @@ public final class CapabilitiesClient: Sendable {
     /// With `variantReferenceId`, an intelligent field's delete is staged in that variant instead,
     /// and takes effect when the variant is committed. Until then the agent keeps using the field,
     /// and only a later patch or delete through the same variant is a 404.
+    /// 
+    /// <Note>**Required permission:** `edit:agents`</Note>
     ///
     /// - Parameter capabilityType: Which kind of capability to delete.
     /// - Parameter referenceId: The capability's reference ID, unique within its type and app.
@@ -114,6 +120,8 @@ public final class CapabilitiesClient: Sendable {
     /// 
     /// Only actions can be simulated today. Triggers and conversation kickoffs are rejected with a
     /// 400 until they can run as simulations. Intelligent fields cannot be simulated.
+    /// 
+    /// <Note>**Required permission:** `create:simulations`</Note>
     ///
     /// - Parameter capabilityType: Which kind of capability to simulate. Must match the body's `capabilityType`.
     /// - Parameter referenceId: The capability's reference ID, unique within its type and app.
@@ -141,6 +149,12 @@ public final class CapabilitiesClient: Sendable {
     /// `sortDesc` overrides the default either way.
     /// 
     /// Deleted capabilities are never returned.
+    /// 
+    /// Pagination is limited to the first 10,000 matching capabilities: `(page + 1) * size` must
+    /// not exceed 10,000, and a request beyond that is rejected with a 400. Add filters to reach
+    /// later results.
+    /// 
+    /// <Note>**Required permission:** `read:agents`</Note>
     ///
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
     public func searchCapabilities(request: Requests.CapabilitiesSearchRequest, requestOptions: RequestOptions? = nil) async throws -> CapabilitiesSearchResponse {
@@ -162,6 +176,12 @@ public final class CapabilitiesClient: Sendable {
     /// those.
     /// 
     /// Results can trail a run by a few seconds. Executions are searchable for 90 days.
+    /// 
+    /// Pagination is limited to the first 10,000 matching executions: `(page + 1) * size` must not
+    /// exceed 10,000, and a request beyond that is rejected with a 400. Narrow `createdAfter` and
+    /// `createdBefore` to reach later results.
+    /// 
+    /// <Note>**Required permission:** `read:agents`</Note>
     ///
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
     public func searchCapabilityExecutions(request: Requests.CapabilityExecutionsSearchRequest, requestOptions: RequestOptions? = nil) async throws -> CapabilityExecutionsSearchResponse {

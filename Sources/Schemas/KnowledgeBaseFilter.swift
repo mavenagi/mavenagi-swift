@@ -24,7 +24,9 @@ public struct KnowledgeBaseFilter: Codable, Hashable, Sendable {
     public let appIds: [String]?
     /// Filter by knowledge base type.
     public let types: [KnowledgeBaseType]?
-    /// Filter knowledge bases by the most recent version status
+    /// Deprecated. Do not use this filter: it does not filter on the status of the most recent
+    /// version and its results are often inaccurate. To check a knowledge base's latest refresh,
+    /// call `listKnowledgeBaseVersions`.
     public let mostRecentVersionStatus: [KnowledgeBaseVersionStatus]?
     /// Filter knowledge bases by the LLM inclusion status
     public let llmInclusionStatus: LlmInclusionStatus?

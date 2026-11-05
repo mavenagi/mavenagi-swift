@@ -7,6 +7,15 @@ public final class SegmentsClient: Sendable {
         self.httpClient = HTTPClient(config: config)
     }
 
+    /// Search segments.
+    /// 
+    /// Pagination is limited to the first 10,000 matching segments: `(page + 1) * size` must not
+    /// exceed 10,000, and a request beyond that is rejected with a 400. Narrow the filter to reach
+    /// later results.
+    /// 
+    /// <Note>**Required permission:** `read:agents`</Note>
+    ///
+    /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
     public func search(request: SegmentsSearchRequest, requestOptions: RequestOptions? = nil) async throws -> SegmentsSearchResponse {
         return try await httpClient.performRequest(
             method: .post,
@@ -18,6 +27,8 @@ public final class SegmentsClient: Sendable {
     }
 
     /// Update a segment or create it if it doesn't exist.
+    /// 
+    /// <Note>**Required permission:** `edit:agents`</Note>
     ///
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
     public func createOrUpdate(request: SegmentRequest, requestOptions: RequestOptions? = nil) async throws -> SegmentResponse {
@@ -31,6 +42,8 @@ public final class SegmentsClient: Sendable {
     }
 
     /// Get a segment by its supplied ID
+    /// 
+    /// <Note>**Required permission:** `read:agents`</Note>
     ///
     /// - Parameter segmentReferenceId: The reference ID of the segment to get. All other entity ID fields are inferred from the request.
     /// - Parameter appId: The App ID of the segment to get. If not provided, the ID of the calling app will be used.
@@ -51,6 +64,8 @@ public final class SegmentsClient: Sendable {
     /// 
     /// The `appId` field can be provided to update a segment owned by a different app.
     /// All other fields will overwrite the existing value on the segment only if provided.
+    /// 
+    /// <Note>**Required permission:** `edit:agents`</Note>
     ///
     /// - Parameter segmentReferenceId: The reference ID of the segment to update. All other entity ID fields are inferred from the request.
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
@@ -69,6 +84,8 @@ public final class SegmentsClient: Sendable {
     /// Deleted segments are excluded from search results but can still be retrieved by ID for archival purposes. Creating a segment with the same referenceId as a deleted segment reclaims it: the segment keeps its identity, and every other setting comes from the request.
     /// 
     /// Deleted segments cannot be modified.
+    /// 
+    /// <Note>**Required permission:** `edit:agents`</Note>
     ///
     /// - Parameter segmentReferenceId: The reference ID of the segment to delete. All other entity ID fields are inferred from the request.
     /// - Parameter appId: The App ID of the segment to delete. If not provided, the ID of the calling app will be used.

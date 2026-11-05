@@ -1,50 +1,44 @@
 import Foundation
 
-/// Transcribed agent speech
-public struct AgentTranscript: Codable, Hashable, Sendable {
-    public let eventId: String
-    public let type: AgentTranscript
-    /// Transcribed agent speech
-    public let text: String
+/// Voice activity detection heard the user stop speaking.
+public struct VadSpeechStopped: Codable, Hashable, Sendable {
+    /// When the server sent the event.
+    public let timestamp: Date
+    public let type: VadSpeechStopped
     /// Additional properties that are not explicitly defined in the schema
     public let additionalProperties: [String: JSONValue]
 
     public init(
-        eventId: String,
-        type: AgentTranscript,
-        text: String,
+        timestamp: Date,
+        type: VadSpeechStopped,
         additionalProperties: [String: JSONValue] = .init()
     ) {
-        self.eventId = eventId
+        self.timestamp = timestamp
         self.type = type
-        self.text = text
         self.additionalProperties = additionalProperties
     }
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.eventId = try container.decode(String.self, forKey: .eventId)
-        self.type = try container.decode(AgentTranscript.self, forKey: .type)
-        self.text = try container.decode(String.self, forKey: .text)
+        self.timestamp = try container.decode(Date.self, forKey: .timestamp)
+        self.type = try container.decode(VadSpeechStopped.self, forKey: .type)
         self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
     }
 
     public func encode(to encoder: Encoder) throws -> Void {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try encoder.encodeAdditionalProperties(self.additionalProperties)
-        try container.encode(self.eventId, forKey: .eventId)
+        try container.encode(self.timestamp, forKey: .timestamp)
         try container.encode(self.type, forKey: .type)
-        try container.encode(self.text, forKey: .text)
     }
 
-    public enum AgentTranscript: String, Codable, Hashable, CaseIterable, Sendable {
-        case agentTranscript = "agent_transcript"
+    public enum VadSpeechStopped: String, Codable, Hashable, CaseIterable, Sendable {
+        case vadSpeechStopped = "vad_speech_stopped"
     }
 
     /// Keys for encoding/decoding struct properties.
     enum CodingKeys: String, CodingKey, CaseIterable {
-        case eventId
+        case timestamp
         case type
-        case text
     }
 }

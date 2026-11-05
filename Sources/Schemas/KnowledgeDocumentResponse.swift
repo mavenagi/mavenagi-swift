@@ -33,8 +33,8 @@ public struct KnowledgeDocumentResponse: Codable, Hashable, Sendable {
     public let content: String?
     /// If the document is associated with an asset, this will contain the asset metadata
     public let asset: AttachmentResponse?
-    /// Metadata for the knowledge document.
-    public let metadata: [String: String]
+    /// Metadata for the knowledge document. A value is a string or a list of strings.
+    public let metadata: [String: KnowledgeDocumentMetadataValue]
     /// Additional properties that are not explicitly defined in the schema
     public let additionalProperties: [String: JSONValue]
 
@@ -54,7 +54,7 @@ public struct KnowledgeDocumentResponse: Codable, Hashable, Sendable {
         processingStatus: KnowledgeDocumentStatus? = nil,
         content: String? = nil,
         asset: AttachmentResponse? = nil,
-        metadata: [String: String],
+        metadata: [String: KnowledgeDocumentMetadataValue],
         additionalProperties: [String: JSONValue] = .init()
     ) {
         self.knowledgeDocumentId = knowledgeDocumentId
@@ -93,7 +93,7 @@ public struct KnowledgeDocumentResponse: Codable, Hashable, Sendable {
         self.processingStatus = try container.decodeIfPresent(KnowledgeDocumentStatus.self, forKey: .processingStatus)
         self.content = try container.decodeIfPresent(String.self, forKey: .content)
         self.asset = try container.decodeIfPresent(AttachmentResponse.self, forKey: .asset)
-        self.metadata = try container.decode([String: String].self, forKey: .metadata)
+        self.metadata = try container.decode([String: KnowledgeDocumentMetadataValue].self, forKey: .metadata)
         self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
     }
 

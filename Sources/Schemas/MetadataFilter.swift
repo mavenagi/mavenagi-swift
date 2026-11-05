@@ -1,8 +1,13 @@
 import Foundation
 
-/// A predicate over a string-to-string metadata map: a condition on the value under one
+/// A predicate over a knowledge document's metadata: a condition on the value under one
 /// key, a match against a value read from the conversation, or a group of predicates
 /// combined with a logical operator.
+/// 
+/// A document's value under a key may be a list of strings. A condition then tests the
+/// list element by element: `EQ`, `IN` and `STARTS_WITH` match when any element matches,
+/// and `NEQ`, `NOT_IN` and `NOT_STARTS_WITH` match when none does. An empty list is the
+/// same as no value.
 /// 
 /// Kept small on purpose: by default at most 3 levels of nesting and 10 nodes in total,
 /// counting every group, entry and conversation value. A filter is meant to narrow a

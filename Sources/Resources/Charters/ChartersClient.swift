@@ -21,6 +21,8 @@ public final class ChartersClient: Sendable {
     /// for leaf charters as we enforce mutual exclusion among the leafs and
     /// pick only the highest ranked (lowest numerical value) leaf to include in
     /// the round. userRank may have gaps.
+    /// 
+    /// <Note>**Required permission:** `edit:agents`</Note>
     ///
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
     public func createOrUpdate(request: CharterRequest, requestOptions: RequestOptions? = nil) async throws -> CharterResponse {
@@ -34,6 +36,8 @@ public final class ChartersClient: Sendable {
     }
 
     /// Get a charter by its reference ID.
+    /// 
+    /// <Note>**Required permission:** `read:agents`</Note>
     ///
     /// - Parameter charterReferenceId: The reference ID of the charter to get. All other entity ID fields are inferred from the request.
     /// - Parameter appId: The App ID of the charter to get. If not provided, the ID of the calling app will be used.
@@ -76,6 +80,8 @@ public final class ChartersClient: Sendable {
     /// **userRank conflict resolution**: When `userRank` is set to a value already held by a
     /// sibling, siblings at that rank and above are shifted up by 1 (like linked list semantics).
     /// The caller does not need to manage uniqueness explicitly.
+    /// 
+    /// <Note>**Required permission:** `edit:agents`</Note>
     ///
     /// - Parameter charterReferenceId: The reference ID of the charter to patch.
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
@@ -98,6 +104,8 @@ public final class ChartersClient: Sendable {
     /// Deleted charters are excluded from list results but can be retrieved by ID for archival purposes.
     /// 
     /// Deleted charters cannot be modified.
+    /// 
+    /// <Note>**Required permission:** `edit:agents`</Note>
     ///
     /// - Parameter charterReferenceId: The reference ID of the charter to delete.
     /// - Parameter appId: The App ID of the charter to delete. If not provided, the ID of the calling app will be used.
@@ -133,6 +141,12 @@ public final class ChartersClient: Sendable {
     /// Results are ordered by the `sort` field (defaults to CreatedAt). Use `sortDesc`
     /// to control direction (defaults to descending). An empty filter list is
     /// equivalent to omitting the field (no filter applied).
+    /// 
+    /// Pagination is limited to the first 10,000 matching charters: `(page + 1) * size` must not
+    /// exceed 10,000, and a request beyond that is rejected with a 400. Narrow the filter to reach
+    /// later results.
+    /// 
+    /// <Note>**Required permission:** `read:agents`</Note>
     ///
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
     public func search(request: CharterSearchRequest, requestOptions: RequestOptions? = nil) async throws -> CharterSearchResponse {
@@ -155,6 +169,8 @@ public final class ChartersClient: Sendable {
     /// ancestor and the walk to the root terminates.
     /// 
     /// Returns 404 if the charter does not exist or is deleted.
+    /// 
+    /// <Note>**Required permission:** `read:agents`</Note>
     ///
     /// - Parameter charterReferenceId: The reference ID of the charter. All other entity ID fields are inferred from the request.
     /// - Parameter appId: The App ID of the charter. If not provided, the ID of the calling app will be used.
@@ -191,6 +207,8 @@ public final class ChartersClient: Sendable {
     /// in one request.
     /// 
     /// DELETED charters are never returned.
+    /// 
+    /// <Note>**Required permission:** `read:agents`</Note>
     ///
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
     public func listChildren(request: CharterListChildrenRequest, requestOptions: RequestOptions? = nil) async throws -> CharterListChildrenResponse {

@@ -8,6 +8,12 @@ public final class InboxClient: Sendable {
     }
 
     /// Retrieve a paginated list of inbox items for an agent.
+    /// 
+    /// Pagination is limited to the first 10,000 matching inbox items: `(page + 1) * size` must not
+    /// exceed 10,000, and a request beyond that is rejected with a 400. Narrow the filter to reach
+    /// later results.
+    /// 
+    /// <Note>**Required permission:** `read:agents`. A search whose results include a Duplicate Documents item also needs `read:documents`.</Note>
     ///
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
     public func search(request: InboxSearchRequest, requestOptions: RequestOptions? = nil) async throws -> InboxSearchResponse {
@@ -21,6 +27,8 @@ public final class InboxClient: Sendable {
     }
 
     /// Update an inbox item or create it if it doesn't exist.
+    /// 
+    /// <Note>**Required permission:** `edit:agents`</Note>
     ///
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
     public func createOrUpdate(request: InboxItemCreateRequest, requestOptions: RequestOptions? = nil) async throws -> InboxItem {
@@ -37,6 +45,8 @@ public final class InboxClient: Sendable {
     /// 
     /// The `appId` field can be provided to update a inbox item owned by a different app.
     /// All other fields will overwrite the existing value on the inbox item only if provided.
+    /// 
+    /// <Note>**Required permission:** `edit:agents`. Patching a Duplicate Documents item also needs `read:documents`.</Note>
     ///
     /// - Parameter inboxItemId: The ID of the inbox item to patch
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
@@ -51,6 +61,8 @@ public final class InboxClient: Sendable {
     }
 
     /// Update inbox item tag fields. All tags provided will overwrite the existing tags on the inbox item.
+    /// 
+    /// <Note>**Required permission:** `edit:agents`. Updating tags on a Missing Knowledge or Duplicate Documents item also needs `read:agents`, and on a Duplicate Documents item `read:documents` too.</Note>
     ///
     /// - Parameter inboxItemId: The ID of the inbox item to add tags to.
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
@@ -65,6 +77,8 @@ public final class InboxClient: Sendable {
     }
 
     /// Retrieve details of a specific inbox item by its ID.
+    /// 
+    /// <Note>**Required permission:** `read:agents`. Getting a Duplicate Documents item also needs `read:documents`.</Note>
     ///
     /// - Parameter inboxItemId: The ID of the inbox item to get. All other entity ID fields are inferred from the request.
     /// - Parameter appId: The App ID of the inbox item to retrieve
@@ -82,6 +96,8 @@ public final class InboxClient: Sendable {
     }
 
     /// Retrieve a suggested fix. Includes document information if the fix is a Missing Knowledge suggestion.
+    /// 
+    /// <Note>**Required permission:** `read:agents`. Getting a Duplicate Documents fix also needs `read:documents`.</Note>
     ///
     /// - Parameter inboxItemFixId: Unique identifier for the inbox fix.
     /// - Parameter appId: The App ID of the inbox item fix to retrieve
@@ -99,6 +115,8 @@ public final class InboxClient: Sendable {
     }
 
     /// Apply a list of fixes belonging to an inbox item.
+    /// 
+    /// <Note>**Required permission:** `edit:agents`. Applying fixes also needs `read:agents`. A Missing Knowledge fix also needs `create:documents`, and a Duplicate Documents fix also needs `read:documents`, `edit:documents` and `create:documents`.</Note>
     ///
     /// - Parameter inboxItemId: Unique identifier for the inbox item.
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
@@ -112,6 +130,8 @@ public final class InboxClient: Sendable {
     }
 
     /// Ignore a specific inbox item by its ID.
+    /// 
+    /// <Note>**Required permission:** `edit:agents`</Note>
     ///
     /// - Parameter inboxItemId: Unique identifier for the inbox item.
     /// - Parameter appId: The App ID of the inbox item fix to ignore

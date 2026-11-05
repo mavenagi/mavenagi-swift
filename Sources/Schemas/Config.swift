@@ -3,14 +3,10 @@ import Foundation
 /// Initialize conversation with configuration parameters
 public struct Config: Codable, Hashable, Sendable {
     public let type: Config
-    /// The input audio format from the client.
+    /// The audio format the client sends. Must be `PCM_8000` or `MULAW_8000`.
     public let inputFormat: AudioFormat
-    /// The output audio format to send to the client.
+    /// The audio format the server sends. Must equal `inputFormat`, or the server returns an `invalid_configuration` error.
     public let outputFormat: AudioFormat
-    /// The conversation ID which was created prior to starting this conversation.
-    public let conversationId: String
-    /// The app ID this conversation ID is associated with.
-    public let appId: String
     /// Additional properties that are not explicitly defined in the schema
     public let additionalProperties: [String: JSONValue]
 
@@ -18,15 +14,11 @@ public struct Config: Codable, Hashable, Sendable {
         type: Config,
         inputFormat: AudioFormat,
         outputFormat: AudioFormat,
-        conversationId: String,
-        appId: String,
         additionalProperties: [String: JSONValue] = .init()
     ) {
         self.type = type
         self.inputFormat = inputFormat
         self.outputFormat = outputFormat
-        self.conversationId = conversationId
-        self.appId = appId
         self.additionalProperties = additionalProperties
     }
 
@@ -35,8 +27,6 @@ public struct Config: Codable, Hashable, Sendable {
         self.type = try container.decode(Config.self, forKey: .type)
         self.inputFormat = try container.decode(AudioFormat.self, forKey: .inputFormat)
         self.outputFormat = try container.decode(AudioFormat.self, forKey: .outputFormat)
-        self.conversationId = try container.decode(String.self, forKey: .conversationId)
-        self.appId = try container.decode(String.self, forKey: .appId)
         self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
     }
 
@@ -46,8 +36,6 @@ public struct Config: Codable, Hashable, Sendable {
         try container.encode(self.type, forKey: .type)
         try container.encode(self.inputFormat, forKey: .inputFormat)
         try container.encode(self.outputFormat, forKey: .outputFormat)
-        try container.encode(self.conversationId, forKey: .conversationId)
-        try container.encode(self.appId, forKey: .appId)
     }
 
     public enum Config: String, Codable, Hashable, CaseIterable, Sendable {
@@ -59,7 +47,5 @@ public struct Config: Codable, Hashable, Sendable {
         case type
         case inputFormat
         case outputFormat
-        case conversationId
-        case appId
     }
 }

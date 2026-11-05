@@ -1,43 +1,45 @@
 import Foundation
 
-/// AI ended the conversation
-public struct ConversationEnded: Codable, Hashable, Sendable {
-    public let eventId: String
-    public let type: ConversationEnded
+/// Voice activity detection heard the user start speaking. The client should stop playing and
+/// drop any queued agent audio.
+public struct VadSpeechStarted: Codable, Hashable, Sendable {
+    /// When the server sent the event.
+    public let timestamp: Date
+    public let type: VadSpeechStarted
     /// Additional properties that are not explicitly defined in the schema
     public let additionalProperties: [String: JSONValue]
 
     public init(
-        eventId: String,
-        type: ConversationEnded,
+        timestamp: Date,
+        type: VadSpeechStarted,
         additionalProperties: [String: JSONValue] = .init()
     ) {
-        self.eventId = eventId
+        self.timestamp = timestamp
         self.type = type
         self.additionalProperties = additionalProperties
     }
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.eventId = try container.decode(String.self, forKey: .eventId)
-        self.type = try container.decode(ConversationEnded.self, forKey: .type)
+        self.timestamp = try container.decode(Date.self, forKey: .timestamp)
+        self.type = try container.decode(VadSpeechStarted.self, forKey: .type)
         self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
     }
 
     public func encode(to encoder: Encoder) throws -> Void {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try encoder.encodeAdditionalProperties(self.additionalProperties)
-        try container.encode(self.eventId, forKey: .eventId)
+        try container.encode(self.timestamp, forKey: .timestamp)
         try container.encode(self.type, forKey: .type)
     }
 
-    public enum ConversationEnded: String, Codable, Hashable, CaseIterable, Sendable {
-        case conversationEnded = "conversation_ended"
+    public enum VadSpeechStarted: String, Codable, Hashable, CaseIterable, Sendable {
+        case vadSpeechStarted = "vad_speech_started"
     }
 
     /// Keys for encoding/decoding struct properties.
     enum CodingKeys: String, CodingKey, CaseIterable {
-        case eventId
+        case timestamp
         case type
     }
 }

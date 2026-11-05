@@ -10,6 +10,12 @@ public final class UsersClient: Sendable {
     /// Search across all agent users on an agent.
     /// 
     /// Agent users are a merged view of the users created by individual apps.
+    /// 
+    /// Pagination is limited to the first 10,000 matching agent users: `(page + 1) * size` must not
+    /// exceed 10,000, and a request beyond that is rejected with a 400. Narrow the filter to reach
+    /// later results.
+    /// 
+    /// <Note>**Required permission:** `read:agents`</Note>
     ///
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
     public func search(request: AgentUserSearchRequest, requestOptions: RequestOptions? = nil) async throws -> AgentUserSearchResponse {
@@ -25,6 +31,8 @@ public final class UsersClient: Sendable {
     /// Get an agent user by its supplied ID.
     /// 
     /// Agent users are a merged view of the users created by individual apps.
+    /// 
+    /// <Note>**Required permission:** `read:agents`</Note>
     ///
     /// - Parameter agentUserId: The ID of the agent user to get.
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
@@ -53,6 +61,8 @@ public final class UsersClient: Sendable {
     /// 
     /// The agent user's intelligent field values are deleted too, and removed from their `INTELLIGENT_FIELD_VALUE_CHANGED` events; the events themselves are kept.
     /// Unlike `DELETE /users/{userId}`, the wipe does not recompute the values. They can be computed again later from the user's remaining conversations, for example after the user sends another message; wipe those conversations first to prevent that.
+    /// 
+    /// <Note>**Required permission:** `edit:agents`</Note>
     ///
     /// - Parameter agentUserId: The ID of the agent user to wipe.
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
@@ -65,6 +75,8 @@ public final class UsersClient: Sendable {
     }
 
     /// Update an app user or create it if it doesn't exist.
+    /// 
+    /// <Note>**Required permission:** `edit:agents`. A user with `executionMode` `SIMULATION` also needs `create:simulations`.</Note>
     ///
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
     public func createOrUpdate(request: AppUserRequest, requestOptions: RequestOptions? = nil) async throws -> AppUserResponse {
@@ -78,6 +90,8 @@ public final class UsersClient: Sendable {
     }
 
     /// Get an app user by its supplied ID
+    /// 
+    /// <Note>**Required permission:** `read:agents`</Note>
     ///
     /// - Parameter userId: The reference ID of the app user to get. All other entity ID fields are inferred from the request.
     /// - Parameter appId: The App ID of the app user to get. If not provided the ID of the calling app will be used.
@@ -105,6 +119,8 @@ public final class UsersClient: Sendable {
     /// If this user is linked to a user from another app, it will not be unlinked. Unlinking of users is not yet supported.
     /// 
     /// <Warning>This is a destructive operation and cannot be undone.</Warning>
+    /// 
+    /// <Note>**Required permission:** `edit:agents`</Note>
     ///
     /// - Parameter userId: The reference ID of the app user to delete. All other entity ID fields are inferred from the request.
     /// - Parameter appId: The App ID of the app user to delete. If not provided the ID of the calling app will be used.

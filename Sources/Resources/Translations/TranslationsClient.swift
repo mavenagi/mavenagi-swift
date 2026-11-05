@@ -8,6 +8,8 @@ public final class TranslationsClient: Sendable {
     }
 
     /// Translate text from one language to another
+    /// 
+    /// <Note>**Required permission:** `ask:agent`</Note>
     ///
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
     public func translate(request: TranslationRequest, requestOptions: RequestOptions? = nil) async throws -> TranslationResponse {
