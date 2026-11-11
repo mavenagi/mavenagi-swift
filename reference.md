@@ -10705,7 +10705,8 @@ try await main()
 Creates a short-lived session token for authenticating voice connections.
 
 Supports two token types:
-- **webrtc**: A Twilio-compatible access token for browser-based WebRTC calls
+- **webrtc**: A token for browser-based WebRTC calls. The `transport` field selects the token format:
+  a token for the Maven telephony gateway (default) or a Twilio access token.
 - **websocket**: An ES256 JWT for direct WebSocket connections to /v1/realtime/conversations
 
 Session tokens are required before establishing any voice connection.

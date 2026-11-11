@@ -12,7 +12,8 @@ import Api
                   "token": "token",
                   "identity": "identity",
                   "type": "webrtc",
-                  "expiresIn": 1
+                  "expiresIn": 1,
+                  "connectUrl": "connectUrl"
                 }
                 """.utf8
             )
@@ -26,7 +27,8 @@ import Api
             token: "token",
             identity: "identity",
             type: .webrtc,
-            expiresIn: 1
+            expiresIn: 1,
+            connectUrl: Optional("connectUrl")
         )
         let response = try await client.voice.sessionToken(
             request: VoiceSessionTokenRequest(
