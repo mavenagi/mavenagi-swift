@@ -210,6 +210,16 @@ import Api
                         "pattern": "pattern",
                         "errorMessage": "errorMessage"
                       },
+                      "validations": [
+                        {
+                          "pattern": "pattern",
+                          "errorMessage": "errorMessage"
+                        },
+                        {
+                          "pattern": "pattern",
+                          "errorMessage": "errorMessage"
+                        }
+                      ],
                       "key": "key",
                       "displayName": "displayName",
                       "description": "description",
@@ -223,6 +233,16 @@ import Api
                         "pattern": "pattern",
                         "errorMessage": "errorMessage"
                       },
+                      "validations": [
+                        {
+                          "pattern": "pattern",
+                          "errorMessage": "errorMessage"
+                        },
+                        {
+                          "pattern": "pattern",
+                          "errorMessage": "errorMessage"
+                        }
+                      ],
                       "key": "key",
                       "displayName": "displayName",
                       "description": "description",
@@ -292,6 +312,16 @@ import Api
                             pattern: "pattern",
                             errorMessage: "errorMessage"
                         )),
+                        validations: Optional([
+                            SettingsSchemaValidation(
+                                pattern: "pattern",
+                                errorMessage: "errorMessage"
+                            ),
+                            SettingsSchemaValidation(
+                                pattern: "pattern",
+                                errorMessage: "errorMessage"
+                            )
+                        ]),
                         key: "key",
                         displayName: "displayName",
                         description: Optional("description"),
@@ -306,6 +336,16 @@ import Api
                             pattern: "pattern",
                             errorMessage: "errorMessage"
                         )),
+                        validations: Optional([
+                            SettingsSchemaValidation(
+                                pattern: "pattern",
+                                errorMessage: "errorMessage"
+                            ),
+                            SettingsSchemaValidation(
+                                pattern: "pattern",
+                                errorMessage: "errorMessage"
+                            )
+                        ]),
                         key: "key",
                         displayName: "displayName",
                         description: Optional("description"),

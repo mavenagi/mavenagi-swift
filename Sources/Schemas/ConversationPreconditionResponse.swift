@@ -9,6 +9,7 @@ public enum ConversationPreconditionResponse: Codable, Hashable, Sendable {
     case metadata(Metadata)
     case responseConfig(ResponseConfig)
     case tags(Tags)
+    case time(Time)
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
@@ -30,6 +31,8 @@ public enum ConversationPreconditionResponse: Codable, Hashable, Sendable {
             self = .responseConfig(try ResponseConfig(from: decoder))
         case "tags":
             self = .tags(try Tags(from: decoder))
+        case "time":
+            self = .time(try Time(from: decoder))
         default:
             throw DecodingError.dataCorrupted(
                 DecodingError.Context(
@@ -57,6 +60,8 @@ public enum ConversationPreconditionResponse: Codable, Hashable, Sendable {
         case .responseConfig(let data):
             try data.encode(to: encoder)
         case .tags(let data):
+            try data.encode(to: encoder)
+        case .time(let data):
             try data.encode(to: encoder)
         }
     }
@@ -468,6 +473,48 @@ public enum ConversationPreconditionResponse: Codable, Hashable, Sendable {
             case fieldIdWithoutAgent
             case name
             case fieldCondition
+        }
+    }
+
+    public struct Time: Codable, Hashable, Sendable {
+        public let conversationPreconditionType: String = "time"
+        /// Operator to apply to this precondition
+        public let `operator`: PreconditionOperator?
+        /// The window the current time must fall inside for the precondition to be met.
+        public let window: TimeWindow
+        /// Additional properties that are not explicitly defined in the schema
+        public let additionalProperties: [String: JSONValue]
+
+        public init(
+            operator: PreconditionOperator? = nil,
+            window: TimeWindow,
+            additionalProperties: [String: JSONValue] = .init()
+        ) {
+            self.operator = `operator`
+            self.window = window
+            self.additionalProperties = additionalProperties
+        }
+
+        public init(from decoder: Decoder) throws {
+            let container = try decoder.container(keyedBy: CodingKeys.self)
+            self.operator = try container.decodeIfPresent(PreconditionOperator.self, forKey: .operator)
+            self.window = try container.decode(TimeWindow.self, forKey: .window)
+            self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
+        }
+
+        public func encode(to encoder: Encoder) throws -> Void {
+            var container = encoder.container(keyedBy: CodingKeys.self)
+            try encoder.encodeAdditionalProperties(self.additionalProperties)
+            try container.encode(self.conversationPreconditionType, forKey: .conversationPreconditionType)
+            try container.encodeIfPresent(self.operator, forKey: .operator)
+            try container.encode(self.window, forKey: .window)
+        }
+
+        /// Keys for encoding/decoding struct properties.
+        enum CodingKeys: String, CodingKey, CaseIterable {
+            case conversationPreconditionType
+            case `operator`
+            case window
         }
     }
 

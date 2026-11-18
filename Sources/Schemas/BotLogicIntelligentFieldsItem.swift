@@ -1,6 +1,14 @@
 import Foundation
 
+/// The intelligent fields the agent's charters or segments refer to, with the values the
+/// agent used for this step.
+/// 
+/// The agent evaluates these fields once per request that asks it to respond, before its
+/// first step, and never between steps. Every step of that request reuses those values. So
+/// when a response takes several steps, this item repeats in each step with the same values.
+/// The repeat does not mean the fields were evaluated again.
 public struct BotLogicIntelligentFieldsItem: Codable, Hashable, Sendable {
+    /// The fields and their values, as evaluated before the request's first step.
     public let refreshedFields: [BotLogicIntelligentFieldDetail]
     /// Additional properties that are not explicitly defined in the schema
     public let additionalProperties: [String: JSONValue]

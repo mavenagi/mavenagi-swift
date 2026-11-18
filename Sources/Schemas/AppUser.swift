@@ -3,6 +3,13 @@ import Foundation
 public struct AppUser: Codable, Hashable, Sendable {
     /// Used to determine whether two users from different apps are the same
     public let identifiers: JSONValue
+    /// Data about the user, keyed by field name.
+    /// 
+    /// Do not store credentials, tokens or other secrets here, whatever their `visibility`.
+    /// User data is not secret storage: values are stored as given, and the users API returns
+    /// them in full to callers that can read users. To pass a per-user credential to your
+    /// app's actions, send it as `transientData` on the ask or submit-action-form request, which
+    /// is forwarded to the actions of that request and not stored.
     public let data: [String: UserData]
     /// Additional properties that are not explicitly defined in the schema
     public let additionalProperties: [String: JSONValue]

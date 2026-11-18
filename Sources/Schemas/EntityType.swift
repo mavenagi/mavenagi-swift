@@ -31,4 +31,7 @@ public enum EntityType: String, Codable, Hashable, CaseIterable, Sendable {
     case scenarioRun = "SCENARIO_RUN"
     case function = "FUNCTION"
     case functionVersion = "FUNCTION_VERSION"
+    /// In development. A person or a service account, identified above the organization level. No
+    /// `EntityId` has this type: a mavenUser belongs to no organization or agent.
+    case mavenUser = "MAVEN_USER"
 }

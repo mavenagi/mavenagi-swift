@@ -1,18 +1,6 @@
 import Foundation
 
 public struct AskRequest: Codable, Hashable, Sendable {
-    /// Externally supplied ID to uniquely identify this message within the conversation. If a message with this ID already exists it will be reused and will not be updated.
-    public let conversationMessageId: EntityIdBase
-    /// What prompts this assistant response. Omit (or send USER_MESSAGE) for a normal user
-    /// question — this is the backwards-compatible default. Use WELCOME for an agent-authored
-    /// opener, or PROACTIVE for a message the user did not prompt.
-    public let type: AskType?
-    /// For USER_MESSAGE (the default) this is the user's message, in the user's own words, and
-    /// is required. For WELCOME and PROACTIVE it is optional and, when provided, steers the
-    /// agent's response (a directive to the agent, not the user's own words). (Changed from
-    /// required to optional to support the non-user ask types — existing USER_MESSAGE callers
-    /// are unaffected.)
-    public let text: String?
     /// What form the answer takes. Omit it for prose, or send `jsonSchema` to additionally get a
     /// `BotObjectResponse` matching a schema you supply.
     /// 
@@ -38,6 +26,18 @@ public struct AskRequest: Codable, Hashable, Sendable {
     /// charter's manual is returned exactly as written without consulting the agent, so there is
     /// nothing to shape into the requested schema — the round returns the manual as `text` alone.
     public let textFormat: TextFormat?
+    /// Externally supplied ID to uniquely identify this message within the conversation. If a message with this ID already exists it will be reused and will not be updated.
+    public let conversationMessageId: EntityIdBase
+    /// What prompts this assistant response. Omit (or send USER_MESSAGE) for a normal user
+    /// question — this is the backwards-compatible default. Use WELCOME for an agent-authored
+    /// opener, or PROACTIVE for a message the user did not prompt.
+    public let type: AskType?
+    /// For USER_MESSAGE (the default) this is the user's message, in the user's own words, and
+    /// is required. For WELCOME and PROACTIVE it is optional and, when provided, steers the
+    /// agent's response (a directive to the agent, not the user's own words). (Changed from
+    /// required to optional to support the non-user ask types — existing USER_MESSAGE callers
+    /// are unaffected.)
+    public let text: String?
     /// The attachments to the message. Image attachments will be sent to the LLM as additional data.
     /// Non-image attachments can be stored and downloaded from the API but will not be sent to the LLM.
     public let attachments: [AttachmentRequest]?
@@ -58,10 +58,10 @@ public struct AskRequest: Codable, Hashable, Sendable {
     public let additionalProperties: [String: JSONValue]
 
     public init(
+        textFormat: TextFormat? = nil,
         conversationMessageId: EntityIdBase,
         type: AskType? = nil,
         text: String? = nil,
-        textFormat: TextFormat? = nil,
         attachments: [AttachmentRequest]? = nil,
         transientData: [String: String]? = nil,
         timezone: String? = nil,
@@ -69,10 +69,10 @@ public struct AskRequest: Codable, Hashable, Sendable {
         userId: EntityIdBase,
         additionalProperties: [String: JSONValue] = .init()
     ) {
+        self.textFormat = textFormat
         self.conversationMessageId = conversationMessageId
         self.type = type
         self.text = text
-        self.textFormat = textFormat
         self.attachments = attachments
         self.transientData = transientData
         self.timezone = timezone
@@ -83,10 +83,10 @@ public struct AskRequest: Codable, Hashable, Sendable {
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.textFormat = try container.decodeIfPresent(TextFormat.self, forKey: .textFormat)
         self.conversationMessageId = try container.decode(EntityIdBase.self, forKey: .conversationMessageId)
         self.type = try container.decodeIfPresent(AskType.self, forKey: .type)
         self.text = try container.decodeIfPresent(String.self, forKey: .text)
-        self.textFormat = try container.decodeIfPresent(TextFormat.self, forKey: .textFormat)
         self.attachments = try container.decodeIfPresent([AttachmentRequest].self, forKey: .attachments)
         self.transientData = try container.decodeIfPresent([String: String].self, forKey: .transientData)
         self.timezone = try container.decodeIfPresent(String.self, forKey: .timezone)
@@ -98,10 +98,10 @@ public struct AskRequest: Codable, Hashable, Sendable {
     public func encode(to encoder: Encoder) throws -> Void {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try encoder.encodeAdditionalProperties(self.additionalProperties)
+        try container.encodeIfPresent(self.textFormat, forKey: .textFormat)
         try container.encode(self.conversationMessageId, forKey: .conversationMessageId)
         try container.encodeIfPresent(self.type, forKey: .type)
         try container.encodeIfPresent(self.text, forKey: .text)
-        try container.encodeIfPresent(self.textFormat, forKey: .textFormat)
         try container.encodeIfPresent(self.attachments, forKey: .attachments)
         try container.encodeIfPresent(self.transientData, forKey: .transientData)
         try container.encodeIfPresent(self.timezone, forKey: .timezone)
@@ -111,10 +111,10 @@ public struct AskRequest: Codable, Hashable, Sendable {
 
     /// Keys for encoding/decoding struct properties.
     enum CodingKeys: String, CodingKey, CaseIterable {
+        case textFormat
         case conversationMessageId
         case type
         case text
-        case textFormat
         case attachments
         case transientData
         case timezone

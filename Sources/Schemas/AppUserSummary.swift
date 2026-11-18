@@ -5,7 +5,7 @@ public struct AppUserSummary: Codable, Hashable, Sendable {
     public let userId: EntityId
     /// App provided identifiers for the user.
     public let identifiers: JSONValue
-    /// App provided data masked according to the data's visibility type. `HIDDEN` or `PARTIALLY_VISIBLE` data values will be not be fully returned.
+    /// App provided data, masked by each value's visibility. `HIDDEN` values are returned as `********`, and `PARTIALLY_VISIBLE` values have all but their last 3 characters masked. The masking applies to this response only; `GET /users/{userId}` returns the full values.
     public let visibleData: [String: String]
     /// Additional properties that are not explicitly defined in the schema
     public let additionalProperties: [String: JSONValue]

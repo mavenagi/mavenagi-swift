@@ -5502,22 +5502,70 @@ import Api
             status: .delivered
         )
         let response = try await client.conversation.deliverMessage(
-            request: DeliverMessageRequest.user(
+            request: DeliverMessageRequest.conversation(
                 .init(
-                    userId: EntityIdWithoutAgent(
-                        type: .agent,
-                        appId: "appId",
-                        referenceId: "x"
-                    ),
-                    message: ConversationMessageRequest(
-                        userId: EntityIdBase(
-                            referenceId: "x"
-                        ),
-                        text: "text",
-                        userMessageType: .user,
-                        conversationMessageId: EntityIdBase(
-                            referenceId: "x"
+                    content: DeliverContent.message(
+                        .init(
+                            userId: EntityIdBase(
+                                referenceId: "human-agent-0"
+                            ),
+                            text: "Hi, I'm Priya. I can help with your refund.",
+                            userMessageType: .humanAgent,
+                            conversationMessageId: EntityIdBase(
+                                referenceId: "message-0"
+                            )
                         )
+                    ),
+                    conversationId: EntityIdWithoutAgent(
+                        type: .conversation,
+                        appId: "chat-app",
+                        referenceId: "conversation-0"
+                    )
+                )
+            ),
+            requestOptions: RequestOptions(additionalHeaders: stub.headers)
+        )
+        try #require(response == expectedResponse)
+    }
+
+    @Test func deliverMessage2() async throws -> Void {
+        let stub = HTTPStub()
+        stub.setResponse(
+            body: Data(
+                """
+                {
+                  "status": "DELIVERED"
+                }
+                """.utf8
+            )
+        )
+        let client = MavenAGI(
+            baseURL: "https://api.fern.com",
+            token: "<token>",
+            urlSession: stub.urlSession
+        )
+        let expectedResponse = DeliverMessageResponse(
+            status: .delivered
+        )
+        let response = try await client.conversation.deliverMessage(
+            request: DeliverMessageRequest.conversation(
+                .init(
+                    content: DeliverContent.ask(
+                        .init(
+                            conversationMessageId: EntityIdBase(
+                                referenceId: "message-1"
+                            ),
+                            type: .proactive,
+                            text: "Tell the user their refund was approved.",
+                            userId: EntityIdBase(
+                                referenceId: "system-live-support"
+                            )
+                        )
+                    ),
+                    conversationId: EntityIdWithoutAgent(
+                        type: .conversation,
+                        appId: "chat-app",
+                        referenceId: "conversation-0"
                     )
                 )
             ),

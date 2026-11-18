@@ -5,7 +5,9 @@ public struct ConversationAnalysis: Codable, Hashable, Sendable {
     public let userRequest: String?
     /// Generated agent response summary of the conversation
     public let agentResponse: String?
-    /// Generated resolution status of the conversation
+    /// Resolution status of the conversation. Code computes it from the messages, feedback,
+    /// CSAT and inserts. The one AI input is the transcript summary, which can report a
+    /// handoff and set `ESCALATED`. See `ResolutionStatus` for how each status is set.
     public let resolutionStatus: ResolutionStatus?
     /// Generated category of the conversation. For agents with a `categoryIntelligentFieldId`, this is that intelligent field's value. New agents without one have no category.
     public let category: String?
@@ -15,7 +17,9 @@ public struct ConversationAnalysis: Codable, Hashable, Sendable {
     public let quality: Quality?
     /// If the quality of the conversation is `UNKNOWN` or `NEEDS_IMPROVEMENT` then a reason for the quality will be provided when possible.
     public let qualityReason: QualityReason?
-    /// Whether the conversation was resolved by Maven
+    /// Whether the conversation was resolved by Maven: `true` exactly when `resolutionStatus`
+    /// is `RESOLVED`. These are the conversations billed under resolution-based pricing, and
+    /// the ones the `ELIGIBLE_AND_BILLABLE` billing status matches.
     public let resolvedByMaven: Bool?
     /// Primary language of the conversation in ISO 639-1 code format
     public let primaryLanguage: String?

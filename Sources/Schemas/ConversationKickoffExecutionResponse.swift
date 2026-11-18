@@ -1,6 +1,6 @@
 import Foundation
 
-/// A single persisted Conversation Kickoff execution result, with timing.
+/// One Conversation Kickoff execution result, with timing: one recorded when a conversation ran its kickoffs, or one from a simulation, which is not recorded.
 public struct ConversationKickoffExecutionResponse: Codable, Hashable, Sendable {
     /// The kickoff config (external) id that ran.
     public let referenceId: String?

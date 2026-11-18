@@ -2158,6 +2158,8 @@ Update app settings. Performs a merge of the provided settings with the existing
 - No keys will be removed.
 
 Note that if an array value is provided it will fully replace an existing value as arrays cannot be merged.
+
+Returns the full app settings after the merge, including keys that were not in the request. This is the same object that Get app settings returns.
 </dd>
 </dl>
 </dd>
@@ -2311,6 +2313,11 @@ try await main()
 
 Commit an upload after successful file transfer.
 Updates the asset status and makes it available for use.
+
+An asset is committed once. Committing it again with the same checksum is safe while its file
+is unchanged, so a client can retry a commit; a different checksum returns a 409. Once
+committed, don't write to the upload URL again, even with the same bytes: committing after
+that may return a 409, and the file then has to be uploaded as a new asset.
 
 <Note>**Required permission:** `ask:agent`</Note>
 </dd>
@@ -2777,8 +2784,12 @@ conversation or agent user has to exist first. The capability is told its mode i
 `SIMULATION`, the same as in a test suite run, so an app that honours it can avoid side
 effects in real systems. Nothing here runs a capability live.
 
-Only actions can be simulated today. Triggers and conversation kickoffs are rejected with a
-400 until they can run as simulations. Intelligent fields cannot be simulated.
+A simulated run is not recorded. It returns its result here and never appears in
+capability execution search.
+
+Actions, conversation kickoffs and event triggers can be simulated today. An event trigger
+is given one event the caller describes in full; the event is never stored, and its user
+does not have to exist. Intelligent fields cannot be simulated.
 
 <Note>**Required permission:** `create:simulations`</Note>
 </dd>
@@ -4149,7 +4160,7 @@ Non-simulation conversations remain visible; they cannot be fully removed from t
 <Warning>This is a destructive operation and cannot be undone. <br/><br/>
 What is wiped: the conversation's `subject` and `analysis.agentResponse` are cleared, and `analysis.userRequest` is replaced with `reason`.
 Every message's text, from the user and the agent alike, is replaced with `reason`, and its attachments, follow-up questions, backend LLM prompt and history, the data actions returned, and action arguments are cleared.
-Evaluation results for the conversation are deleted, and the payloads recorded on its trigger and action executions are cleared. <br/><br/>
+Evaluation results for the conversation are deleted, the payloads recorded on its trigger and action executions are cleared, and the message recorded on each of its Conversation Kickoff executions is cleared. <br/><br/>
 What is kept: the conversation's metadata, each message's charts, structured answer and app-supplied metadata, the conversation's intelligent field values, its feedback and events, and the users who took part. To wipe a user's data, use `DELETE /users/{userId}` or `DELETE /agentusers/{agentUserId}`.</Warning>
 
 <Note>**Required permission:** `delete:conversations`</Note>
@@ -4847,6 +4858,8 @@ Replaced by `updateConversationMetadata`.
 
 Adds metadata to an existing conversation. If a metadata field already exists, it will be overwritten.
 
+When a metadata size limit is enforced for the agent, each entry may be at most 8,192 bytes by default, counting the key and value together, plus one byte, in UTF-8. A larger entry returns a 400 that names the key.
+
 A closed conversation (`open` set to false) takes no new metadata and returns a 400.
 </dd>
 </dl>
@@ -5281,6 +5294,10 @@ try await main()
 
 Deliver a message to a user or conversation.
 
+Send `content` with `contentType: message` to deliver a message as written, or `contentType: ask`
+to have the agent take a `WELCOME` or `PROACTIVE` turn and deliver its reply. Either way the app
+that owns the conversation receives the message through its `handleMessage` hook.
+
 A closed conversation (`open` set to false) takes no new messages and returns a 400.
 
 <Warning>
@@ -5309,22 +5326,24 @@ import Api
 private func main() async throws {
     let client = MavenAGI(token: "<token>")
 
-    _ = try await client.conversation.deliverMessage(request: DeliverMessageRequest.user(
+    _ = try await client.conversation.deliverMessage(request: DeliverMessageRequest.conversation(
         .init(
-            userId: EntityIdWithoutAgent(
-                type: .agent,
-                appId: "appId",
-                referenceId: "x"
-            ),
-            message: ConversationMessageRequest(
-                userId: EntityIdBase(
-                    referenceId: "x"
-                ),
-                text: "text",
-                userMessageType: .user,
-                conversationMessageId: EntityIdBase(
-                    referenceId: "x"
+            content: DeliverContent.message(
+                .init(
+                    userId: EntityIdBase(
+                        referenceId: "human-agent-0"
+                    ),
+                    text: "Hi, I'm Priya. I can help with your refund.",
+                    userMessageType: .humanAgent,
+                    conversationMessageId: EntityIdBase(
+                        referenceId: "message-0"
+                    )
                 )
+            ),
+            conversationId: EntityIdWithoutAgent(
+                type: .conversation,
+                appId: "chat-app",
+                referenceId: "conversation-0"
             )
         )
     ))
@@ -10448,6 +10467,10 @@ try await main()
 
 Update an app user or create it if it doesn't exist.
 
+<Warning>User data is not secret storage, even with `HIDDEN` visibility: `HIDDEN` only keeps a value away from the agent and masks it in agent user responses. Do not store credentials, tokens or other secrets in user data. To pass a per-user credential to your actions, send it as `transientData` on each ask request instead.</Warning>
+
+When a metadata size limit is enforced for the agent, each `data` entry may be at most 8,192 bytes by default, counting the key and value together, plus one byte, in UTF-8. A larger entry returns a 400 that names the key.
+
 <Note>**Required permission:** `edit:agents`. A user with `executionMode` `SIMULATION` also needs `create:simulations`.</Note>
 </dd>
 </dl>
@@ -10529,7 +10552,9 @@ try await main()
 <dl>
 <dd>
 
-Get an app user by its supplied ID
+Get an app user by its supplied ID.
+
+Returns every user data value in full, including `HIDDEN` and `PARTIALLY_VISIBLE` ones.
 
 <Note>**Required permission:** `read:agents`</Note>
 </dd>

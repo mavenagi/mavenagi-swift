@@ -14,6 +14,20 @@ public struct AskRequestBase: Codable, Hashable, Sendable {
     /// required to optional to support the non-user ask types — existing USER_MESSAGE callers
     /// are unaffected.)
     public let text: String?
+    /// The attachments to the message. Image attachments will be sent to the LLM as additional data.
+    /// Non-image attachments can be stored and downloaded from the API but will not be sent to the LLM.
+    public let attachments: [AttachmentRequest]?
+    /// Transient data which the Maven platform will not persist. This data will only be forwarded to actions taken by this ask request. For example, one may put in user tokens as transient data.
+    public let transientData: [String: String]?
+    /// IANA timezone identifier (e.g. "America/New_York", "Europe/London") to be used for time-based operations in the conversation.
+    public let timezone: String?
+    /// Key-value metadata to persist on the user message created by this request. Unlike
+    /// `transientData` (which is never persisted) this is stored and returned when the message
+    /// is read back via the API or dashboard, and unlike user data it is not sent to the LLM.
+    /// Applied only when the message is first created — if `conversationMessageId` already
+    /// exists the message is reused and its metadata is not updated. Keys and values are strings
+    /// with a maximum length of 500 characters each.
+    public let appMetadata: [String: String]?
     /// What form the answer takes. Omit it for prose, or send `jsonSchema` to additionally get a
     /// `BotObjectResponse` matching a schema you supply.
     /// 
@@ -39,20 +53,6 @@ public struct AskRequestBase: Codable, Hashable, Sendable {
     /// charter's manual is returned exactly as written without consulting the agent, so there is
     /// nothing to shape into the requested schema — the round returns the manual as `text` alone.
     public let textFormat: TextFormat?
-    /// The attachments to the message. Image attachments will be sent to the LLM as additional data.
-    /// Non-image attachments can be stored and downloaded from the API but will not be sent to the LLM.
-    public let attachments: [AttachmentRequest]?
-    /// Transient data which the Maven platform will not persist. This data will only be forwarded to actions taken by this ask request. For example, one may put in user tokens as transient data.
-    public let transientData: [String: String]?
-    /// IANA timezone identifier (e.g. "America/New_York", "Europe/London") to be used for time-based operations in the conversation.
-    public let timezone: String?
-    /// Key-value metadata to persist on the user message created by this request. Unlike
-    /// `transientData` (which is never persisted) this is stored and returned when the message
-    /// is read back via the API or dashboard, and unlike user data it is not sent to the LLM.
-    /// Applied only when the message is first created — if `conversationMessageId` already
-    /// exists the message is reused and its metadata is not updated. Keys and values are strings
-    /// with a maximum length of 500 characters each.
-    public let appMetadata: [String: String]?
     /// Additional properties that are not explicitly defined in the schema
     public let additionalProperties: [String: JSONValue]
 
@@ -60,21 +60,21 @@ public struct AskRequestBase: Codable, Hashable, Sendable {
         conversationMessageId: EntityIdBase,
         type: AskType? = nil,
         text: String? = nil,
-        textFormat: TextFormat? = nil,
         attachments: [AttachmentRequest]? = nil,
         transientData: [String: String]? = nil,
         timezone: String? = nil,
         appMetadata: [String: String]? = nil,
+        textFormat: TextFormat? = nil,
         additionalProperties: [String: JSONValue] = .init()
     ) {
         self.conversationMessageId = conversationMessageId
         self.type = type
         self.text = text
-        self.textFormat = textFormat
         self.attachments = attachments
         self.transientData = transientData
         self.timezone = timezone
         self.appMetadata = appMetadata
+        self.textFormat = textFormat
         self.additionalProperties = additionalProperties
     }
 
@@ -83,11 +83,11 @@ public struct AskRequestBase: Codable, Hashable, Sendable {
         self.conversationMessageId = try container.decode(EntityIdBase.self, forKey: .conversationMessageId)
         self.type = try container.decodeIfPresent(AskType.self, forKey: .type)
         self.text = try container.decodeIfPresent(String.self, forKey: .text)
-        self.textFormat = try container.decodeIfPresent(TextFormat.self, forKey: .textFormat)
         self.attachments = try container.decodeIfPresent([AttachmentRequest].self, forKey: .attachments)
         self.transientData = try container.decodeIfPresent([String: String].self, forKey: .transientData)
         self.timezone = try container.decodeIfPresent(String.self, forKey: .timezone)
         self.appMetadata = try container.decodeIfPresent([String: String].self, forKey: .appMetadata)
+        self.textFormat = try container.decodeIfPresent(TextFormat.self, forKey: .textFormat)
         self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
     }
 
@@ -97,11 +97,11 @@ public struct AskRequestBase: Codable, Hashable, Sendable {
         try container.encode(self.conversationMessageId, forKey: .conversationMessageId)
         try container.encodeIfPresent(self.type, forKey: .type)
         try container.encodeIfPresent(self.text, forKey: .text)
-        try container.encodeIfPresent(self.textFormat, forKey: .textFormat)
         try container.encodeIfPresent(self.attachments, forKey: .attachments)
         try container.encodeIfPresent(self.transientData, forKey: .transientData)
         try container.encodeIfPresent(self.timezone, forKey: .timezone)
         try container.encodeIfPresent(self.appMetadata, forKey: .appMetadata)
+        try container.encodeIfPresent(self.textFormat, forKey: .textFormat)
     }
 
     /// Keys for encoding/decoding struct properties.
@@ -109,10 +109,10 @@ public struct AskRequestBase: Codable, Hashable, Sendable {
         case conversationMessageId
         case type
         case text
-        case textFormat
         case attachments
         case transientData
         case timezone
         case appMetadata
+        case textFormat
     }
 }

@@ -345,6 +345,7 @@ public enum BotLogicItem: Codable, Hashable, Sendable {
 
     public struct IntelligentFields: Codable, Hashable, Sendable {
         public let type: String = "intelligentFields"
+        /// The fields and their values, as evaluated before the request's first step.
         public let refreshedFields: [BotLogicIntelligentFieldDetail]
         /// Additional properties that are not explicitly defined in the schema
         public let additionalProperties: [String: JSONValue]
