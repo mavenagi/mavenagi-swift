@@ -905,7 +905,45 @@ import Api
                         "updatedCount": 1000000,
                         "removedCount": 1000000
                       },
-                      "type": "FULL"
+                      "type": "FULL",
+                      "functionVersions": {
+                        "fetchMetadata": {
+                          "functionId": {
+                            "type": "AGENT",
+                            "appId": "appId",
+                            "referenceId": "x"
+                          },
+                          "versionId": {
+                            "type": "AGENT",
+                            "appId": "appId",
+                            "referenceId": "x"
+                          }
+                        },
+                        "fetchDocuments": {
+                          "functionId": {
+                            "type": "AGENT",
+                            "appId": "appId",
+                            "referenceId": "x"
+                          },
+                          "versionId": {
+                            "type": "AGENT",
+                            "appId": "appId",
+                            "referenceId": "x"
+                          }
+                        },
+                        "convertDocuments": {
+                          "functionId": {
+                            "type": "AGENT",
+                            "appId": "appId",
+                            "referenceId": "x"
+                          },
+                          "versionId": {
+                            "type": "AGENT",
+                            "appId": "appId",
+                            "referenceId": "x"
+                          }
+                        }
+                      }
                     },
                     {
                       "versionId": {
@@ -942,7 +980,45 @@ import Api
                         "updatedCount": 1000000,
                         "removedCount": 1000000
                       },
-                      "type": "FULL"
+                      "type": "FULL",
+                      "functionVersions": {
+                        "fetchMetadata": {
+                          "functionId": {
+                            "type": "AGENT",
+                            "appId": "appId",
+                            "referenceId": "x"
+                          },
+                          "versionId": {
+                            "type": "AGENT",
+                            "appId": "appId",
+                            "referenceId": "x"
+                          }
+                        },
+                        "fetchDocuments": {
+                          "functionId": {
+                            "type": "AGENT",
+                            "appId": "appId",
+                            "referenceId": "x"
+                          },
+                          "versionId": {
+                            "type": "AGENT",
+                            "appId": "appId",
+                            "referenceId": "x"
+                          }
+                        },
+                        "convertDocuments": {
+                          "functionId": {
+                            "type": "AGENT",
+                            "appId": "appId",
+                            "referenceId": "x"
+                          },
+                          "versionId": {
+                            "type": "AGENT",
+                            "appId": "appId",
+                            "referenceId": "x"
+                          }
+                        }
+                      }
                     }
                   ]
                 }
@@ -991,7 +1067,45 @@ import Api
                         updatedCount: 1000000,
                         removedCount: 1000000
                     )),
-                    type: .full
+                    type: .full,
+                    functionVersions: Optional(KnowledgeBaseFunctionBindings(
+                        fetchMetadata: FunctionVersionBinding(
+                            functionId: EntityIdWithoutAgent(
+                                type: .agent,
+                                appId: "appId",
+                                referenceId: "x"
+                            ),
+                            versionId: EntityIdWithoutAgent(
+                                type: .agent,
+                                appId: "appId",
+                                referenceId: "x"
+                            )
+                        ),
+                        fetchDocuments: FunctionVersionBinding(
+                            functionId: EntityIdWithoutAgent(
+                                type: .agent,
+                                appId: "appId",
+                                referenceId: "x"
+                            ),
+                            versionId: EntityIdWithoutAgent(
+                                type: .agent,
+                                appId: "appId",
+                                referenceId: "x"
+                            )
+                        ),
+                        convertDocuments: FunctionVersionBinding(
+                            functionId: EntityIdWithoutAgent(
+                                type: .agent,
+                                appId: "appId",
+                                referenceId: "x"
+                            ),
+                            versionId: EntityIdWithoutAgent(
+                                type: .agent,
+                                appId: "appId",
+                                referenceId: "x"
+                            )
+                        )
+                    ))
                 ),
                 KnowledgeBaseVersion(
                     versionId: EntityId(
@@ -1028,7 +1142,45 @@ import Api
                         updatedCount: 1000000,
                         removedCount: 1000000
                     )),
-                    type: .full
+                    type: .full,
+                    functionVersions: Optional(KnowledgeBaseFunctionBindings(
+                        fetchMetadata: FunctionVersionBinding(
+                            functionId: EntityIdWithoutAgent(
+                                type: .agent,
+                                appId: "appId",
+                                referenceId: "x"
+                            ),
+                            versionId: EntityIdWithoutAgent(
+                                type: .agent,
+                                appId: "appId",
+                                referenceId: "x"
+                            )
+                        ),
+                        fetchDocuments: FunctionVersionBinding(
+                            functionId: EntityIdWithoutAgent(
+                                type: .agent,
+                                appId: "appId",
+                                referenceId: "x"
+                            ),
+                            versionId: EntityIdWithoutAgent(
+                                type: .agent,
+                                appId: "appId",
+                                referenceId: "x"
+                            )
+                        ),
+                        convertDocuments: FunctionVersionBinding(
+                            functionId: EntityIdWithoutAgent(
+                                type: .agent,
+                                appId: "appId",
+                                referenceId: "x"
+                            ),
+                            versionId: EntityIdWithoutAgent(
+                                type: .agent,
+                                appId: "appId",
+                                referenceId: "x"
+                            )
+                        )
+                    ))
                 )
             ]
         )

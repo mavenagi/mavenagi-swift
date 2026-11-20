@@ -7,6 +7,7 @@ public enum KnowledgeBaseType: String, Codable, Hashable, CaseIterable, Sendable
     case api = "API"
     case url = "URL"
     case manual = "MANUAL"
+    /// No longer returned. RSS knowledge bases are `LEGACY`; filtering on `RSS` still matches them.
     case rss = "RSS"
     case legacy = "LEGACY"
 }

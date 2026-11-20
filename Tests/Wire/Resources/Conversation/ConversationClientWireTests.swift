@@ -16,6 +16,9 @@ import Api
                     "agentId": "support",
                     "type": "CONVERSATION"
                   },
+                  "audience": {
+                    "type": "allUsers"
+                  },
                   "deleted": false,
                   "open": true,
                   "llmEnabled": true,
@@ -63,6 +66,11 @@ import Api
                 organizationId: "acme",
                 agentId: "support",
                 type: .conversation
+            ),
+            audience: .allUsers(
+                .init(
+
+                )
             ),
             deleted: false,
             open: true,
@@ -121,6 +129,9 @@ import Api
                     "agentId": "support",
                     "type": "CONVERSATION"
                   },
+                  "audience": {
+                    "type": "allUsers"
+                  },
                   "deleted": false,
                   "open": true,
                   "llmEnabled": true,
@@ -168,6 +179,11 @@ import Api
                 organizationId: "acme",
                 agentId: "support",
                 type: .conversation
+            ),
+            audience: .allUsers(
+                .init(
+
+                )
             ),
             deleted: false,
             open: true,
@@ -260,6 +276,9 @@ import Api
                     "organizationId": "acme",
                     "agentId": "support",
                     "type": "CONVERSATION"
+                  },
+                  "audience": {
+                    "type": "allUsers"
                   },
                   "deleted": false,
                   "open": false,
@@ -360,6 +379,11 @@ import Api
                 organizationId: "acme",
                 agentId: "support",
                 type: .conversation
+            ),
+            audience: .allUsers(
+                .init(
+
+                )
             ),
             deleted: false,
             open: false,
@@ -564,6 +588,9 @@ import Api
                       "name": "name"
                     }
                   ],
+                  "audience": {
+                    "type": "allUsers"
+                  },
                   "responseConfig": {
                     "capabilities": [
                       "MARKDOWN",
@@ -782,6 +809,10 @@ import Api
                         },
                         "behavior": {
                           "type": "fixedResponse",
+                          "effects": {
+                            "conversationMetadata": {},
+                            "userData": {}
+                          },
                           "response": "response",
                           "data": {
                             "data": {
@@ -800,6 +831,10 @@ import Api
                         },
                         "behavior": {
                           "type": "fixedResponse",
+                          "effects": {
+                            "conversationMetadata": {},
+                            "userData": {}
+                          },
                           "response": "response",
                           "data": {
                             "data": {
@@ -813,6 +848,15 @@ import Api
                     ],
                     "defaultActionBehavior": {
                       "type": "fixedResponse",
+                      "effects": {
+                        "conversationMetadata": {
+                          "conversationMetadata": "conversationMetadata"
+                        },
+                        "userData": {
+                          "data": {},
+                          "removeKeys": []
+                        }
+                      },
                       "response": "response",
                       "data": {
                         "data": {
@@ -964,6 +1008,11 @@ import Api
                     name: Optional("name")
                 )
             ],
+            audience: .allUsers(
+                .init(
+
+                )
+            ),
             responseConfig: Optional(ResponseConfig(
                 capabilities: [
                     .markdown,
@@ -1158,6 +1207,12 @@ import Api
                         ),
                         behavior: .fixedResponse(
                             .init(
+                                effects: Optional(ActionEffects(
+                                    conversationMetadata: Optional([:]),
+                                    userData: Optional(UserDataEffect(
+
+                                    ))
+                                )),
                                 response: "response",
                                 data: Optional([
                                     "data": JSONValue.object(
@@ -1179,6 +1234,12 @@ import Api
                         ),
                         behavior: .fixedResponse(
                             .init(
+                                effects: Optional(ActionEffects(
+                                    conversationMetadata: Optional([:]),
+                                    userData: Optional(UserDataEffect(
+
+                                    ))
+                                )),
                                 response: "response",
                                 data: Optional([
                                     "data": JSONValue.object(
@@ -1195,6 +1256,15 @@ import Api
                 ]),
                 defaultActionBehavior: Optional(.fixedResponse(
                     .init(
+                        effects: Optional(ActionEffects(
+                            conversationMetadata: Optional([
+                                "conversationMetadata": "conversationMetadata"
+                            ]),
+                            userData: Optional(UserDataEffect(
+                                data: Optional([:]),
+                                removeKeys: Optional([])
+                            ))
+                        )),
                         response: "response",
                         data: Optional([
                             "data": JSONValue.object(
@@ -1351,6 +1421,9 @@ import Api
                       "name": "name"
                     }
                   ],
+                  "audience": {
+                    "type": "allUsers"
+                  },
                   "responseConfig": {
                     "capabilities": [
                       "MARKDOWN",
@@ -1569,6 +1642,10 @@ import Api
                         },
                         "behavior": {
                           "type": "fixedResponse",
+                          "effects": {
+                            "conversationMetadata": {},
+                            "userData": {}
+                          },
                           "response": "response",
                           "data": {
                             "data": {
@@ -1587,6 +1664,10 @@ import Api
                         },
                         "behavior": {
                           "type": "fixedResponse",
+                          "effects": {
+                            "conversationMetadata": {},
+                            "userData": {}
+                          },
                           "response": "response",
                           "data": {
                             "data": {
@@ -1600,6 +1681,15 @@ import Api
                     ],
                     "defaultActionBehavior": {
                       "type": "fixedResponse",
+                      "effects": {
+                        "conversationMetadata": {
+                          "conversationMetadata": "conversationMetadata"
+                        },
+                        "userData": {
+                          "data": {},
+                          "removeKeys": []
+                        }
+                      },
                       "response": "response",
                       "data": {
                         "data": {
@@ -1751,6 +1841,11 @@ import Api
                     name: Optional("name")
                 )
             ],
+            audience: .allUsers(
+                .init(
+
+                )
+            ),
             responseConfig: Optional(ResponseConfig(
                 capabilities: [
                     .markdown,
@@ -1945,6 +2040,12 @@ import Api
                         ),
                         behavior: .fixedResponse(
                             .init(
+                                effects: Optional(ActionEffects(
+                                    conversationMetadata: Optional([:]),
+                                    userData: Optional(UserDataEffect(
+
+                                    ))
+                                )),
                                 response: "response",
                                 data: Optional([
                                     "data": JSONValue.object(
@@ -1966,6 +2067,12 @@ import Api
                         ),
                         behavior: .fixedResponse(
                             .init(
+                                effects: Optional(ActionEffects(
+                                    conversationMetadata: Optional([:]),
+                                    userData: Optional(UserDataEffect(
+
+                                    ))
+                                )),
                                 response: "response",
                                 data: Optional([
                                     "data": JSONValue.object(
@@ -1982,6 +2089,15 @@ import Api
                 ]),
                 defaultActionBehavior: Optional(.fixedResponse(
                     .init(
+                        effects: Optional(ActionEffects(
+                            conversationMetadata: Optional([
+                                "conversationMetadata": "conversationMetadata"
+                            ]),
+                            userData: Optional(UserDataEffect(
+                                data: Optional([:]),
+                                removeKeys: Optional([])
+                            ))
+                        )),
                         response: "response",
                         data: Optional([
                             "data": JSONValue.object(
@@ -2064,6 +2180,9 @@ import Api
                     "organizationId": "acme",
                     "agentId": "support",
                     "type": "CONVERSATION"
+                  },
+                  "audience": {
+                    "type": "allUsers"
                   },
                   "deleted": false,
                   "open": false,
@@ -2164,6 +2283,11 @@ import Api
                 organizationId: "acme",
                 agentId: "support",
                 type: .conversation
+            ),
+            audience: .allUsers(
+                .init(
+
+                )
             ),
             deleted: false,
             open: false,
@@ -2510,6 +2634,9 @@ import Api
                       "name": "name"
                     }
                   ],
+                  "audience": {
+                    "type": "allUsers"
+                  },
                   "responseConfig": {
                     "capabilities": [
                       "MARKDOWN",
@@ -2728,6 +2855,10 @@ import Api
                         },
                         "behavior": {
                           "type": "fixedResponse",
+                          "effects": {
+                            "conversationMetadata": {},
+                            "userData": {}
+                          },
                           "response": "response",
                           "data": {
                             "data": {
@@ -2746,6 +2877,10 @@ import Api
                         },
                         "behavior": {
                           "type": "fixedResponse",
+                          "effects": {
+                            "conversationMetadata": {},
+                            "userData": {}
+                          },
                           "response": "response",
                           "data": {
                             "data": {
@@ -2759,6 +2894,15 @@ import Api
                     ],
                     "defaultActionBehavior": {
                       "type": "fixedResponse",
+                      "effects": {
+                        "conversationMetadata": {
+                          "conversationMetadata": "conversationMetadata"
+                        },
+                        "userData": {
+                          "data": {},
+                          "removeKeys": []
+                        }
+                      },
                       "response": "response",
                       "data": {
                         "data": {
@@ -2910,6 +3054,11 @@ import Api
                     name: Optional("name")
                 )
             ],
+            audience: .allUsers(
+                .init(
+
+                )
+            ),
             responseConfig: Optional(ResponseConfig(
                 capabilities: [
                     .markdown,
@@ -3104,6 +3253,12 @@ import Api
                         ),
                         behavior: .fixedResponse(
                             .init(
+                                effects: Optional(ActionEffects(
+                                    conversationMetadata: Optional([:]),
+                                    userData: Optional(UserDataEffect(
+
+                                    ))
+                                )),
                                 response: "response",
                                 data: Optional([
                                     "data": JSONValue.object(
@@ -3125,6 +3280,12 @@ import Api
                         ),
                         behavior: .fixedResponse(
                             .init(
+                                effects: Optional(ActionEffects(
+                                    conversationMetadata: Optional([:]),
+                                    userData: Optional(UserDataEffect(
+
+                                    ))
+                                )),
                                 response: "response",
                                 data: Optional([
                                     "data": JSONValue.object(
@@ -3141,6 +3302,15 @@ import Api
                 ]),
                 defaultActionBehavior: Optional(.fixedResponse(
                     .init(
+                        effects: Optional(ActionEffects(
+                            conversationMetadata: Optional([
+                                "conversationMetadata": "conversationMetadata"
+                            ]),
+                            userData: Optional(UserDataEffect(
+                                data: Optional([:]),
+                                removeKeys: Optional([])
+                            ))
+                        )),
                         response: "response",
                         data: Optional([
                             "data": JSONValue.object(
@@ -3493,6 +3663,7 @@ import Api
                             },
                             "behavior": {
                               "type": "fixedResponse",
+                              "effects": {},
                               "response": "response",
                               "data": {},
                               "status": "SUCCESS",
@@ -3507,6 +3678,7 @@ import Api
                             },
                             "behavior": {
                               "type": "fixedResponse",
+                              "effects": {},
                               "response": "response",
                               "data": {},
                               "status": "SUCCESS",
@@ -3516,6 +3688,10 @@ import Api
                         ],
                         "defaultActionBehavior": {
                           "type": "fixedResponse",
+                          "effects": {
+                            "conversationMetadata": {},
+                            "userData": {}
+                          },
                           "response": "response",
                           "data": {
                             "data": {
@@ -3766,6 +3942,7 @@ import Api
                             },
                             "behavior": {
                               "type": "fixedResponse",
+                              "effects": {},
                               "response": "response",
                               "data": {},
                               "status": "SUCCESS",
@@ -3780,6 +3957,7 @@ import Api
                             },
                             "behavior": {
                               "type": "fixedResponse",
+                              "effects": {},
                               "response": "response",
                               "data": {},
                               "status": "SUCCESS",
@@ -3789,6 +3967,10 @@ import Api
                         ],
                         "defaultActionBehavior": {
                           "type": "fixedResponse",
+                          "effects": {
+                            "conversationMetadata": {},
+                            "userData": {}
+                          },
                           "response": "response",
                           "data": {
                             "data": {
@@ -4038,6 +4220,9 @@ import Api
                                 ),
                                 behavior: .fixedResponse(
                                     .init(
+                                        effects: Optional(ActionEffects(
+
+                                        )),
                                         response: "response",
                                         data: Optional([:]),
                                         status: Optional(.success),
@@ -4053,6 +4238,9 @@ import Api
                                 ),
                                 behavior: .fixedResponse(
                                     .init(
+                                        effects: Optional(ActionEffects(
+
+                                        )),
                                         response: "response",
                                         data: Optional([:]),
                                         status: Optional(.success),
@@ -4063,6 +4251,12 @@ import Api
                         ]),
                         defaultActionBehavior: Optional(.fixedResponse(
                             .init(
+                                effects: Optional(ActionEffects(
+                                    conversationMetadata: Optional([:]),
+                                    userData: Optional(UserDataEffect(
+
+                                    ))
+                                )),
                                 response: "response",
                                 data: Optional([
                                     "data": JSONValue.object(
@@ -4299,6 +4493,9 @@ import Api
                                 ),
                                 behavior: .fixedResponse(
                                     .init(
+                                        effects: Optional(ActionEffects(
+
+                                        )),
                                         response: "response",
                                         data: Optional([:]),
                                         status: Optional(.success),
@@ -4314,6 +4511,9 @@ import Api
                                 ),
                                 behavior: .fixedResponse(
                                     .init(
+                                        effects: Optional(ActionEffects(
+
+                                        )),
                                         response: "response",
                                         data: Optional([:]),
                                         status: Optional(.success),
@@ -4324,6 +4524,12 @@ import Api
                         ]),
                         defaultActionBehavior: Optional(.fixedResponse(
                             .init(
+                                effects: Optional(ActionEffects(
+                                    conversationMetadata: Optional([:]),
+                                    userData: Optional(UserDataEffect(
+
+                                    ))
+                                )),
                                 response: "response",
                                 data: Optional([
                                     "data": JSONValue.object(
@@ -4599,6 +4805,7 @@ import Api
                             },
                             "behavior": {
                               "type": "fixedResponse",
+                              "effects": {},
                               "response": "response",
                               "data": {},
                               "status": "SUCCESS",
@@ -4613,6 +4820,7 @@ import Api
                             },
                             "behavior": {
                               "type": "fixedResponse",
+                              "effects": {},
                               "response": "response",
                               "data": {},
                               "status": "SUCCESS",
@@ -4622,6 +4830,10 @@ import Api
                         ],
                         "defaultActionBehavior": {
                           "type": "fixedResponse",
+                          "effects": {
+                            "conversationMetadata": {},
+                            "userData": {}
+                          },
                           "response": "response",
                           "data": {
                             "data": {
@@ -4872,6 +5084,7 @@ import Api
                             },
                             "behavior": {
                               "type": "fixedResponse",
+                              "effects": {},
                               "response": "response",
                               "data": {},
                               "status": "SUCCESS",
@@ -4886,6 +5099,7 @@ import Api
                             },
                             "behavior": {
                               "type": "fixedResponse",
+                              "effects": {},
                               "response": "response",
                               "data": {},
                               "status": "SUCCESS",
@@ -4895,6 +5109,10 @@ import Api
                         ],
                         "defaultActionBehavior": {
                           "type": "fixedResponse",
+                          "effects": {
+                            "conversationMetadata": {},
+                            "userData": {}
+                          },
                           "response": "response",
                           "data": {
                             "data": {
@@ -5142,6 +5360,9 @@ import Api
                                 ),
                                 behavior: .fixedResponse(
                                     .init(
+                                        effects: Optional(ActionEffects(
+
+                                        )),
                                         response: "response",
                                         data: Optional([:]),
                                         status: Optional(.success),
@@ -5157,6 +5378,9 @@ import Api
                                 ),
                                 behavior: .fixedResponse(
                                     .init(
+                                        effects: Optional(ActionEffects(
+
+                                        )),
                                         response: "response",
                                         data: Optional([:]),
                                         status: Optional(.success),
@@ -5167,6 +5391,12 @@ import Api
                         ]),
                         defaultActionBehavior: Optional(.fixedResponse(
                             .init(
+                                effects: Optional(ActionEffects(
+                                    conversationMetadata: Optional([:]),
+                                    userData: Optional(UserDataEffect(
+
+                                    ))
+                                )),
                                 response: "response",
                                 data: Optional([
                                     "data": JSONValue.object(
@@ -5403,6 +5633,9 @@ import Api
                                 ),
                                 behavior: .fixedResponse(
                                     .init(
+                                        effects: Optional(ActionEffects(
+
+                                        )),
                                         response: "response",
                                         data: Optional([:]),
                                         status: Optional(.success),
@@ -5418,6 +5651,9 @@ import Api
                                 ),
                                 behavior: .fixedResponse(
                                     .init(
+                                        effects: Optional(ActionEffects(
+
+                                        )),
                                         response: "response",
                                         data: Optional([:]),
                                         status: Optional(.success),
@@ -5428,6 +5664,12 @@ import Api
                         ]),
                         defaultActionBehavior: Optional(.fixedResponse(
                             .init(
+                                effects: Optional(ActionEffects(
+                                    conversationMetadata: Optional([:]),
+                                    userData: Optional(UserDataEffect(
+
+                                    ))
+                                )),
                                 response: "response",
                                 data: Optional([
                                     "data": JSONValue.object(
@@ -5488,7 +5730,14 @@ import Api
             body: Data(
                 """
                 {
-                  "status": "DELIVERED"
+                  "status": "DELIVERED",
+                  "conversationId": {
+                    "type": "CONVERSATION",
+                    "appId": "chat-app",
+                    "referenceId": "conversation-0",
+                    "organizationId": "acme",
+                    "agentId": "support"
+                  }
                 }
                 """.utf8
             )
@@ -5499,7 +5748,14 @@ import Api
             urlSession: stub.urlSession
         )
         let expectedResponse = DeliverMessageResponse(
-            status: .delivered
+            status: .delivered,
+            conversationId: Optional(EntityId(
+                type: .conversation,
+                appId: "chat-app",
+                referenceId: "conversation-0",
+                organizationId: "acme",
+                agentId: "support"
+            ))
         )
         let response = try await client.conversation.deliverMessage(
             request: DeliverMessageRequest.conversation(
@@ -5534,7 +5790,14 @@ import Api
             body: Data(
                 """
                 {
-                  "status": "DELIVERED"
+                  "status": "DELIVERED",
+                  "conversationId": {
+                    "type": "CONVERSATION",
+                    "appId": "chat-app",
+                    "referenceId": "conversation-0",
+                    "organizationId": "acme",
+                    "agentId": "support"
+                  }
                 }
                 """.utf8
             )
@@ -5545,7 +5808,14 @@ import Api
             urlSession: stub.urlSession
         )
         let expectedResponse = DeliverMessageResponse(
-            status: .delivered
+            status: .delivered,
+            conversationId: Optional(EntityId(
+                type: .conversation,
+                appId: "chat-app",
+                referenceId: "conversation-0",
+                organizationId: "acme",
+                agentId: "support"
+            ))
         )
         let response = try await client.conversation.deliverMessage(
             request: DeliverMessageRequest.conversation(
@@ -5567,6 +5837,70 @@ import Api
                         appId: "chat-app",
                         referenceId: "conversation-0"
                     )
+                )
+            ),
+            requestOptions: RequestOptions(additionalHeaders: stub.headers)
+        )
+        try #require(response == expectedResponse)
+    }
+
+    @Test func deliverMessage3() async throws -> Void {
+        let stub = HTTPStub()
+        stub.setResponse(
+            body: Data(
+                """
+                {
+                  "status": "DELIVERED",
+                  "conversationId": {
+                    "type": "CONVERSATION",
+                    "appId": "chat-app",
+                    "referenceId": "conversation-7",
+                    "organizationId": "acme",
+                    "agentId": "support"
+                  }
+                }
+                """.utf8
+            )
+        )
+        let client = MavenAGI(
+            baseURL: "https://api.fern.com",
+            token: "<token>",
+            urlSession: stub.urlSession
+        )
+        let expectedResponse = DeliverMessageResponse(
+            status: .delivered,
+            conversationId: Optional(EntityId(
+                type: .conversation,
+                appId: "chat-app",
+                referenceId: "conversation-7",
+                organizationId: "acme",
+                agentId: "support"
+            ))
+        )
+        let response = try await client.conversation.deliverMessage(
+            request: DeliverMessageRequest.user(
+                .init(
+                    content: DeliverContent.ask(
+                        .init(
+                            conversationMessageId: EntityIdBase(
+                                referenceId: "message-2"
+                            ),
+                            type: .proactive,
+                            text: "Tell the user their order has shipped.",
+                            userId: EntityIdBase(
+                                referenceId: "system-orders"
+                            )
+                        )
+                    ),
+                    userId: EntityIdWithoutAgent(
+                        type: .user,
+                        appId: "shop-app",
+                        referenceId: "customer-42"
+                    ),
+                    appIds: [
+                        "chat-app",
+                        "email-app"
+                    ]
                 )
             ),
             requestOptions: RequestOptions(additionalHeaders: stub.headers)

@@ -10,6 +10,9 @@ public struct InitializeConversationResponse: Codable, Hashable, Sendable {
     /// 
     /// Message attachments are included in LLM context, conversation attachments are not.
     public let attachments: [AttachmentResponse]
+    /// Who the conversation is for, as set when it was initialized. `allUsers` for a conversation
+    /// initialized without an audience or created by an ask.
+    public let audience: ConversationAudienceResponse
     /// Optional configurations for responses to this conversation
     public let responseConfig: ResponseConfig?
     /// The subject of the conversation
@@ -72,6 +75,7 @@ public struct InitializeConversationResponse: Codable, Hashable, Sendable {
     public init(
         messages: [ConversationMessageResponse],
         attachments: [AttachmentResponse],
+        audience: ConversationAudienceResponse,
         responseConfig: ResponseConfig? = nil,
         subject: String? = nil,
         url: String? = nil,
@@ -96,6 +100,7 @@ public struct InitializeConversationResponse: Codable, Hashable, Sendable {
     ) {
         self.messages = messages
         self.attachments = attachments
+        self.audience = audience
         self.responseConfig = responseConfig
         self.subject = subject
         self.url = url
@@ -123,6 +128,7 @@ public struct InitializeConversationResponse: Codable, Hashable, Sendable {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.messages = try container.decode([ConversationMessageResponse].self, forKey: .messages)
         self.attachments = try container.decode([AttachmentResponse].self, forKey: .attachments)
+        self.audience = try container.decode(ConversationAudienceResponse.self, forKey: .audience)
         self.responseConfig = try container.decodeIfPresent(ResponseConfig.self, forKey: .responseConfig)
         self.subject = try container.decodeIfPresent(String.self, forKey: .subject)
         self.url = try container.decodeIfPresent(String.self, forKey: .url)
@@ -151,6 +157,7 @@ public struct InitializeConversationResponse: Codable, Hashable, Sendable {
         try encoder.encodeAdditionalProperties(self.additionalProperties)
         try container.encode(self.messages, forKey: .messages)
         try container.encode(self.attachments, forKey: .attachments)
+        try container.encode(self.audience, forKey: .audience)
         try container.encodeIfPresent(self.responseConfig, forKey: .responseConfig)
         try container.encodeIfPresent(self.subject, forKey: .subject)
         try container.encodeIfPresent(self.url, forKey: .url)
@@ -177,6 +184,7 @@ public struct InitializeConversationResponse: Codable, Hashable, Sendable {
     enum CodingKeys: String, CodingKey, CaseIterable {
         case messages
         case attachments
+        case audience
         case responseConfig
         case subject
         case url

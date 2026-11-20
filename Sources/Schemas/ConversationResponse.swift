@@ -58,6 +58,9 @@ public struct ConversationResponse: Codable, Hashable, Sendable {
     /// 
     /// Message attachments are included in LLM context, conversation attachments are not.
     public let attachments: [AttachmentResponse]
+    /// Who the conversation is for, as set when it was initialized. `allUsers` for a conversation
+    /// initialized without an audience or created by an ask.
+    public let audience: ConversationAudienceResponse
     /// Additional properties that are not explicitly defined in the schema
     public let additionalProperties: [String: JSONValue]
 
@@ -83,6 +86,7 @@ public struct ConversationResponse: Codable, Hashable, Sendable {
         variantId: EntityId? = nil,
         messages: [ConversationMessageResponse],
         attachments: [AttachmentResponse],
+        audience: ConversationAudienceResponse,
         additionalProperties: [String: JSONValue] = .init()
     ) {
         self.responseConfig = responseConfig
@@ -106,6 +110,7 @@ public struct ConversationResponse: Codable, Hashable, Sendable {
         self.variantId = variantId
         self.messages = messages
         self.attachments = attachments
+        self.audience = audience
         self.additionalProperties = additionalProperties
     }
 
@@ -132,6 +137,7 @@ public struct ConversationResponse: Codable, Hashable, Sendable {
         self.variantId = try container.decodeIfPresent(EntityId.self, forKey: .variantId)
         self.messages = try container.decode([ConversationMessageResponse].self, forKey: .messages)
         self.attachments = try container.decode([AttachmentResponse].self, forKey: .attachments)
+        self.audience = try container.decode(ConversationAudienceResponse.self, forKey: .audience)
         self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
     }
 
@@ -159,6 +165,7 @@ public struct ConversationResponse: Codable, Hashable, Sendable {
         try container.encodeIfPresent(self.variantId, forKey: .variantId)
         try container.encode(self.messages, forKey: .messages)
         try container.encode(self.attachments, forKey: .attachments)
+        try container.encode(self.audience, forKey: .audience)
     }
 
     /// Keys for encoding/decoding struct properties.
@@ -184,5 +191,6 @@ public struct ConversationResponse: Codable, Hashable, Sendable {
         case variantId
         case messages
         case attachments
+        case audience
     }
 }

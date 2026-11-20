@@ -5300,9 +5300,20 @@ that owns the conversation receives the message through its `handleMessage` hook
 
 A closed conversation (`open` set to false) takes no new messages and returns a 400.
 
+To reach a user rather than a known conversation, send `type: user`. The message goes to one of that
+user's open conversations, chosen as described on `appIds`. The response's `conversationId` names the
+conversation it went to.
+
 <Warning>
 Currently, messages can only be successfully delivered to conversations with the `ASYNC` capability.
-User message delivery is not yet supported and returns a 400.
+Delivering to a user only reaches a conversation that already exists; it never starts a new one.
+</Warning>
+
+<Warning>
+Retrying a delivery is not supported. Sending the same `conversationMessageId` again saves the message, or an
+`ask`'s reply, only once in a conversation, but calls the app's `handleMessage` hook again each time. With
+`type: user`, a repeat can also go to a different conversation if the user's conversations changed in between,
+so the message is saved and delivered twice.
 </Warning>
 
 <Note>**Required permission:** `ask:agent`</Note>

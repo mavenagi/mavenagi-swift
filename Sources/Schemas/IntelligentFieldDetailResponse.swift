@@ -3,6 +3,10 @@ import Foundation
 public struct IntelligentFieldDetailResponse: Codable, Hashable, Sendable {
     /// ID that uniquely identifies this intelligent field
     public let fieldId: EntityId
+    /// Who wrote this version of the field. Absent when no one was recorded. Shown in Agent Designer as "Created by" on a field a variant adds.
+    public let createdBy: ChangeAuthor?
+    /// Who last changed this version of the field. Absent when no one was recorded. Shown in Agent Designer as "Modified by" on a field a variant changes.
+    public let updatedBy: ChangeAuthor?
     /// Target entity type for evaluation. CONVERSATION is supported, and AGENT_USER is supported for agents with user-level intelligent fields enabled. The backend will return an error for other types. Shown in Agent Designer as "Target", with `CONVERSATION` as "On conversations" and `AGENT_USER` as "On users".
     public let entityType: EntityType
     /// On a request, the agent variant to stage the write in. On a response, the variant the request named, if any; absent when it named none.
@@ -47,6 +51,8 @@ public struct IntelligentFieldDetailResponse: Codable, Hashable, Sendable {
 
     public init(
         fieldId: EntityId,
+        createdBy: ChangeAuthor? = nil,
+        updatedBy: ChangeAuthor? = nil,
         entityType: EntityType,
         variantId: EntityIdWithoutAgent? = nil,
         validationType: IntelligentFieldType,
@@ -61,6 +67,8 @@ public struct IntelligentFieldDetailResponse: Codable, Hashable, Sendable {
         additionalProperties: [String: JSONValue] = .init()
     ) {
         self.fieldId = fieldId
+        self.createdBy = createdBy
+        self.updatedBy = updatedBy
         self.entityType = entityType
         self.variantId = variantId
         self.validationType = validationType
@@ -78,6 +86,8 @@ public struct IntelligentFieldDetailResponse: Codable, Hashable, Sendable {
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.fieldId = try container.decode(EntityId.self, forKey: .fieldId)
+        self.createdBy = try container.decodeIfPresent(ChangeAuthor.self, forKey: .createdBy)
+        self.updatedBy = try container.decodeIfPresent(ChangeAuthor.self, forKey: .updatedBy)
         self.entityType = try container.decode(EntityType.self, forKey: .entityType)
         self.variantId = try container.decodeIfPresent(EntityIdWithoutAgent.self, forKey: .variantId)
         self.validationType = try container.decode(IntelligentFieldType.self, forKey: .validationType)
@@ -96,6 +106,8 @@ public struct IntelligentFieldDetailResponse: Codable, Hashable, Sendable {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try encoder.encodeAdditionalProperties(self.additionalProperties)
         try container.encode(self.fieldId, forKey: .fieldId)
+        try container.encodeIfPresent(self.createdBy, forKey: .createdBy)
+        try container.encodeIfPresent(self.updatedBy, forKey: .updatedBy)
         try container.encode(self.entityType, forKey: .entityType)
         try container.encodeIfPresent(self.variantId, forKey: .variantId)
         try container.encode(self.validationType, forKey: .validationType)
@@ -112,6 +124,8 @@ public struct IntelligentFieldDetailResponse: Codable, Hashable, Sendable {
     /// Keys for encoding/decoding struct properties.
     enum CodingKeys: String, CodingKey, CaseIterable {
         case fieldId
+        case createdBy
+        case updatedBy
         case entityType
         case variantId
         case validationType

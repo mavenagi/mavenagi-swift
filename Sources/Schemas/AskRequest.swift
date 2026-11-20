@@ -52,7 +52,8 @@ public struct AskRequest: Codable, Hashable, Sendable {
     /// exists the message is reused and its metadata is not updated. Keys and values are strings
     /// with a maximum length of 500 characters each.
     public let appMetadata: [String: String]?
-    /// Externally supplied ID to uniquely identify the user that created this message
+    /// Externally supplied ID to uniquely identify the user that created this message. On a conversation
+    /// with a `users` audience, a `USER_MESSAGE` ask from a user outside it is rejected with a 400.
     public let userId: EntityIdBase
     /// Additional properties that are not explicitly defined in the schema
     public let additionalProperties: [String: JSONValue]

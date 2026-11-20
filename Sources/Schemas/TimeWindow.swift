@@ -42,6 +42,8 @@ public enum TimeWindow: Codable, Hashable, Sendable {
     /// A single span between two instants, for one-off dates such as a sale or an outage.
     public struct Absolute: Codable, Hashable, Sendable {
         public let windowType: String = "absolute"
+        /// The IANA timezone the window was written in (e.g. "America/New_York"), kept so an editor can show the ends in it again. It does not change which instants match. Fixed offsets (e.g. "-08:00") and legacy IDs (e.g. "EST") are accepted, but the ends then read back at a fixed offset that ignores daylight saving. Clients can prefill it from the agent's `defaultTimezone`.
+        public let timezone: String?
         /// The first instant inside the window. Omit to leave the window open at the start.
         public let start: Date?
         /// The first instant after the window. Omit to leave the window open at the end.
@@ -50,10 +52,12 @@ public enum TimeWindow: Codable, Hashable, Sendable {
         public let additionalProperties: [String: JSONValue]
 
         public init(
+            timezone: String? = nil,
             start: Date? = nil,
             end: Date? = nil,
             additionalProperties: [String: JSONValue] = .init()
         ) {
+            self.timezone = timezone
             self.start = start
             self.end = end
             self.additionalProperties = additionalProperties
@@ -61,6 +65,7 @@ public enum TimeWindow: Codable, Hashable, Sendable {
 
         public init(from decoder: Decoder) throws {
             let container = try decoder.container(keyedBy: CodingKeys.self)
+            self.timezone = try container.decodeIfPresent(String.self, forKey: .timezone)
             self.start = try container.decodeIfPresent(Date.self, forKey: .start)
             self.end = try container.decodeIfPresent(Date.self, forKey: .end)
             self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
@@ -70,6 +75,7 @@ public enum TimeWindow: Codable, Hashable, Sendable {
             var container = encoder.container(keyedBy: CodingKeys.self)
             try encoder.encodeAdditionalProperties(self.additionalProperties)
             try container.encode(self.windowType, forKey: .windowType)
+            try container.encodeIfPresent(self.timezone, forKey: .timezone)
             try container.encodeIfPresent(self.start, forKey: .start)
             try container.encodeIfPresent(self.end, forKey: .end)
         }
@@ -77,6 +83,7 @@ public enum TimeWindow: Codable, Hashable, Sendable {
         /// Keys for encoding/decoding struct properties.
         enum CodingKeys: String, CodingKey, CaseIterable {
             case windowType
+            case timezone
             case start
             case end
         }

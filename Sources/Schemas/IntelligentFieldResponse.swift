@@ -39,6 +39,10 @@ public struct IntelligentFieldResponse: Codable, Hashable, Sendable {
     public let status: CapabilityStatus
     /// ID that uniquely identifies this intelligent field
     public let fieldId: EntityId
+    /// Who wrote this version of the field. Absent when no one was recorded. Shown in Agent Designer as "Created by" on a field a variant adds.
+    public let createdBy: ChangeAuthor?
+    /// Who last changed this version of the field. Absent when no one was recorded. Shown in Agent Designer as "Modified by" on a field a variant changes.
+    public let updatedBy: ChangeAuthor?
     /// Additional properties that are not explicitly defined in the schema
     public let additionalProperties: [String: JSONValue]
 
@@ -54,6 +58,8 @@ public struct IntelligentFieldResponse: Codable, Hashable, Sendable {
         updatedAt: Date,
         status: CapabilityStatus,
         fieldId: EntityId,
+        createdBy: ChangeAuthor? = nil,
+        updatedBy: ChangeAuthor? = nil,
         additionalProperties: [String: JSONValue] = .init()
     ) {
         self.entityType = entityType
@@ -67,6 +73,8 @@ public struct IntelligentFieldResponse: Codable, Hashable, Sendable {
         self.updatedAt = updatedAt
         self.status = status
         self.fieldId = fieldId
+        self.createdBy = createdBy
+        self.updatedBy = updatedBy
         self.additionalProperties = additionalProperties
     }
 
@@ -83,6 +91,8 @@ public struct IntelligentFieldResponse: Codable, Hashable, Sendable {
         self.updatedAt = try container.decode(Date.self, forKey: .updatedAt)
         self.status = try container.decode(CapabilityStatus.self, forKey: .status)
         self.fieldId = try container.decode(EntityId.self, forKey: .fieldId)
+        self.createdBy = try container.decodeIfPresent(ChangeAuthor.self, forKey: .createdBy)
+        self.updatedBy = try container.decodeIfPresent(ChangeAuthor.self, forKey: .updatedBy)
         self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
     }
 
@@ -100,6 +110,8 @@ public struct IntelligentFieldResponse: Codable, Hashable, Sendable {
         try container.encode(self.updatedAt, forKey: .updatedAt)
         try container.encode(self.status, forKey: .status)
         try container.encode(self.fieldId, forKey: .fieldId)
+        try container.encodeIfPresent(self.createdBy, forKey: .createdBy)
+        try container.encodeIfPresent(self.updatedBy, forKey: .updatedBy)
     }
 
     /// Keys for encoding/decoding struct properties.
@@ -115,5 +127,7 @@ public struct IntelligentFieldResponse: Codable, Hashable, Sendable {
         case updatedAt
         case status
         case fieldId
+        case createdBy
+        case updatedBy
     }
 }

@@ -41,6 +41,24 @@ public enum DeliverMessageRequest: Codable, Hashable, Sendable {
         public let content: DeliverContent?
         /// The ID of the user to deliver the message to.
         public let userId: EntityIdWithoutAgent
+        /// The apps whose conversations may receive the message, in order of preference. Omit it to allow any app; an empty list is rejected with a 400.
+        /// 
+        /// The message goes to a conversation that already exists, is open, has the `ASYNC` capability, is owned
+        /// by an allowed app, and lists this user in a `users` audience (set by `initialize`'s `audience`). A
+        /// conversation with an `allUsers` audience, or with none, is never chosen. Apps are tried in the order
+        /// given, and within an app the most recently updated conversation wins; with `appIds` omitted, the most
+        /// recently updated conversation of any app wins. An `ask` also skips conversations with `llmEnabled`
+        /// set to false.
+        /// 
+        /// The message goes to one conversation only. To reach the user in several apps, send one request per app.
+        /// Whether an app is installed is not checked when choosing: the message is handed to the chosen
+        /// conversation's app, and if that app fails to take it, `status` is `FAILED` and no other app is tried.
+        /// 
+        /// When no conversation qualifies, nothing is delivered and `status` is `FAILED`.
+        /// 
+        /// Only 20 of a user's open `ASYNC` conversations are considered. If a user has more, an arbitrary 20
+        /// are, so the most recent one may be missed. Close conversations that no longer take messages.
+        public let appIds: [String]?
         /// Additional properties that are not explicitly defined in the schema
         public let additionalProperties: [String: JSONValue]
 
@@ -48,11 +66,13 @@ public enum DeliverMessageRequest: Codable, Hashable, Sendable {
             message: ConversationMessageRequest? = nil,
             content: DeliverContent? = nil,
             userId: EntityIdWithoutAgent,
+            appIds: [String]? = nil,
             additionalProperties: [String: JSONValue] = .init()
         ) {
             self.message = message
             self.content = content
             self.userId = userId
+            self.appIds = appIds
             self.additionalProperties = additionalProperties
         }
 
@@ -61,6 +81,7 @@ public enum DeliverMessageRequest: Codable, Hashable, Sendable {
             self.message = try container.decodeIfPresent(ConversationMessageRequest.self, forKey: .message)
             self.content = try container.decodeIfPresent(DeliverContent.self, forKey: .content)
             self.userId = try container.decode(EntityIdWithoutAgent.self, forKey: .userId)
+            self.appIds = try container.decodeIfPresent([String].self, forKey: .appIds)
             self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
         }
 
@@ -71,6 +92,7 @@ public enum DeliverMessageRequest: Codable, Hashable, Sendable {
             try container.encodeIfPresent(self.message, forKey: .message)
             try container.encodeIfPresent(self.content, forKey: .content)
             try container.encode(self.userId, forKey: .userId)
+            try container.encodeIfPresent(self.appIds, forKey: .appIds)
         }
 
         /// Keys for encoding/decoding struct properties.
@@ -79,6 +101,7 @@ public enum DeliverMessageRequest: Codable, Hashable, Sendable {
             case message
             case content
             case userId
+            case appIds
         }
     }
 
