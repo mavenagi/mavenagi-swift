@@ -1,9 +1,18 @@
 import Foundation
 
+/// Checks the conversation's tags against `tags`. The `operator` decides how:
+/// 
+/// - None: every listed tag must be present.
+/// - `CONTAINS` or `CONTAINS_ANY`: at least one listed tag must be present.
+/// - `NOT_CONTAINS` or `NOT_CONTAINS_ANY`: none of the listed tags may be present.
+/// - `CONTAINS_ALL`: every listed tag must be present.
+/// - `NOT_CONTAINS_ALL`: at least one listed tag must be missing.
+/// - `NOT`: met unless every listed tag is present. To require that none are present, use
+///   `NOT_CONTAINS_ANY`.
 public struct TagsPrecondition: Codable, Hashable, Sendable {
     /// Operator to apply to this precondition
     public let `operator`: PreconditionOperator?
-    /// The tags that must be present in the conversation context for the precondition to be met
+    /// The tags the `operator` checks the conversation's tags against.
     public let tags: JSONValue
     /// Additional properties that are not explicitly defined in the schema
     public let additionalProperties: [String: JSONValue]

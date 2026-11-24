@@ -2,8 +2,9 @@ import Foundation
 
 /// A condition on a single value, discriminated by the type the value is
 /// validated as. Used wherever a value needs testing regardless of where it
-/// came from: an intelligent field's computed value, or a value addressed by
-/// path inside data an action returned.
+/// came from: an intelligent field's computed value, a value addressed by
+/// path inside data an action returned, or the value under a metadata
+/// precondition's `key`.
 /// 
 /// Pick the variant by type:
 /// - `string`: For STRING and MULTILINE values

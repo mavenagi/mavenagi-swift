@@ -5,7 +5,8 @@ import Foundation
 public enum PresenceOperator: String, Codable, Hashable, CaseIterable, Sendable {
     /// The field has no determined value — the LLM could not determine one, the
     /// computation failed, is still running, or has not run. Surfaced to authors as
-    /// the special "Undetermined" value.
+    /// the special "Undetermined" value. For a metadata precondition, the key is
+    /// absent.
     case isUndetermined = "IS_UNDETERMINED"
     /// The field has a determined (non-null) value.
     case isDetermined = "IS_DETERMINED"

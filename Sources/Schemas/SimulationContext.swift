@@ -1,6 +1,11 @@
 import Foundation
 
 /// Conversations with a simulation context are the runs on the Agent Designer "Simulator" page.
+/// 
+/// By default, an action the agent executes in a simulation calls its app, with mode
+/// `SIMULATION`, and the app may act on real systems. To keep an action's app from being called, give it an
+/// `actionMocks` entry with a `fixedResponse`, or set `defaultActionBehavior` to a
+/// `fixedResponse`.
 public struct SimulationContext: Codable, Hashable, Sendable {
     /// When true, the simulation evaluates the agent's charters even if charter evaluation is
     /// turned off for the agent. When absent or false, the simulation follows the agent's own

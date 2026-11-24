@@ -119,6 +119,14 @@ import Api
                           "values",
                           "values"
                         ],
+                        "fieldCondition": {
+                          "fieldValidationType": "string",
+                          "value": {
+                            "opType": "comparison",
+                            "operator": "EQ",
+                            "value": "value"
+                          }
+                        },
                         "operator": "NOT"
                       }
                     },
@@ -231,6 +239,14 @@ import Api
                           "values",
                           "values"
                         ],
+                        "fieldCondition": {
+                          "fieldValidationType": "string",
+                          "value": {
+                            "opType": "comparison",
+                            "operator": "EQ",
+                            "value": "value"
+                          }
+                        },
                         "operator": "NOT"
                       }
                     }
@@ -311,6 +327,12 @@ import Api
                                 "values",
                                 "values"
                             ]),
+                            fieldCondition: Optional(.comparison(
+                                .init(
+                                    operator: .eq,
+                                    value: "value"
+                                )
+                            )),
                             operator: Optional(.not)
                         )
                     ))
@@ -376,6 +398,12 @@ import Api
                                 "values",
                                 "values"
                             ]),
+                            fieldCondition: Optional(.comparison(
+                                .init(
+                                    operator: .eq,
+                                    value: "value"
+                                )
+                            )),
                             operator: Optional(.not)
                         )
                     ))
